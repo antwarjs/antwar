@@ -10,13 +10,10 @@ module.exports = React.createClass
 
 	displayName: 'Layout'
 
-	mixins: [
-		Router.State
-		Paths
-	]
+	mixins: [ Router.State,	Paths ]
 
 	getDefaultProps: ->
-		title: 'React Static Site'
+		title: 'Antwar'
 
 	render: ->
 		html {},

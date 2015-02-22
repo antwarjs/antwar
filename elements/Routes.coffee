@@ -4,8 +4,8 @@ Route = React.createFactory Router.Route
 NotFoundRoute = React.createFactory Router.NotFoundRoute
 DefaultRoute = React.createFactory Router.DefaultRoute
 RouteHandler = React.createFactory Router.RouteHandler
-Layout = require './Layout.coffee'
-Post = require './Post.jsx'
+Layout = require './Layout'
+Post = require './Post'
 _ = require 'lodash'
 paths = require '../paths'
 
@@ -21,9 +21,10 @@ Routes =
 			handler: Post
 		_.map paths.allPages(), (page, key) ->
 			handler = require '../pages/' + page.fileName
-			url = if page.name is 'index' then '/' else '/' + page.url  + '/?'
+			path = if page.name is 'index' then '/' else '/' + page.url  + '/?'
 			Route
-				name: url
+				path: path
+				name: page.url
 				handler: handler
 
 module.exports = Routes

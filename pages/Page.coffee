@@ -1,13 +1,13 @@
 React = require('react')
 Router = require('react-router')
 Link = React.createFactory Router.Link
-Moment = React.createFactory require('../elements/Moment.jsx')
+Moment = React.createFactory require('../elements/Moment')
 Paths = require('../elements/PathsMixin')
 _ = require('lodash')
 
 { div, li, br, ul, h1, blockquote } = require 'react-coffee-elements'
 
-Page = React.createClass
+module.exports = React.createClass
 	displayName: 'Page'
 
 	mixins: [
@@ -17,5 +17,3 @@ Page = React.createClass
 
 	render: ->
 		div {}, 'This is another page'
-
-module.exports = Page

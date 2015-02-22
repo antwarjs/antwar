@@ -1,7 +1,7 @@
 React = require('react')
 Router = require('react-router')
 Link = React.createFactory Router.Link
-Moment = React.createFactory require('../elements/Moment.jsx')
+Moment = React.createFactory require('../elements/Moment')
 Paths = require('../elements/PathsMixin')
 _ = require('lodash')
 

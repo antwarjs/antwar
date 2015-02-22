@@ -2,7 +2,6 @@ React = require('react')
 Router = require('react-router')
 Link = React.createFactory Router.Link
 Nav = React.createFactory require '../elements/Nav'
-Moment = React.createFactory require('../elements/Moment.jsx')
 Paths = require('../elements/PathsMixin')
 _ = require('lodash')
 
@@ -18,6 +17,5 @@ module.exports = React.createClass
 	]
 
 	render: ->
-		Nav()
 		div {}, 'Index hey'
 

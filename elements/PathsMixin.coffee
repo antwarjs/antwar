@@ -3,6 +3,7 @@ React = require('react')
 markdown = require 'commonmark'
 mdReader = new markdown.Parser()
 mdWriter = new markdown.HtmlRenderer()
+config = require '../config'
 
 PathsMixin =
 
@@ -14,7 +15,7 @@ PathsMixin =
 		paths.allPosts()
 
 	getAllPages: ->
-		paths.allPosts()
+		paths.allPages()
 
 	getPathMeta: (key) ->
 		path = @context.getCurrentPathname()
@@ -36,8 +37,14 @@ PathsMixin =
 		postMeta = paths.allPosts()[post]
 		if postMeta.preview
 			return postMeta.preview
-		# else return the first line from the markdown
-		md = paths.postForPath(post).content
-		md.substr 0, md.indexOf('\n')
+		# else return the first part of markdown
+		md = postMeta.content
+		parsed = getLiteral mdReader.parse md
+		if parsed.length > 100 then parsed = parsed.substr(0,100) + '…'
+		parsed
 
 module.exports = PathsMixin
+
+getLiteral = (part) ->
+	return '' unless part._firstChild? or part._literal?
+	part._literal or getLiteral part._firstChild

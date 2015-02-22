@@ -1,7 +1,7 @@
 React = require('react')
 Router = require('react-router')
 Link = React.createFactory Router.Link
-Moment = React.createFactory require('../elements/Moment.jsx')
+Moment = React.createFactory require('../elements/Moment')
 Paths = require('../elements/PathsMixin')
 # md = require '../posts/2015-02-14-first_post.md'
 _ = require('lodash')
@@ -18,29 +18,17 @@ module.exports = React.createClass
 	]
 
 	render: ->
-		# title = @getPathMeta('title')
-		momentStyle = fontSize: '0.5em'
-		quoteStyle =
-			margin: '0 1em 1em 1em'
-			fontStyle: 'italic'
-		titleStyle = fontSize: '1.5em'
-		ulStyle =
-			listStyle: 'none'
-			paddingLeft: 0
 		div {},
-			# h1 title
-			ul style: ulStyle,
+			ul {},
 				_.map @getAllPosts(), (post, key) =>
 					li key: key,
-						h1 { },
+						h1 {},
 							Link
-								key: key
 								to: '/blog/' + key
 							, post.title
 						br {}
 						Moment
-							datetime: post.published
-							style: momentStyle
+							datetime: post.date
 						div {},
-							blockquote { style: quoteStyle },
+							blockquote { },
 								@getPreviewForPost key
