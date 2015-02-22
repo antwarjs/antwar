@@ -1,0 +1,17 @@
+@function pow($number, $exp) {
+	$value: 1;
+	@if $exp > 0 {
+		@for $i from 1 through $exp {
+			$value: $value * $number;
+		}
+	}
+	@else if $exp < 0 {
+		@for $i from 1 through -$exp {
+			$value: $value / $number;
+		}
+	}
+	@return $value;
+}
+@function scale($value, $ratio, $base) {
+	@return pow($ratio, $value) * $base;
+}

@@ -1,0 +1,401 @@
+@mixin triangle($direction, $color, $size) {
+
+	@if $direction == "left" {
+		border-bottom: $size solid transparent;
+		border-right: $size solid $color;
+		border-top: $size solid transparent;
+	}
+	@else if $direction == "right" {
+		border-bottom: $size solid transparent;
+		border-left: $size solid $color;
+		border-top: $size solid transparent;
+	}
+	@else if $direction == "up" {
+		border-bottom: $size solid $color;
+		border-left: $size solid transparent;
+		border-right: $size solid transparent;
+	}
+	@else if $direction == "down" {
+		border-right: $size solid transparent;
+		border-left: $size solid transparent;
+		border-top: $size solid $color;
+	}
+
+	height: 0;
+	width: 0;
+}
+
+
+
+
+
+/*------------------------------------*\
+	$MIXINS
+\*------------------------------------*/
+/**
+ * Create a fully formed type style (sizing and vertical rhythm) by passing in a
+ * single value, e.g.:
+ *
+	 `@include font-size(10px);`
+ *
+ * Thanks to @redclov3r for the `line-height` Sass:
+ * twitter.com/redclov3r/status/250301539321798657
+ */
+ @mixin font-size($font-size, $line-height:true){
+	font-size:$font-size;
+	font-size:($font-size / $base-font-size)*1rem;
+	@if $line-height == true{
+		line-height:ceil($font-size / $base-line-height) * ($base-line-height / $font-size);
+	}
+ }
+
+
+/**
+ * Force overly long spans of text to truncate, e.g.:
+ *
+	 `@include truncate(100%);`
+ *
+ * Where `$truncation-boundary` is a united measurement.
+ */
+ @mixin truncate($truncation-boundary){
+	max-width:$truncation-boundary;
+	white-space:nowrap;
+	overflow-x:hidden;
+	text-overflow:ellipsis;
+ }
+
+
+/**
+ * CSS arrows!!! But... before you read on, you might want to grab a coffee...
+ *
+ * This mixin creates a CSS arrow on a given element. We can have the arrow
+ * appear in one of 12 locations, thus:
+ *
+ *       01    02    03
+ *    +------------------+
+ * 12 |                  | 04
+ *    |                  |
+ * 11 |                  | 05
+ *    |                  |
+ * 10 |                  | 06
+ *    +------------------+
+ *       09    08    07
+ *
+ * You pass this position in along with a desired arrow color and optional
+ * border color, for example:
+ *
+ * `@include arrow(top, left, red)`
+ *
+ * for just a single, red arrow, or:
+ *
+ * `@include arrow(bottom, center, red, black)`
+ *
+ * which will create a red triangle with a black border which sits at the bottom
+ * center of the element. Call the mixin thus:
+ *
+	 .foo{
+		 background-color:#BADA55;
+		 border:1px solid #ACE;
+		 @include arrow(top, left, #BADA55, #ACE);
+	 }
+ *
+ */
+ @mixin arrow($arrow-edge, $arrow-location, $arrow-color, $border-color: $arrow-color){
+
+	$arrow-size:            $half-spacing-unit!default;
+	$arrow-border:          1!default;
+	$border:                $arrow-size;
+	$arrow:                 $arrow-size - $arrow-border;
+
+
+
+	&:before,
+	&:after{
+		content:"";
+		position:absolute;
+		border-collapse:separate;
+	}
+	&:before{
+		border:$border solid transparent;
+	}
+	&:after{
+		border:$arrow solid transparent;
+	}
+	@if $arrow-edge == top{
+
+		&:before,
+		&:after{
+			bottom:100%;
+		}
+		&:before{
+			border-bottom-color:$border-color!important;
+		}
+
+		&:after{
+			border-bottom-color:$arrow-color!important;
+		}
+
+		@if $arrow-location == left {
+			&:before{
+				left:$arrow;
+			}
+			&:after{
+				left:$border;
+			}
+		}
+
+		@if $arrow-location == center {
+			&:before,
+			&:after {
+				left:50%;
+				margin-left:-$border;
+			}
+			&:after {
+				margin-left:-$arrow;
+			}
+		}
+
+		@if $arrow-location == right {
+			&:before{
+				right:$arrow;
+			}
+			&:after{
+				right:$border;
+			}
+		}
+
+	}
+
+	@if $arrow-edge == right{
+
+		&:before,
+		&:after{
+			left:100%;
+		}
+
+		&:before{
+			border-left-color:$border-color!important;
+		}
+
+		&:after{
+			border-left-color:$arrow-color!important;
+		}
+
+		@if $arrow-location == top{
+			&:before{
+				top:$arrow;
+			}
+			&:after{
+				top:$border;
+			}
+		}
+
+		@if $arrow-location == center{
+			&:before,
+			&:after{
+				top:50%;
+				margin-top:-$border;
+			}
+			&:after{
+				margin-top:-$arrow;
+			}
+		}
+
+		@if $arrow-location == bottom{
+			&:before{
+				bottom:$arrow;
+			}
+			&:after{
+				bottom:$border;
+			}
+		}
+
+	}
+
+	@if $arrow-edge == bottom {
+
+		&:before,
+		&:after{
+		}
+
+		&:before{
+			bottom: -$base-spacing-unit;
+			border-top-color:$border-color!important;
+		}
+
+		&:after{
+			border-top-color:$arrow-color!important;
+			bottom: -$base-spacing-unit + 2;
+		}
+
+		@if $arrow-location == left{
+			&:before {
+				left:$arrow;
+			}
+			&:after{
+				left:$border;
+			}
+		}
+
+		@if $arrow-location == center{
+			&:before,
+			&:after{
+				left:50%;
+				margin-left:-$border;
+			}
+			&:after{
+				margin-left:-$arrow;
+			}
+		}
+
+		@if $arrow-location == right{
+			&:before{
+				right:$arrow;
+			}
+			&:after{
+				right:$border;
+			}
+		}
+
+	}
+
+	@if $arrow-edge == left{
+
+
+		&:before{
+			border-right-color:$border-color!important;
+		}
+
+		&:after{
+			border-right-color:$arrow-color!important;
+		}
+
+		@if $arrow-location == top{
+			&:before{
+				top:$arrow;
+			}
+			&:after{
+				top:$border;
+			}
+		}
+
+		@if $arrow-location == center{
+			&:before,
+			&:after{
+				top:50%;
+				margin-top:-$border;
+			}
+			&:after{
+				margin-top:-$arrow;
+			}
+		}
+
+		@if $arrow-location == bottom{
+			&:before{
+				bottom:$arrow;
+			}
+			&:after{
+				bottom:$border;
+			}
+		}
+
+	}
+
+ }
+
+
+/**
+ * Media query mixin.
+ *
+ * It’s not great practice to define solid breakpoints up-front, preferring to
+ * modify your design when it needs it, rather than assuming you’ll want a
+ * change at ‘mobile’. However, as inuit.css is required to take a hands off
+ * approach to design decisions, this is the closest we can get to baked-in
+ * responsiveness. It’s flexible enough to allow you to set your own breakpoints
+ * but solid enough to be frameworkified.
+ *
+ * We define some broad breakpoints in our vars file that are picked up here
+ * for use in a simple media query mixin. Our options are:
+ *
+ * palm
+ * lap
+ * lap-and-up
+ * portable
+ * desk
+ * desk-wide
+ *
+ * Not using a media query will, naturally, serve styles to all devices.
+ *
+ * `@include media-query(palm){ [styles here] }`
+ *
+ * We work out your end points for you:
+ */
+ $lap-end:               $desk-start - 1px!default;
+ $palm-end:              $lap-start - 1px !default;
+
+ @mixin media-query($media-query){
+
+	@if $media-query == palm{
+
+		@media only screen and (max-width:$palm-end) { @content; }
+
+	}
+
+	@if $media-query == lap{
+
+		@media only screen and (min-width:$lap-start) and (max-width:$lap-end) { @content; }
+
+	}
+
+	@if $media-query == lap-and-up{
+
+		@media only screen and (min-width:$lap-start) { @content; }
+
+	}
+
+	@if $media-query == portable{
+
+		@media only screen and (max-width:$lap-end) { @content; }
+
+	}
+
+	@if $media-query == desk{
+
+		@media only screen and (min-width:$desk-start) { @content; }
+
+	}
+
+	@if $media-query == desk-wide{
+
+		@media only screen and (min-width: $desk-wide-start) { @content; }
+
+	}
+
+	@else {
+		@media only screen and (max-width: $media-query) { @content; }
+	}
+
+ }
+
+
+@mixin layer {
+	backface-visibility: hidden;
+}
+
+@mixin touch-scroll {
+	overflow-y: auto;
+	.touch & {
+		overflow-y: scroll; /* has to be scroll, not auto */
+		-webkit-overflow-scrolling: touch;
+	}
+}
+
+
+@mixin tap {
+	&:active,
+	&:active:hover,
+	&.touch-feedback:hover,
+	&.touch-feedback {
+		@content;
+	}
+}

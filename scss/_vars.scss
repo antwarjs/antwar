@@ -1,0 +1,88 @@
+$brand-font: "Ubuntu Condensed", "Avenir Next Condensed", sans-serif;
+$header-font: "Source Sans Pro", "Open Sans", "Avenir Next", sans-serif;
+$body-font: "Source Sans Pro", "Open Sans", "Avenir Next", sans-serif;
+$body-font: "Source Serif Pro", "Merriweather", "Georgia", serif;
+$code-font: "Input Sans Narrow","Source Code Pro", "Input Sans", "Inconsolata", monospace;
+
+// Brand colors
+$brand-red: #EC5334;
+$brand-blue: #81426E;
+$brand-purple: #81426E;
+$brand-dark: #434343;
+$brand-light: #FCFCF5;
+
+// UI colors
+$font-color: $brand-dark;
+$quiet-font-color: #999;
+$background-color: #fafcff;//$brand-light;
+
+// Font and spacing
+$base-font-size:							20px!default;
+$base-line-height:						30px!default;
+
+$base-spacing-unit:						$base-line-height!default;
+$half-spacing-unit:						$base-spacing-unit / 2!default;
+$line-height-ratio:						$base-line-height / $base-font-size;
+
+$scale-base: $base-font-size;
+$scale-ratio: 1.618034;  // 1.618 is golden
+$scale-ratio: 1.2;  // 1.618 is golden
+
+$h1-size:											scale(5, $scale-ratio, $scale-base)!default; // .alpha
+$h2-size:											scale(4, $scale-ratio, $scale-base)!default; // .beta
+$h3-size:											scale(3, $scale-ratio, $scale-base)!default; // .gamma
+$h4-size:											scale(2, $scale-ratio, $scale-base)!default; // .delta
+$h5-size:											scale(1, $scale-ratio, $scale-base)!default; // .epsilon
+$h6-size:											scale(0, $scale-ratio, $scale-base)!default; // .zeta
+
+$deci-size:										18px!default;
+$centi-size:									14px!default;
+$milli-size:									12px!default;
+$micro-size:									10px!default;
+
+$bold: 600;
+$fat: 800;
+$normal: 400;
+
+// Round
+$brand-round:									7px!default;
+
+// Color tints
+$tint:												95%!default;
+$heavy-tint:									90%!default;
+$fat-tint:										75%!default;
+$light-tint:									97%!default;
+
+// UI element colors
+
+$action-color:								$brand-blue!default;
+$action-color-light:					lighten($brand-blue, 10%)!default;
+$action-color-dark:						darken($brand-blue, 10%)!default;
+
+
+// Borders
+$border-color:								mix($background-color, $font-color, 85%)!default;
+$quiet-border-color:					mix($background-color, $font-color, $heavy-tint)!default;
+$heavy-border-color:					darken($border-color, 8%);
+
+$border-width:								1px!default;
+
+$border:								$border-width $border-color solid!default;
+$action-border:								$border-width $action-color solid!default;
+$quiet-border:								$border-width $quiet-border-color solid!default;
+$heavy-border:								$border-width $heavy-border-color solid!default;
+
+// Widths
+$max-width:										600px!default;
+$top-padding:									1px!default; /* Where does the horizontal grid start? */
+
+// Transitions
+$transition-speed:						.3s;
+$transition-easing:						cubic-bezier(.23,1,.32,1);
+$transition-easing--bounce:		cubic-bezier(.75,-.25,.25,2);
+$transition-easing--smooth-bounce: cubic-bezier(0.525, -0.2, 0.135, 1.3);
+
+// Breakpoints
+$lap-start:										550px!default;
+$desk-start:									1350px!default;
+$desk-wide-start:							1650px!default;
