@@ -17,7 +17,13 @@ After cloning this repo run `npm install` to install dependencies
 * add a .js/.jsx/.coffee file in `/pages` directory
 
 ## Build for production
-`npm run-script build-static`
+`gulp build`
+
+## TODO
+- A proper dev index file
+- Proper basic theme
+- A nice way to include non-static parts
+
 
 
 Based on the fantastic work of [Brad Denver](https://github.com/BradDenver/react-static-site).
