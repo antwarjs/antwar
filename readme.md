@@ -27,8 +27,7 @@ Add a .js/.jsx/.coffee file in `/pages` directory
 Among many other things:
 
 - A proper dev index file
-- Config
-- Proper basic theme (including clinks)
+- Proper basic theme
 - A nice way to include non-static parts
 
 ##Credits
