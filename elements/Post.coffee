@@ -15,8 +15,7 @@ module.exports = React.createClass
 		content = @getPost()
 		published = @getPathMeta('published')
 		title = @getPathMeta('title')
-		div {},
-			header {},
-				h1 {}, title
-				Moment datetime: published
-				span dangerouslySetInnerHTML: __html: content
+		div {className: 'post'},
+			h1 {}, title
+			Moment datetime: published
+			span dangerouslySetInnerHTML: __html: content

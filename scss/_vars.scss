@@ -1,7 +1,6 @@
-$brand-font: "Ubuntu Condensed", "Avenir Next Condensed", sans-serif;
-$header-font: "Source Sans Pro", "Open Sans", "Avenir Next", sans-serif;
-$body-font: "Source Sans Pro", "Open Sans", "Avenir Next", sans-serif;
-$body-font: "Source Serif Pro", "Merriweather", "Georgia", serif;
+$header-font: "Source Sans Pro", sans-serif;
+$body-font: "Lora", "Merriweather", "Georgia", serif;
+$small-font: "Source Sans Pro", "Avenir Next", "Helvetica Neue", sans-serif;
 $code-font: "Input Sans Narrow","Source Code Pro", "Input Sans", "Inconsolata", monospace;
 
 // Brand colors
@@ -12,13 +11,13 @@ $brand-dark: #434343;
 $brand-light: #FCFCF5;
 
 // UI colors
-$font-color: $brand-dark;
+$font-color: #222;
 $quiet-font-color: #999;
-$background-color: #fafcff;//$brand-light;
+$background-color: #fff;
 
 // Font and spacing
-$base-font-size:							20px!default;
-$base-line-height:						30px!default;
+$base-font-size:							16px!default;
+$base-line-height:						24px!default;
 
 $base-spacing-unit:						$base-line-height!default;
 $half-spacing-unit:						$base-spacing-unit / 2!default;
@@ -26,7 +25,8 @@ $line-height-ratio:						$base-line-height / $base-font-size;
 
 $scale-base: $base-font-size;
 $scale-ratio: 1.618034;  // 1.618 is golden
-$scale-ratio: 1.2;  // 1.618 is golden
+$scale-ratio: 1.2;  // 1.2 is minor third
+$scale-ratio: 1.125;  // 1.125 is major second
 
 $h1-size:											scale(5, $scale-ratio, $scale-base)!default; // .alpha
 $h2-size:											scale(4, $scale-ratio, $scale-base)!default; // .beta

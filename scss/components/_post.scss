@@ -1,6 +1,9 @@
 .post {
 	max-width: $max-width;
 	align-self: center;
+	p {
+		margin-bottom: $base-spacing-unit * 3
+	}
 }
 
 .author-thumb {

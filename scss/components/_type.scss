@@ -32,7 +32,7 @@ h1 {
 	@include font-size($h1-size);
 	font-weight: $fat;
 	text-transform: uppercase;
-	letter-spacing: 2px;
+	letter-spacing: 1px;
 	margin-top: $base-spacing-unit;
 }
 h2 {
@@ -113,6 +113,13 @@ pre, code {
 
 .right {
 	text-align: right;
+}
+
+time {
+	font-family: $small-font;
+	color: $quiet-font-color;
+	margin-bottom: $base-spacing-unit;
+	@include font-size($h6-size);
 }
 
 @mixin font-size-micro () {
