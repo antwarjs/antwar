@@ -3,6 +3,7 @@ Nav = React.createFactory require('./Nav')
 Router = require('react-router')
 RouteHandler = React.createFactory Router.RouteHandler
 Paths = require('./PathsMixin')
+config = require '../config'
 
 { html, head, body, div, title, script, link, main } = require 'react-coffee-elements'
 
@@ -12,17 +13,14 @@ module.exports = React.createClass
 
 	mixins: [ Router.State,	Paths ]
 
-	getDefaultProps: ->
-		title: 'Antwar'
-
 	render: ->
 		html {},
 			head {},
-				title @getPathMeta('title') + 'React Static Site'
+				title @getPathMeta('title') + config.title
 				link
 					rel: 'alternate'
 					type: 'application/atom+xml'
-					title: 'eldh.co blog'
+					title: config.title
 					href: '/atom.xml'
 				if process.env.NODE_ENV is 'production'
 					link

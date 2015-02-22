@@ -26,12 +26,12 @@ PathsMixin =
 		if metas then metas[key] else ''
 
 	getPost: ->
-		postContent = paths.postForPath(@context.getCurrentParams().post).content
-		parsed = mdWriter.render mdReader.parse postContent
-		parsed
+		@getPostForPath @context.getCurrentParams().post
 
 	getPostForPath: (path) ->
-		paths.postForPath path
+		postContent = paths.postForPath(path).content
+		parsed = mdWriter.render mdReader.parse postContent
+		parsed
 
 	getPreviewForPost: (post) ->
 		postMeta = paths.allPosts()[post]
