@@ -19,7 +19,13 @@ Add a .js/.jsx/.coffee file in `/pages` directory
 ## Build for production
 `gulp build`
 
+## Run production server
+`gulp publicServer`
+
 ## TODO
+
+Among many other things:
+
 - A proper dev index file
 - Config
 - Proper basic theme (including clinks)
