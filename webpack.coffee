@@ -1,5 +1,5 @@
 path = require 'path'
-RHLMatches = /View.coffee|Pages\//
+ReactHotLoaderMatches = /View.coffee|Pages\//
 ExtractTextPlugin = require 'extract-text-webpack-plugin'
 
 common =
@@ -51,7 +51,7 @@ dev =
 			loader: 'file-loader?prefix=font/'
 		,
 			test: /\.coffee$/
-			exclude: RHLMatches
+			exclude: ReactHotLoaderMatches
 			loader: 'react-hot!jshint-loader!coffee-loader'
 		,
 			test: /\.json$/
@@ -60,9 +60,6 @@ dev =
 			test: /\.svg$/
 			loader: 'raw-loader'
 		,
-		# 	test: /\.md$/
-		# 	loader: 'raw!markdown'
-		# ,
 			test: /\.jsx$/
 			loader: 'jsx'
 		,
@@ -80,7 +77,7 @@ dev =
 				'sass-loader'
 			]
 		,
-			test: RHLMatches
+			test: ReactHotLoaderMatches
 			loader: 'react-hot!coffee-loader'
 		,
 			test: /\.md$/

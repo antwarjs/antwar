@@ -7,7 +7,7 @@ RouteHandler = React.createFactory Router.RouteHandler
 Layout = require './Layout.coffee'
 Post = require './Post.jsx'
 _ = require 'lodash'
-paths = require('../paths')
+paths = require '../paths'
 
 Routes =
 	Route

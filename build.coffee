@@ -1,17 +1,10 @@
-# Generate info about posts and pages
-# postinfo = require './postinfo'
-# postinfo.writeFiles()
-
 fs = require 'fs'
 React = require 'react/addons'
 mkdirp = require 'mkdirp'
-# paths = require './paths'
 webpack = require 'webpack'
 config = require('./webpack.coffee').build
-# yaml = require 'js-yaml'
-module.exports =
 
-	# writeFiles: postinfo.writeFiles
+module.exports =
 
 	buildDevIndex: ->
 		process.env.NODE_ENV = 'dev'
