@@ -1,6 +1,7 @@
 fs = require 'fs'
 React = require 'react/addons'
 mkdirp = require 'mkdirp'
+ncp = require 'ncp'
 webpack = require 'webpack'
 config = require('./webpack.coffee').build
 
@@ -14,6 +15,8 @@ module.exports =
 			else
 				page = require './build/bundleStaticPage.js'
 				fs.writeFileSync "build/index.html", page '/', null
+				ncp './assets', './build/assets'
+
 
 	build: ->
 		process.env.NODE_ENV = 'production'
@@ -26,6 +29,10 @@ module.exports =
 				paths = require './build/paths.js'
 				rss = require './build/bundleStaticRss.js'
 				mkdirp.sync assets
+
+				# Copy assets folder
+				ncp './assets', assets
+
 				fs.writeFileSync assets + '/main.css', fs.readFileSync 'build/main.css'
 				allPaths = paths()
 				for path of allPaths

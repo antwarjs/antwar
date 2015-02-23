@@ -16,9 +16,8 @@ $quiet-font-color: #999;
 $background-color: #fff;
 
 // Font and spacing
-$base-font-size:							16px!default;
-$base-line-height:						24px!default;
-
+$base-font-size:							18px!default;
+$base-line-height:						27px!default;
 $base-spacing-unit:						$base-line-height!default;
 $half-spacing-unit:						$base-spacing-unit / 2!default;
 $line-height-ratio:						$base-line-height / $base-font-size;
@@ -35,9 +34,9 @@ $h4-size:											scale(2, $scale-ratio, $scale-base)!default; // .delta
 $h5-size:											scale(1, $scale-ratio, $scale-base)!default; // .epsilon
 $h6-size:											scale(0, $scale-ratio, $scale-base)!default; // .zeta
 
-$deci-size:										18px!default;
-$centi-size:									14px!default;
-$milli-size:									12px!default;
+$deci-size:										15px!default;
+$centi-size:									13px!default;
+$milli-size:									11px!default;
 $micro-size:									10px!default;
 
 $bold: 600;

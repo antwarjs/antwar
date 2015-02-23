@@ -11,11 +11,18 @@ module.exports = React.createClass
 
 	mixins: [ Router.State, Paths ]
 
+
 	render: ->
 		content = @getPost()
 		published = @getPathMeta('published')
 		title = @getPathMeta('title')
-		div {className: 'post'},
+		headerImage = @getPathMeta('headerImage')
+		div {className: 'post', onTouchMove: @touchMove},
+			if headerImage? then div className: 'post__header-image', style: backgroundImage: "url(#{headerImage})"
 			h1 {}, title
-			Moment datetime: published
 			span dangerouslySetInnerHTML: __html: content
+			Moment datetime: published
+
+	touchMove: ->
+		console.log 'touchmove'
+

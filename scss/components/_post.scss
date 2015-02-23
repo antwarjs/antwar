@@ -1,12 +1,36 @@
 .post {
 	max-width: $max-width;
 	align-self: center;
+	margin-bottom: $base-spacing-unit * 3;
+	padding: 0 $base-spacing-unit;
+	@include media-query('palm') {
+		padding: 0 $half-spacing-unit;
+	}
 	p {
-		margin-bottom: $base-spacing-unit * 3
+		margin-bottom: $base-spacing-unit * 2;
+		@include media-query('palm') {
+			@include font-size(16px);
+		}
 	}
 }
 
-.author-thumb {
-	width: $base-spacing-unit;
-	height: $base-spacing-unit;
+.post__header-image {
+	width: 100vw;
+	height: 100vh;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: $brand-dark;
+	background-size: cover;
+	background-position: 50% 50%;
+	z-index: -1;
+	filter: brightness(0.6);
+}
+.post__header-image + h1 {
+	line-height: 100vh;
+	height: 100vh;
+	margin-top: 0;
+	margin-bottom: $base-spacing-unit * 2;
+	text-align: center;
+	color: #fff;
 }

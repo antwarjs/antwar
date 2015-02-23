@@ -5,7 +5,7 @@ RouteHandler = React.createFactory Router.RouteHandler
 Paths = require('./PathsMixin')
 config = require '../config'
 
-{ html, head, body, div, title, script, link, main } = require 'react-coffee-elements'
+{ html, head, body, div, title, script, link, main, meta } = require 'react-coffee-elements'
 
 module.exports = React.createClass
 
@@ -17,6 +17,9 @@ module.exports = React.createClass
 		html {},
 			head {},
 				title @getPathMeta('title') + config.title
+				meta
+					name:"viewport"
+					content:"width=device-width, initial-scale=1, maximum-scale=1, minimal-ui"
 				link
 					rel: 'alternate'
 					type: 'application/atom+xml'

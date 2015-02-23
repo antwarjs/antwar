@@ -17,11 +17,16 @@ module.exports =
 			url = _.kebabCase fileName.slice 11, fileName.length - 3 #Clean the filename to get the url
 			date = file.date or fileName.slice 0, 10 # Get the date from the file name if it's not in the frontmatter
 			content = file.__content # Content. Still in raw markdown format.
+			headerImage = if file.headerImage?.indexOf('http') is 0
+				file.headerImage
+			else
+				"/assets/#{file.headerImage}"
 			posts[url] = _.assign {}, file,
 			{
 				url
 				content
 				date
+				headerImage
 			}
 		posts
 

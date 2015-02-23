@@ -1,5 +1,4 @@
 
-
 html{
     font:#{($base-font-size/16px)*1em}/#{$line-height-ratio} $body-font;
     line-height: $base-line-height;
@@ -23,6 +22,7 @@ h1, h2, h3, h4, h5, h6 {
 	font-family: $header-font;
 	margin-bottom: 0;
 	font-weight: $bold;
+	margin-top: $base-spacing-unit;
 	margin-bottom: $base-spacing-unit;
 }
 h1, h2, h3 {
@@ -32,8 +32,8 @@ h1 {
 	@include font-size($h1-size);
 	font-weight: $fat;
 	text-transform: uppercase;
-	letter-spacing: 1px;
-	margin-top: $base-spacing-unit;
+	// letter-spacing: 1px;
+	// margin-top: $base-spacing-unit;
 }
 h2 {
 	@include font-size($h2-size);
@@ -119,7 +119,7 @@ time {
 	font-family: $small-font;
 	color: $quiet-font-color;
 	margin-bottom: $base-spacing-unit;
-	@include font-size($h6-size);
+	@include font-size($deci-size);
 }
 
 @mixin font-size-micro () {
