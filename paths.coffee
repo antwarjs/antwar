@@ -19,7 +19,7 @@ module.exports =
 			content = file.__content # Content. Still in raw markdown format.
 			headerImage = if file.headerImage?.indexOf('http') is 0
 				file.headerImage
-			else
+			else if file.headerImage?
 				"/assets/#{file.headerImage}"
 			posts[url] = _.assign {}, file,
 			{

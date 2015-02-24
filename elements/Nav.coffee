@@ -14,10 +14,8 @@ module.exports = React.createClass
 
 	render: ->
 		nav {className: 'nav'},
-			'This is supposed to be the navigation'
 			_.map @getAllPages(), (page) ->
-				div {},
-					Link
-						to: page.url
-					, page.title
-
+				Link
+					className: 'nav__link'
+					to: page.url
+				, page.title

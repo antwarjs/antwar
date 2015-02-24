@@ -1,4 +1,4 @@
-div, section, article, main {
+div, section, article, main, nav {
 	display: flex;
 	flex-wrap: wrap;
 	flex-shrink:0;
@@ -8,7 +8,9 @@ div, section, article, main {
 	align-content: center;
 	// align-items: flex-start;
 }
-
+main {
+	margin-top: $base-spacing-unit * 2;
+}
 .main-content {
 	align-items: center;
 }

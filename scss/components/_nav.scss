@@ -1,5 +1,22 @@
 .nav {
-	position: absolute;
+	position: fixed;
 	top: 0;
 	left: 0;
+	right: 0;
+	flex-direction: row;
+	background-color: rgba($font-color, .3);
+	z-index: 100;
+	justify-content: flex-end;
+}
+
+.nav__link {
+	display: inline-block;
+	padding: $half-spacing-unit;
+	color: $background-color;
+	font-family: $header-font;
+	transition: color $transition-easing $transition-speed;
+	&:hover {
+
+		color: lighten($brand-blue, 20%);
+	}
 }

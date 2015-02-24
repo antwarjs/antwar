@@ -6,7 +6,7 @@ Paths = require('../elements/PathsMixin')
 # md = require '../posts/2015-02-14-first_post.md'
 _ = require('lodash')
 
-{ div, li, br, ul, h2, h1, blockquote } = require 'react-coffee-elements'
+{ div, li, p, ul, h1, h3 } = require 'react-coffee-elements'
 
 module.exports = React.createClass
 
@@ -18,17 +18,16 @@ module.exports = React.createClass
 	]
 
 	render: ->
-		div {},
-			ul {},
+		div {className: 'grid'},
+			h1 'Blog posts'
+			ul { className: 'post-list'},
 				_.map @getAllPosts(), (post, key) =>
 					li key: key,
-						h1 {},
+						h3 {className: 'post-list__heading'},
 							Link
 								to: '/blog/' + key
 							, post.title
-						br {}
 						Moment
 							datetime: post.date
-						div {},
-							blockquote { },
-								@getPreviewForPost key
+						p {className: 'post-list__preview'},
+							@getPreviewForPost key

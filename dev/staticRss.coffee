@@ -15,7 +15,6 @@ module.exports = (page) ->
 			t 'email', {}, config.author.email
 		]
 		_.map paths.getAllPosts(), (post, name) ->
-			console.log post
 			t 'entry', {}, [
 				t 'title', {}, post.title
 				t 'link', href: config.baseUrl + name, ''

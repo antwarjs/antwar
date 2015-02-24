@@ -38,7 +38,7 @@ module.exports =
 				for path of allPaths
 					if path isnt 'posts'
 						pathObj = allPaths[path]
-						if path is 'index'
+						if path is '/'
 							path = ''
 							publicPath = "./public"
 						else
