@@ -14,9 +14,10 @@ module.exports = React.createClass
 	mixins: [ Router.State,	Paths ]
 
 	render: ->
+		pageTitle = @getPageTitle()
 		html {},
 			head {},
-				title @getPathMeta('title') + config.title
+				title "#{if pageTitle then pageTitle +  ' / ' else ''}#{config.siteName}"
 				meta
 					name:"viewport"
 					content:"width=device-width, initial-scale=1, maximum-scale=1, minimal-ui"

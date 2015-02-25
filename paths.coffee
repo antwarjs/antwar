@@ -1,4 +1,7 @@
 _ = require 'lodash'
+markdown = require 'commonmark'
+mdReader = new markdown.Parser()
+mdWriter = new markdown.HtmlRenderer()
 
 module.exports =
 
@@ -16,19 +19,21 @@ module.exports =
 
 			url = _.kebabCase fileName.slice 11, fileName.length - 3 #Clean the filename to get the url
 			date = file.date or fileName.slice 0, 10 # Get the date from the file name if it's not in the frontmatter
-			content = file.__content # Content. Still in raw markdown format.
+
+			content = mdWriter.render mdReader.parse file.__content
+
+			# Fix the headerImage URL if it's local
 			headerImage = if file.headerImage?.indexOf('http') is 0
 				file.headerImage
 			else if file.headerImage?
 				"/assets/#{file.headerImage}"
-			posts[url] = _.assign {}, file,
-			{
+			posts[url] = _.assign {}, file, {
 				url
 				content
 				date
 				headerImage
 			}
-		posts
+		_.sortBy( posts, 'date')
 
 	allPages: ->
 		req = @pageReq()
@@ -41,13 +46,11 @@ module.exports =
 
 			url = _.kebabCase fileName.split('.')[0] # url is filename minus extention
 			title = _.capitalize url.replace /\-/g , ' ' # Title is the capitalized url
-			content = file
 
 			if url is 'index' then url = '/' # Rewrite index file
 			pages[url] =
 			{
 				url
-				content
 				fileName
 				title
 			}
@@ -64,3 +67,7 @@ module.exports =
 
 	postReq: ->
 		require.context './posts', false, /^\.\/.*\.md$/
+
+	parseContent: (content) ->
+		mdWriter.render mdReader.parse content
+

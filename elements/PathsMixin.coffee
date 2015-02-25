@@ -17,28 +17,26 @@ PathsMixin =
 	getAllPages: ->
 		paths.allPages()
 
-	getPathMeta: (key) ->
-		path = @context.getCurrentPathname()
-		post = @context.getCurrentParams().post
-		if post
-			return paths.allPosts()[post][key]
-		metas = paths.allPaths()[path]
-		if metas then metas[key] else ''
-
 	getPost: ->
 		@getPostForPath @context.getCurrentParams().post
 
 	getPostForPath: (path) ->
-		postContent = paths.postForPath(path).content
-		parsed = mdWriter.render mdReader.parse postContent
-		parsed
+		paths.postForPath(path)
+
+	getPageTitle: ->
+		post = @getPost()
+		if post?.name
+			return post.name
+		else
+			routes = @context.getCurrentRoutes()
+			routes[routes.length - 1].name?.replace '/', ''
 
 	getPreviewForPost: (post) ->
 		postMeta = paths.allPosts()[post]
 		if postMeta.preview
 			return postMeta.preview
 		# else return the first part of markdown
-		md = postMeta.content
+		md = postMeta.__content
 		parsed = getLiteral mdReader.parse md
 		if parsed.length > 100 then parsed = parsed.substr(0,100) + '…'
 		parsed

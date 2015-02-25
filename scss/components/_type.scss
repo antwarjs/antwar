@@ -31,6 +31,7 @@ h1, h2, h3 {
 h1 {
 	@include font-size($h1-size);
 	font-weight: $fat;
+	margin-top: $base-spacing-unit * 2;
 	text-transform: uppercase;
 	// letter-spacing: 1px;
 	// margin-top: $base-spacing-unit;

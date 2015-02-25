@@ -14,12 +14,11 @@ module.exports = React.createClass
 	propTypes:
 		datetime: React.PropTypes.string.isRequired
 		format: React.PropTypes.string
-		style: React.PropTypes.object
 
 	render: ->
 		time
 			dateTime: @props.datetime
-			style: @props.style
+			className: @props.className
 		,
 			moment @props.datetime
 				.format @props.format

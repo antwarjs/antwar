@@ -12,6 +12,7 @@ paths = require '../paths'
 Routes =
 	Route
 		name: 'home'
+		title: 'Home'
 		# path: '/'
 		handler: Layout
 	,

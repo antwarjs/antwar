@@ -26,7 +26,7 @@
 	z-index: -1;
 	filter: brightness(0.6);
 }
-.post__header-image + h1 {
+.post__header-image + .post__heading {
 	position: absolute;
 	top: 0;
 	line-height: 100vh;
@@ -37,6 +37,6 @@
 	text-align: center;
 	color: #fff;
 }
-.post__header-image + h1 + div {
+.post__header-image + .post__heading + .post__content {
 	margin-top: 100vh;
 }
