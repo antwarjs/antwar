@@ -22,16 +22,10 @@ module.exports =
 
 			content = mdWriter.render mdReader.parse file.__content
 
-			# Fix the headerImage URL if it's local
-			headerImage = if file.headerImage?.indexOf('http') is 0
-				file.headerImage
-			else if file.headerImage?
-				"/assets/#{file.headerImage}"
 			posts[url] = _.assign {}, file, {
 				url
 				content
 				date
-				headerImage
 			}
 		_.sortBy( posts, 'date')
 
