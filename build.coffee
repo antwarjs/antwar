@@ -14,7 +14,7 @@ module.exports =
 				console.log err
 			else
 				page = require './build/bundleStaticPage.js'
-				fs.writeFileSync './build/index.html', page '/', null
+				fs.writeFileSync './build/index.html', page '/antwar_devindex', null
 				ncp './assets', './build/assets'
 
 
