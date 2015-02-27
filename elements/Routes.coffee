@@ -13,7 +13,7 @@ Routes =
 	Route
 		name: 'home'
 		title: 'Home'
-		# path: '/'
+		path: '/'
 		handler: Layout
 	,
 		Route

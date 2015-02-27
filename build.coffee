@@ -14,7 +14,7 @@ module.exports =
 				console.log err
 			else
 				page = require './build/bundleStaticPage.js'
-				fs.writeFileSync "build/index.html", page '/', null
+				fs.writeFileSync './build/index.html', page '/', null
 				ncp './assets', './build/assets'
 
 
@@ -40,7 +40,7 @@ module.exports =
 						pathObj = allPaths[path]
 						if path is '/'
 							path = ''
-							publicPath = "./public"
+							publicPath = './public'
 						else
 							path = path
 							publicPath = "./public/#{path}"
