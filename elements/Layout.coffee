@@ -1,8 +1,8 @@
-React = require('react')
-Nav = React.createFactory require('./Nav')
-Router = require('react-router')
+React = require 'react'
+Router = require 'react-router'
 RouteHandler = React.createFactory Router.RouteHandler
-Paths = require('./PathsMixin')
+ThemeBody = React.createFactory require '../theme/ThemeBody'
+Paths = require './PathsMixin'
 config = require '../config'
 
 { html, head, body, div, title, script, link, main, meta } = require 'react-coffee-elements'
@@ -19,8 +19,8 @@ module.exports = React.createClass
 			head {},
 				title "#{if pageTitle then pageTitle +  ' / ' else ''}#{config.siteName}"
 				meta
-					name:"viewport"
-					content:"width=device-width, initial-scale=1, maximum-scale=1, minimal-ui"
+					name:'viewport'
+					content:'width=device-width, initial-scale=1, maximum-scale=1, minimal-ui'
 				link
 					rel: 'alternate'
 					type: 'application/atom+xml'
@@ -31,10 +31,6 @@ module.exports = React.createClass
 						rel: 'stylesheet'
 						href: '/assets/main.css'
 			body {},
-				div { id: 'layout' },
-					Nav()
-					main { role: 'main' },
-						@props.children
-						RouteHandler()
+				ThemeBody {}, RouteHandler()
 				if process.env.NODE_ENV isnt 'production'
 					script src: '/main-bundle.js'

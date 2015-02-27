@@ -1,6 +1,6 @@
 React = require 'react'
 Moment = React.createFactory require './Moment'
-Paths = require './PathsMixin'
+Paths = require '../elements/PathsMixin'
 Router = require 'react-router'
 
 { div, span, header, h1 } = require 'react-coffee-elements'
