@@ -2,6 +2,7 @@ _ = require 'lodash'
 markdown = require 'commonmark'
 mdReader = new markdown.Parser()
 mdWriter = new markdown.HtmlRenderer()
+themeFunctions = require './theme/functions'
 
 module.exports =
 
@@ -17,7 +18,7 @@ module.exports =
 			# console.log name, file
 			fileName = name.slice 2 # Remove the "./"
 
-			url = _.kebabCase fileName.slice 11, fileName.length - 3 #Clean the filename to get the url
+			url = themeFunctions?.url?(file, fileName) or fileName.slice 0, fileName.length - 3 #Clean the filename to get the url
 			date = file.date or fileName.slice 0, 10 # Get the date from the file name if it's not in the frontmatter
 
 			content = mdWriter.render mdReader.parse file.__content
