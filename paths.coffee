@@ -20,7 +20,7 @@ module.exports =
 			_.map @draftReq().keys(), (name) =>
 				[
 					name
-					@draftReq() name
+					_. assign draft: true, @draftReq() name
 				]
 		else []
 

@@ -7,3 +7,8 @@
 .post-list__preview {
 	margin-bottom: $base-spacing-unit * 2;
 }
+.draft-text {
+	font-family: $small-font;
+	color: #c40000;
+	@include font-size($centi-size);
+}

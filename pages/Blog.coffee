@@ -6,7 +6,7 @@ Paths = require('../elements/PathsMixin')
 # md = require '../posts/2015-02-14-first_post.md'
 _ = require('lodash')
 
-{ div, li, p, ul, h1, h3 } = require 'react-coffee-elements'
+{ div, li, p, ul, h1, h3, span } = require 'react-coffee-elements'
 
 module.exports = React.createClass
 
@@ -27,6 +27,7 @@ module.exports = React.createClass
 							Link
 								to: '/blog/' + post.url
 							, post.title
+							if post.draft then span className: 'draft-text', ' Draft'
 						Moment
 							datetime: post.date
 						p {className: 'post-list__preview'},

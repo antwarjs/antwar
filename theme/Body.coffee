@@ -5,7 +5,7 @@ Nav = React.createFactory require './Nav'
 
 module.exports = React.createClass
 
-	displayName: 'ThemeBody'
+	displayName: 'Body'
 
 
 	render: ->

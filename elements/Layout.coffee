@@ -1,7 +1,7 @@
 React = require 'react'
 Router = require 'react-router'
 RouteHandler = React.createFactory Router.RouteHandler
-ThemeBody = React.createFactory require '../theme/ThemeBody'
+Body = React.createFactory require '../theme/Body'
 Paths = require './PathsMixin'
 config = require '../config'
 
@@ -31,6 +31,6 @@ module.exports = React.createClass
 						rel: 'stylesheet'
 						href: '/assets/main.css'
 			body {},
-				ThemeBody {}, RouteHandler()
+				Body {}, RouteHandler()
 				if process.env.NODE_ENV isnt 'production'
 					script src: '/main-bundle.js'

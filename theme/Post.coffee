@@ -15,6 +15,9 @@ module.exports = React.createClass
 		post = @getPost()
 		div {className: 'post', onTouchMove: @touchMove},
 			if post.headerImage? then div className: 'header-image', style: backgroundImage: "url(#{post.headerImage})"
-			h1 {className: 'post__heading'}, post.title
-			div className: 'post__content', dangerouslySetInnerHTML: __html: post.content
+			h1 {className: 'post__heading'},
+				post.title
+			div className: 'post__content',
+				if post.draft then span className: 'draft-text', ' Draft'
+				div dangerouslySetInnerHTML: __html: post.content
 			Moment className: 'post__moment', datetime: post.date

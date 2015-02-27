@@ -14,9 +14,9 @@ module.exports = React.createClass
 			h1 className: 'post__heading', 'Antwar'
 			div className: 'post__content',
 				h2 'What?'
-				p "Antwar is a static site engine. It's built with React and Webpack."
+				p "Antwar is a static site engine. It's built with React and Webpack. It's good for blogs and smaller sites."
 				h2 'Why?'
-				p "Antwar is extremely easy to theme and extend. It's fast and simple."
+				p "Antwar is easy to theme and extend. It's fast and simple. And it's nice to work with."
 				h2 'Antwar?'
 				p "The Swedish word for TV static is literally translated 'Ant war'. So there's that."
 

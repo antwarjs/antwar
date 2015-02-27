@@ -14,9 +14,15 @@ module.exports = React.createClass
 
 	render: ->
 		nav {className: 'nav'},
-			_.map @getAllPages(), (page) ->
 				Link
 					className: 'nav__link'
-					to: page.url
-					key: page.url
-				, page.title
+					to: '/'
+				, 'Home'
+				Link
+					className: 'nav__link'
+					to: 'blog'
+				, 'Blog'
+				Link
+					className: 'nav__link'
+					to: 'theming'
+				, 'Theming'
