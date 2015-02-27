@@ -10,25 +10,38 @@ module.exports =
 		_.assign {}, @allPages(), { posts: @allPosts() }
 
 	allPosts: ->
-		req = @postReq()
-		posts = {}
-		_.each req.keys(), (name) ->
+		returnObj = {}
+		posts = _.map @postReq().keys(), (name) =>
+			[
+				name
+				@postReq() name
+			]
+		drafts = if process.env.NODE_ENV isnt 'production'
+			_.map @draftReq().keys(), (name) =>
+				[
+					name
+					@draftReq() name
+				]
+		else []
+
+		# Build some nice objects from the files
+		_.each posts.concat(drafts), (fileArr) ->
 			# Name is on format ./YYYY-MM-DD-url_title.md
-			file = req name # Require the file
-			# console.log name, file
-			fileName = name.slice 2 # Remove the "./"
+			fileName = fileArr[0].slice 2 # Remove the "./"
+			file = fileArr[1]
+			# console.log file, fileName, returnObj
 
 			url = themeFunctions?.url?(file, fileName) or fileName.slice 0, fileName.length - 3 #Clean the filename to get the url
 			date = file.date or fileName.slice 0, 10 # Get the date from the file name if it's not in the frontmatter
 
 			content = mdWriter.render mdReader.parse file.__content
-
-			posts[url] = _.assign {}, file, {
+			returnObj[url] = _.assign {}, file, {
 				url
 				content
 				date
 			}
-		posts
+		# console.log returnObj
+		returnObj
 
 	allPages: ->
 		req = @pageReq()
@@ -62,6 +75,9 @@ module.exports =
 
 	postReq: ->
 		require.context './posts', false, /^\.\/.*\.md$/
+
+	draftReq: ->
+		require.context './drafts', false, /^\.\/.*\.md$/
 
 	parseContent: (content) ->
 		mdWriter.render mdReader.parse content
