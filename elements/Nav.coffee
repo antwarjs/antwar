@@ -18,4 +18,5 @@ module.exports = React.createClass
 				Link
 					className: 'nav__link'
 					to: page.url
+					key: page.url
 				, page.title

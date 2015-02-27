@@ -28,6 +28,7 @@ Routes =
 			path = if page.url is '/' then '/' else '/' + page.url  + '/?'
 			Route
 				path: path
+				key: page.url
 				name: page.url
 				handler: handler
 
