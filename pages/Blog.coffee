@@ -21,13 +21,13 @@ module.exports = React.createClass
 		div {className: 'grid'},
 			h1 'Blog posts'
 			ul { className: 'post-list'},
-				_.map @getAllPosts(), (post, key) =>
-					li key: key,
+				_.map _.sortBy(@getAllPosts(), 'date').reverse(), (post) =>
+					li key: post.url,
 						h3 {className: 'post-list__heading'},
 							Link
-								to: '/blog/' + key
+								to: '/blog/' + post.url
 							, post.title
 						Moment
 							datetime: post.date
 						p {className: 'post-list__preview'},
-							@getPreviewForPost key
+							@getPreviewForPost post.url

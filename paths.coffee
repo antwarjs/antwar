@@ -13,8 +13,8 @@ module.exports =
 		posts = {}
 		_.each req.keys(), (name) ->
 			# Name is on format ./YYYY-MM-DD-url_title.md
-
 			file = req name # Require the file
+			# console.log name, file
 			fileName = name.slice 2 # Remove the "./"
 
 			url = _.kebabCase fileName.slice 11, fileName.length - 3 #Clean the filename to get the url
@@ -27,7 +27,7 @@ module.exports =
 				content
 				date
 			}
-		_.sortBy( posts, 'date')
+		posts
 
 	allPages: ->
 		req = @pageReq()
