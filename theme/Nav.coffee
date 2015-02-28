@@ -24,5 +24,5 @@ module.exports = React.createClass
 				, 'Blog'
 				Link
 					className: 'nav__link'
-					to: 'theming'
-				, 'Theming'
+					to: 'docs'
+				, 'Docs'

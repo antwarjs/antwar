@@ -1,8 +1,6 @@
 paths = require('../paths')
 React = require('react')
-markdown = require 'commonmark'
-mdReader = new markdown.Parser()
-mdWriter = new markdown.HtmlRenderer()
+MdHelper = require './MdHelper'
 config = require '../config'
 
 PathsMixin =
@@ -35,14 +33,11 @@ PathsMixin =
 		postMeta = paths.allPosts()[post]
 		if postMeta.preview
 			return postMeta.preview
+
 		# else return the first part of markdown
-		md = postMeta.__content
-		parsed = getLiteral mdReader.parse md
+		parsed = MdHelper.getLiteral postMeta.__content
 		if parsed.length > 100 then parsed = parsed.substr(0,100) + '…'
 		parsed
 
 module.exports = PathsMixin
 
-getLiteral = (part) ->
-	return '' unless part._firstChild? or part._literal?
-	part._literal or getLiteral part._firstChild
