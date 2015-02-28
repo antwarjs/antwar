@@ -13,4 +13,7 @@ module.exports =
 		if _.isObject content then content = content.__content
 		mdWriter.render mdReader.parse content
 
-	getLiteral: (content) -> getLiteral content
+	getContentPreview: (content) ->
+		parsed = getLiteral mdReader.parse content
+		if parsed.length > 100 then parsed = parsed.substr(0,100) + '…'
+		parsed

@@ -14,6 +14,8 @@ module.exports =
 				name
 				@postReq() name
 			]
+
+		# Include drafts if we're not in prod
 		drafts = if process.env.NODE_ENV isnt 'production'
 			_.map @draftReq().keys(), (name) =>
 				[
@@ -24,24 +26,20 @@ module.exports =
 
 		# Build some nice objects from the files
 		_.each posts.concat(drafts), (fileArr) ->
+
 			# Name is on format ./YYYY-MM-DD-url_title.md
+			# TODO Configurable file name standard
+
 			fileName = fileArr[0].slice 2 # Remove the "./"
 			file = fileArr[1]
-			# console.log file, fileName, returnObj
 
-			url = themeFunctions?.url?(file, fileName) or fileName.slice 0, fileName.length - 3 #Clean the filename to get the url
-			date = file.date or fileName.slice 0, 10 # Get the date from the file name if it's not in the frontmatter
+			processedFile = processPost file, fileName
 
-			content = MdHelper.parse file.__content
-			returnObj[url] = _.assign {}, file, {
-				url
-				content
-				date
-			}
-		# console.log returnObj
+			returnObj[processedFile.url] = processedFile
 		returnObj
 
 	allPages: ->
+		# TODO allow hooks on page processing
 		req = @pageReq()
 		pages = {}
 		_.each req.keys(), (name) ->
@@ -80,3 +78,24 @@ module.exports =
 	parseContent: (content) ->
 		MdHelper.parse content
 
+processPost = (file, fileName) ->
+		# TODO Implement nicer hooks to configurable functions
+
+		#Clean the filename to get the url
+		url = themeFunctions?.url?(file, fileName) or fileName.slice 0, fileName.length - 3
+
+		# Get the date from the file name if it's not in the frontmatter
+		date = themeFunctions?.date?(file, fileName) or (file.date or fileName.slice 0, 10)
+
+		# Get the content
+		content = MdHelper.parse file.__content
+
+		# Generate the preview
+		preview = themeFunctions?.preview?(file, fileName) or (file.preview or MdHelper.getContentPreview file.__content)
+
+		_.assign {}, file, {
+			url
+			content
+			date
+			preview
+		}

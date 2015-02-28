@@ -31,4 +31,4 @@ module.exports = React.createClass
 						Moment
 							datetime: post.date
 						p {className: 'post-list__preview'},
-							@getPreviewForPost post.url
+							post.preview
