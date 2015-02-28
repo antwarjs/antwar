@@ -33,7 +33,10 @@ module.exports =
 				# Copy assets folder
 				ncp './assets', assets
 
+				# Copy css
 				fs.writeFileSync assets + '/main.css', fs.readFileSync 'build/main.css'
+
+				# Create pages
 				allPaths = paths()
 				for path of allPaths
 					if path isnt 'posts'
@@ -48,7 +51,15 @@ module.exports =
 						renderedPage = page "/#{path}", null
 						fs.writeFileSync "#{publicPath}/index.html", renderedPage
 
+
+				# Create the blog folder
 				mkdirp.sync 'public/blog'
+
+				# Create the blog index page
+				renderedPage = page "/blog", null
+				fs.writeFileSync "./public/blog/index.html", renderedPage
+
+				# Create the blog posts
 				posts = allPaths.posts
 				for post of posts
 					item = posts[post]

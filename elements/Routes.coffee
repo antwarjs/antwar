@@ -6,6 +6,7 @@ DefaultRoute = React.createFactory Router.DefaultRoute
 RouteHandler = React.createFactory Router.RouteHandler
 Layout = require './Layout'
 Post = require '../theme/Post'
+Blog = require '../theme/Blog'
 DevIndex = require './DevIndex'
 _ = require 'lodash'
 paths = require '../paths'
@@ -19,6 +20,10 @@ Routes =
 		Route
 			name: '/antwar_devindex'
 			handler: DevIndex
+		Route
+			name: 'blog'
+			path: '/blog/?'
+			handler: Blog
 		Route
 			name: 'post'
 			path: '/blog/:post'

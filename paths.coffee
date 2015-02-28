@@ -4,9 +4,6 @@ themeFunctions = require './theme/functions'
 
 module.exports =
 
-	allPaths: ->
-		_.assign {}, @allPages(), { posts: @allPosts() }
-
 	allPosts: ->
 		returnObj = {}
 		posts = _.map @postReq().keys(), (name) =>
