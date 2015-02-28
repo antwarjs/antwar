@@ -22,10 +22,10 @@ $base-spacing-unit:						$base-line-height!default;
 $half-spacing-unit:						$base-spacing-unit / 2!default;
 $line-height-ratio:						$base-line-height / $base-font-size;
 
-$scale-base: $base-font-size;
+$scale-base: 12px;
 $scale-ratio: 1.618034;  // 1.618 is golden
 $scale-ratio: 1.2;  // 1.2 is minor third
-$scale-ratio: 1.125;  // 1.125 is major second
+// $scale-ratio: 1.125;  // 1.125 is major second
 
 $h1-size:											scale(5, $scale-ratio, $scale-base)!default; // .alpha
 $h2-size:											scale(4, $scale-ratio, $scale-base)!default; // .beta
