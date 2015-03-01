@@ -6,8 +6,7 @@
     "develop": "node devServer",
     "serve": "node build && node publicServer"
   },
-  "dependencies": {},
-  "devDependencies": {
+  "dependencies": {
     "autoprefixer-loader": "^1.0.0",
     "coffee-loader": "^0.7.2",
     "coffee-script": "*",
@@ -43,6 +42,7 @@
     "webpack-dev-server": "^1.6.3",
     "yaml-frontmatter-loader": "0.0.1"
   },
+  "devDependencies": {},
   "main": "./index.js",
   "repository": {
     "type": "git",
