@@ -4,6 +4,7 @@ webpack = require 'webpack'
 WebpackDevServer = require 'webpack-dev-server'
 webpackConfig = require './webpack.config'
 http = require 'http'
+path = require 'path'
 
 servers = []
 
@@ -26,7 +27,7 @@ DevServer = (port, appPath) ->
 		main: [
 			'webpack-dev-server/client?http://localhost:8000'
 			'webpack/hot/dev-server'
-			'./dev/entry.coffee'
+			path.join __dirname, './dev/entry.coffee'
 		]
 
 	devConfigParams.plugins = [
@@ -39,7 +40,7 @@ DevServer = (port, appPath) ->
 	devConfig = webpackConfig devConfigParams
 
 	server = new WebpackDevServer webpack(devConfig),
-		contentBase: 'build'
+		contentBase: './build'
 		hot: true
 		stats:
 			hash: false

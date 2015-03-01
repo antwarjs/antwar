@@ -89,15 +89,16 @@ dev =
 build =
 	name: 'server'
 	target: 'node'
+	context: path.join __dirname, './'
 	entry:
 		bundlePage: './dev/page.coffee'
 		bundleStaticRss: './dev/staticRss.coffee'
 		bundleStaticPage: './dev/staticPage.coffee'
 		paths: './dev/exportPaths.coffee'
 	output:
-		path: __dirname + '/build'
+		path: path.join process.cwd(), './.antwar/build'
 		filename: '[name].js'
-		publicPath: '/build/'
+		publicPath: path.join process.cwd(), './.antwar/build'
 		libraryTarget: 'commonjs2'
 	plugins: [ new ExtractTextPlugin('main.css', allChunks: true) ]
 	resolve: common.resolve

@@ -4,6 +4,7 @@ mkdirp = require 'mkdirp'
 ncp = require 'ncp'
 webpack = require 'webpack'
 config = require('./webpack.coffee').build
+pathModule = require 'path'
 
 module.exports =
 
@@ -13,9 +14,9 @@ module.exports =
 			if err
 				console.log err
 			else
-				page = require './build/bundleStaticPage.js'
-				fs.writeFileSync './build/index.html', page '/antwar_devindex', null
-				ncp './assets', './build/assets'
+				page = require pathModule.join process.cwd(), './.antwar/build/bundleStaticPage.js'
+				fs.writeFileSync pathModule.join(process.cwd(), './.antwar/build/index.html'), page '/antwar_devindex', null
+				ncp './assets', pathModule.join process.cwd(), './.antwar/build/assets'
 
 
 	build: ->
@@ -24,17 +25,17 @@ module.exports =
 			if err
 				console.log err
 			else
-				assets = 'public/assets'
-				page = require './build/bundleStaticPage.js'
-				paths = require './build/paths.js'
-				rss = require './build/bundleStaticRss.js'
+				assets = pathModule.join process.cwd(), './public/assets'
+				page = require pathModule.join process.cwd(), './.antwar/build/bundleStaticPage.js'
+				paths = require pathModule.join process.cwd(), './.antwar/build/paths.js'
+				rss = require pathModule.join process.cwd(), './.antwar/build/bundleStaticRss.js'
 				mkdirp.sync assets
 
 				# Copy assets folder
-				ncp './assets', assets
+				ncp pathModule.join(process.cwd(), './assets'), assets
 
 				# Copy css
-				fs.writeFileSync assets + '/main.css', fs.readFileSync 'build/main.css'
+				fs.writeFileSync assets + '/main.css', fs.readFileSync './.antwar/build/main.css'
 
 				# Create pages
 				allPaths = paths()
@@ -43,26 +44,26 @@ module.exports =
 						pathObj = allPaths[path]
 						if path is '/'
 							path = ''
-							publicPath = './public'
+							publicPath = pathModule.join process.cwd(), './public'
 						else
 							path = path
-							publicPath = "./public/#{path}"
+							publicPath = pathModule.join process.cwd(), "./public/#{path}"
 							mkdirp.sync publicPath
 						renderedPage = page "/#{path}", null
 						fs.writeFileSync "#{publicPath}/index.html", renderedPage
 
 
 				# Create the blog folder
-				mkdirp.sync 'public/blog'
+				mkdirp.sync pathModule.join process.cwd(), './public/blog'
 
 				# Create the blog index page
 				renderedPage = page "/blog", null
-				fs.writeFileSync "./public/blog/index.html", renderedPage
+				fs.writeFileSync pathModule.join(process.cwd(), "./public/blog/index.html"), renderedPage
 
 				# Create the blog posts
 				posts = allPaths.posts
 				for post of posts
 					item = posts[post]
-					fs.writeFileSync 'public/blog/' + post + '.html', page '/blog/' + post
-				fs.writeFileSync 'public/atom.xml', rss(page)
+					fs.writeFileSync pathModule.join(process.cwd(), './public/blog/' + post + '.html'), page '/blog/' + post
+				fs.writeFileSync pathModule.join(process.cwd(), './public/atom.xml'), rss(page)
 
