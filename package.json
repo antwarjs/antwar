@@ -41,7 +41,7 @@
     "url-loader": "^0.5.5",
     "webpack": "^1.4.0",
     "webpack-dev-server": "^1.6.3",
-    "yaml-front-matter": "^3.2.3"
+    "yaml-frontmatter-loader": "0.0.1"
   },
   "main": "./index.js",
   "repository": {

@@ -81,7 +81,7 @@ dev =
 			loader: 'react-hot!coffee-loader'
 		,
 			test: /\.md$/
-			loader: 'json!../yaml-front-matter-loader'
+			loader: 'json!yaml-frontmatter-loader'
 	]
 	resolve: common.resolve
 	jshint: common.jshint
@@ -115,7 +115,7 @@ build =
 			loader: 'raw'
 		,
 			test: /\.md$/
-			loader: 'json!../yaml-front-matter-loader'
+			loader: 'json!yaml-frontmatter-loader'
 	]
 	jshint: common.jshint
 module.exports = {
