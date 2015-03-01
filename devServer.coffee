@@ -7,10 +7,10 @@ http = require 'http'
 path = require 'path'
 
 servers = []
-
-expandPath = (app, appPath) ->
-	app.use express.static  __dirname + '/' + appPath
-	app.set 'views', __dirname + '/' + appPath
+appPath = path.join process.cwd(), './.antwar/build'
+expandPath = (app) ->
+	app.use express.static  appPath
+	app.set 'views', appPath
 	app.engine 'html', require('ejs').renderFile
 	app.get '*', (req, res, next) ->
 		url = req.url
@@ -21,7 +21,7 @@ expandPath = (app, appPath) ->
 		else
 			res.render('index.html')
 
-DevServer = (port, appPath) ->
+DevServer = (port) ->
 	devConfigParams = {}
 	devConfigParams.entry =
 		main: [
@@ -40,8 +40,9 @@ DevServer = (port, appPath) ->
 	devConfig = webpackConfig devConfigParams
 
 	server = new WebpackDevServer webpack(devConfig),
-		contentBase: './build'
+		contentBase: path.join process.cwd(), './.antwar/build'
 		hot: true
+		historyApiFallback: true
 		stats:
 			hash: false
 			version: false
@@ -49,7 +50,7 @@ DevServer = (port, appPath) ->
 			cached: false
 			colors: true
 
-	expandPath server.app, appPath
+	expandPath server.app
 
 	server.listen port, (err, result) ->
 		if err
@@ -60,6 +61,6 @@ DevServer = (port, appPath) ->
 	server
 
 # dev server
-exports.dev = (appPath) ->
+exports.dev = ->
 	portfinder.getPort (err, port) ->
 		servers.push DevServer(port, appPath)

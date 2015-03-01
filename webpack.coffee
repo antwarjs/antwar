@@ -16,6 +16,7 @@ common =
 		]
 		modulesDirectories: [
 			'node_modules'
+			path.join __dirname, 'node_modules'
 			'scripts'
 			'web_modules'
 		]
@@ -38,11 +39,13 @@ dev =
 	cache: true
 	node: __filename: true
 	output:
-		path: path.join(__dirname, 'build/')
-		publicPath: '/'
+		path: path.join process.cwd(), './.antwar/build'
+		publicPath: path.join process.cwd(), './.antwar/build'
 		filename: '[name]-bundle.js'
 		chunkFilename: '[chunkhash].js'
 	plugins: []
+	resolveLoader:
+		root: path.join __dirname, 'node_modules'
 	module: loaders: [
 			test: /\.woff$/
 			loader: 'url-loader?prefix=font/&limit=5000&mimetype=application/font-woff'
