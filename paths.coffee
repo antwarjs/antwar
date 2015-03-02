@@ -64,13 +64,13 @@ module.exports =
 		@allPages()[path]
 
 	pageReq: ->
-		require.context './pages', false
+		require.context 'pages', false
 
 	postReq: ->
-		require.context './posts', false, /^\.\/.*\.md$/
+		require.context 'posts', false, /^\.\/.*\.md$/
 
 	draftReq: ->
-		require.context './drafts', false, /^\.\/.*\.md$/
+		require.context 'drafts', false, /^\.\/.*\.md$/
 
 	parseContent: (content) ->
 		MdHelper.parse content

@@ -29,7 +29,7 @@ Routes =
 			path: '/blog/:post'
 			handler: Post
 		_.map paths.allPages(), (page, key) ->
-			handler = require '../pages/' + page.fileName
+			handler = require 'pages/' + page.fileName
 			path = if page.url is '/' then '/' else '/' + page.url  + '/?'
 			Route
 				path: path

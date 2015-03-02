@@ -5,7 +5,11 @@ ExtractTextPlugin = require 'extract-text-webpack-plugin'
 common =
 
 	resolve:
-		alias: 'underscore': 'lodash'
+		alias:
+			'underscore': 'lodash'
+			'pages': path.join process.cwd(), 'pages'
+			'posts': path.join process.cwd(), 'posts'
+			'drafts': path.join process.cwd(), 'drafts'
 		extensions: [
 			''
 			'.webpack.js'
