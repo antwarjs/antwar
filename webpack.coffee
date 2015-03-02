@@ -73,8 +73,8 @@ exports.dev = (config) ->
 				test: /\.svg$/
 				loader: 'raw-loader'
 			,
-				test: /\.jsx$/
-				loader: 'jsx'
+				test: /\.jsx?$/
+				loader: 'jsx-loader?harmony'
 			,
 				test: /\.css$/
 				loaders: [
@@ -123,8 +123,8 @@ exports.build = (config) ->
 				test: /\.scss$/
 				loader: ExtractTextPlugin.extract('style-loader', 'css-loader!autoprefixer-loader?{browsers:["last 2 version", "ie 10", "Android 4"]}!sass-loader')
 			,
-				test: /\.jsx$/
-				loader: 'jsx'
+				test: /\.jsx?$/
+				loader: 'jsx-loader?harmony'
 			,
 				test: /\.coffee$/
 				loader: 'coffee-loader'
