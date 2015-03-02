@@ -1,6 +1,6 @@
 _ = require 'lodash'
 MdHelper = require './elements/MdHelper'
-themeFunctions = require './theme/functions'
+themeFunctions = require 'theme/functions'
 
 module.exports =
 
