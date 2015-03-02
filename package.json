@@ -3,8 +3,7 @@
   "version": "0.0.5",
   "scripts": {
     "build": "node build",
-    "develop": "node devServer",
-    "serve": "node build && node publicServer"
+    "develop": "node devServer"
   },
   "dependencies": {
     "autoprefixer-loader": "^1.0.0",
