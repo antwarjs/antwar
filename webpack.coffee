@@ -10,6 +10,7 @@ getCommon = (config) ->
 				'pages': path.join process.cwd(), 'pages'
 				'posts': path.join process.cwd(), 'posts'
 				'drafts': path.join process.cwd(), 'drafts'
+				'elements': path.join __dirname, 'elements'
 				'theme': config.theme # XXX: not sure if this is the right way to inject theme
 				# hitting Cannot find module "./Nav" with this
 			extensions: [
