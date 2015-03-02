@@ -22,7 +22,3 @@ module.exports = React.createClass
 					className: 'nav__link'
 					to: 'blog'
 				, 'Blog'
-				Link
-					className: 'nav__link'
-					to: 'docs'
-				, 'Docs'

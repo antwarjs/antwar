@@ -3,14 +3,14 @@ React = require 'react/addons'
 mkdirp = require 'mkdirp'
 ncp = require 'ncp'
 webpack = require 'webpack'
-config = require('./webpack.coffee').build
+webpackConfig = require('./webpack.coffee').build
 pathModule = require 'path'
 
 module.exports =
 
-	buildDevIndex: ->
+	buildDevIndex: (config) ->
 		process.env.NODE_ENV = 'dev'
-		webpack config, (err, stats) ->
+		webpack webpackConfig, (err, stats) ->
 			if err
 				console.log err
 			else
@@ -19,9 +19,9 @@ module.exports =
 				ncp './assets', pathModule.join process.cwd(), './.antwar/build/assets'
 
 
-	build: ->
+	build: (config) ->
 		process.env.NODE_ENV = 'production'
-		webpack config, (err, stats) ->
+		webpack webpackConfig, (err, stats) ->
 			if err
 				console.log err
 			else

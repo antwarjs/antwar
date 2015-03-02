@@ -1,20 +1,23 @@
+'use strict';
 require('coffee-script/register');
-devServer = require('./devServer.coffee');
-publicServer = require('./publicServer.js');
-build = require('./build.coffee');
+
+var devServer = require('./devServer.coffee');
+var publicServer = require('./publicServer.js');
+var build = require('./build.coffee');
 
 
-exports.develop = function() {
+exports.develop = function(config) {
 	console.log('Starting dev server…');
-	build.buildDevIndex();
+	build.buildDevIndex(config);
 	devServer.dev('build');
-}
-exports.build = function() {
-	console.log('Building site…');
-	build.build();
-}
-exports.serve = function() {
-	build.build();
-	publicServer.run();
-}
+};
 
+exports.build = function(config) {
+	console.log('Building site…');
+	build.build(config);
+};
+
+exports.serve = function(config) {
+	build.build(config);
+	publicServer.run();
+};
