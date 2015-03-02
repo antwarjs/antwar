@@ -21,7 +21,7 @@ expandPath = (app) ->
 		else
 			res.render('index.html')
 
-DevServer = (port) ->
+DevServer = (port, config) ->
 	devConfigParams = {}
 	devConfigParams.entry =
 		main: [
@@ -37,7 +37,7 @@ DevServer = (port) ->
 	devConfigParams.devtool = "eval"
 	devConfigParams.debug = true
 
-	devConfig = webpackConfig devConfigParams
+	devConfig = webpackConfig devConfigParams config
 
 	server = new WebpackDevServer webpack(devConfig),
 		contentBase: path.join process.cwd(), './.antwar/build'
@@ -61,6 +61,6 @@ DevServer = (port) ->
 	server
 
 # dev server
-exports.dev = ->
+exports.dev = (config) ->
 	portfinder.getPort (err, port) ->
-		servers.push DevServer(port, appPath)
+		servers.push DevServer(port, config)

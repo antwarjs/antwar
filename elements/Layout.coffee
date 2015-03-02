@@ -1,7 +1,7 @@
 React = require 'react'
 Router = require 'react-router'
 RouteHandler = React.createFactory Router.RouteHandler
-Body = React.createFactory require '../theme/Body'
+Body = React.createFactory require 'theme/Body'
 Paths = require './PathsMixin'
 config = require '../config'
 

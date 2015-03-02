@@ -10,7 +10,7 @@ module.exports =
 
 	buildDevIndex: (config) ->
 		process.env.NODE_ENV = 'dev'
-		webpack webpackConfig, (err, stats) ->
+		webpack webpackConfig(config), (err, stats) ->
 			if err
 				console.log err
 			else
@@ -21,7 +21,7 @@ module.exports =
 
 	build: (config) ->
 		process.env.NODE_ENV = 'production'
-		webpack webpackConfig, (err, stats) ->
+		webpack webpackConfig(config), (err, stats) ->
 			if err
 				console.log err
 			else

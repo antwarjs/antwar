@@ -1,6 +1,6 @@
 React = require 'react'
 Router = require 'react-router'
-css = require '../theme/scss/main.scss'
+css = require 'theme/scss/main.scss'
 Routes = require '../elements/Routes.coffee'
 
 module.exports = (url) ->
