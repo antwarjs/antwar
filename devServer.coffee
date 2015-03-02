@@ -37,7 +37,7 @@ DevServer = (port, config) ->
 	devConfigParams.devtool = "eval"
 	devConfigParams.debug = true
 
-	devConfig = webpackConfig devConfigParams config
+	devConfig = webpackConfig devConfigParams, config
 
 	server = new WebpackDevServer webpack(devConfig),
 		contentBase: path.join process.cwd(), './.antwar/build'
