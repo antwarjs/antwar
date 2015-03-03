@@ -4,7 +4,7 @@ React = require 'react'
 
 module.exports = React.createClass
 
-	displayName: 'DevIndex'
+  displayName: 'DevIndex'
 
-	render: ->
-		div 'devIndex'
+  render: ->
+    div 'devIndex'

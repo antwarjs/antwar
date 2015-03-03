@@ -16,29 +16,29 @@ _ = require 'lodash'
 paths = require '../paths'
 
 Routes =
-	Route
-		name: 'home'
-		title: 'Home'
-		handler: Layout
-	,
-		Route
-			name: '/antwar_devindex'
-			handler: DevIndex
-		Route
-			name: 'blog'
-			path: '/blog/?'
-			handler: Blog
-		Route
-			name: 'post'
-			path: '/blog/:post'
-			handler: Post
-		_.map paths.allPages(), (page, key) ->
-			handler = require 'pages/' + page.fileName
-			path = if page.url is '/' then '/' else '/' + page.url  + '/?'
-			Route
-				path: path
-				key: page.url
-				name: page.url
-				handler: handler
+  Route
+    name: 'home'
+    title: 'Home'
+    handler: Layout
+  ,
+    Route
+      name: '/antwar_devindex'
+      handler: DevIndex
+    Route
+      name: 'blog'
+      path: '/blog/?'
+      handler: Blog
+    Route
+      name: 'post'
+      path: '/blog/:post'
+      handler: Post
+    _.map paths.allPages(), (page, key) ->
+      handler = require 'pages/' + page.fileName
+      path = if page.url is '/' then '/' else '/' + page.url  + '/?'
+      Route
+        path: path
+        key: page.url
+        name: page.url
+        handler: handler
 
 module.exports = Routes
