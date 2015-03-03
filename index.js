@@ -2,7 +2,7 @@
 require('coffee-script/register');
 
 var devServer = require('./devServer.coffee');
-var build = require('./build.coffee');
+var build = require('./build');
 
 
 exports.develop = function(config) {
