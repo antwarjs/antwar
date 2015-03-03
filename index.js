@@ -6,10 +6,10 @@ var build = require('./build');
 
 
 exports.develop = function(config) {
-	build.buildDevIndex(config);
-	devServer.dev('build');
+  build.buildDevIndex(config);
+  devServer.dev('build');
 };
 
 exports.build = function(config) {
-	build.build(config);
+  build.build(config);
 };
