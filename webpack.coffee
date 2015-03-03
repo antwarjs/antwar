@@ -3,6 +3,9 @@ ReactHotLoaderMatches = /View.coffee|Pages\//
 ExtractTextPlugin = require 'extract-text-webpack-plugin'
 
 getCommon = (config) ->
+  if !config.theme
+    return console.error('missing theme!')
+
   return {
     resolve:
       root: path.join(__dirname, 'node_modules')
