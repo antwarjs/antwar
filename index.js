@@ -7,7 +7,7 @@ var build = require('./build');
 
 exports.develop = function(config) {
   build.buildDevIndex(config);
-  devServer.dev('build');
+  devServer.dev(config);
 };
 
 exports.build = function(config) {
