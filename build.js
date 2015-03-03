@@ -49,10 +49,13 @@ exports.build = function(config) {
 
     ncp(_path.join(cwd, './assets'), assets);
 
+    // TODO: write CSS if it exists
+    /*
     fs.writeFileSync(
       _path.join(assets, '/main.css'),
       fs.readFileSync('./.antwar/build/main.css')
     );
+    */
 
     var allPaths = paths();
     writePages(cwd, renderPage, allPaths);
