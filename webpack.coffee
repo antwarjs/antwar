@@ -57,8 +57,6 @@ exports.dev = (config) ->
       filename: '[name]-bundle.js'
       chunkFilename: '[chunkhash].js'
     plugins: []
-    resolveLoader:
-      root: path.join __dirname, 'node_modules'
     module: loaders: [
         test: /\.woff$/
         loader: 'url-loader?prefix=font/&limit=5000&mimetype=application/font-woff'
