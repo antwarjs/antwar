@@ -17,11 +17,11 @@ exports.buildDevIndex = function(config) {
     }
 
     var cwd = process.cwd();
-    var page = require(_path.join(cwd, './.antwar/build/bundleStaticPage.js'));
+    var renderPage = require(_path.join(cwd, './.antwar/build/bundleStaticPage.js'));
 
     fs.writeFileSync(
       _path.join(cwd, './.antwar/build/index.html'),
-      page('./antwar_devindex', null)
+      renderPage('./antwar_devindex', null)
     );
 
     ncp('./assets', _path.join(cwd, './.antwar/build/assets'));
