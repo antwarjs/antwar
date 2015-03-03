@@ -5,13 +5,14 @@ ExtractTextPlugin = require 'extract-text-webpack-plugin'
 getCommon = (config) ->
   return {
     resolve:
+      root: path.join(__dirname, 'node_modules')
       alias:
         'underscore': 'lodash'
         'pages': path.join process.cwd(), 'pages'
         'posts': path.join process.cwd(), 'posts'
         'drafts': path.join process.cwd(), 'drafts'
         'elements': path.join __dirname, 'elements'
-        'theme': config.theme
+        'theme': config.theme,
       extensions: [
         ''
         '.webpack.js'
@@ -21,11 +22,8 @@ getCommon = (config) ->
         '.json'
       ]
       modulesDirectories: [
-        'node_modules'
-        path.join __dirname, 'node_modules'
         path.join process.cwd(), 'node_modules'
-        'scripts'
-        'web_modules'
+        'node_modules'
       ]
     jshint:
       bitwise: false
