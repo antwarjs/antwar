@@ -4,9 +4,13 @@ Route = React.createFactory Router.Route
 NotFoundRoute = React.createFactory Router.NotFoundRoute
 DefaultRoute = React.createFactory Router.DefaultRoute
 RouteHandler = React.createFactory Router.RouteHandler
-Layout = require './Layout'
+
+Body = React.createFactory(require 'theme/Body')
 Post = require 'theme/Post'
 Blog = require 'theme/Blog'
+
+Layout = require('./Layout')(Body)
+
 DevIndex = require './DevIndex'
 _ = require 'lodash'
 paths = require '../paths'
