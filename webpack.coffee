@@ -25,6 +25,11 @@ getCommon = (config) ->
         path.join process.cwd(), 'node_modules'
         'node_modules'
       ]
+    resolveLoader:
+      modulesDirectories: [
+        path.join(__dirname, 'node_modules')
+        'node_modules'
+      ]
     jshint:
       bitwise: false
       boss: true
@@ -95,6 +100,7 @@ exports.dev = (config) ->
         loader: 'json!yaml-frontmatter-loader'
     ]
     resolve: common.resolve
+    resolveLoader: common.resolveLoader
     jshint: common.jshint
   }
 
@@ -117,6 +123,7 @@ exports.build = (config) ->
       libraryTarget: 'commonjs2'
     plugins: [ new ExtractTextPlugin('main.css', allChunks: true) ]
     resolve: common.resolve
+    resolveLoader: common.resolveLoader
     module: loaders: [
         test: /\.scss$/
         loader: ExtractTextPlugin.extract('style-loader', 'css-loader!autoprefixer-loader?{browsers:["last 2 version", "ie 10", "Android 4"]}!sass-loader')
