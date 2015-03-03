@@ -102,8 +102,12 @@ function writeIndex(root, renderPage) {
 
 function writePosts(root, renderPage, allPaths) {
   Object.keys(allPaths.posts).forEach(function(post) {
+    var p = _path.join(root, 'public', 'blog', post);
+
+    mkdirp.sync(p);
+
     fs.writeFileSync(
-      _path.join(root, './public/blog/' + post + '.html'),
+      _path.join(p, 'index.html'),
       renderPage('/blog/' + post)
     );
   });
