@@ -58,6 +58,7 @@ exports.build = function(config) {
     */
 
     var allPaths = paths();
+
     writePages(cwd, renderPage, allPaths);
     writeIndex(cwd, renderPage);
     writePosts(cwd, renderPage, allPaths);
@@ -79,14 +80,14 @@ function writePages(root, renderPage, allPaths) {
         publicPath = _path.join(root, './public');
       }
       else {
-        publicPath = _path.join(root, './public/#' + path);
+        publicPath = _path.join(root, './public/' + path);
 
         mkdirp.sync(publicPath);
       }
 
       fs.writeFileSync(
         _path.join(publicPath, 'index.html'),
-        renderPage('/#' + path, null)
+        renderPage('/' + path, null)
       );
     }
   });
@@ -103,7 +104,7 @@ function writePosts(root, renderPage, allPaths) {
   Object.keys(allPaths.posts).forEach(function(post) {
     fs.writeFileSync(
       _path.join(root, './public/blog/' + post + '.html'),
-      renderPage('/blog' + post)
+      renderPage('/blog/' + post)
     );
   });
 }
