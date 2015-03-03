@@ -21,9 +21,7 @@ exports.buildDevIndex = function(config) {
 
     fs.writeFileSync(
       _path.join(cwd, './.antwar/build/index.html'),
-      page,
-      '/antwar_devindex',
-      null
+      page('./antwar_devindex', null)
     );
 
     ncp('./assets', _path.join(cwd, './.antwar/build/assets'));
