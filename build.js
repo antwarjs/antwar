@@ -44,15 +44,15 @@ exports.build = function(config) {
     var renderPage = require(_path.join(cwd, './.antwar/build/bundleStaticPage.js'));
     var paths = require(_path.join(cwd, './.antwar/build/paths.js'));
 
+    mkdirp.sync(_path.join(cwd, './public/blog'));
     mkdirp.sync(assets);
+
     ncp(_path.join(cwd, './assets'), assets);
 
     fs.writeFileSync(
       _path.join(assets, '/main.css'),
       fs.readFileSync('./.antwar/build/main.css')
     );
-
-    mkdirp.sync(_path.join(cwd, './public/blog'));
 
     var allPaths = paths();
     writePages(cwd, renderPage, allPaths);
