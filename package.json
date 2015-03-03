@@ -1,10 +1,7 @@
 {
   "name": "antwar",
   "version": "0.0.6",
-  "scripts": {
-    "build": "node build",
-    "develop": "node devServer"
-  },
+  "scripts": {},
   "dependencies": {
     "autoprefixer-loader": "^1.2.0",
     "coffee-loader": "^0.7.2",
