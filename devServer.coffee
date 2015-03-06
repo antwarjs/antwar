@@ -26,7 +26,7 @@ DevServer = (port, config) ->
 	devConfigParams.entry =
 		main: [
 			'webpack-dev-server/client?http://localhost:8000'
-			'webpack/hot/dev-server'
+			'webpack/hot/only-dev-server'
 			path.join __dirname, './dev/entry.coffee'
 		]
 
@@ -34,7 +34,7 @@ DevServer = (port, config) ->
 		new webpack.HotModuleReplacementPlugin()
 	]
 
-	devConfigParams.devtool = "eval"
+	devConfigParams.devtool = 'eval'
 	devConfigParams.debug = true
 
 	devConfig = webpackConfig devConfigParams, config

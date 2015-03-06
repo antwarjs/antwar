@@ -55,8 +55,8 @@ exports.dev = (config) ->
     cache: true
     node: __filename: true
     output:
-      path: path.join process.cwd(), './.antwar/build'
-      publicPath: path.join process.cwd(), './.antwar/build'
+      path: path.join process.cwd(), './.antwar/build/'
+      publicPath: ''
       filename: '[name]-bundle.js'
       chunkFilename: '[chunkhash].js'
     plugins: []
