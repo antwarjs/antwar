@@ -3,7 +3,7 @@ ReactHotLoaderMatches = /View.coffee|Pages\//
 ExtractTextPlugin = require 'extract-text-webpack-plugin'
 
 getCommon = (config) ->
-  if !config.theme
+  if !config.theme.name
     return console.error('missing theme!')
 
   return {
@@ -14,8 +14,10 @@ getCommon = (config) ->
         'pages': path.join process.cwd(), 'pages'
         'posts': path.join process.cwd(), 'posts'
         'drafts': path.join process.cwd(), 'drafts'
-        'elements': path.join __dirname, 'elements'
-        'theme': config.theme,
+        'config': path.join process.cwd(), 'antwar.config.js'
+        'elements': path.join __dirname, 'elements' # Should be removed in favour of antwar-core
+        'antwar-core': path.join __dirname, 'elements'
+        'theme': config.theme.name,
       extensions: [
         ''
         '.webpack.js'
@@ -56,7 +58,7 @@ exports.dev = (config) ->
     node: __filename: true
     output:
       path: path.join process.cwd(), './.antwar/build/'
-      publicPath: ''
+      publicPath: '/'
       filename: '[name]-bundle.js'
       chunkFilename: '[chunkhash].js'
     plugins: []
