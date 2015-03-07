@@ -31,6 +31,12 @@ exports.buildDevIndex = function(config) {
 exports.build = function(config) {
   process.env.NODE_ENV = 'production';
 
+  var output = config.output;
+
+  if(!output) {
+    return console.error('missing output directory');
+  }
+
   webpack(webpackConfig(config), function(err) {
     if(err) {
       return console.error(err);
@@ -38,11 +44,11 @@ exports.build = function(config) {
 
     var cwd = process.cwd();
 
-    var assets = _path.join(cwd, './public/assets');
+    var assets = _path.join(cwd, output, 'assets');
     var renderPage = require(_path.join(cwd, './.antwar/build/bundleStaticPage.js'));
     var paths = require(_path.join(cwd, './.antwar/build/paths.js'));
 
-    mkdirp.sync(_path.join(cwd, './public/blog'));
+    mkdirp.sync(_path.join(cwd, output, 'blog'));
     mkdirp.sync(assets);
 
     ncp(_path.join(cwd, './assets'), assets);
@@ -57,56 +63,62 @@ exports.build = function(config) {
 
     var allPaths = paths();
 
-    writePages(cwd, renderPage, allPaths);
-    writeIndex(cwd, renderPage);
-    writePosts(cwd, renderPage, allPaths);
+    var params = {
+      renderPage: renderPage,
+      allPaths: allPaths,
+      output: _path.join(cwd, output),
+    };
+    writePages(params);
+    writeIndex(params);
+    writePosts(params);
 
     // TODO: this should be pushed to a plugin
     //var rss = require(_path.join(cwd, './.antwar/build/bundleStaticRss.js'));
-    //fs.writeFileSync(_path.join(process.cwd(), './public/atom.xml'), rss(renderPage));
+    //fs.writeFileSync(_path.join(process.cwd(), output, 'atom.xml'), rss(renderPage));
   });
 };
 
-function writePages(root, renderPage, allPaths) {
-  Object.keys(allPaths).forEach(function(path) {
+function writePages(o) {
+  Object.keys(o.allPaths).forEach(function(path) {
     if(path !== 'posts') {
-      var publicPath;
+      var publicPath = o.output;
 
       if(path === '/') {
         path = '';
-
-        publicPath = _path.join(root, './public');
       }
       else {
-        publicPath = _path.join(root, './public/' + path);
+        publicPath = _path.join(o.output, path);
 
         mkdirp.sync(publicPath);
       }
 
       fs.writeFileSync(
         _path.join(publicPath, 'index.html'),
-        renderPage('/' + path, null)
+
+        o.renderPage('/' + path, null)
       );
     }
   });
 }
 
-function writeIndex(root, renderPage) {
+function writeIndex(o) {
   fs.writeFileSync(
-    _path.join(root, './public/blog/index.html'),
-    renderPage('/blog', null)
+    _path.join(o.output,  'blog', 'index.html'),
+
+    o.renderPage('/blog', null)
   );
 }
 
-function writePosts(root, renderPage, allPaths) {
-  Object.keys(allPaths.posts).forEach(function(post) {
-    var p = _path.join(root, 'public', 'blog', post);
+function writePosts(o) {
+  Object.keys(o.allPaths.posts).forEach(function(post) {
+    var p = _path.join(o.output, 'blog', post);
 
     mkdirp.sync(p);
 
     fs.writeFileSync(
       _path.join(p, 'index.html'),
-      renderPage('/blog/' + post)
+
+      o.renderPage('/blog/' + post)
     );
   });
 }
