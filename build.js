@@ -6,7 +6,7 @@ var Promise = require('es6-promise').Promise;
 var mkdirp = require('mkdirp');
 var ncp = require('ncp');
 var webpack = require('webpack');
-var webpackConfig = require('./webpack.coffee').build;
+var webpackConfig = require('./config/webpack.coffee').build;
 
 
 exports.buildDevIndex = function(config) {
