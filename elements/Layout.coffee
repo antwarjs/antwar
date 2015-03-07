@@ -7,7 +7,9 @@ config = require 'config'
 { html, head, body, div, title, script, link, main, meta } = require 'react-coffee-elements'
 
 module.exports = (Body) ->
+
   return React.createClass
+
     displayName: 'Layout'
 
     mixins: [ Router.State, Paths ]

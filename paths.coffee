@@ -14,7 +14,7 @@ module.exports =
 
     # Include drafts if we're not in prod
     drafts = if process.env.NODE_ENV isnt 'production'
-      _.map @draftReq().keys(), (name) =>
+      _.map @draftReq()?.keys(), (name) =>
         [
           name
           _. assign draft: true, @draftReq() name
@@ -70,7 +70,10 @@ module.exports =
     require.context 'posts', false, /^\.\/.*\.md$/
 
   draftReq: ->
-    require.context 'drafts', false, /^\.\/.*\.md$/
+    try
+      return require.context 'drafts', false, /^\.\/.*\.md$/
+    catch err
+      return null
 
   renderContent: (content) ->
     MdHelper.render content
