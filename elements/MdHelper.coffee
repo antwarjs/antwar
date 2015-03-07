@@ -9,9 +9,13 @@ getLiteral = (part) ->
 
 module.exports =
 
-  parse: (content) ->
+  render: (content) ->
     if _.isObject content then content = content.__content
     mdWriter.render mdReader.parse content
+
+  parse: (content) ->
+    if _.isObject content then content = content.__content
+    mdReader.parse content
 
   getContentPreview: (content) ->
     parsed = getLiteral mdReader.parse content

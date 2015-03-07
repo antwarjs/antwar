@@ -72,8 +72,8 @@ module.exports =
   draftReq: ->
     require.context 'drafts', false, /^\.\/.*\.md$/
 
-  parseContent: (content) ->
-    MdHelper.parse content
+  renderContent: (content) ->
+    MdHelper.render content
 
 processPost = (file, fileName) ->
     # TODO Implement nicer hooks to configurable functions
@@ -85,7 +85,7 @@ processPost = (file, fileName) ->
     date = themeFunctions?.date?(file, fileName) or (file.date or fileName.slice 0, 10)
 
     # Get the content
-    content = MdHelper.parse file.__content
+    content = MdHelper.render file.__content
 
     # Generate the preview
     preview = themeFunctions?.preview?(file, fileName) or (file.preview or MdHelper.getContentPreview file.__content)
