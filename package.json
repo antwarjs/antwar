@@ -1,6 +1,6 @@
 {
   "name": "antwar",
-  "version": "0.0.6",
+  "version": "0.1.0",
   "scripts": {},
   "dependencies": {
     "autoprefixer-loader": "1.0.0",
