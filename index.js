@@ -3,14 +3,14 @@ require('coffee-script/register');
 
 var Promise = require('es6-promise').Promise;
 
-var devServer = require('./devServer.coffee');
+var devServer = require('./devServer');
 var build = require('./build');
 
 
 exports.develop = function(config) {
   return new Promise(function(resolve, reject) {
     build.buildDevIndex(config).then(function() {
-      devServer.dev(config).then(function() {
+      devServer(config).then(function() {
         resolve();
       }).catch(function(err) {
         reject(err);
