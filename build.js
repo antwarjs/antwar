@@ -55,30 +55,20 @@ exports.build = function(config) {
 
         var cwd = process.cwd();
 
-        var assets = _path.join(cwd, output, 'assets');
         var renderPage = require(_path.join(cwd, './.antwar/build/bundleStaticPage.js'));
         var paths = require(_path.join(cwd, './.antwar/build/paths.js'));
 
         mkdirp.sync(_path.join(cwd, output, 'blog'));
-        mkdirp.sync(assets);
-
-        ncp(_path.join(cwd, './assets'), assets);
-
-        // TODO: write CSS if it exists
-        /*
-        fs.writeFileSync(
-          _path.join(assets, '/main.css'),
-          fs.readFileSync('./.antwar/build/main.css')
-        );
-        */
 
         var allPaths = paths();
 
         var params = {
+          cwd: cwd,
           renderPage: renderPage,
           allPaths: allPaths,
           output: _path.join(cwd, output),
         };
+        writeAssets(params);
         writePages(params);
         writeIndex(params);
         writePosts(params);
@@ -92,6 +82,22 @@ exports.build = function(config) {
     });
   });
 };
+
+function writeAssets(o) {
+  var assets = _path.join(o.output, 'assets');
+  var mainPath = './.antwar/build/main.css';
+
+  mkdirp.sync(assets);
+
+  ncp(_path.join(o.cwd, './assets'), assets);
+
+  if(fs.existsSync(mainPath)) {
+    fs.writeFileSync(
+      _path.join(assets, 'main.css'),
+      fs.readFileSync(mainPath)
+    );
+  }
+}
 
 function writePages(o) {
   Object.keys(o.allPaths).forEach(function(path) {
