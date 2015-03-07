@@ -9,6 +9,8 @@ webpack = require 'webpack'
 WebpackDevServer = require 'webpack-dev-server'
 webpackConfig = require './webpack.config'
 
+devConfig = require('./webpack.coffee').dev;
+
 
 servers = []
 appPath = path.join process.cwd(), './.antwar/build'
@@ -41,28 +43,34 @@ DevServer = (port, config) ->
   devConfigParams.devtool = 'eval'
   devConfigParams.debug = true
 
-  devConfig = webpackConfig devConfigParams, config
+  return new Promise((resolve, reject) ->
+    devConfig(config).then((c) ->
+      server = new WebpackDevServer webpack(webpackConfig(devConfigParams, c)),
+        contentBase: path.join process.cwd(), './.antwar/build'
+        hot: true
+        historyApiFallback: true
+        stats:
+          hash: false
+          version: false
+          assets: false
+          cached: false
+          colors: true
 
-  server = new WebpackDevServer webpack(devConfig),
-    contentBase: path.join process.cwd(), './.antwar/build'
-    hot: true
-    historyApiFallback: true
-    stats:
-      hash: false
-      version: false
-      assets: false
-      cached: false
-      colors: true
+      expandPath server.app
 
-  expandPath server.app
+      server.listen port, (err, result) ->
+        if err
+          console.info err
 
-  server.listen port, (err, result) ->
-    if err
-      console.info err
+        console.info 'Listening at port ' + port
 
-    console.info 'Listening at port ' + port
+      server
 
-  server
+      resolve()
+    ).catch((err) ->
+      reject(err)
+    )
+  )
 
 # dev server
 exports.dev = (config) ->
