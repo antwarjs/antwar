@@ -57,7 +57,7 @@ exports.build = function(config) {
         var params = {
           cwd: cwd,
           renderPage: require(_path.join(cwd, './.antwar/build/bundleStaticPage.js')),
-          allPaths: require(_path.join(cwd, './.antwar/build/paths.js')),
+          allPaths: require(_path.join(cwd, './.antwar/build/paths.js'))(),
           output: _path.join(cwd, output),
         };
         writeAssets(params);
