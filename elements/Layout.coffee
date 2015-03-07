@@ -2,7 +2,7 @@ React = require 'react'
 Router = require 'react-router'
 RouteHandler = React.createFactory Router.RouteHandler
 Paths = require './PathsMixin'
-config = require '../config'
+config = require 'config'
 
 { html, head, body, div, title, script, link, main, meta } = require 'react-coffee-elements'
 
@@ -23,7 +23,7 @@ module.exports = (Body) ->
           link
             rel: 'alternate'
             type: 'application/atom+xml'
-            title: config.title
+            title: config.siteName
             href: '/atom.xml'
           if process.env.NODE_ENV is 'production'
             link
