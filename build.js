@@ -54,18 +54,10 @@ exports.build = function(config) {
         }
 
         var cwd = process.cwd();
-
-        var renderPage = require(_path.join(cwd, './.antwar/build/bundleStaticPage.js'));
-        var paths = require(_path.join(cwd, './.antwar/build/paths.js'));
-
-        mkdirp.sync(_path.join(cwd, output, 'blog'));
-
-        var allPaths = paths();
-
         var params = {
           cwd: cwd,
-          renderPage: renderPage,
-          allPaths: allPaths,
+          renderPage: require(_path.join(cwd, './.antwar/build/bundleStaticPage.js')),
+          allPaths: require(_path.join(cwd, './.antwar/build/paths.js')),
           output: _path.join(cwd, output),
         };
         writeAssets(params);
@@ -123,6 +115,8 @@ function writePages(o) {
 }
 
 function writeIndex(o) {
+  mkdirp.sync(_path.join(o.output, 'blog'));
+
   fs.writeFileSync(
     _path.join(o.output,  'blog', 'index.html'),
 
