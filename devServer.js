@@ -1,12 +1,12 @@
 'use strict';
 var path = require('path');
 
+var _ = require('lodash');
 var Promise = require('es6-promise').Promise;
 var portfinder = require('portfinder');
 var webpack = require('webpack');
 
 var WebpackDevServer = require('webpack-dev-server');
-var webpackConfig = require('./webpack.config');
 
 var devConfig = require('./config/webpack.coffee').dev;
 
@@ -34,12 +34,18 @@ function devServer(port, config) {
 
   return new Promise(function(resolve, reject) {
     devConfig(config).then(function(c) {
-      runServer(port, webpackConfig(devConfigParams, c));
+      runServer(port, merge(devConfigParams, c));
 
       resolve();
     }).catch(function(err) {
       reject(err);
     });
+  });
+}
+
+function merge(parent, child) {
+  return _.merge({}, child, parent, function(a, b) {
+    return _.isArray(a) ? a.concat(b) : undefined;
   });
 }
 
