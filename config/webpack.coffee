@@ -4,58 +4,10 @@ path = require 'path'
 Promise = require('es6-promise').Promise
 ExtractTextPlugin = require 'extract-text-webpack-plugin'
 
+getCommon = require('./common')
+
 ReactHotLoaderMatches = /View.coffee|Pages\//
 
-
-getCommon = (config) ->
-  return new Promise((resolve, reject) ->
-    if !config.theme.name
-      return reject(new Error('Missing theme'))
-
-    resolve({
-      resolve:
-        root: path.join(__dirname, 'node_modules')
-        alias:
-          'underscore': 'lodash'
-          'pages': path.join process.cwd(), 'pages'
-          'posts': path.join process.cwd(), 'posts'
-          'drafts': path.join process.cwd(), 'drafts'
-          'config': path.join process.cwd(), 'antwar.config.js'
-          'elements': path.join __dirname, 'elements' # Should be removed in favour of antwar-core
-          'antwar-core': path.join __dirname, 'elements'
-          'theme': config.theme.name,
-        extensions: [
-          ''
-          '.webpack.js'
-          '.web.js'
-          '.js'
-          '.coffee'
-          '.json'
-        ]
-        modulesDirectories: [
-          path.join process.cwd(), 'node_modules'
-          'node_modules'
-        ]
-      resolveLoader:
-        modulesDirectories: [
-          path.join(__dirname, 'node_modules')
-          'node_modules'
-        ]
-      jshint:
-        bitwise: false
-        boss: true
-        curly: false
-        eqnull: true
-        expr: true
-        newcap: false
-        quotmark: false
-        shadow: true
-        strict: false
-        sub: true
-        undef: true
-        unused: 'vars'
-    })
-  )
 
 exports.dev = (config) ->
   return new Promise((resolve, reject) ->
@@ -124,7 +76,7 @@ exports.build = (config) ->
       resolve({
         name: 'server'
         target: 'node'
-        context: path.join __dirname, './'
+        context: path.join __dirname, '..', './'
         entry:
           bundlePage: './dev/page.coffee'
           bundleStaticRss: './dev/staticRss.coffee'
