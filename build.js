@@ -2,6 +2,7 @@
 var fs = require('fs');
 var _path = require('path');
 
+var Promise = require('es6-promise').Promise;
 var mkdirp = require('mkdirp');
 var ncp = require('ncp');
 var webpack = require('webpack');
@@ -11,70 +12,84 @@ var webpackConfig = require('./webpack.coffee').build;
 exports.buildDevIndex = function(config) {
   process.env.NODE_ENV = 'dev';
 
-  webpack(webpackConfig(config), function(err) {
-    if(err) {
-      return console.error(err);
-    }
+  return new Promise(function(resolve, reject) {
+    webpackConfig(config).then(function(c) {
+      webpack(c, function(err) {
+        if(err) {
+          return reject(err);
+        }
 
-    var cwd = process.cwd();
-    var renderPage = require(_path.join(cwd, './.antwar/build/bundleStaticPage.js'));
+        var cwd = process.cwd();
+        var renderPage = require(_path.join(cwd, './.antwar/build/bundleStaticPage.js'));
 
-    fs.writeFileSync(
-      _path.join(cwd, './.antwar/build/index.html'),
-      renderPage('/antwar_devindex', null)
-    );
+        fs.writeFileSync(
+          _path.join(cwd, './.antwar/build/index.html'),
+          renderPage('/antwar_devindex', null)
+        );
 
-    ncp('./assets', _path.join(cwd, './.antwar/build/assets'));
+        ncp('./assets', _path.join(cwd, './.antwar/build/assets'));
+
+        resolve();
+      });
+    }).catch(function(err) {
+      reject(err);
+    });
   });
 };
 
 exports.build = function(config) {
   process.env.NODE_ENV = 'production';
 
-  var output = config.output;
+  return new Promise(function(resolve, reject) {
+    var output = config.output;
 
-  if(!output) {
-    return console.error('missing output directory');
-  }
-
-  webpack(webpackConfig(config), function(err) {
-    if(err) {
-      return console.error(err);
+    if(!output) {
+      return reject(new Error('Missing output directory'));
     }
 
-    var cwd = process.cwd();
+    webpackConfig(config).then(function(c) {
+      webpack(c, function(err) {
+        if(err) {
+          return reject(err);
+        }
 
-    var assets = _path.join(cwd, output, 'assets');
-    var renderPage = require(_path.join(cwd, './.antwar/build/bundleStaticPage.js'));
-    var paths = require(_path.join(cwd, './.antwar/build/paths.js'));
+        var cwd = process.cwd();
 
-    mkdirp.sync(_path.join(cwd, output, 'blog'));
-    mkdirp.sync(assets);
+        var assets = _path.join(cwd, output, 'assets');
+        var renderPage = require(_path.join(cwd, './.antwar/build/bundleStaticPage.js'));
+        var paths = require(_path.join(cwd, './.antwar/build/paths.js'));
 
-    ncp(_path.join(cwd, './assets'), assets);
+        mkdirp.sync(_path.join(cwd, output, 'blog'));
+        mkdirp.sync(assets);
 
-    // TODO: write CSS if it exists
-    /*
-    fs.writeFileSync(
-      _path.join(assets, '/main.css'),
-      fs.readFileSync('./.antwar/build/main.css')
-    );
-    */
+        ncp(_path.join(cwd, './assets'), assets);
 
-    var allPaths = paths();
+        // TODO: write CSS if it exists
+        /*
+        fs.writeFileSync(
+          _path.join(assets, '/main.css'),
+          fs.readFileSync('./.antwar/build/main.css')
+        );
+        */
 
-    var params = {
-      renderPage: renderPage,
-      allPaths: allPaths,
-      output: _path.join(cwd, output),
-    };
-    writePages(params);
-    writeIndex(params);
-    writePosts(params);
+        var allPaths = paths();
 
-    // TODO: this should be pushed to a plugin
-    //var rss = require(_path.join(cwd, './.antwar/build/bundleStaticRss.js'));
-    //fs.writeFileSync(_path.join(process.cwd(), output, 'atom.xml'), rss(renderPage));
+        var params = {
+          renderPage: renderPage,
+          allPaths: allPaths,
+          output: _path.join(cwd, output),
+        };
+        writePages(params);
+        writeIndex(params);
+        writePosts(params);
+
+        // TODO: this should be pushed to a plugin
+        //var rss = require(_path.join(cwd, './.antwar/build/bundleStaticRss.js'));
+        //fs.writeFileSync(_path.join(process.cwd(), output, 'atom.xml'), rss(renderPage));
+
+        resolve();
+      });
+    });
   });
 };
 

@@ -17,6 +17,6 @@
     "unused": true,
     "strict": true,
     "trailing": true,
-    "smarttabs": true,
-    "jquery": true
+    "jquery": true,
+    "predef": ["-Promise"]
 }

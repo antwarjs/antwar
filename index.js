@@ -1,15 +1,26 @@
 'use strict';
 require('coffee-script/register');
 
+var Promise = require('es6-promise').Promise;
+
 var devServer = require('./devServer.coffee');
 var build = require('./build');
 
 
 exports.develop = function(config) {
-  build.buildDevIndex(config);
-  devServer.dev(config);
+  return new Promise(function(resolve, reject) {
+    build.buildDevIndex(config).then(function() {
+      devServer.dev(config).then(function() {
+        resolve();
+      }).catch(function(err) {
+        reject(err);
+      });
+    }).catch(function(err) {
+      reject(err);
+    });
+  });
 };
 
 exports.build = function(config) {
-  build.build(config);
+  return build.build(config);
 };
