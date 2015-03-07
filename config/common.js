@@ -13,8 +13,6 @@ module.exports = function(config) {
     var cwd = process.cwd();
     var parent = path.join(__dirname, '..');
 
-    console.log('cwd', cwd);
-
     resolve({
       resolve: {
         root: path.join(parent, 'node_modules'),
