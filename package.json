@@ -39,6 +39,7 @@
   },
   "devDependencies": {},
   "main": "./index.js",
+  "description": "A static site engine built with React and Webpack.",
   "repository": {
     "type": "git",
     "url": "https://github.com/antwarjs/antwar.git"
