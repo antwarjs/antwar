@@ -2,7 +2,6 @@
 var fs = require('fs');
 var _path = require('path');
 
-var Promise = require('es6-promise').Promise;
 var mkdirp = require('mkdirp');
 var ncp = require('ncp');
 var webpack = require('webpack');

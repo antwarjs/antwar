@@ -1,7 +1,8 @@
 'use strict';
 require('coffee-script/register');
 
-var Promise = require('es6-promise').Promise;
+require('es6-promise').polyfill();
+require('promise.prototype.finally');
 
 var devServer = require('./devServer');
 var build = require('./build');

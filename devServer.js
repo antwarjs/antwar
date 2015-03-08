@@ -2,7 +2,6 @@
 var path = require('path');
 
 var _ = require('lodash');
-var Promise = require('es6-promise').Promise;
 var portfinder = require('portfinder');
 var webpack = require('webpack');
 

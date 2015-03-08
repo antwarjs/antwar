@@ -1,8 +1,6 @@
 'use strict';
 var path = require('path');
 
-var Promise = require('es6-promise').Promise;
-
 
 module.exports = function(config) {
   return new Promise(function(resolve, reject) {
