@@ -11,10 +11,12 @@ module.exports =
 
   render: (content) ->
     if _.isObject content then content = content.__content
+    return unless content
     mdWriter.render mdReader.parse content
 
   parse: (content) ->
     if _.isObject content then content = content.__content
+    return unless content
     mdReader.parse content
 
   getContentPreview: (content) ->

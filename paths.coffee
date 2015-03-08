@@ -39,11 +39,13 @@ module.exports =
     # TODO allow hooks on page processing
     req = @pageReq()
     pages = {}
-    _.each req.keys(), (name) ->
+    _.each req.keys(), (name) =>
       # Name is on format ./url_title.ext
 
       file = req name # Require the file
       fileName = name.slice 2 # Remove the "./"
+
+      content = @renderContent file
 
       url = _.kebabCase fileName.split('.')[0] # url is filename minus extention
       title = _.capitalize url.replace /\-/g , ' ' # Title is the capitalized url
@@ -54,6 +56,7 @@ module.exports =
         url
         fileName
         title
+        content
       }
     pages
 
