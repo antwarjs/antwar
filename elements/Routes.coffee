@@ -10,7 +10,7 @@ Post = require 'theme/Post'
 MarkdownPage = require 'theme/MarkdownPage'
 Blog = require 'theme/Blog'
 
-Layout = require('./Layout')(Body)
+Layout = require('./Layout.jsx')(Body)
 
 DevIndex = require './DevIndex.jsx'
 _ = require 'lodash'
