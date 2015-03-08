@@ -1,7 +1,6 @@
 paths = require('../paths')
 React = require('react')
 MdHelper = require './MdHelper'
-config = require '../config'
 
 module.exports =
 
