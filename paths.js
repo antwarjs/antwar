@@ -29,13 +29,20 @@ function allPosts() {
     });
   }
 
+  // TODO: build plugin arch here
+  posts = generateNextPrev(posts);
+  drafts = generateNextPrev(drafts);
+
   // Build some nice objects from the files
   _.each(posts.concat(drafts), function(fileArr) {
+    var post = fileArr[1];
+    var fileName = fileArr[0].slice(2); // remove the './'
+
     // Name is on format ./YYYY-MM-DD-url_title.md
     // TODO: Configurable file name standard
     var processedFile = processPost(
-      fileArr[1],
-      fileArr[0].slice(2) // remove the './'
+      post,
+      fileName
     );
 
     returnObj[processedFile.url] = processedFile;
@@ -44,6 +51,24 @@ function allPosts() {
   return returnObj;
 }
 exports.allPosts = allPosts;
+
+// TODO: push into a plugin
+function generateNextPrev(posts) {
+  var len = posts.length;
+
+  return posts.map(function(fileArr, i) {
+    var post = fileArr[1];
+
+    if(i > 0) {
+      post.prev = posts[1][i - 1];
+    }
+    if(i < len - 2) {
+      post.next = posts[1][i + 1];
+    }
+
+    return fileArr;
+  });
+}
 
 function allPages() {
   // TODO: allow hooks on page processing
