@@ -1,6 +1,5 @@
 path = require 'path'
 
-
 Promise = require('es6-promise').Promise
 ExtractTextPlugin = require 'extract-text-webpack-plugin'
 
