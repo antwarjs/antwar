@@ -41,7 +41,13 @@ exports.build = function(config) {
   process.env.NODE_ENV = 'production';
 
   return new Promise(function(resolve, reject) {
-    var output = config.output;
+    var site = config.site;
+
+    if(!site) {
+      return reject(new Error('Missing site configuration'));
+    }
+
+    var output = site.output;
 
     if(!output) {
       return reject(new Error('Missing output directory'));
@@ -71,6 +77,8 @@ exports.build = function(config) {
 
         resolve();
       });
+    }).catch(function(err) {
+      reject(err);
     });
   });
 };

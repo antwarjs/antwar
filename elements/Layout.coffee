@@ -18,14 +18,14 @@ module.exports = (Body) ->
       pageTitle = @getPageTitle()
       html {},
         head {},
-          title "#{if pageTitle then pageTitle +  ' / ' else ''}#{config.siteName}"
+          title "#{if pageTitle then pageTitle +  ' / ' else ''}#{config.site.name}"
           meta
             name:'viewport'
             content:'width=device-width, initial-scale=1, maximum-scale=1, minimal-ui'
           link
             rel: 'alternate'
             type: 'application/atom+xml'
-            title: config.siteName
+            title: config.site.name
             href: '/atom.xml'
           if process.env.NODE_ENV is 'production'
             link

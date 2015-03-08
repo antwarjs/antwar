@@ -6,7 +6,15 @@ var Promise = require('es6-promise').Promise;
 
 module.exports = function(config) {
   return new Promise(function(resolve, reject) {
-    if(!config.theme || !config.theme.name) {
+    var site = config.site;
+
+    if(!site) {
+      return reject(new Error('Missing site configuration'));
+    }
+
+    var theme = site.theme;
+
+    if(!theme || !theme.name) {
       return reject(new Error('Missing theme'));
     }
 
@@ -25,7 +33,7 @@ module.exports = function(config) {
           'config': path.join(cwd, 'antwar.config.js'),
           'elements': path.join(parent, 'elements'), // Should be removed in favour of antwar-core
           'antwar-core': path.join(parent, 'elements'),
-          'theme': config.theme.name,
+          'theme': theme.name,
         },
         extensions: [
           '',
