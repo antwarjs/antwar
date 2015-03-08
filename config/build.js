@@ -16,7 +16,7 @@ module.exports = function(config) {
         target: 'node',
         context: path.join(__dirname, '..', './'),
         entry: {
-          bundlePage: './dev/page.coffee',
+          bundlePage: './dev/page.js',
           bundleStaticRss: './dev/staticRss.coffee',
           bundleStaticPage: './dev/staticPage.coffee',
           paths: './dev/exportPaths.js',
