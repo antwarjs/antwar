@@ -21,6 +21,7 @@ module.exports = function(config) {
           'pages': path.join(cwd, 'pages'),
           'posts': path.join(cwd, 'posts'),
           'drafts': path.join(cwd, 'drafts'),
+          'customStyles': path.join(cwd, 'styles'), // Should be moved to theme specific config
           'config': path.join(cwd, 'antwar.config.js'),
           'elements': path.join(parent, 'elements'), // Should be removed in favour of antwar-core
           'antwar-core': path.join(parent, 'elements'),
