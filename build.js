@@ -114,7 +114,6 @@ function writePages(o) {
 
       fs.writeFileSync(
         _path.join(publicPath, 'index.html'),
-
         o.renderPage('/' + path, null)
       );
     }
@@ -126,7 +125,6 @@ function writeIndex(o) {
 
   fs.writeFileSync(
     _path.join(o.output,  'blog', 'index.html'),
-
     o.renderPage('/blog', null)
   );
 }
@@ -139,7 +137,6 @@ function writePosts(o) {
 
     fs.writeFileSync(
       _path.join(p, 'index.html'),
-
       o.renderPage('/blog/' + post)
     );
   });
