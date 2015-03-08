@@ -17,7 +17,8 @@ module.exports = function(config) {
         context: path.join(__dirname, '..', './'),
         entry: {
           bundlePage: './dev/page.js',
-          bundleStaticRss: './dev/staticRss.coffee',
+          // XXX: inject via rss via a plugin
+          //bundleStaticRss: './dev/staticRss.js',
           bundleStaticPage: './dev/staticPage.coffee',
           paths: './dev/exportPaths.js',
         },
