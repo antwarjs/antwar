@@ -6,10 +6,10 @@ var config = require('../config');
 var paths = require('../elements/PathsMixin');
 
 
-module.exports = function(page) {
+module.exports = function() {
   return t('feed', {xmlns: 'http://www.w3.org/2005/Atom'}, [
     t('title', {}, config.title),
-    t('link', {href: "#{config.baseUrl}atom.xml", rel: 'self'}, ' '),
+    t('link', {href: 'config.baseUrl' + 'atom.xml', rel: 'self'}, ' '),
     t('link', {href: config.baseUrl}, ' '),
     t('updated', {}, moment().format()),
     t('id', {}, config.baseUrl),
