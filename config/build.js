@@ -19,7 +19,7 @@ module.exports = function(config) {
           bundlePage: './dev/page.js',
           // XXX: inject via rss via a plugin
           //bundleStaticRss: './dev/staticRss.js',
-          bundleStaticPage: './dev/staticPage.coffee',
+          bundleStaticPage: './dev/staticPage.js',
           paths: './dev/exportPaths.js',
         },
         output: {
