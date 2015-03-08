@@ -6,7 +6,7 @@ var Promise = require('es6-promise').Promise;
 
 module.exports = function(config) {
   return new Promise(function(resolve, reject) {
-    if(!config.theme.name) {
+    if(!config.theme || !config.theme.name) {
       return reject(new Error('Missing theme'));
     }
 
