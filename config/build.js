@@ -19,7 +19,7 @@ module.exports = function(config) {
           bundlePage: './dev/page.coffee',
           bundleStaticRss: './dev/staticRss.coffee',
           bundleStaticPage: './dev/staticPage.coffee',
-          paths: './dev/exportPaths.coffee',
+          paths: './dev/exportPaths.js',
         },
         output: {
           path: path.join(cwd, './.antwar/build'),
