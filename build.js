@@ -5,7 +5,7 @@ var _path = require('path');
 var mkdirp = require('mkdirp');
 var ncp = require('ncp');
 var webpack = require('webpack');
-var webpackConfig = require('./config/webpack.coffee').build;
+var webpackConfig = require('./config/build');
 
 
 exports.buildDevIndex = function(config) {
