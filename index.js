@@ -1,6 +1,4 @@
 'use strict';
-require('coffee-script/register');
-
 require('es6-promise').polyfill();
 require('promise.prototype.finally');
 
