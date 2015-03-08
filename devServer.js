@@ -7,8 +7,7 @@ var webpack = require('webpack');
 
 var WebpackDevServer = require('webpack-dev-server');
 
-var devConfig = require('./config/webpack.coffee').dev;
-
+var devConfig = require('./config/dev');
 
 // XXX: is this actually needed?
 var servers = [];
