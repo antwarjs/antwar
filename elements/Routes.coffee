@@ -12,7 +12,7 @@ Blog = require 'theme/Blog'
 
 Layout = require('./Layout')(Body)
 
-DevIndex = require './DevIndex'
+DevIndex = require './DevIndex.jsx'
 _ = require 'lodash'
 paths = require '../paths'
 
