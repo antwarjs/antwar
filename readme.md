@@ -6,18 +6,6 @@ A static site generator using [React](https://github.com/facebook/react).
 
 Very much alpha.
 
-### Installation
-After cloning this repo run `npm install`.
-
-### Run in dev mode
-`gulp`
-
-### Add a new post
-Add .md file in `posts/` directory
-
-### Add a new page
-Add a .js/.jsx/.coffee file in `/pages` directory
-
 ## TODO
 
 Check out the issues section. We're still in the very early phases of development.
