@@ -28,14 +28,8 @@ function devServer(port, config) {
   devConfigParams.devtool = 'eval';
   devConfigParams.debug = true;
 
-  return new Promise(function(resolve, reject) {
-    devConfig(config).then(function(c) {
-      runServer(port, merge(devConfigParams, c));
-
-      resolve();
-    }).catch(function(err) {
-      reject(err);
-    });
+  return devConfig(config).then(function(c) {
+    runServer(port, merge(devConfigParams, c));
   });
 }
 
