@@ -7,9 +7,9 @@ var build = require('./build');
 
 
 exports.develop = function(config) {
-  return build.buildDevIndex(config).then(devServer.bind(null, config));
+  return build.devIndex(config).then(devServer.bind(null, config));
 };
 
 exports.build = function(config) {
-  return build.build(config);
+  return build(config);
 };

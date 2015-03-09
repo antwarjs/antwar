@@ -1,42 +1,15 @@
 'use strict';
-var fs = require('fs');
+var _fs = require('fs');
 var _path = require('path');
 
-var mkdirp = require('mkdirp');
 var ncp = require('ncp');
+var mkdirp = require('mkdirp');
 var webpack = require('webpack');
-var webpackConfig = require('./config/build');
+
+var webpackConfig = require('../config/build');
 
 
-exports.buildDevIndex = function(config) {
-  process.env.NODE_ENV = 'dev';
-
-  return new Promise(function(resolve, reject) {
-    webpackConfig(config).then(function(c) {
-      webpack(c, function(err) {
-        if(err) {
-          return reject(err);
-        }
-
-        var cwd = process.cwd();
-        var renderPage = require(_path.join(cwd, './.antwar/build/bundleStaticPage.js'));
-
-        fs.writeFileSync(
-          _path.join(cwd, './.antwar/build/index.html'),
-          renderPage('/antwar_devindex', null)
-        );
-
-        ncp('./assets', _path.join(cwd, './.antwar/build/assets'));
-
-        resolve();
-      });
-    }).catch(function(err) {
-      reject(err);
-    });
-  });
-};
-
-exports.build = function(config) {
+module.exports = function(config) {
   process.env.NODE_ENV = 'production';
 
   return new Promise(function(resolve, reject) {
@@ -81,6 +54,7 @@ exports.build = function(config) {
     });
   });
 };
+module.exports.devIndex = require('./dev_index');
 
 function writeAssets(o) {
   var assets = _path.join(o.output, 'assets');
@@ -90,10 +64,10 @@ function writeAssets(o) {
 
   ncp(_path.join(o.cwd, './assets'), assets);
 
-  if(fs.existsSync(mainPath)) {
-    fs.writeFileSync(
+  if(_fs.existsSync(mainPath)) {
+    _fs.writeFileSync(
       _path.join(assets, 'main.css'),
-      fs.readFileSync(mainPath)
+      _fs.readFileSync(mainPath)
     );
   }
 }
@@ -112,7 +86,7 @@ function writePages(o) {
         mkdirp.sync(publicPath);
       }
 
-      fs.writeFileSync(
+      _fs.writeFileSync(
         _path.join(publicPath, 'index.html'),
         o.renderPage('/' + path, null)
       );
@@ -123,7 +97,7 @@ function writePages(o) {
 function writeIndex(o) {
   mkdirp.sync(_path.join(o.output, 'blog'));
 
-  fs.writeFileSync(
+  _fs.writeFileSync(
     _path.join(o.output,  'blog', 'index.html'),
     o.renderPage('/blog', null)
   );
@@ -135,7 +109,7 @@ function writePosts(o) {
 
     mkdirp.sync(p);
 
-    fs.writeFileSync(
+    _fs.writeFileSync(
       _path.join(p, 'index.html'),
       o.renderPage('/blog/' + post)
     );
