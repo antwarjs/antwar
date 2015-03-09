@@ -2,6 +2,7 @@
 var fs = require('fs');
 var _path = require('path');
 
+var async = require('async');
 var ncp = require('ncp');
 var webpack = require('webpack');
 var webpackConfig = require('../config/build');
@@ -17,17 +18,24 @@ module.exports = function(config) {
           return reject(err);
         }
 
-        var cwd = process.cwd();
-        var renderPage = require(_path.join(cwd, './.antwar/build/bundleStaticPage.js'));
+        var buildDir = _path.join(process.cwd(), './.antwar/build');
+        var renderPage = require(_path.join(buildDir, 'bundleStaticPage.js'));
 
-        fs.writeFileSync(
-          _path.join(cwd, './.antwar/build/index.html'),
-          renderPage('/antwar_devindex', null)
-        );
+        async.parallel([
+          fs.writeFile.bind(null,
+            _path.join(buildDir, 'index.html'),
+            renderPage('/antwar_devindex', null)
+          ),
+          ncp.bind(null,
+            './assets',
+            _path.join(buildDir, 'assets'))
+        ], function(err) {
+          if(err) {
+            return reject(err);
+          }
 
-        ncp('./assets', _path.join(cwd, './.antwar/build/assets'));
-
-        resolve();
+          resolve();
+        });
       });
     }).catch(function(err) {
       reject(err);

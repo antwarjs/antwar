@@ -3,6 +3,7 @@
   "version": "0.2.0",
   "scripts": {},
   "dependencies": {
+    "async": "^0.9.0",
     "autoprefixer-loader": "1.0.0",
     "coffee-loader": "^0.7.2",
     "coffee-script": "^1.9.1",
