@@ -9,8 +9,6 @@ var WebpackDevServer = require('webpack-dev-server');
 
 var devConfig = require('./config/dev');
 
-// XXX: is this actually needed?
-var servers = [];
 
 function devServer(port, config) {
   var devConfigParams = {};
@@ -75,7 +73,7 @@ module.exports = function(config) {
         return reject(err);
       }
 
-      servers.push(devServer(port, config));
+      devServer(port, config);
 
       resolve();
     });
