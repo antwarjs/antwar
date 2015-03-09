@@ -42,12 +42,14 @@ module.exports = function(config) {
         ],
         modulesDirectories: [
           path.join(cwd, 'node_modules'),
+          path.join(cwd, 'node_modules', theme.name, 'node_modules'),
           'node_modules',
         ]
       },
       resolveLoader: {
         modulesDirectories: [
           path.join(parent, 'node_modules'),
+          path.join(cwd, 'node_modules', theme.name, 'node_modules'),
           'node_modules',
         ]
       },
