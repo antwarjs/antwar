@@ -7,17 +7,7 @@ var build = require('./build');
 
 
 exports.develop = function(config) {
-  return new Promise(function(resolve, reject) {
-    build.buildDevIndex(config).then(function() {
-      devServer(config).then(function() {
-        resolve();
-      }).catch(function(err) {
-        reject(err);
-      });
-    }).catch(function(err) {
-      reject(err);
-    });
-  });
+  return build.buildDevIndex(config).then(devServer.bind(null, config));
 };
 
 exports.build = function(config) {
