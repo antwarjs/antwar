@@ -1,6 +1,7 @@
 'use strict';
 var _path = require('path');
 
+var async = require('async');
 var webpack = require('webpack');
 
 var webpackConfig = require('../config/build');
@@ -36,16 +37,23 @@ module.exports = function(config) {
           allPaths: require(_path.join(cwd, './.antwar/build/paths.js'))(),
           output: _path.join(cwd, output),
         };
-        write.assets(params);
-        write.pages(params);
-        write.index(params);
-        write.posts(params);
+
+        async.parallel([
+          write.assets.bind(null, params),
+          write.pages.bind(null, params),
+          write.index.bind(null, params),
+          write.posts.bind(null, params),
+        ], function(err) {
+          if(err) {
+            return reject(err);
+          }
+
+          resolve();
+        });
 
         // TODO: this should be pushed to a plugin
         //var rss = require(_path.join(cwd, './.antwar/build/bundleStaticRss.js'));
         //fs.writeFileSync(_path.join(process.cwd(), output, 'atom.xml'), rss(renderPage));
-
-        resolve();
       });
     }).catch(function(err) {
       reject(err);

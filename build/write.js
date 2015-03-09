@@ -2,27 +2,42 @@
 var _fs = require('fs');
 var _path = require('path');
 
+var async = require('async');
 var ncp = require('ncp');
 var mkdirp = require('mkdirp');
 
 
-exports.assets = function(o) {
-  var assets = _path.join(o.output, 'assets');
+exports.assets = function(o, cb) {
+  var assetsDir = _path.join(o.output, 'assets');
   var mainPath = './.antwar/build/main.css';
 
-  mkdirp.sync(assets);
+  mkdirp(assetsDir, function(err) {
+    if(err) {
+      return cb(err);
+    }
 
-  ncp(_path.join(o.cwd, './assets'), assets);
+    async.parallel([
+      ncp.bind(null, _path.join(o.cwd, './assets'), assetsDir),
+      function(cb) {
+        _fs.exists(mainPath, function(exists) {
+          if(!exists) {
+            return cb();
+          }
 
-  if(_fs.existsSync(mainPath)) {
-    _fs.writeFileSync(
-      _path.join(assets, 'main.css'),
-      _fs.readFileSync(mainPath)
-    );
-  }
+          _fs.writeFile(
+            _path.join(assetsDir, 'main.css'),
+            _fs.readFileSync(mainPath),
+            cb
+          );
+        });
+      }
+    ], cb);
+  });
 };
 
-exports.pages = function(o) {
+exports.pages = function(o, cb) {
+  var data = [];
+
   Object.keys(o.allPaths).forEach(function(path) {
     if(path !== 'posts') {
       var publicPath = o.output;
@@ -36,32 +51,61 @@ exports.pages = function(o) {
         mkdirp.sync(publicPath);
       }
 
-      _fs.writeFileSync(
-        _path.join(publicPath, 'index.html'),
-        o.renderPage('/' + path, null)
-      );
+      data.push({
+        publicPath: publicPath,
+        path: path
+      });
     }
+  });
+
+  async.each(data, function(d, cb) {
+    _fs.writeFile(
+      _path.join(d.publicPath, 'index.html'),
+      o.renderPage('/' + d.path, null),
+      cb
+    );
+  }, cb);
+};
+
+exports.index = function(o, cb) {
+  mkdirp(_path.join(o.output, 'blog'), function(err) {
+    if(err) {
+      return cb(err);
+    }
+
+    _fs.writeFile(
+      _path.join(o.output,  'blog', 'index.html'),
+      o.renderPage('/blog', null),
+      cb
+    );
   });
 };
 
-exports.index = function(o) {
-  mkdirp.sync(_path.join(o.output, 'blog'));
+exports.posts = function(o, cb) {
+  var data = [];
 
-  _fs.writeFileSync(
-    _path.join(o.output,  'blog', 'index.html'),
-    o.renderPage('/blog', null)
-  );
-};
-
-exports.posts = function(o) {
   Object.keys(o.allPaths.posts).forEach(function(post) {
     var p = _path.join(o.output, 'blog', post);
 
     mkdirp.sync(p);
 
-    _fs.writeFileSync(
-      _path.join(p, 'index.html'),
-      o.renderPage('/blog/' + post)
-    );
+    data.push({
+      path: _path.join(o.output, 'blog', post),
+      post: post,
+    });
   });
+
+  async.each(data, function(d, cb) {
+    mkdirp(d.path, function(err) {
+      if(err) {
+        return cb(err);
+      }
+
+      _fs.writeFile(
+        _path.join(d.path, 'index.html'),
+        o.renderPage('/blog/' + d.post),
+        cb
+      );
+    });
+  }, cb);
 };
