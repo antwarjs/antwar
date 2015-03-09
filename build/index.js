@@ -55,6 +55,7 @@ module.exports = function(config) {
   });
 };
 module.exports.devIndex = require('./dev_index');
+module.exports.devServer = require('./dev_server');
 
 function writeAssets(o) {
   var assets = _path.join(o.output, 'assets');

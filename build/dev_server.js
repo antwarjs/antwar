@@ -7,7 +7,7 @@ var webpack = require('webpack');
 
 var WebpackDevServer = require('webpack-dev-server');
 
-var devConfig = require('./config/dev');
+var devConfig = require('../config/dev');
 
 
 function devServer(port, config) {
@@ -17,7 +17,7 @@ function devServer(port, config) {
     main: [
       'webpack-dev-server/client?http://localhost:8000',
       'webpack/hot/only-dev-server',
-      path.join(__dirname, './dev/entry.js'),
+      path.join(__dirname, '../dev/entry.js'),
     ],
   };
 
