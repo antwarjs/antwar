@@ -46,7 +46,11 @@ module.exports = function(config) {
           },
           {
             test: /\.jsx?$/,
-            loader: 'jsx-loader?harmony',
+            loaders: [
+              'react-hot',
+              'jsx?harmony'
+            ],
+            exclude: /node_modules/
           },
           {
             test: /\.css$/,
