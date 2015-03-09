@@ -17,7 +17,7 @@ function devServer(port, config) {
     main: [
       'webpack-dev-server/client?http://localhost:8000',
       'webpack/hot/only-dev-server',
-      path.join(__dirname, '../dev/entry.js'),
+      path.join(__dirname, './dev_entry.js'),
     ],
   };
 
