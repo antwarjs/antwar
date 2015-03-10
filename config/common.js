@@ -37,6 +37,7 @@ module.exports = function(config) {
           '.webpack.js',
           '.web.js',
           '.js',
+          '.jsx',
           '.coffee',
           '.json',
         ],
