@@ -49,8 +49,7 @@ module.exports = function(config) {
             loaders: [
               'react-hot',
               'jsx?harmony'
-            ],
-            exclude: /node_modules/
+            ]
           },
           {
             test: /\.css$/,
