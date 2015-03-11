@@ -14,27 +14,31 @@ var Layout = require('./Layout.jsx')(Body)
 var DevIndex = require('./DevIndex.jsx');
 var paths = require('../paths');
 
+var pageRoutes = _.map(paths.allPages(), function(page, key) {
+  var handler = require('pages/' + page.fileName);
 
-module.exports = <Route name='home' title='Home' handler={Layout}>
-  <Route name='/antwar_devindex' handler={DevIndex}></Route>
-  <Route name='/blog' path='/blog/?' handler={Blog}></Route>
-  <Route name='post' path='/blog/:post' handler={Post}></Route>
-  {_.map(paths.allPages(), function(page, key) {
-    var handler = require('pages/' + page.fileName);
+  if(isMarkdownFile(page)) {
+    handler = MarkdownPage;
+  }
 
-    if(isMarkdownFile(page)) {
-      handler = MarkdownPage;
-    }
+  var path = '/';
+  if(page.url !== '/') {
+    path = '/' + page.url + '/?';
+  }
 
-    var path = '/';
-    if(page.url !== '/') {
-      path = '/' + page.url + '/?';
-    }
-
-    return <Route path={path} key={page.url} name={page.url} handler={handler}></Route>
-  })}
-</Route>;
+  return <Route path={path} key={page.url} name={page.url} handler={handler}></Route>
+});
+var Routes = (
+  <Route name='home' title='Home' handler={Layout}>
+    <Route name='/antwar_devindex' handler={DevIndex}></Route>
+    <Route name='/blog' path='/blog/?' handler={Blog}></Route>
+    <Route name='post' path='/blog/:post' handler={Post}></Route>
+    {pageRoutes}
+  </Route>
+);
 
 function isMarkdownFile(page) {
   return page.fileName && page.fileName.indexOf('.md') > -1
 }
+
+module.exports = Routes
