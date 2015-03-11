@@ -9,7 +9,7 @@ var write = require('./write');
 
 
 module.exports = function(config) {
-  process.env.NODE_ENV = 'production';
+  process.env.BUILD_DEV = 0;
 
   return new Promise(function(resolve, reject) {
     var site = config.site;

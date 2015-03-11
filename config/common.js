@@ -1,6 +1,14 @@
 'use strict';
 var path = require('path');
+var webpack = require('webpack');
 
+var definePlugin = new webpack.DefinePlugin({
+  __DEV__: JSON.stringify(JSON.parse(process.env.BUILD_DEV || 'true')),
+  __PRERELEASE__: JSON.stringify(JSON.parse(process.env.BUILD_PRERELEASE || 'false')),
+  'process.env': {
+    'NODE_ENV': JSON.stringify(process.env.BUILD_DEV ? 'dev' : 'production')
+  }
+});
 
 module.exports = function(config) {
   return new Promise(function(resolve, reject) {
@@ -54,6 +62,7 @@ module.exports = function(config) {
           'node_modules',
         ]
       },
+      plugins: [definePlugin],
       jshint: {
         bitwise: false,
         boss: true,

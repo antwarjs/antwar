@@ -18,7 +18,7 @@ function allPosts() {
 
   // Include drafts if we're not in prod
   var drafts = [];
-  if(process.env.NODE_ENV !== 'production') {
+  if(__DEV__) {
     var req = draftReq();
 
     drafts = _.map(req.keys(), function(name) {

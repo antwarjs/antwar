@@ -20,7 +20,7 @@ module.exports = function(config) {
         filename: '[name]-bundle.js',
         chunkFilename: '[chunkhash].js',
       },
-      plugins: [],
+      plugins: common.plugins,
       module: {
         loaders: [
           {

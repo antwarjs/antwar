@@ -14,7 +14,6 @@ module.exports = function(Body) {
     render: function() {
       var pageTitle = this.getPageTitle();
       var siteName = config.site.name || '';
-      var inProduction = process.env.NODE_ENV === 'production';
 
       pageTitle = pageTitle && pageTitle + ' / ';
       pageTitle += siteName;
@@ -33,16 +32,14 @@ module.exports = function(Body) {
             title={siteName}
             href='/atom.xml'>
           </link>
-          {inProduction?
+          {!__DEV__?
             <link rel='stylesheet' href='/assets/main.css'></link>:
             null}
         </head>
         <body>
           <Body>
             <RouteHandler></RouteHandler>
-            {!inProduction?
-              <script src='/main-bundle.js'></script>:
-              null}
+            {__DEV__ ? <script src='/main-bundle.js'></script> : null}
           </Body>
         </body>
       </html>;

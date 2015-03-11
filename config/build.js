@@ -27,11 +27,11 @@ module.exports = function(config) {
         publicPath: path.join(cwd, './.antwar/build'),
         libraryTarget: 'commonjs2',
       },
-      plugins: [
+      plugins: common.plugins.concat([
         new ExtractTextPlugin('main.css', {
           allChunks: true,
         })
-      ],
+      ]),
       resolve: common.resolve,
       resolveLoader: common.resolveLoader,
       module: {

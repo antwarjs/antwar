@@ -3,7 +3,6 @@ var React = require('react');
 var Router = require('react-router');
 var Routes = require('../elements/Routes.jsx');
 
-
 module.exports = function(req) {
   var html;
 

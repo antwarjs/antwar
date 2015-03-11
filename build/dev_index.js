@@ -9,7 +9,7 @@ var webpackConfig = require('../config/build');
 
 
 module.exports = function(config) {
-  process.env.NODE_ENV = 'dev';
+  process.env.BUILD_DEV = 1;
 
   return new Promise(function(resolve, reject) {
     webpackConfig(config).then(function(c) {
