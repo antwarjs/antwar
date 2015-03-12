@@ -1,5 +1,7 @@
 'use strict';
+var fs = require('fs');
 var path = require('path');
+
 var webpack = require('webpack');
 
 var definePlugin = new webpack.DefinePlugin({
@@ -9,6 +11,7 @@ var definePlugin = new webpack.DefinePlugin({
     'NODE_ENV': JSON.stringify(process.env.BUILD_DEV ? 'dev' : 'production')
   }
 });
+
 
 module.exports = function(config) {
   return new Promise(function(resolve, reject) {
@@ -38,7 +41,7 @@ module.exports = function(config) {
           'customStyles': path.join(cwd, 'styles'), // Should be moved to theme specific config
           'config': path.join(cwd, 'antwar.config.js'),
           'antwar-core': path.join(parent, 'elements'),
-          'theme': theme.name,
+          'theme': getThemeName(theme.name),
         },
         extensions: [
           '',
@@ -51,14 +54,14 @@ module.exports = function(config) {
         ],
         modulesDirectories: [
           path.join(cwd, 'node_modules'),
-          path.join(cwd, 'node_modules', theme.name, 'node_modules'),
+          getThemePath(theme.name),
           'node_modules',
         ]
       },
       resolveLoader: {
         modulesDirectories: [
           path.join(parent, 'node_modules'),
-          path.join(cwd, 'node_modules', theme.name, 'node_modules'),
+          getThemePath(theme.name),
           'node_modules',
         ]
       },
@@ -80,3 +83,23 @@ module.exports = function(config) {
     });
   });
 };
+
+function getThemeName(name) {
+  // XXX: existsSync
+  if(fs.existsSync(name)) {
+    return path.join(process.cwd(), name);
+  }
+
+  return name;
+}
+
+function getThemePath(name) {
+  var cwd = process.cwd();
+
+  // XXX: existsSync
+  if(fs.existsSync(name)) {
+    return path.join(process.cwd(), name);
+  }
+
+  return path.join(cwd, 'node_modules', name, 'node_modules');
+}
