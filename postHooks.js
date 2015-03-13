@@ -21,10 +21,6 @@ var getFunctions = function (hookName) {
     functions.push(themeFunctions[hookName]);
   }
 
-  if (config.site.functions && config.site.functions[hookName]) {
-    functions.push(config.site.functions[hookName]);
-  }
-
   // if (config.plugins) {
   //   _.each(config.plugins, function (pluginName) {
   //     var plugin = require(pluginName);
@@ -33,6 +29,10 @@ var getFunctions = function (hookName) {
   //     }
   //   });
   // }
+
+  if (config.site.functions && config.site.functions[hookName]) {
+    functions.push(config.site.functions[hookName]);
+  }
 
   return functions;
 }
