@@ -5,7 +5,7 @@ var themeFunctions = require('theme/functions') || {};
 
 var MdHelper = require('./elements/MdHelper');
 var postHooks = require('./postHooks');
-var config = require('config');
+var siteFunctions = require('config').site.functions || {} ;
 
 
 function allPosts() {
@@ -146,55 +146,25 @@ exports.renderContent = renderContent;
 
 function processPost(file, fileName) {
   // TODO: implement nicer hooks to configurable functions
+  var functions = _.assign({
+    url: function(file, fileName) {
+      return fileName.slice(0, fileName.length - 3);
+    },
+    date: function(file, fileName) {
+      return file.date || fileName.slice(0, 10);
+    },
+    preview: function(file, fileName) {
+      return file.preview || MdHelper.getContentPreview(file.__content);
+    },
+    content: function(file, fileName) {
+      return MdHelper.render(file.__content);
+    },
+  }, themeFunctions, siteFunctions);
 
-  // clean the filename to get the url
-  var url;
-  if(config.site.functions && config.site.functions.url) {
-    url = config.site.functions.url(file, fileName);
-  }
-  else if(themeFunctions.url) {
-    url = themeFunctions.url(file, fileName);
-  }
-  else {
-    // XXXXX: use a path opt to cut the ext instead?
-    url = fileName.slice(0, fileName.length - 3);
-  }
-
-  // get the date from the file name if it's not in the frontmatter
-  var date;
-  if(config.site.functions && config.site.functions.date) {
-    date = config.site.functions.date(file, fileName);
-  }
-  else if(themeFunctions.date) {
-    date = themeFunctions.date(file, fileName);
-  }
-  else {
-    date = file.date || fileName.slice(0, 10);
-  }
-
-  // get the content
-  var content;
-  if(config.site.functions && config.site.functions.content) {
-    content = config.site.functions.content(file, fileName);
-  }
-  else if(themeFunctions.content) {
-    content = themeFunctions.content(file, fileName);
-  }
-  else {
-    content = MdHelper.render(file.__content);
-  }
-
-  // generate the preview
-  var preview;
-  if(config.site.functions && config.site.functions.preview) {
-    preview = config.site.functions.preview(file, fileName);
-  }
-  else if(themeFunctions.preview) {
-    preview = themeFunctions.preview(file, fileName);
-  }
-  else {
-    preview = file.preview || MdHelper.getContentPreview(file.__content);
-  }
+  var url = functions.url(file, fileName);
+  var date = functions.date(file, fileName);
+  var preview = functions.preview(file, fileName);
+  var content = functions.content(file, fileName);
 
   return _.assign({}, file, {
     url: url,
