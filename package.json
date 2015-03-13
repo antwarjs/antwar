@@ -1,6 +1,6 @@
 {
   "name": "antwar",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "scripts": {},
   "dependencies": {
     "async": "^0.9.0",
