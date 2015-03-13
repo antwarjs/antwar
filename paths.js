@@ -4,6 +4,7 @@ var _ = require('lodash');
 var themeFunctions = require('theme/functions') || {};
 
 var MdHelper = require('./elements/MdHelper');
+var postHooks = require('./postHooks');
 
 
 function allPosts() {
@@ -34,6 +35,8 @@ function allPosts() {
   posts = generateNextPrev(posts);
   drafts = generateNextPrev(drafts);
 
+  posts = postHooks.preProcessPosts(posts);
+
   // Build some nice objects from the files
   _.each(posts.concat(drafts), function(fileArr) {
     var post = fileArr[1];
@@ -48,6 +51,7 @@ function allPosts() {
 
     returnObj[processedFile.url] = processedFile;
   });
+  returnObj = postHooks.postProcessPosts(returnObj);
 
   return returnObj;
 }
