@@ -8,7 +8,6 @@ var applyHooks = function (posts, functionArray) {
   var posts = posts;
   functionArray.forEach(function(callback){
     posts = callback(posts);
-    console.log('posts after!!!!!!', posts);
   });
 
   return posts;
