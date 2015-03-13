@@ -98,7 +98,7 @@ function getThemePath(name) {
 
   // XXX: existsSync
   if(fs.existsSync(name)) {
-    return path.join(process.cwd(), name);
+    return path.join(cwd, name);
   }
 
   return path.join(cwd, 'node_modules', name, 'node_modules');

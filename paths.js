@@ -20,13 +20,14 @@ function allPosts() {
   var drafts = [];
   if(__DEV__) {
     var req = draftReq();
-
-    drafts = _.map(req.keys(), function(name) {
-      return [
-        name,
-        _.assign({draft: true}, draftReq()(name)),
-      ];
-    });
+    if(req) {
+      drafts = _.map(req.keys(), function(name) {
+        return [
+          name,
+          _.assign({draft: true}, draftReq()(name)),
+        ];
+      });
+    }
   }
 
   // TODO: build plugin arch here
