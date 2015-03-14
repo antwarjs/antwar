@@ -32,10 +32,6 @@ function allPosts() {
     }
   }
 
-  // TODO: build plugin arch here
-  posts = generateNextPrev(posts);
-  drafts = generateNextPrev(drafts);
-
   posts = postHooks.preProcessPosts(posts);
 
   // Build some nice objects from the files
@@ -57,24 +53,6 @@ function allPosts() {
   return returnObj;
 }
 exports.allPosts = allPosts;
-
-// TODO: push into a plugin
-function generateNextPrev(posts) {
-  var len = posts.length;
-
-  return posts.map(function(fileArr, i) {
-    var post = fileArr[1];
-
-    if(i > 0) {
-      post.prev = posts[1][i - 1];
-    }
-    if(i < len - 2) {
-      post.next = posts[1][i + 1];
-    }
-
-    return fileArr;
-  });
-}
 
 function allPages() {
   // TODO: allow hooks on page processing
