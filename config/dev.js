@@ -8,6 +8,8 @@ module.exports = function(config) {
   var ReactHotLoaderMatches = /View.coffee|Pages\//;
   var cwd = process.cwd();
 
+  var themeConfig = config.themeConfig && config.themeConfig.development;
+
   return getCommon(config).then(function(common) {
     return {
       cache: true,
@@ -75,7 +77,7 @@ module.exports = function(config) {
             test: /\.md$/,
             loader: 'json!yaml-frontmatter-loader',
           }
-        ],
+        ].concat(themeConfig.module && themeConfig.module.loaders? themeConfig.module.loaders: []),
       },
       resolve: common.resolve,
       resolveLoader: common.resolveLoader,

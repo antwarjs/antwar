@@ -9,6 +9,8 @@ var getCommon = require('./common');
 module.exports = function(config) {
   var cwd = process.cwd();
 
+  var themeConfig = config.themeConfig && config.themeConfig.build;
+
   return getCommon(config).then(function(common) {
     return {
       name: 'server',
@@ -58,7 +60,7 @@ module.exports = function(config) {
             test: /\.md$/,
             loader: 'json!yaml-frontmatter-loader',
           }
-        ],
+        ].concat(themeConfig.module && themeConfig.module.loaders? themeConfig.module.loaders: []),
         jshint: common.jshint,
       }
     };

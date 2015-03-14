@@ -30,6 +30,8 @@ module.exports = function(config) {
     var cwd = process.cwd();
     var parent = path.join(__dirname, '..');
 
+    var themeConfig = config.themeConfig && config.themeConfig.common;
+
     resolve({
       resolve: {
         root: path.join(parent, 'node_modules'),
@@ -51,7 +53,7 @@ module.exports = function(config) {
           '.jsx',
           '.coffee',
           '.json',
-        ],
+        ].concat(themeConfig.extensions || []),
         modulesDirectories: [
           path.join(cwd, 'node_modules'),
           getThemePath(theme.name),
