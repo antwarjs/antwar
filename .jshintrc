@@ -17,5 +17,6 @@
     "unused": true,
     "strict": true,
     "trailing": true,
-    "jquery": true
+    "jquery": true,
+    "predef": ["__DEV__", "__PRERELEASE__"]
 }
