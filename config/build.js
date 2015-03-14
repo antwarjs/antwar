@@ -10,6 +10,7 @@ module.exports = function(config) {
   var cwd = process.cwd();
 
   var themeConfig = config.themeConfig && config.themeConfig.build;
+  themeConfig = themeConfig || {};
 
   return getCommon(config).then(function(common) {
     return {
