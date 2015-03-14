@@ -20,8 +20,8 @@ var getFunctions = function (hookName) {
   }
   if (config.site.plugins) {
     _.each(config.site.plugins, function (plugin) {
-      if(plugin.functions && plugin.functions[hookName]) {
-        functions.push(plugin.functions[hookName]);
+      if(plugin[hookName]) {
+        functions.push(plugin[hookName]);
       }
     });
   }
