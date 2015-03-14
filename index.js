@@ -29,7 +29,8 @@ function parseThemeWebpackConfig(config) {
       return require(path.basename(config.theme.name));
     }
     catch(e) {
-      console.error(e);
+      // XXX: figure out when to show error, when not
+      //console.error(e);
     }
   }
 
