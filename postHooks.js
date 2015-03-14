@@ -5,13 +5,12 @@ var themeFunctions = require('theme/functions') || {};
 var config = require('config');
 
 var applyHooks = function (posts, functionArray) {
-  var posts = posts;
   functionArray.forEach(function(callback){
     posts = callback(posts);
   });
 
   return posts;
-}
+};
 
 var getFunctions = function (hookName) {
   var functions = [];
@@ -31,16 +30,13 @@ var getFunctions = function (hookName) {
   }
 
   return functions;
-}
+};
 
 module.exports = {
-
   preProcessPosts: function (posts) {
     return applyHooks(posts, getFunctions('preProcessPosts'));
   },
-
   postProcessPosts: function (posts) {
     return applyHooks(posts, getFunctions('postProcessPosts'));
   }
-
-}
+};
