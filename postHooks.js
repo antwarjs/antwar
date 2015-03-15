@@ -38,5 +38,8 @@ module.exports = {
   },
   postProcessPosts: function (posts) {
     return applyHooks(posts, getFunctions('postProcessPosts'));
+  },
+  postProcessPages: function (pages) {
+    return applyHooks(pages, getFunctions('postProcessPages'));
   }
 };

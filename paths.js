@@ -84,7 +84,7 @@ function allPages() {
       content: content,
     };
   });
-
+  pages = postHooks.postProcessPages(pages);
   return pages;
 }
 exports.allPages = allPages;
