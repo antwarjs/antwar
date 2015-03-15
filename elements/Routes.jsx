@@ -33,6 +33,7 @@ var Routes = (
     <Route name='/antwar_devindex' handler={DevIndex}></Route>
     <Route name='/blog' path='/blog/?' handler={Blog}></Route>
     <Route name='post' path='/blog/:post' handler={Post}></Route>
+    <Route name='postWithNesting' path='/blog/*/:post' handler={Post}></Route>
     {pageRoutes}
   </Route>
 );

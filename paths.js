@@ -105,13 +105,13 @@ function pageReq() {
 exports.pageReq = pageReq;
 
 function postReq() {
-  return require.context('posts', false, /^\.\/.*\.md$/);
+  return require.context('posts', true, /^\.\/.*\.md$/);
 }
 exports.postReq = postReq;
 
 function draftReq() {
   try {
-    return require.context('drafts', false, /^\.\/.*\.md$/);
+    return require.context('drafts', true, /^\.\/.*\.md$/);
   }
   catch(e) {}
 }

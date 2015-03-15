@@ -18,7 +18,15 @@ module.exports = {
     return paths.getPages();
   },
   getPost: function() {
-    return this.getPostForPath(this.context.getCurrentParams().post);
+    var params = this.context.getCurrentParams();
+    var post = params.post;
+    var splat = params.splat;
+
+    if(splat) {
+      return this.getPostForPath(splat + '/' + post);
+    }
+
+    return this.getPostForPath(post);
   },
   getPage: function() {
     // remove leading slash
