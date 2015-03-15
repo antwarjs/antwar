@@ -8,13 +8,7 @@ var webpack = require('webpack');
 
 module.exports = function(config) {
   return new Promise(function(resolve, reject) {
-    var site = config.site;
-
-    if(!site) {
-      return reject(new Error('Missing site configuration'));
-    }
-
-    var theme = site.theme;
+    var theme = config.theme;
 
     if(!theme || !theme.name) {
       return reject(new Error('Missing theme'));
@@ -26,7 +20,7 @@ module.exports = function(config) {
     var themeConfig = config.themeConfig && config.themeConfig.common;
     themeConfig = themeConfig || {};
 
-    var siteConfig = site.webpack && site.webpack.common;
+    var siteConfig = config.webpack && config.webpack.common;
     siteConfig = siteConfig || {};
 
     resolve({

@@ -29,7 +29,7 @@ var pageRoutes = _.map(paths.allPages(), function(page, key) {
 
   return <Route path={path} key={page.url} name={page.url} handler={handler}></Route>
 });
-var blogRoot = config.site.blogRoot || 'blog';
+var blogRoot = config.blogRoot || 'blog';
 var Routes = (
   <Route name='home' title='Home' handler={Layout}>
     <Route name='/antwar_devindex' handler={DevIndex}></Route>

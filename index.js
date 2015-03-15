@@ -8,13 +8,13 @@ var build = require('./build');
 
 
 exports.develop = function(config) {
-  config.themeConfig = parseThemeWebpackConfig(config.site);
+  config.themeConfig = parseThemeWebpackConfig(config);
 
   return build.devIndex(config).then(build.devServer.bind(null, config));
 };
 
 exports.build = function(config) {
-  config.themeConfig = parseThemeWebpackConfig(config.site);
+  config.themeConfig = parseThemeWebpackConfig(config);
 
   return build(config);
 };

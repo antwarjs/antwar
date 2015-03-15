@@ -13,7 +13,7 @@ module.exports = function(Body) {
     mixins: [Router.State, Paths],
     render: function() {
       var pageTitle = this.getPageTitle();
-      var siteName = config.site.name || '';
+      var siteName = config.name || '';
 
       pageTitle = pageTitle && pageTitle + ' / ';
       pageTitle += siteName;

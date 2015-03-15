@@ -18,15 +18,15 @@ var getFunctions = function (hookName) {
   if (themeFunctions[hookName]) {
     functions.push(themeFunctions[hookName]);
   }
-  if (config.site.plugins) {
-    _.each(config.site.plugins, function (plugin) {
+  if (config.plugins) {
+    _.each(config.plugins, function (plugin) {
       if(plugin[hookName]) {
         functions.push(plugin[hookName]);
       }
     });
   }
-  if (config.site.functions && config.site.functions[hookName]) {
-    functions.push(config.site.functions[hookName]);
+  if (config.functions && config.functions[hookName]) {
+    functions.push(config.functions[hookName]);
   }
 
   return functions;

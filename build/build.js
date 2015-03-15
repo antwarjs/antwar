@@ -11,13 +11,7 @@ module.exports = function(config) {
   process.env.BUILD_DEV = 0;
 
   return new Promise(function(resolve, reject) {
-    var site = config.site;
-
-    if(!site) {
-      return reject(new Error('Missing site configuration'));
-    }
-
-    var output = site.output;
+    var output = config.output;
 
     if(!output) {
       return reject(new Error('Missing output directory'));
@@ -39,7 +33,7 @@ module.exports = function(config) {
         };
 
         // Extras
-        var pluginExtras = _.pluck(site.plugins, 'extra').filter(_.identity);
+        var pluginExtras = _.pluck(config.plugins, 'extra').filter(_.identity);
         var extraFiles = _.map(pluginExtras, function(plugin) {
           return plugin(params.allPaths, config);
         });

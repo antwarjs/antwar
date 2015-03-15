@@ -68,8 +68,7 @@ exports.pages = function(o, cb) {
 };
 
 exports.index = function(o, cb) {
-  var site = o.config.site;
-  var blogRoot = site.blogRoot || 'blog';
+  var blogRoot = o.config.blogRoot || 'blog';
 
   mkdirp(_path.join(o.output, blogRoot), function(err) {
     if(err) {
@@ -101,8 +100,7 @@ exports.extras = function(o, files, cb) {
 };
 
 exports.posts = function(o, cb) {
-  var site = o.config.site;
-  var blogRoot = site.blogRoot || 'blog';
+  var blogRoot = o.config.blogRoot || 'blog';
 
   var data = [];
 

@@ -13,8 +13,7 @@ module.exports = function(config) {
   var themeConfig = config.themeConfig && config.themeConfig.build;
   themeConfig = themeConfig || {};
 
-  var site = config.site;
-  var siteConfig = site.webpack && site.webpack.build;
+  var siteConfig = config.webpack && config.webpack.build;
   siteConfig = siteConfig || {};
 
   return getCommon(config).then(function(common) {
