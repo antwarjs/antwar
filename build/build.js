@@ -38,7 +38,7 @@ module.exports = function(config) {
         };
 
         // Extras
-        var pluginExtras = _.pluck(site.plugins, 'extra');
+        var pluginExtras = _.pluck(site.plugins, 'extra').filter(_.identity);
         var extraFiles = _.map(pluginExtras, function(plugin) {
           return plugin(params.allPaths, config);
         });
