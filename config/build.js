@@ -60,6 +60,10 @@ module.exports = function(config) {
             loader: 'raw',
           },
           {
+            test: /\.svg$/,
+            loader: 'raw',
+          },
+          {
             test: /\.md$/,
             loader: 'json!yaml-frontmatter-loader',
           }
