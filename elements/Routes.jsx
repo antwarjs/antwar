@@ -11,6 +11,7 @@ var Blog = require('theme/Blog');
 
 var Layout = require('./Layout.jsx')(Body)
 
+var config = require('config');
 var DevIndex = require('./DevIndex.jsx');
 var paths = require('../paths');
 
@@ -28,12 +29,13 @@ var pageRoutes = _.map(paths.allPages(), function(page, key) {
 
   return <Route path={path} key={page.url} name={page.url} handler={handler}></Route>
 });
+var blogRoot = config.site.blogRoot || 'blog';
 var Routes = (
   <Route name='home' title='Home' handler={Layout}>
     <Route name='/antwar_devindex' handler={DevIndex}></Route>
-    <Route name='/blog' path='/blog/?' handler={Blog}></Route>
-    <Route name='post' path='/blog/:post' handler={Post}></Route>
-    <Route name='postWithNesting' path='/blog/*/:post' handler={Post}></Route>
+    <Route name={'/' + blogRoot} path={'/' + blogRoot + '/?'} handler={Blog}></Route>
+    <Route name='post' path={'/' + blogRoot + '/:post'} handler={Post}></Route>
+    <Route name='postWithNesting' path={'/' + blogRoot + '/*/:post'} handler={Post}></Route>
     {pageRoutes}
   </Route>
 );

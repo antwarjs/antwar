@@ -68,14 +68,17 @@ exports.pages = function(o, cb) {
 };
 
 exports.index = function(o, cb) {
-  mkdirp(_path.join(o.output, 'blog'), function(err) {
+  var site = o.config.site;
+  var blogRoot = site.blogRoot || 'blog';
+
+  mkdirp(_path.join(o.output, blogRoot), function(err) {
     if(err) {
       return cb(err);
     }
 
     _fs.writeFile(
-      _path.join(o.output,  'blog', 'index.html'),
-      o.renderPage('/blog', null),
+      _path.join(o.output, blogRoot, 'index.html'),
+      o.renderPage('/' + blogRoot, null),
       cb
     );
   });
@@ -98,15 +101,18 @@ exports.extras = function(o, files, cb) {
 };
 
 exports.posts = function(o, cb) {
+  var site = o.config.site;
+  var blogRoot = site.blogRoot || 'blog';
+
   var data = [];
 
   Object.keys(o.allPaths.posts).forEach(function(post) {
-    var p = _path.join(o.output, 'blog', post);
+    var p = _path.join(o.output, blogRoot, post);
 
     mkdirp.sync(p);
 
     data.push({
-      path: _path.join(o.output, 'blog', post),
+      path: _path.join(o.output, blogRoot, post),
       post: post,
     });
   });
@@ -119,7 +125,7 @@ exports.posts = function(o, cb) {
 
       _fs.writeFile(
         _path.join(d.path, 'index.html'),
-        o.renderPage('/blog/' + d.post),
+        o.renderPage('/' + blogRoot + '/' + d.post),
         cb
       );
     });
