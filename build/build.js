@@ -7,7 +7,6 @@ var webpack = require('webpack');
 var webpackConfig = require('../config/build');
 var write = require('./write');
 
-
 module.exports = function(config) {
   process.env.BUILD_DEV = 0;
 
@@ -38,22 +37,23 @@ module.exports = function(config) {
           output: _path.join(cwd, output),
         };
 
+        // Extras
+        var pluginExtras = _.pluck(site.plugins, 'extra');
+        var extraFiles = _.map(pluginExtras, function(plugin) {
+          return plugin(params.allPaths, config);
+        });
         async.parallel([
           write.assets.bind(null, params),
           write.pages.bind(null, params),
           write.index.bind(null, params),
           write.posts.bind(null, params),
+          write.extras.bind(null, params, extraFiles)
         ], function(err) {
           if(err) {
             return reject(err);
           }
-
           resolve();
         });
-
-        // TODO: this should be pushed to a plugin
-        //var rss = require(_path.join(cwd, './.antwar/build/bundleStaticRss.js'));
-        //fs.writeFileSync(_path.join(process.cwd(), output, 'atom.xml'), rss(renderPage));
       });
     }).catch(function(err) {
       reject(err);
