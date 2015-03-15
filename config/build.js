@@ -2,6 +2,7 @@
 var path = require('path');
 
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+process.env.BUILD_DEV = 0;
 
 var getCommon = require('./common');
 
