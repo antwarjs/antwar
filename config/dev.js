@@ -5,6 +5,7 @@ var getCommon = require('./common');
 
 
 module.exports = function(config) {
+  var ReactHotLoaderMatches = /View.coffee|Pages\//;
   var cwd = process.cwd();
 
   var themeConfig = config.themeConfig && config.themeConfig.development;
@@ -37,6 +38,11 @@ module.exports = function(config) {
             loader: 'file-loader?prefix=font/',
           },
           {
+            test: /\.coffee$/,
+            exclude: ReactHotLoaderMatches,
+            loader: 'react-hot!jshint-loader!coffee-loader',
+          },
+          {
             test: /\.json$/,
             loader: 'json-loader',
           },
@@ -57,6 +63,19 @@ module.exports = function(config) {
               'style-loader',
               'css-loader',
             ],
+          },
+          {
+            test: /\.scss$/,
+            loaders: [
+              'style-loader',
+              'css-loader',
+              'autoprefixer-loader?{browsers:["last 2 version", "ie 10", "Android 4"]}',
+              'sass-loader',
+            ],
+          },
+          {
+            test: ReactHotLoaderMatches,
+            loader: 'react-hot!coffee-loader',
           },
           {
             test: /\.md$/,

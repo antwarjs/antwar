@@ -66,6 +66,20 @@ module.exports = function(config) {
           'NODE_ENV': JSON.stringify(process.env.BUILD_DEV ? 'dev' : 'production')
         }
       })],
+      jshint: {
+        bitwise: false,
+        boss: true,
+        curly: false,
+        eqnull: true,
+        expr: true,
+        newcap: false,
+        quotmark: false,
+        shadow: true,
+        strict: false,
+        sub: true,
+        undef: true,
+        unused: 'vars',
+      },
     });
   });
 };
