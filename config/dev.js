@@ -11,6 +11,10 @@ module.exports = function(config) {
   var themeConfig = config.themeConfig && config.themeConfig.development;
   themeConfig = themeConfig || {};
 
+  var site = config.site;
+  var siteConfig = site.webpack && site.webpack.development;
+  siteConfig = siteConfig || {};
+
   return getCommon(config).then(function(common) {
     return {
       cache: true,
@@ -78,7 +82,8 @@ module.exports = function(config) {
             test: /\.md$/,
             loader: 'json!yaml-frontmatter-loader',
           }
-        ].concat(themeConfig.module && themeConfig.module.loaders? themeConfig.module.loaders: []),
+        ].concat(themeConfig.module && themeConfig.module.loaders? themeConfig.module.loaders: []).
+        concat(siteConfig.module && siteConfig.module.loaders? siteConfig.module.loaders: []),
       },
       resolve: common.resolve,
       resolveLoader: common.resolveLoader,

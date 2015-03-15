@@ -2,7 +2,9 @@
 var fs = require('fs');
 var path = require('path');
 
+var _ = require('lodash');
 var webpack = require('webpack');
+
 
 module.exports = function(config) {
   return new Promise(function(resolve, reject) {
@@ -24,6 +26,9 @@ module.exports = function(config) {
     var themeConfig = config.themeConfig && config.themeConfig.common;
     themeConfig = themeConfig || {};
 
+    var siteConfig = site.webpack && site.webpack.common;
+    siteConfig = siteConfig || {};
+
     resolve({
       resolve: {
         root: path.join(parent, 'node_modules'),
@@ -37,7 +42,7 @@ module.exports = function(config) {
           'antwar-core': path.join(parent, 'elements'),
           'theme': getThemeName(theme.name),
         },
-        extensions: [
+        extensions: _.uniq([
           '',
           '.webpack.js',
           '.web.js',
@@ -45,7 +50,9 @@ module.exports = function(config) {
           '.jsx',
           '.coffee',
           '.json',
-        ].concat(themeConfig.extensions || []),
+        ].
+        concat(themeConfig.extensions || []).
+        concat(siteConfig.extensions || [])),
         modulesDirectories: [
           path.join(cwd, 'node_modules'),
           getThemePath(theme.name),
