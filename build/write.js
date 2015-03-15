@@ -82,6 +82,10 @@ exports.index = function(o, cb) {
 };
 
 exports.extras = function(o, files, cb) {
+  if(!files || !files.length) {
+    return cb();
+  }
+
   _.each(files, function(file) {
     _.each(file, function(fileContent, fileName) {
       _fs.writeFile(
