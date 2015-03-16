@@ -7,6 +7,7 @@ A static site generator using [React](https://github.com/facebook/react).
 Very much alpha.
 
 ## Getting started
+
 Read the [getting started section on our site](http://antwarjs.github.io/get-started)
 
 ## TODO
@@ -14,11 +15,14 @@ Read the [getting started section on our site](http://antwarjs.github.io/get-sta
 Check out the issues section. We're still in the very early phases of development.
 
 ## Contributions
+
 All contributions are welcome. Please open an issue if you have an idea. :)
 
 ## Credits
+
 This is based on the fantastic work of [Brad Denver](https://github.com/BradDenver/react-static-site).
 
 ## License
+
 MIT.
 
