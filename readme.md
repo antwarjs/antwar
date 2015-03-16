@@ -16,5 +16,9 @@ Check out the issues section. We're still in the very early phases of developmen
 ## Contributions
 All contributions are welcome. Please open an issue if you have an idea. :)
 
-##Credits
+## Credits
 This is based on the fantastic work of [Brad Denver](https://github.com/BradDenver/react-static-site).
+
+## License
+MIT.
+
