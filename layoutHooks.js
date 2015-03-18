@@ -4,13 +4,17 @@ var _ = require('lodash');
 var themeFunctions = require('theme/functions') || {};
 var config = require('config');
 
-var applyHooks = function (options,functionArray) {
-  var retVal = [];
-  functionArray.forEach(function(callback){
-    retVal.push(callback(options));
-  });
 
-  return retVal;
+module.exports = {
+  headContent: function (options) {
+    return applyHooks(options, getFunctions('headContent'));
+  }
+};
+
+var applyHooks = function (options, functionArray) {
+  return functionArray.map(function(cb) {
+    return cb(options);
+  });
 };
 
 var getFunctions = function (hookName) {
@@ -31,10 +35,4 @@ var getFunctions = function (hookName) {
   }
 
   return functions;
-};
-
-module.exports = {
-  headContent: function (options) {
-    return applyHooks(options, getFunctions('headContent'));
-  }
 };
