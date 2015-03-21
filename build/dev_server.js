@@ -13,9 +13,9 @@ var devConfig = require('../config/dev');
 function devServer(port, config) {
   var devConfigParams = {};
 
-  devConfigParams.entry ={
+  devConfigParams.entry = {
     main: [
-      'webpack-dev-server/client?http://localhost:8000',
+      'webpack-dev-server/client?http://localhost:' + port,
       'webpack/hot/dev-server',
       path.join(__dirname, './dev_entry.js'),
     ],
