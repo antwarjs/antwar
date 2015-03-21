@@ -30,7 +30,6 @@ module.exports = React.createClass({
     pageTitle = pageTitle && pageTitle + ' / ';
     pageTitle += siteName;
 
-    // XXXXXX: inject RSS link via plugin
     return <html>
       <head>
         <title>{pageTitle}</title>
