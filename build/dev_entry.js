@@ -1,7 +1,7 @@
 'use strict';
 var React = require('react');
 var Router = require('react-router');
-var Routes = require('../elements/Routes');
+var Routes = require('../elements/BodyRoutes');
 
 
 Router.run(Routes, Router.HistoryLocation, function(Handler) {
