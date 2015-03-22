@@ -61,12 +61,16 @@ module.exports = function(config) {
           'node_modules',
         ]
       },
-      plugins: [new webpack.DefinePlugin({
-        __DEV__: JSON.stringify(JSON.parse(process.env.BUILD_DEV)),
-        'process.env': {
-          'NODE_ENV': JSON.stringify(process.env.BUILD_DEV ? 'dev' : 'production')
-        }
-      })],
+      plugins: [
+        new webpack.DefinePlugin({
+          __DEV__: JSON.stringify(JSON.parse(process.env.BUILD_DEV)),
+          'process.env': {
+            'NODE_ENV': JSON.stringify(process.env.BUILD_DEV ? 'dev' : 'production')
+          }
+        }),
+        new webpack.optimize.OccurenceOrderPlugin(),
+        new webpack.optimize.DedupePlugin()
+      ],
       jshint: {
         bitwise: false,
         boss: true,

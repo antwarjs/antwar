@@ -56,6 +56,10 @@ module.exports = function(config) {
             loader: 'coffee-loader',
           },
           {
+            test: /\.json$/,
+            loader: 'json-loader',
+          },
+          {
             test: /\.html$/,
             loader: 'raw',
           },
