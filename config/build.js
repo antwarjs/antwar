@@ -33,8 +33,8 @@ module.exports = function(config) {
         libraryTarget: 'commonjs2',
       },
       plugins: common.plugins.concat([
-        new ExtractTextPlugin('main.css', {
-          allChunks: true,
+        new ExtractTextPlugin('[name].css', {
+          allChunks: true
         })
       ]),
       resolve: common.resolve,
@@ -50,6 +50,11 @@ module.exports = function(config) {
           {
             test: /\.jsx?$/,
             loader: 'jsx-loader?harmony',
+          },
+          {
+            test: /\.css$/,
+            loader: ExtractTextPlugin.extract(
+              'style-loader', 'css-loader'),
           },
           {
             test: /\.coffee$/,

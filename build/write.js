@@ -9,7 +9,7 @@ var mkdirp = require('mkdirp');
 
 exports.assets = function(o, cb) {
   var assetsDir = _path.join(o.output, 'assets');
-  var mainPath = './.antwar/build/main.css';
+  var mainPath = './.antwar/build/bundlePage.css';
 
   mkdirp(assetsDir, function(err) {
     if(err) {
