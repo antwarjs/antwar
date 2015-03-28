@@ -139,15 +139,12 @@ function processPost(file, fileName) {
     },
   }, themeFunctions, siteFunctions);
 
-  var url = functions.url(file, fileName);
-  var date = functions.date(file, fileName);
-  var preview = functions.preview(file, fileName);
-  var content = functions.content(file, fileName);
+  // _.assign cannot be used here as otherwise some references (ie. prevnext)
+  // won't get updated
+  file.url = functions.url(file, fileName);
+  file.date = functions.date(file, fileName);
+  file.preview = functions.preview(file, fileName);
+  file.content = functions.content(file, fileName);
 
-  return _.assign({}, file, {
-    url: url,
-    content: content,
-    date: date,
-    preview: preview
-  });
+  return file;
 }
