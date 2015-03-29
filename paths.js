@@ -6,7 +6,7 @@ var themeFunctions = require('theme/functions') || {};
 var MdHelper = require('./elements/MdHelper');
 var postHooks = require('./postHooks');
 var siteFunctions = require('config').functions || {} ;
-
+var he = require('he');
 
 function allPosts() {
   var returnObj = {};
@@ -132,6 +132,18 @@ function processPost(file, fileName) {
       return file.date || fileName.slice(0, 10);
     },
     preview: function(file, fileName) {
+      if (file.preview) {
+        return file.preview;
+      }
+      else {
+        var stripped = he.decode(file.content.replace(/<(?:.|\n)*?>/gm, ''));
+        if (stripped.length > 100) {
+          return stripped.substr(0, 100) + '…';
+        }
+        else {
+          return stripped;
+        }
+      }
       return file.preview || MdHelper.getContentPreview(file.__content);
     },
     content: function(file, fileName) {
@@ -143,8 +155,8 @@ function processPost(file, fileName) {
   // won't get updated
   file.url = functions.url(file, fileName);
   file.date = functions.date(file, fileName);
-  file.preview = functions.preview(file, fileName);
   file.content = functions.content(file, fileName);
+  file.preview = functions.preview(file, fileName);
 
   return file;
 }
