@@ -3,7 +3,7 @@ var _fs = require('fs');
 var _path = require('path');
 
 var async = require('async');
-var ncp = require('ncp');
+var cpr = require('cpr');
 var mkdirp = require('mkdirp');
 
 
@@ -17,18 +17,20 @@ exports.assets = function(o, cb) {
     }
 
     async.parallel([
-      ncp.bind(null, _path.join(o.cwd, './assets'), assetsDir),
+      cpr.bind(null, _path.join(o.cwd, 'assets'), assetsDir),
       function(cb) {
         _fs.exists(mainPath, function(exists) {
           if(!exists) {
             return cb();
           }
 
-          _fs.writeFile(
-            _path.join(assetsDir, 'main.css'),
-            _fs.readFileSync(mainPath),
-            cb
-          );
+          _fs.readFile(mainPath, function(err, data) {
+            if(err) {
+              return cb(err);
+            }
+
+            _fs.writeFile(_path.join(assetsDir, 'main.css'), data, cb);
+          });
         });
       }
     ], cb);

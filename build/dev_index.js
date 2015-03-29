@@ -3,7 +3,7 @@ var fs = require('fs');
 var _path = require('path');
 
 var async = require('async');
-var ncp = require('ncp');
+var cpr = require('cpr');
 var webpack = require('webpack');
 var webpackConfig = require('../config/build');
 
@@ -26,7 +26,7 @@ module.exports = function(config) {
             _path.join(buildDir, 'index.html'),
             renderPage('/antwar_devindex', null)
           ),
-          ncp.bind(null,
+          cpr.bind(null,
             './assets',
             _path.join(buildDir, 'assets'))
         ], function(err) {
