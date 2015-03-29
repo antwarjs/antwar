@@ -41,8 +41,8 @@ module.exports = {
   getPageTitle: function() {
     var post = this.getPost();
 
-    if(post && post.name) {
-      return post.name;
+    if(post && post.title) {
+      return post.title;
     }
 
     var routes = this.context.getCurrentRoutes();
