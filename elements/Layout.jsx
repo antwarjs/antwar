@@ -37,6 +37,7 @@ module.exports = React.createClass({
           name='viewport'
           content='width=device-width, initial-scale=1, maximum-scale=1, minimal-ui'>
         </meta>
+        <link rel="icon" type="image/png" href="/assets/img/favicon.png"></link>
         {_.each(this.getExternalHeadContent(this.getAllPosts()), function (component) {
           React.createElement(component, null);
         })}
