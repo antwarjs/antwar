@@ -11,14 +11,16 @@ mkdir test
 cd test
 
 # clone cli and set it up
-git clone https://github.com/antwarjs/cli.git .
+git clone https://github.com/antwarjs/cli.git cli
+cd cli
 npm link
 
 # remove installed version given we want to rely on the linked one
 rm -rf node_modules/antwar
 
-# initialize project and build it
 cd ..
+
+# initialize project and build it
 antwar -i demo
 cd demo
 antwar -b
