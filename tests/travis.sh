@@ -11,7 +11,7 @@ mkdir test
 cd test
 
 # clone cli and set it up
-git clone git@github.com:antwarjs/cli.git .
+git clone https://github.com/antwarjs/cli.git .
 npm link
 
 # remove installed version given we want to rely on the linked one
