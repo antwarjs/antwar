@@ -27,7 +27,7 @@
     "react": "^0.12.2",
     "react-hot-loader": "^1.1.6",
     "react-router": "^0.12.4",
-    "sass-loader": "^1.0.0",
+    "sass-loader": "^0.3.0",
     "script-loader": "^0.6.1",
     "style-loader": "^0.8.3",
     "url-loader": "^0.5.5",
