@@ -25,12 +25,13 @@ module.exports = function(Body) {
     mixins: [Router.State, Paths],
 
     render: function() {
-      return <Body>
+      var external = getExternalContent(this.getAllPosts());
+      return (<Body>
           <RouteHandler></RouteHandler>
-          {_.each(getExternalContent(this.getAllPosts()), function (component) {
-            React.createElement(component, null);
+          {_.map(external, function (Component, i) {
+            return <Component key={i} />;
           })}
-        </Body>
+        </Body>);
     },
   });
 }
