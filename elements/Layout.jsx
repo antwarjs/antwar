@@ -38,8 +38,8 @@ module.exports = React.createClass({
           content='width=device-width, initial-scale=1, maximum-scale=1, minimal-ui'>
         </meta>
         <link rel="icon" type="image/png" href="/assets/img/favicon.png"></link>
-        {_.map(this.getExternalHeadContent(this.getAllPosts()), function (Component) {
-          return <Component />;
+        {_.map(this.getExternalHeadContent(this.getAllPosts()), function (Component, i) {
+          return <Component key={'component-' + i} />;
         })}
         {!__DEV__?
           <link rel='stylesheet' href='/assets/main.css'></link>:
