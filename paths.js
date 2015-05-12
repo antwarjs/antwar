@@ -10,23 +10,25 @@ var he = require('he');
 
 function allPosts() {
   var returnObj = {};
+  var postModules = postReq();
 
-  var posts = _.map(postReq().keys(), function(name) {
+  var posts = _.map(postModules.keys(), function(name) {
     return [
       name,
-      postReq()(name),
+      postModules(name),
     ];
   });
 
   // Include drafts if we're not in prod
   var drafts = [];
   if(__DEV__) {
-    var req = draftReq();
-    if(req) {
-      drafts = _.map(req.keys(), function(name) {
+    var draftModules = draftReq();
+
+    if(draftModules) {
+      drafts = _.map(draftModules.keys(), function(name) {
         return [
           name,
-          _.assign({draft: true}, draftReq()(name)),
+          _.assign({draft: true}, draftModules(name)),
         ];
       });
     }
@@ -107,7 +109,6 @@ exports.pageReq = pageReq;
 function postReq() {
   return require.context('posts', true, /^\.\/.*\.md$/);
 }
-exports.postReq = postReq;
 
 function draftReq() {
   try {
@@ -115,7 +116,6 @@ function draftReq() {
   }
   catch(e) {}
 }
-exports.draftReq = draftReq;
 
 function renderContent(content) {
   return MdHelper.render(content);
