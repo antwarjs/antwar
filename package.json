@@ -21,6 +21,7 @@
     "lodash": "^3.3.1",
     "markdown-loader": "^0.1.2",
     "mkdirp": "^0.5.0",
+    "node-libs-browser": "^0.5.0",
     "portfinder": "^0.4.0",
     "promise.prototype.finally": "^1.0.1",
     "raw-loader": "^0.5.1",
@@ -31,8 +32,8 @@
     "script-loader": "^0.6.1",
     "style-loader": "^0.8.3",
     "url-loader": "^0.5.5",
-    "webpack": "^1.7.0",
-    "webpack-dev-server": "^1.7.0",
+    "webpack": "^1.9.4",
+    "webpack-dev-server": "^1.8.2",
     "yaml-frontmatter-loader": "^0.0.2"
   },
   "devDependencies": {},
