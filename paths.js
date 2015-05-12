@@ -5,7 +5,8 @@ var themeFunctions = require('theme/functions') || {};
 
 var MdHelper = require('./elements/MdHelper');
 var postHooks = require('./postHooks');
-var siteFunctions = require('config').functions || {} ;
+var config = require('config');
+var siteFunctions = config.functions || {} ;
 var he = require('he');
 
 function allPosts() {
