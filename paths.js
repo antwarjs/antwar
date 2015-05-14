@@ -11,19 +11,25 @@ var he = require('he');
 
 function allPosts() {
   var returnObj = {};
-  var postModules = require.context('posts', true, /^\.\/.*\.md$/);
 
-  // TODO: expand to work with config paths
-  //var blogPosts = config.paths['webpack_react']();
+  var posts = [].concat.apply([], _.keys(config.paths).map(function(k) {
+    var modules = config.paths[k]();
 
-  var posts = _.map(postModules.keys(), function(name) {
-    return [
-      name,
-      postModules(name),
-    ];
-  });
+    return _.map(modules.keys(), function(name) {
+      return [
+        k + '/' + name.slice(2),
+        modules(name),
+      ];
+    });
+  }));
+
+  console.log(posts);
+
+  // TODO: check config.drafts
+  var drafts = [];
 
   // Include drafts if we're not in prod
+  /*
   var drafts = [];
   if(__DEV__) {
     var draftModules = draftReq();
@@ -36,7 +42,7 @@ function allPosts() {
         ];
       });
     }
-  }
+  }*/
 
   posts = postHooks.preProcessPosts(posts);
 
@@ -45,6 +51,7 @@ function allPosts() {
     var post = fileArr[1];
     var fileName = fileArr[0].slice(2); // remove the './'
 
+    // XXXXX
     // Name is on format ./YYYY-MM-DD-url_title.md
     // TODO: Configurable file name standard
     var processedFile = processPost(
@@ -59,13 +66,6 @@ function allPosts() {
   return returnObj;
 }
 exports.allPosts = allPosts;
-
-function draftReq() {
-  try {
-    return require.context('drafts', true, /^\.\/.*\.md$/);
-  }
-  catch(e) {}
-}
 
 function allPages() {
   // TODO: allow hooks on page processing
@@ -129,6 +129,7 @@ function processPost(file, fileName) {
       return fileName.slice(0, fileName.length - 3);
     },
     date: function(file, fileName) {
+      // XXXXX: brittle given filename might not contain date!
       return file.date || fileName.slice(0, 10);
     },
     preview: function(file, fileName) {

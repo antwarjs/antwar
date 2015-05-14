@@ -29,9 +29,7 @@ module.exports = function(config) {
         alias: {
           'underscore': 'lodash',
           'pages': path.join(cwd, 'pages'),
-          'posts': path.join(cwd, 'posts'),
           'assets': path.join(cwd, 'assets'),
-          'drafts': path.join(cwd, 'drafts'),
           'customStyles': path.join(cwd, 'styles'), // Should be moved to theme specific config
           'config': path.join(cwd, 'antwar.config.js'),
           'antwar-core': path.join(parent, 'elements'),
