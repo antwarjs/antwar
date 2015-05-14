@@ -70,20 +70,21 @@ exports.pages = function(o, cb) {
 };
 
 exports.index = function(o, cb) {
-  // TODO: expand to work with paths config
-  var blogRoot = o.config.blogRoot || 'blog';
+  var paths = _.keys(config.paths);
 
-  mkdirp(_path.join(o.output, blogRoot), function(err) {
-    if(err) {
-      return cb(err);
-    }
+  async.each(_.keys(config.paths), function(pathRoot, cb) {
+    mkdirp(_path.join(o.output, pathRoot), function(err) {
+      if(err) {
+        return cb(err);
+      }
 
-    _fs.writeFile(
-      _path.join(o.output, blogRoot, 'index.html'),
-      o.renderPage('/' + blogRoot, null),
-      cb
-    );
-  });
+      _fs.writeFile(
+        _path.join(o.output, pathRoot, 'index.html'),
+        o.renderPage('/' + pathRoot, null),
+        cb
+      );
+    });
+  }, cb);
 };
 
 exports.extras = function(o, files, cb) {

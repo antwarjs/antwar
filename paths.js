@@ -23,8 +23,6 @@ function allPosts() {
     });
   }));
 
-  console.log(posts);
-
   // TODO: check config.drafts
   var drafts = [];
 
