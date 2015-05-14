@@ -70,6 +70,7 @@ exports.pages = function(o, cb) {
 };
 
 exports.index = function(o, cb) {
+  // TODO: expand to work with paths config
   var blogRoot = o.config.blogRoot || 'blog';
 
   mkdirp(_path.join(o.output, blogRoot), function(err) {

@@ -11,7 +11,10 @@ var he = require('he');
 
 function allPosts() {
   var returnObj = {};
-  var postModules = postReq();
+  var postModules = require.context('posts', true, /^\.\/.*\.md$/);
+
+  // TODO: expand to work with config paths
+  //var blogPosts = config.paths['webpack_react']();
 
   var posts = _.map(postModules.keys(), function(name) {
     return [
@@ -56,6 +59,13 @@ function allPosts() {
   return returnObj;
 }
 exports.allPosts = allPosts;
+
+function draftReq() {
+  try {
+    return require.context('drafts', true, /^\.\/.*\.md$/);
+  }
+  catch(e) {}
+}
 
 function allPages() {
   // TODO: allow hooks on page processing
@@ -106,17 +116,6 @@ function pageReq() {
   return require.context('pages', false);
 }
 exports.pageReq = pageReq;
-
-function postReq() {
-  return require.context('posts', true, /^\.\/.*\.md$/);
-}
-
-function draftReq() {
-  try {
-    return require.context('drafts', true, /^\.\/.*\.md$/);
-  }
-  catch(e) {}
-}
 
 function renderContent(content) {
   return MdHelper.render(content);

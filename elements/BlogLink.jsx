@@ -7,6 +7,7 @@ var config = require('config');
 var blogRoot = config.blogRoot;
 
 
+// XXX: too specific as this depends on blogRoot, eliminate
 module.exports = React.createClass({
   displayName: 'BlogLink',
   render: function() {

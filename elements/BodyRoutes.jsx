@@ -14,6 +14,7 @@ var BodyContent = require('./BodyContent.jsx')(Body);
 var config = require('config');
 var paths = require('../paths');
 
+// TODO: eliminate in favor of paths config
 var blogRoot = config.blogRoot || 'blog';
 
 var pageRoutes = _.map(paths.allPages(), function(page, key) {
@@ -35,6 +36,7 @@ function isMarkdownFile(page) {
   return page.fileName && page.fileName.indexOf('.md') > -1
 }
 
+// TODO: expand to work with paths config
 var Routes = (
   <Route name='bodyContent' handler={BodyContent}>
     <Route name={'/' + blogRoot} path={'/' + blogRoot + '/?'} handler={Blog}></Route>
