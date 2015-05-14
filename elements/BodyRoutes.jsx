@@ -14,9 +14,6 @@ var BodyContent = require('./BodyContent.jsx')(Body);
 var config = require('config');
 var paths = require('../paths');
 
-// TODO: eliminate in favor of paths config
-var blogRoot = config.blogRoot || 'blog';
-
 var pageRoutes = _.map(paths.allPages(), function(page, key) {
   var handler = require('pages/' + page.fileName);
 
@@ -36,15 +33,19 @@ function isMarkdownFile(page) {
   return page.fileName && page.fileName.indexOf('.md') > -1
 }
 
-// TODO: expand to work with paths config
-var Routes = (
-  <Route name='bodyContent' handler={BodyContent}>
-    <Route name={'/' + blogRoot} path={'/' + blogRoot + '/?'} handler={Blog}></Route>
-    <Route name='post' path={'/' + blogRoot + '/:post'} handler={Post}></Route>
-    <Route name='postWithNesting' path={'/' + blogRoot + '/*/:post'} handler={Post}></Route>
-    {pageRoutes}
-  </Route>
-);
+module.exports = generateRoutes();
 
-
-module.exports = Routes
+function generateRoutes() {
+  return (
+    <Route name='bodyContent' handler={BodyContent}>
+      {[].concat.apply([], _.keys(config.paths).map(function(k, i) {
+        return [
+          <Route key={'root-' + i} name={'/' + k} path={'/' + k + '/?'} handler={Blog}></Route>,
+          <Route key={'post-' + i} name='post' path={'/' + k + '/:post'} handler={Post}></Route>,
+          <Route key={'post-with-nesting' + i} name='postWithNesting' path={'/' + k + '/*/:post'} handler={Post}></Route>
+        ];
+      }))}
+      {pageRoutes}
+    </Route>
+  );
+}
