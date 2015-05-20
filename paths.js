@@ -20,11 +20,13 @@ function allPosts() {
       return [
         k + '/' + name.slice(2),
         {
+          file: modules(name),
+          // TODO: push these into an object?
           url: v.url,
           date: v.date,
           content: v.content,
           preview: v.preview,
-          file: modules(name)
+          title: v.title,
         },
       ];
     });
@@ -152,6 +154,9 @@ function processPost(o, fileName) {
       }
       return file.preview || MdHelper.getContentPreview(file.__content);
     },
+    title: function(file, fileName) {
+      return file.title;
+    }
   }, themeFunctions, siteFunctions);
 
   _.forEach(functions, function(fn, name) {
