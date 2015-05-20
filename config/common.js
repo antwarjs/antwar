@@ -25,8 +25,10 @@ module.exports = function(config) {
 
     var themeName = getThemeName(theme.name);
     var themePath = getThemePath(theme.name);
+    var corePath = path.join(parent, 'elements');
 
     resolve({
+      corePath: corePath,
       parent: parent,
       themeName: themeName,
       themePath: themePath,
@@ -38,7 +40,7 @@ module.exports = function(config) {
           'assets': path.join(cwd, 'assets'),
           'customStyles': path.join(cwd, 'styles'), // Should be moved to theme specific config
           'config': path.join(cwd, 'antwar.config.js'),
-          'antwar-core': path.join(parent, 'elements'),
+          'antwar-core': corePath,
           'theme': themeName,
         },
         extensions: _.uniq([

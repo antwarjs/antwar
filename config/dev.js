@@ -57,7 +57,7 @@ module.exports = function(config) {
               'react-hot',
               'babel'
             ],
-            include: new RegExp(common.themeName + '|' + common.parent +
+            include: new RegExp(common.themeName + '|' + common.corePath +
               '|' + common.resolve.alias.pages),
             exclude: new RegExp(common.resolve.root + '|' + common.themePath),
           },
