@@ -55,10 +55,11 @@ module.exports = function(config) {
             test: /\.jsx?$/,
             loaders: [
               'react-hot',
-              'jsx?harmony'
+              'babel'
             ],
             include: new RegExp(common.themeName + '|' + common.parent +
               '|' + common.resolve.alias.pages),
+            exclude: new RegExp(common.resolve.root),
           },
           {
             test: /\.css$/,
