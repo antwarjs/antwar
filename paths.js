@@ -124,9 +124,6 @@ function renderContent(content) {
 exports.renderContent = renderContent;
 
 function processPost(fileName, o) {
-  var file = o.file;
-  var section = o.section;
-
   var functions = _.assign({
     url: function(file, fileName) {
       return fileName.slice(0, fileName.length - 3);
@@ -155,10 +152,12 @@ function processPost(fileName, o) {
     title: function(file, fileName) {
       return file.title;
     }
-  }, themeFunctions, siteFunctions);
+  }, themeFunctions, siteFunctions, o.section);
+
+  var file = o.file;
 
   _.forEach(functions, function(fn, name) {
-    file[name] = (section[name] || fn)(file, fileName);
+    file[name] = fn(file, fileName);
   });
 
   // no need to transform root path
