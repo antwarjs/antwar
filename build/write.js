@@ -70,9 +70,9 @@ exports.pages = function(o, cb) {
 };
 
 exports.index = function(o, cb) {
-  var paths = _.keys(config.paths);
+  var paths = _.keys(o.config.paths);
 
-  async.each(_.keys(config.paths), function(pathRoot, cb) {
+  async.each(_.keys(o.config.paths), function(pathRoot, cb) {
     mkdirp(_path.join(o.output, pathRoot), function(err) {
       if(err) {
         return cb(err);
