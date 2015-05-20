@@ -16,9 +16,9 @@ function allPosts() {
     var v = config.paths[k];
     var modules = v.path();
     var paths = _.map(modules.keys(), function(name) {
-      return [
-        k + '/' + name.slice(2),
-        {
+      return {
+        url: k + '/' + name.slice(2),
+        section: {
           path: k,
           file: modules(name),
           // TODO: push these into an object?
@@ -27,8 +27,8 @@ function allPosts() {
           content: v.content,
           preview: v.preview,
           title: v.title,
-        },
-      ];
+        }
+      };
     });
 
     return (v.sort || id)(paths);
@@ -56,13 +56,13 @@ function allPosts() {
   posts = postHooks.preProcessPosts(posts);
 
   // Build some nice objects from the files
-  _.each(posts.concat(drafts), function(fileArr) {
-    var o = fileArr[1];
-    var fileName = fileArr[0].slice(2); // remove the './'
+  _.each(posts.concat(drafts), function(o) {
+    var fileName = o.url.slice(2); // remove the './'
+    var section = o.section;
 
     var processedFile = processPost(
-      o,
-      fileName
+      fileName,
+      section
     );
 
     returnObj[processedFile.url] = processedFile;
@@ -128,7 +128,7 @@ function renderContent(content) {
 }
 exports.renderContent = renderContent;
 
-function processPost(o, fileName) {
+function processPost(fileName, o) {
   var file = o.file;
 
   var functions = _.assign({
