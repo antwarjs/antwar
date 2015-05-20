@@ -18,7 +18,8 @@ module.exports = function(config) {
     return {
       cache: true,
       node: {
-        __filename: true
+        __filename: true,
+        fs: 'empty',
       },
       output: {
         path: path.join(cwd, './.antwar/build/'),

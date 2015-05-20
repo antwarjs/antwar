@@ -18,6 +18,9 @@ module.exports = function(config) {
 
   return getCommon(config).then(function(common) {
     return {
+      node: {
+        fs: 'empty',
+      },
       name: 'server',
       target: 'node',
       context: path.join(__dirname, '..', './'),
