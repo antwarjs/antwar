@@ -17,17 +17,11 @@ function allPosts() {
     var modules = v.path();
     var paths = _.map(modules.keys(), function(name) {
       return {
+        path: k,
+        name: name,
         url: k + '/' + name.slice(2),
-        section: {
-          path: k,
-          file: modules(name),
-          // TODO: push these into an object?
-          url: v.url,
-          date: v.date,
-          content: v.content,
-          preview: v.preview,
-          title: v.title,
-        }
+        file: modules(name),
+        section: v,
       };
     });
 
@@ -58,11 +52,10 @@ function allPosts() {
   // Build some nice objects from the files
   _.each(posts.concat(drafts), function(o) {
     var fileName = o.url.slice(2); // remove the './'
-    var section = o.section;
 
     var processedFile = processPost(
       fileName,
-      section
+      o
     );
 
     returnObj[processedFile.url] = processedFile;
@@ -130,6 +123,7 @@ exports.renderContent = renderContent;
 
 function processPost(fileName, o) {
   var file = o.file;
+  var section = o.section;
 
   var functions = _.assign({
     url: function(file, fileName) {
@@ -162,7 +156,7 @@ function processPost(fileName, o) {
   }, themeFunctions, siteFunctions);
 
   _.forEach(functions, function(fn, name) {
-    file[name] = (o[name] || fn)(file, fileName);
+    file[name] = (section[name] || fn)(file, fileName);
   });
 
   // no need to transform root path
