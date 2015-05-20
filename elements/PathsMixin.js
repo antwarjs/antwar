@@ -5,12 +5,10 @@ var paths = require('../paths');
 
 
 module.exports = {
-  contextTypes:  function() {
-    return {
-      getCurrentPathname: React.PropTypes.func.isRequired,
-      getCurrentParams: React.PropTypes.func.isRequired,
-    };
+  contextTypes: {
+    router: React.PropTypes.func
   },
+
   getAllPosts: function () {
     return paths.allPosts();
   },
@@ -18,7 +16,8 @@ module.exports = {
     return paths.getPages();
   },
   getPost: function() {
-    var params = this.context.getCurrentParams();
+    var router = this.context.router;
+    var params = router.getCurrentParams();
     var post = params.post;
     var splat = params.splat;
 
@@ -29,8 +28,9 @@ module.exports = {
     return this.getPostForPath(post);
   },
   getPage: function() {
-    // remove leading slash
-    return this.getPageForPath(this.context.getCurrentPath().slice(1));
+    var router = this.context.router;
+
+    return this.getPageForPath(router.getCurrentPath().slice(1));
   },
   getPostForPath: function(path) {
     return paths.postForPath(path);
@@ -45,7 +45,9 @@ module.exports = {
       return post.title;
     }
 
-    var routes = this.context.getCurrentRoutes();
+    var router = this.context.router;
+    var routes = router.getCurrentRoutes();
+
     var routeName = routes[routes.length - 1].name;
 
     if(routeName) {
