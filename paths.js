@@ -31,12 +31,7 @@ function allPosts() {
 
   var ret = {};
   _.each(posts, function(o) {
-    var fileName = o.url.slice(2); // remove the './'
-
-    var processedFile = processPost(
-      fileName,
-      o
-    );
+    var processedFile = processPost(o);
 
     ret[processedFile.url] = processedFile;
   });
@@ -114,7 +109,7 @@ function renderContent(content) {
 }
 exports.renderContent = renderContent;
 
-function processPost(fileName, o) {
+function processPost(o) {
   var functions = _.assign({
     url: function(file, fileName) {
       return fileName.slice(0, fileName.length - 3);
@@ -146,6 +141,7 @@ function processPost(fileName, o) {
     }
   }, themeFunctions, siteFunctions, o.section);
 
+  var fileName = o.name;
   var file = o.file;
 
   _.forEach(functions, function(fn, name) {
