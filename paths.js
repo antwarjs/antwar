@@ -16,10 +16,12 @@ function allPosts() {
     var v = config.paths[k];
     var modules = v.path();
     var paths = _.map(modules.keys(), function(name) {
+      var onlyName = name.slice(2); // eliminate ./
+
       return {
         path: k,
-        name: name,
-        url: k + '/' + name.slice(2),
+        name: onlyName,
+        url: k + '/' + onlyName,
         file: modules(name),
         section: v,
       };
