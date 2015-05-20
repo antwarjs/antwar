@@ -13,12 +13,16 @@ function allPosts() {
   var returnObj = {};
 
   var posts = [].concat.apply([], _.keys(config.paths).map(function(k) {
-    var modules = config.paths[k]();
+    var v = config.paths[k];
+    var modules = v.path();
 
     return _.map(modules.keys(), function(name) {
       return [
         k + '/' + name.slice(2),
-        modules(name),
+        {
+          date: v.date,
+          file: modules(name)
+        },
       ];
     });
   }));
@@ -46,14 +50,11 @@ function allPosts() {
 
   // Build some nice objects from the files
   _.each(posts.concat(drafts), function(fileArr) {
-    var post = fileArr[1];
+    var o = fileArr[1];
     var fileName = fileArr[0].slice(2); // remove the './'
 
-    // XXXXX
-    // Name is on format ./YYYY-MM-DD-url_title.md
-    // TODO: Configurable file name standard
     var processedFile = processPost(
-      post,
+      o,
       fileName
     );
 
@@ -120,14 +121,19 @@ function renderContent(content) {
 }
 exports.renderContent = renderContent;
 
-function processPost(file, fileName) {
+function processPost(o, fileName) {
+  var file = o.file;
+
   // TODO: implement nicer hooks to configurable functions
   var functions = _.assign({
     url: function(file, fileName) {
       return fileName.slice(0, fileName.length - 3);
     },
     date: function(file, fileName) {
-      // XXXXX: brittle given filename might not contain date!
+      if(o.date) {
+        return o.date(file, fileName);
+      }
+
       return file.date || fileName.slice(0, 10);
     },
     preview: function(file, fileName) {
