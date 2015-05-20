@@ -1,5 +1,6 @@
 'use strict';
 var _ = require('lodash');
+var removeMd = require('remove-markdown');
 
 var themeFunctions = require('theme/functions') || {};
 
@@ -7,7 +8,6 @@ var MdHelper = require('./elements/MdHelper');
 var postHooks = require('./postHooks');
 var config = require('config');
 var siteFunctions = config.functions || {} ;
-var he = require('he');
 
 function allPosts() {
   var returnObj = {};
@@ -139,13 +139,14 @@ function processPost(fileName, o) {
         return file.preview;
       }
       else {
-        var stripped = he.decode(file.content.replace(/<(?:.|\n)*?>/gm, ''));
-        if (stripped.length > 100) {
-          return stripped.substr(0, 100) + '…';
+        var previewLimit = 100;
+        var stripped = removeMd(file.content);
+
+        if (stripped.length > previewLimit) {
+          return stripped.substr(0, previewLimit) + '…';
         }
-        else {
-          return stripped;
-        }
+
+        return stripped;
       }
       return file.preview || MdHelper.getContentPreview(file.__content);
     },
