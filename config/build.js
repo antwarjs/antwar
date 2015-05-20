@@ -11,7 +11,9 @@ module.exports = function(config) {
   var cwd = process.cwd();
 
   var themeConfig = config.themeConfig && config.themeConfig.build;
-  themeConfig = themeConfig || {};
+  themeConfig = themeConfig && themeConfig({
+    ExtractTextPlugin: ExtractTextPlugin
+  }) || {};
 
   var siteConfig = config.webpack && config.webpack.build;
   siteConfig = siteConfig || {};

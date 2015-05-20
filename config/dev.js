@@ -9,7 +9,7 @@ module.exports = function(config) {
   var cwd = process.cwd();
 
   var themeConfig = config.themeConfig && config.themeConfig.development;
-  themeConfig = themeConfig || {};
+  themeConfig = themeConfig && themeConfig() || {};
 
   var siteConfig = config.webpack && config.webpack.development;
   siteConfig = siteConfig || {};

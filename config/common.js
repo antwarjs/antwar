@@ -18,7 +18,7 @@ module.exports = function(config) {
     var parent = path.join(__dirname, '..');
 
     var themeConfig = config.themeConfig && config.themeConfig.common;
-    themeConfig = themeConfig || {};
+    themeConfig = themeConfig && themeConfig() || {};
 
     var siteConfig = config.webpack && config.webpack.common;
     siteConfig = siteConfig || {};
