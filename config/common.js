@@ -29,6 +29,7 @@ module.exports = function(config) {
     resolve({
       parent: parent,
       themeName: themeName,
+      themePath: themePath,
       resolve: {
         root: path.join(parent, 'node_modules'),
         alias: {
@@ -39,7 +40,6 @@ module.exports = function(config) {
           'config': path.join(cwd, 'antwar.config.js'),
           'antwar-core': path.join(parent, 'elements'),
           'theme': themeName,
-          'elements': path.join(parent, 'elements'),
         },
         extensions: _.uniq([
           '',

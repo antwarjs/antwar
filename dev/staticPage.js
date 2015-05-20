@@ -1,7 +1,7 @@
 'use strict';
 var React = require('react');
 var Router = require('react-router');
-var Routes = require('elements/Routes');
+var Routes = require('antwar-core/Routes');
 
 module.exports = function(url) {
   var html;
