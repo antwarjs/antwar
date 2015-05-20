@@ -53,6 +53,8 @@ module.exports = function(config) {
           {
             test: /\.jsx?$/,
             loader: 'jsx-loader?harmony',
+            include: new RegExp(common.themeName + '|' + common.parent +
+              '|' + common.resolve.alias.pages),
           },
           {
             test: /\.css$/,

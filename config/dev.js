@@ -56,7 +56,9 @@ module.exports = function(config) {
             loaders: [
               'react-hot',
               'jsx?harmony'
-            ]
+            ],
+            include: new RegExp(common.themeName + '|' + common.parent +
+              '|' + common.resolve.alias.pages),
           },
           {
             test: /\.css$/,

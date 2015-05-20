@@ -23,7 +23,12 @@ module.exports = function(config) {
     var siteConfig = config.webpack && config.webpack.common;
     siteConfig = siteConfig || {};
 
+    var themeName = getThemeName(theme.name);
+    var themePath = getThemePath(theme.name);
+
     resolve({
+      parent: parent,
+      themeName: themeName,
       resolve: {
         root: path.join(parent, 'node_modules'),
         alias: {
@@ -33,7 +38,8 @@ module.exports = function(config) {
           'customStyles': path.join(cwd, 'styles'), // Should be moved to theme specific config
           'config': path.join(cwd, 'antwar.config.js'),
           'antwar-core': path.join(parent, 'elements'),
-          'theme': getThemeName(theme.name),
+          'theme': themeName,
+          'elements': path.join(parent, 'elements'),
         },
         extensions: _.uniq([
           '',
@@ -48,14 +54,14 @@ module.exports = function(config) {
         concat(siteConfig.extensions || [])),
         modulesDirectories: [
           path.join(cwd, 'node_modules'),
-          getThemePath(theme.name),
+          themePath,
           'node_modules',
         ]
       },
       resolveLoader: {
         modulesDirectories: [
           path.join(parent, 'node_modules'),
-          getThemePath(theme.name),
+          themePath,
           'node_modules',
         ]
       },
