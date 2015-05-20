@@ -25,13 +25,14 @@ module.exports = function(config) {
 
     var themeName = getThemeName(theme.name);
     var themePath = getThemePath(theme.name);
+    var themeDependenciesPath = path.join(themePath, 'node_modules');
     var corePath = path.join(parent, 'elements');
 
     resolve({
       corePath: corePath,
       parent: parent,
-      themeName: themeName,
       themePath: themePath,
+      themeDependenciesPath: themeDependenciesPath,
       resolve: {
         root: path.join(parent, 'node_modules'),
         alias: {
@@ -96,9 +97,11 @@ module.exports = function(config) {
 };
 
 function getThemeName(name) {
+  var cwd = process.cwd();
+
   // XXX: existsSync
   if(fs.existsSync(name)) {
-    return path.join(process.cwd(), name);
+    return path.join(cwd, name);
   }
 
   return name;
@@ -112,5 +115,5 @@ function getThemePath(name) {
     return path.join(cwd, name);
   }
 
-  return path.join(cwd, 'node_modules', name, 'node_modules');
+  return path.join(cwd, 'node_modules', name);
 }
