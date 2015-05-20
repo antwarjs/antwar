@@ -20,6 +20,7 @@ function allPosts() {
       return [
         k + '/' + name.slice(2),
         {
+          path: k,
           file: modules(name),
           // TODO: push these into an object?
           url: v.url,
@@ -162,6 +163,9 @@ function processPost(o, fileName) {
   _.forEach(functions, function(fn, name) {
     file[name] = (o[name] || fn)(file, fileName);
   });
+
+  // no need to transform root path
+  file.path = o.path;
 
   return file;
 }
