@@ -20,7 +20,10 @@ function allPosts() {
       return [
         k + '/' + name.slice(2),
         {
+          url: v.url,
           date: v.date,
+          content: v.content,
+          preview: v.preview,
           file: modules(name)
         },
       ];
@@ -124,17 +127,15 @@ exports.renderContent = renderContent;
 function processPost(o, fileName) {
   var file = o.file;
 
-  // TODO: implement nicer hooks to configurable functions
   var functions = _.assign({
     url: function(file, fileName) {
       return fileName.slice(0, fileName.length - 3);
     },
     date: function(file, fileName) {
-      if(o.date) {
-        return o.date(file, fileName);
-      }
-
       return file.date || fileName.slice(0, 10);
+    },
+    content: function(file, fileName) {
+      return MdHelper.render(file.__content);
     },
     preview: function(file, fileName) {
       if (file.preview) {
@@ -151,17 +152,11 @@ function processPost(o, fileName) {
       }
       return file.preview || MdHelper.getContentPreview(file.__content);
     },
-    content: function(file, fileName) {
-      return MdHelper.render(file.__content);
-    },
   }, themeFunctions, siteFunctions);
 
-  // _.assign cannot be used here as otherwise some references (ie. prevnext)
-  // won't get updated
-  file.url = functions.url(file, fileName);
-  file.date = functions.date(file, fileName);
-  file.content = functions.content(file, fileName);
-  file.preview = functions.preview(file, fileName);
+  _.forEach(functions, function(fn, name) {
+    file[name] = (o[name] || fn)(file, fileName);
+  });
 
   return file;
 }
