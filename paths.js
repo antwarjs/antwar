@@ -15,8 +15,7 @@ function allPosts() {
   var posts = [].concat.apply([], _.keys(config.paths).map(function(k) {
     var v = config.paths[k];
     var modules = v.path();
-
-    return _.map(modules.keys(), function(name) {
+    var paths = _.map(modules.keys(), function(name) {
       return [
         k + '/' + name.slice(2),
         {
@@ -31,6 +30,8 @@ function allPosts() {
         },
       ];
     });
+
+    return (v.sort || id)(paths);
   }));
 
   // TODO: check config.drafts
@@ -169,3 +170,5 @@ function processPost(o, fileName) {
 
   return file;
 }
+
+function id(a) {return a;}
