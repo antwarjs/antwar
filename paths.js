@@ -10,49 +10,27 @@ var config = require('config');
 var siteFunctions = config.functions || {} ;
 
 function allPosts() {
-  var returnObj = {};
+  var posts = [].concat.apply([], _.keys(config.paths).map(function(sectionName) {
+    var section = config.paths[sectionName];
 
-  var posts = [].concat.apply([], _.keys(config.paths).map(function(k) {
-    var v = config.paths[k];
-    var modules = v.path();
-    var paths = _.map(modules.keys(), function(name) {
-      var onlyName = name.slice(2); // eliminate ./
+    var paths = parseModules(sectionName, section, section.path());
 
-      return {
-        path: k,
-        name: onlyName,
-        url: k + '/' + onlyName,
-        file: modules(name),
-        section: v,
-      };
-    });
+    var draftPaths = [];
+    if(__DEV__ && section.draft) {
+      draftPaths = parseModules(sectionName, section, section.draft()).map(function(module) {
+        module.draft = true;
 
-    return (v.sort || id)(paths);
-  }));
-
-  // TODO: check config.drafts
-  var drafts = [];
-
-  // Include drafts if we're not in prod
-  /*
-  var drafts = [];
-  if(__DEV__) {
-    var draftModules = draftReq();
-
-    if(draftModules) {
-      drafts = _.map(draftModules.keys(), function(name) {
-        return [
-          name,
-          _.assign({draft: true}, draftModules(name)),
-        ];
+        return module;
       });
     }
-  }*/
+
+    return (section.sort || id)(paths.concat(draftPaths));
+  }));
 
   posts = postHooks.preProcessPosts(posts);
 
-  // Build some nice objects from the files
-  _.each(posts.concat(drafts), function(o) {
+  var ret = {};
+  _.each(posts, function(o) {
     var fileName = o.url.slice(2); // remove the './'
 
     var processedFile = processPost(
@@ -60,13 +38,26 @@ function allPosts() {
       o
     );
 
-    returnObj[processedFile.url] = processedFile;
+    ret[processedFile.url] = processedFile;
   });
-  returnObj = postHooks.postProcessPosts(returnObj);
 
-  return returnObj;
+  return postHooks.postProcessPosts(ret);
 }
 exports.allPosts = allPosts;
+
+function parseModules(sectionName, section, modules) {
+  return _.map(modules.keys(), function(name) {
+    var onlyName = name.slice(2); // eliminate ./
+
+    return {
+      path: sectionName,
+      name: onlyName,
+      url: sectionName + '/' + onlyName,
+      file: modules(name),
+      section: section,
+    };
+  });
+}
 
 function allPages() {
   // TODO: allow hooks on page processing
@@ -163,6 +154,7 @@ function processPost(fileName, o) {
 
   // no need to transform root path
   file.path = o.path;
+  file.draft = o.draft;
 
   return file;
 }
