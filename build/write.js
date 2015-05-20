@@ -104,6 +104,7 @@ exports.extras = function(o, files, cb) {
 };
 
 exports.posts = function(o, cb) {
+  // XXXXX: this isn't correct - need to take path configuration in count here!
   var blogRoot = o.config.blogRoot || 'blog';
 
   var data = [];
