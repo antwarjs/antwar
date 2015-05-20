@@ -25,6 +25,7 @@ module.exports = function(config) {
 
     resolve({
       resolve: {
+        fallback: path.join(cwd, 'antwar.config.js'),
         root: path.join(parent, 'node_modules'),
         alias: {
           'underscore': 'lodash',
@@ -53,6 +54,7 @@ module.exports = function(config) {
         ]
       },
       resolveLoader: {
+        fallback: path.join(cwd, 'antwar.config.js'),
         modulesDirectories: [
           path.join(parent, 'node_modules'),
           getThemePath(theme.name),

@@ -1,7 +1,7 @@
 'use strict';
 var _ = require('lodash');
 
-var themeFunctions = require('theme/functions') || {};
+var themeFunctions = require('theme').functions || {};
 var config = require('config');
 
 var applyHooks = function (posts, functionArray) {

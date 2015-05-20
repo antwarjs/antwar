@@ -2,7 +2,7 @@
 var _ = require('lodash');
 var removeMd = require('remove-markdown');
 
-var themeFunctions = require('theme/functions') || {};
+var themeFunctions = require('theme').functions || {};
 
 var MdHelper = require('./elements/MdHelper');
 var postHooks = require('./postHooks');
