@@ -41,7 +41,7 @@ exports.pages = function(o, cb) {
   var data = [];
 
   Object.keys(o.allPaths).forEach(function(path) {
-    if(path !== 'posts') {
+    if(path !== 'posts') { //TODO Fix
       var publicPath = o.output;
 
       if(path === '/') {
@@ -103,20 +103,20 @@ exports.extras = function(o, files, cb) {
   });
 };
 
-exports.posts = function(o, cb) {
+exports.items = function(o, cb) {
   // XXXXX: this isn't correct - need to take path configuration in count here!
   var blogRoot = o.config.blogRoot || 'blog';
 
   var data = [];
 
-  Object.keys(o.allPaths.posts).forEach(function(post) {
-    var p = _path.join(o.output, blogRoot, post);
+  Object.keys(o.allPaths.items).forEach(function(item) {
+    var p = _path.join(o.output, blogRoot, item);
 
     mkdirp.sync(p);
 
     data.push({
-      path: _path.join(o.output, blogRoot, post),
-      post: post,
+      path: _path.join(o.output, blogRoot, item),
+      item: item,
     });
   });
 
@@ -128,7 +128,7 @@ exports.posts = function(o, cb) {
 
       _fs.writeFile(
         _path.join(d.path, 'index.html'),
-        o.renderPage('/' + blogRoot + '/' + d.post),
+        o.renderPage('/' + blogRoot + '/' + d.item),
         cb
       );
     });

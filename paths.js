@@ -5,12 +5,12 @@ var removeMd = require('remove-markdown');
 var themeFunctions = require('theme').functions || {};
 
 var MdHelper = require('./elements/MdHelper');
-var postHooks = require('./postHooks');
+var itemHooks = require('./itemHooks');
 var config = require('config');
 var siteFunctions = config.functions || {} ;
 
-function allPosts() {
-  var posts = [].concat.apply([], _.keys(config.paths).map(function(sectionName) {
+function allItems() {
+  var items = [].concat.apply([], _.keys(config.paths).map(function(sectionName) {
     var section = config.paths[sectionName];
 
     var paths = parseModules(sectionName, section, section.path());
@@ -27,18 +27,18 @@ function allPosts() {
     return (section.sort || id)(paths.concat(draftPaths));
   }));
 
-  posts = postHooks.preProcessPosts(posts);
+  items = itemHooks.preProcessItems(items);
 
   var ret = {};
-  _.each(posts, function(o) {
-    var processedFile = processPost(o);
+  _.each(items, function(o) {
+    var processedFile = processItem(o);
 
     ret[processedFile.url] = processedFile;
   });
 
-  return postHooks.postProcessPosts(ret);
+  return itemHooks.itemProcessItems(ret);
 }
-exports.allPosts = allPosts;
+exports.allItems = allItems;
 
 function parseModules(sectionName, section, modules) {
   return _.map(modules.keys(), function(name) {
@@ -84,15 +84,15 @@ function allPages() {
       content: content,
     };
   });
-  pages = postHooks.postProcessPages(pages);
+  pages = itemHooks.itemProcessPages(pages);
   return pages;
 }
 exports.allPages = allPages;
 
-function postForPath(path) {
-  return allPosts()[path];
+function itemForPath(path) {
+  return allItems()[path];
 }
-exports.postForPath = postForPath;
+exports.itemForPath = itemForPath;
 
 function pageForPath(path) {
   return allPages()[path];
@@ -109,7 +109,7 @@ function renderContent(content) {
 }
 exports.renderContent = renderContent;
 
-function processPost(o) {
+function processItem(o) {
   var functions = _.assign({
     url: function(file, fileName) {
       return fileName.slice(0, fileName.length - 3);

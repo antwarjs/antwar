@@ -4,12 +4,12 @@ var _ = require('lodash');
 var themeFunctions = require('theme').functions || {};
 var config = require('config');
 
-var applyHooks = function (posts, functionArray) {
+var applyHooks = function (items, functionArray) {
   functionArray.forEach(function(callback){
-    posts = callback(posts);
+    items = callback(items);
   });
 
-  return posts;
+  return items;
 };
 
 var getFunctions = function (hookName) {
@@ -33,13 +33,13 @@ var getFunctions = function (hookName) {
 };
 
 module.exports = {
-  preProcessPosts: function (posts) {
-    return applyHooks(posts, getFunctions('preProcessPosts'));
+  preProcessItems: function (items) {
+    return applyHooks(items, getFunctions('preProcessItems'));
   },
-  postProcessPosts: function (posts) {
-    return applyHooks(posts, getFunctions('postProcessPosts'));
+  itemProcessItems: function (items) {
+    return applyHooks(items, getFunctions('itemProcessItems'));
   },
-  postProcessPages: function (pages) {
-    return applyHooks(pages, getFunctions('postProcessPages'));
+  itemProcessPages: function (pages) {
+    return applyHooks(pages, getFunctions('itemProcessPages'));
   }
 };

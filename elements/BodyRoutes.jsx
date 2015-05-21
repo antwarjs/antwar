@@ -5,7 +5,7 @@ var Router = require('react-router');
 var Route = Router.Route;
 
 var Body = require('theme/Body');
-var Post = require('theme/Post');
+var SectionItem = require('theme/SectionItem');
 var MarkdownPage = require('theme/MarkdownPage');
 var SectionIndex = require('theme/SectionIndex');
 
@@ -41,8 +41,8 @@ function generateRoutes() {
       {[].concat.apply([], _.keys(config.paths).map(function(k, i) {
         return [
           <Route key={'root-' + i} name={'/' + k} path={'/' + k + '/?'} handler={SectionIndex}></Route>,
-          <Route key={'post-' + i} name='post' path={'/' + k + '/:post'} handler={Post}></Route>,
-          <Route key={'post-with-nesting' + i} name='postWithNesting' path={'/' + k + '/*/:post'} handler={Post}></Route>
+          <Route key={'item-' + i} name='item' path={'/' + k + '/:item'} handler={SectionItem}></Route>,
+          <Route key={'item-with-nesting' + i} name='itemWithNesting' path={'/' + k + '/*/:item'} handler={SectionItem}></Route>
         ];
       }))}
       {pageRoutes}

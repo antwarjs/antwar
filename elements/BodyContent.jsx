@@ -25,7 +25,7 @@ module.exports = function(Body) {
     mixins: [Router.State, Paths],
 
     render: function() {
-      var external = getExternalContent(this.getAllPosts());
+      var external = getExternalContent(this.getAllItems());
       return (<Body>
           <RouteHandler></RouteHandler>
           {_.map(external, function (Component, i) {

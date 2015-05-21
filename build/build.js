@@ -41,7 +41,7 @@ module.exports = function(config) {
           write.assets.bind(null, params),
           write.pages.bind(null, params),
           write.index.bind(null, params),
-          write.posts.bind(null, params),
+          write.items.bind(null, params),
           write.extras.bind(null, params, extraFiles)
         ], function(err) {
           if(err) {

@@ -10,8 +10,8 @@ module.exports = React.createClass({
   displayName: 'BlogLink',
   render: function() {
     var props = this.props;
-    var post = props.post;
+    var item = props.item;
 
-    return <Link to={'/' + post.path + '/' + post.url}>{props.children}</Link>;
+    return <Link to={'/' + item.path + '/' + item.url}>{props.children}</Link>;
   },
 });

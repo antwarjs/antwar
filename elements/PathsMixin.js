@@ -9,40 +9,40 @@ module.exports = {
     router: React.PropTypes.func
   },
 
-  getAllPosts: function () {
-    return paths.allPosts();
+  getAllItems: function () {
+    return paths.allItems();
   },
   getAllPages: function() {
     return paths.getPages();
   },
-  getPost: function() {
+  getItem: function() {
     var router = this.context.router;
     var params = router.getCurrentParams();
-    var post = params.post;
+    var item = params.item;
     var splat = params.splat;
 
     if(splat) {
-      return this.getPostForPath(splat + '/' + post);
+      return this.getItemForPath(splat + '/' + item);
     }
 
-    return this.getPostForPath(post);
+    return this.getItemForPath(item);
   },
   getPage: function() {
     var router = this.context.router;
 
     return this.getPageForPath(router.getCurrentPath().slice(1));
   },
-  getPostForPath: function(path) {
-    return paths.postForPath(path);
+  getItemForPath: function(path) {
+    return paths.itemForPath(path);
   },
   getPageForPath: function(path) {
     return paths.pageForPath(path);
   },
   getPageTitle: function() {
-    var post = this.getPost();
+    var item = this.getItem();
 
-    if(post && post.title) {
-      return post.title;
+    if(item && item.title) {
+      return item.title;
     }
 
     var router = this.context.router;
