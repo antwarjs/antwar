@@ -58,6 +58,7 @@ module.exports = function(config) {
         modulesDirectories: [
           path.join(cwd, 'node_modules'),
           themePath,
+          themeDependenciesPath,
           'node_modules',
         ]
       },

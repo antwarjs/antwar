@@ -22,6 +22,7 @@
     "markdown-loader": "^0.1.2",
     "mkdirp": "^0.5.1",
     "node-libs-browser": "^0.5.0",
+    "node-sass": "^3.1.2",
     "portfinder": "^0.4.0",
     "promise.prototype.finally": "^1.0.1",
     "raw-loader": "^0.5.1",
