@@ -7,7 +7,7 @@ var Route = Router.Route;
 var Body = require('theme/Body');
 var Post = require('theme/Post');
 var MarkdownPage = require('theme/MarkdownPage');
-var Blog = require('theme/Blog');
+var SectionIndex = require('theme/SectionIndex');
 
 var BodyContent = require('./BodyContent.jsx')(Body);
 
@@ -40,7 +40,7 @@ function generateRoutes() {
     <Route name='bodyContent' handler={BodyContent}>
       {[].concat.apply([], _.keys(config.paths).map(function(k, i) {
         return [
-          <Route key={'root-' + i} name={'/' + k} path={'/' + k + '/?'} handler={Blog}></Route>,
+          <Route key={'root-' + i} name={'/' + k} path={'/' + k + '/?'} handler={SectionIndex}></Route>,
           <Route key={'post-' + i} name='post' path={'/' + k + '/:post'} handler={Post}></Route>,
           <Route key={'post-with-nesting' + i} name='postWithNesting' path={'/' + k + '/*/:post'} handler={Post}></Route>
         ];
