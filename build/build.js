@@ -42,7 +42,7 @@ module.exports = function(config) {
           write.extraAssets.bind(null, params),
           write.pages.bind(null, params),
           write.index.bind(null, params),
-          //write.items.bind(null, params), // TODO
+          write.items.bind(null, params),
           write.extras.bind(null, params, extraFiles)
         ], function(err) {
           if(err) {

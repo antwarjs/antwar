@@ -109,24 +109,16 @@ exports.extras = function(o, files, cb) {
 };
 
 exports.items = function(o, cb) {
-  console.log('o', o);
+  var data = Object.keys(o.allPaths.items).map(function(item) {
+    var p = _path.join(o.output, item);
 
-  return;
-
-  // XXXXX: this isn't correct - need to take path configuration in count here!
-  var blogRoot = o.config.blogRoot || 'blog';
-
-  var data = [];
-
-  Object.keys(o.allPaths.items).forEach(function(item) {
-    var p = _path.join(o.output, blogRoot, item);
-
+    // XXX: replace with async version
     mkdirp.sync(p);
 
-    data.push({
-      path: _path.join(o.output, blogRoot, item),
+    return {
+      path: p,
       item: item,
-    });
+    };
   });
 
   async.each(data, function(d, cb) {
@@ -137,7 +129,7 @@ exports.items = function(o, cb) {
 
       _fs.writeFile(
         _path.join(d.path, 'index.html'),
-        o.renderPage('/' + blogRoot + '/' + d.item),
+        o.renderPage(d.item),
         cb
       );
     });
