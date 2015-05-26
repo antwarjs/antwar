@@ -28,15 +28,20 @@ function allItems() {
   }));
 
   items = itemHooks.preProcessItems(items);
+  items = _.map(items, function(o) {
+    return processItem(o.file, o.name, o.section);
+  });
+  // TODO: rename as postProcessItems?
+  items = itemHooks.itemProcessItems(items);
 
+  // TODO: can this conversion be avoided?
   var ret = {};
-  _.each(items, function(o) {
-    var processedFile = processItem(o.file, o.name, o.section);
 
-    ret[processedFile.url] = processedFile;
+  _.each(items, function(o) {
+    ret[o.url] = o;
   });
 
-  return itemHooks.itemProcessItems(ret);
+  return ret;
 }
 exports.allItems = allItems;
 
