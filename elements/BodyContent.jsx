@@ -31,6 +31,8 @@ function getExternalContent(paths, pathName) {
   return layoutHooks.bodyContent({
     config: config,
     paths: paths,
-    currentPath: paths[pathName] || {},
+    pathName: pathName,
+    // starts with a slash, strip it
+    currentPath: paths[pathName.slice(1)] || {},
   });
 }
