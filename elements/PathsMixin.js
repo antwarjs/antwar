@@ -22,7 +22,7 @@ module.exports = {
     var splat = params.splat;
 
     if(splat) {
-      // TODO: see if the first slash can be eliminated
+      // in react-router all paths are absolute...
       return this.getItemForPath('/' + splat + '/' + item);
     }
 

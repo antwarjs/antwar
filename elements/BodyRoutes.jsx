@@ -37,14 +37,14 @@ module.exports = generateRoutes();
 
 function generateRoutes() {
   return (
-    <Route name='bodyContent' handler={BodyContent}>
+    <Route name='bodyContent' handler={BodyContent} path='/'>
       {[].concat.apply([], _.keys(config.paths).map(function(k, i) {
         return [
-          <Route key={'root-' + i} name={k} path={'/' + k + '/?'} handler={SectionIndex}></Route>,
+          <Route key={'root-' + i} name={k} path={k} handler={SectionIndex}></Route>,
         ];
       }))}
-      <Route key={'item-route'} name='item' path={'/:item'} handler={SectionItem}></Route>
-      <Route key={'item-with-nesting-route'} name='itemWithNesting' path={'/*/:item'} handler={SectionItem}></Route>
+      <Route key={'item-route'} name='item' path={':item'} handler={SectionItem}></Route>
+      <Route key={'item-with-nesting-route'} name='itemWithNesting' path={'*/:item'} handler={SectionItem}></Route>
       {pageRoutes}
     </Route>
   );
