@@ -31,7 +31,7 @@ function allItems() {
 
   var ret = {};
   _.each(items, function(o) {
-    var processedFile = processItem(o);
+    var processedFile = processItem(o.file, o.name, o.section);
 
     ret[processedFile.url] = processedFile;
   });
@@ -109,7 +109,7 @@ function renderContent(content) {
 }
 exports.renderContent = renderContent;
 
-function processItem(o) {
+function processItem(o, fileName, sectionFunctions) {
   var functions = _.assign({
     url: function(file, fileName) {
       return fileName.slice(0, fileName.length - 3);
@@ -139,20 +139,13 @@ function processItem(o) {
     title: function(file, fileName) {
       return file.title;
     }
-  }, themeFunctions, siteFunctions, o.section);
-
-  var fileName = o.name;
-  var file = o.file;
+  }, themeFunctions, siteFunctions, sectionFunctions);
 
   _.forEach(functions, function(fn, name) {
-    file[name] = fn(file, fileName);
+    o[name] = fn(o, fileName);
   });
 
-  // no need to transform root path
-  file.path = o.path;
-  file.draft = o.draft;
-
-  return file;
+  return o;
 }
 
 function id(a) {return a;}
