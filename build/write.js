@@ -6,6 +6,8 @@ var async = require('async');
 var cpr = require('cpr');
 var mkdirp = require('mkdirp');
 
+var utils = require('./utils');
+
 
 exports.assets = function(o, cb) {
   var assetsDir = _path.join(o.output, 'assets');
@@ -35,6 +37,10 @@ exports.assets = function(o, cb) {
       }
     ], cb);
   });
+};
+
+exports.extraAssets = function(o, cb) {
+  return utils.copyExtraAssets(o.cwd, o.config, cb);
 };
 
 exports.pages = function(o, cb) {

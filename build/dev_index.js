@@ -7,6 +7,8 @@ var cpr = require('cpr');
 var webpack = require('webpack');
 var webpackConfig = require('../config/build');
 
+var utils = require('./utils');
+
 
 module.exports = function(config) {
   process.env.BUILD_DEV = 1;
@@ -28,7 +30,8 @@ module.exports = function(config) {
           ),
           cpr.bind(null,
             './assets',
-            _path.join(buildDir, 'assets'))
+            _path.join(buildDir, 'assets')),
+          utils.copyExtraAssets.bind(null, buildDir, config.assets),
         ], function(err) {
           if(err) {
             return reject(err);

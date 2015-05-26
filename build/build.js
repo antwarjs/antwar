@@ -39,6 +39,7 @@ module.exports = function(config) {
         });
         async.parallel([
           write.assets.bind(null, params),
+          write.extraAssets.bind(null, params),
           write.pages.bind(null, params),
           write.index.bind(null, params),
           write.items.bind(null, params),
