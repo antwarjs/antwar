@@ -50,7 +50,7 @@ function parseModules(sectionName, section, modules) {
 
     return {
       name: onlyName,
-      url: sectionName + '/' + removeExt(onlyName),
+      url: '/' + sectionName + '/' + removeExt(onlyName),
       file: modules(name),
       section: section,
     };

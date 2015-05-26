@@ -40,7 +40,7 @@ function generateRoutes() {
     <Route name='bodyContent' handler={BodyContent}>
       {[].concat.apply([], _.keys(config.paths).map(function(k, i) {
         return [
-          <Route key={'root-' + i} name={'/' + k} path={'/' + k + '/?'} handler={SectionIndex}></Route>,
+          <Route key={'root-' + i} name={k} path={'/' + k + '/?'} handler={SectionIndex}></Route>,
         ];
       }))}
       <Route key={'item-route'} name='item' path={'/:item'} handler={SectionItem}></Route>

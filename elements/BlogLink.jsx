@@ -12,6 +12,6 @@ module.exports = React.createClass({
     var props = this.props;
     var item = props.item;
 
-    return <Link to={'/' + item.url}>{props.children}</Link>;
+    return <Link to={item.url}>{props.children}</Link>;
   },
 });

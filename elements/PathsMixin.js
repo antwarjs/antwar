@@ -22,7 +22,8 @@ module.exports = {
     var splat = params.splat;
 
     if(splat) {
-      return this.getItemForPath(splat + '/' + item);
+      // TODO: see if the first slash can be eliminated
+      return this.getItemForPath('/' + splat + '/' + item);
     }
 
     return this.getItemForPath(item);
