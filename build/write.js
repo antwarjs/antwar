@@ -40,7 +40,7 @@ exports.assets = function(o, cb) {
 };
 
 exports.extraAssets = function(o, cb) {
-  return utils.copyExtraAssets(o.cwd, o.config, cb);
+  return utils.copyExtraAssets(o.output, o.config && o.config.assets, cb);
 };
 
 exports.pages = function(o, cb) {

@@ -6,9 +6,9 @@ var cpr = require('cpr');
 
 
 exports.copyExtraAssets = function(buildDir, assets, cb) {
-  assets = assets|| [];
+  assets = assets || [];
 
-  async.forEach(assets || [], function(asset, cb) {
+  async.forEach(assets, function(asset, cb) {
     cpr(asset.from, path.join(buildDir, asset.to), cb);
   }, cb);
-}
+};

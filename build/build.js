@@ -43,7 +43,7 @@ module.exports = function(config) {
           write.pages.bind(null, params),
           write.index.bind(null, params),
           write.items.bind(null, params),
-          write.extras.bind(null, params, extraFiles)
+          write.extras.bind(null, params, extraFiles),
         ], function(err) {
           if(err) {
             return reject(err);
