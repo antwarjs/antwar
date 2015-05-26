@@ -44,10 +44,8 @@ exports.extraAssets = function(o, cb) {
 };
 
 exports.pages = function(o, cb) {
-  var data = [];
-
-  Object.keys(o.allPaths).forEach(function(path) {
-    if(path !== 'posts') { //TODO Fix
+  var data = Object.keys(o.allPaths).map(function(path) {
+    if(path !== 'items') {
       var publicPath = o.output;
 
       if(path === '/') {
@@ -55,16 +53,17 @@ exports.pages = function(o, cb) {
       }
       else {
         publicPath = _path.join(o.output, path);
-
-        mkdirp.sync(publicPath);
       }
 
-      data.push({
+      // XXX: replace with async version
+      mkdirp.sync(publicPath);
+
+      return {
         publicPath: publicPath,
         path: path
-      });
+      };
     }
-  });
+  }).filter(id);
 
   async.each(data, function(d, cb) {
     _fs.writeFile(
@@ -110,6 +109,10 @@ exports.extras = function(o, files, cb) {
 };
 
 exports.items = function(o, cb) {
+  console.log('o', o);
+
+  return;
+
   // XXXXX: this isn't correct - need to take path configuration in count here!
   var blogRoot = o.config.blogRoot || 'blog';
 
@@ -140,3 +143,5 @@ exports.items = function(o, cb) {
     });
   }, cb);
 };
+
+function id(a) {return a;}
