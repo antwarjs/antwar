@@ -30,7 +30,6 @@ module.exports = function(config) {
     resolve({
       corePath: corePath,
       parent: parent,
-      themePath: themePath,
       themeDependenciesPath: themeDependenciesPath,
       resolve: {
         root: path.join(parent, 'node_modules'),
