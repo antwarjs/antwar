@@ -31,8 +31,7 @@ function allItems() {
   items = _.map(items, function(o) {
     return processItem(o.file, o.name, o.section);
   });
-  // TODO: rename as postProcessItems?
-  items = itemHooks.itemProcessItems(items);
+  items = itemHooks.postProcessItems(items);
 
   // TODO: can this conversion be avoided?
   var ret = {};
