@@ -36,8 +36,8 @@ module.exports = {
   preProcessItems: function (items) {
     return applyHooks(items, getFunctions('preProcessItems'));
   },
-  itemProcessItems: function (items) {
-    return applyHooks(items, getFunctions('itemProcessItems'));
+  postProcessItems: function (items) {
+    return applyHooks(items, getFunctions('postProcessItems'));
   },
   itemProcessPages: function (pages) {
     return applyHooks(pages, getFunctions('itemProcessPages'));
