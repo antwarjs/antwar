@@ -9,8 +9,12 @@ module.exports = React.createClass({
   render: function() {
     var props = this.props;
     var item = props.item;
+    var url = item.url;
+
+    // skip category
+    url = url.split('/').slice(1).join('/');
 
     // Router.Link yields an absolute link! better do a custom one
-    return <a href={item.url}>{props.children}</a>;
+    return <a href={url}>{props.children}</a>;
   },
 });
