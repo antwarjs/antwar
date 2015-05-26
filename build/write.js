@@ -129,7 +129,7 @@ exports.items = function(o, cb) {
 
       _fs.writeFile(
         _path.join(d.path, 'index.html'),
-        o.renderPage(d.item),
+        o.renderPage('/' + d.item),
         cb
       );
     });
