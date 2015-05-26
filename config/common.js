@@ -23,7 +23,6 @@ module.exports = function(config) {
     var siteConfig = config.webpack && config.webpack.common;
     siteConfig = siteConfig || {};
 
-    var themeName = getThemeName(theme.name);
     var themePath = getThemePath(theme.name);
     var themeDependenciesPath = path.join(themePath, 'node_modules');
     var corePath = path.join(parent, 'elements');
@@ -42,7 +41,7 @@ module.exports = function(config) {
           'customStyles': path.join(cwd, 'styles'), // Should be moved to theme specific config
           'config': path.join(cwd, 'antwar.config.js'),
           'antwar-core': corePath,
-          'theme': themeName,
+          'theme': themePath,
         },
         extensions: _.uniq([
           '',
@@ -56,7 +55,6 @@ module.exports = function(config) {
         concat(themeConfig.extensions || []).
         concat(siteConfig.extensions || [])),
         modulesDirectories: [
-          path.join(cwd, 'node_modules'),
           themePath,
           themeDependenciesPath,
           'node_modules',
@@ -96,17 +94,6 @@ module.exports = function(config) {
     });
   });
 };
-
-function getThemeName(name) {
-  var cwd = process.cwd();
-
-  // XXX: existsSync
-  if(fs.existsSync(name)) {
-    return path.join(cwd, name);
-  }
-
-  return name;
-}
 
 function getThemePath(name) {
   var cwd = process.cwd();
