@@ -27,10 +27,16 @@ module.exports = function(Body) {
   });
 }
 
-function getExternalContent(paths, currentPath) {
+function getExternalContent(paths, pathName) {
   return layoutHooks.bodyContent({
     config: config,
     paths: paths,
-    currentPath: currentPath,
+    currentPath: getCurrentPath(paths, pathName),
   });
+}
+
+function getCurrentPath(paths, pathName) {
+  pathName = pathName[0] === '/' ? pathName.slice(1) : pathName;
+
+  return paths[pathName];
 }
