@@ -30,25 +30,27 @@ module.exports = React.createClass({
     pageTitle = pageTitle && pageTitle + ' / ';
     pageTitle += siteName;
 
-    return <html>
-      <head>
-        <title>{pageTitle}</title>
-        <meta
-          name='viewport'
-          content='width=device-width, initial-scale=1, maximum-scale=1, minimal-ui'>
-        </meta>
-        <link rel="icon" type="image/png" href="assets/img/favicon.png"></link>
-        {_.map(this.getExternalHeadContent(this.getAllItems()), function (Component, i) {
-          return <Component key={'component-' + i} />;
-        })}
-        {!__DEV__?
-          <link rel='stylesheet' href='assets/main.css'></link>:
-          null}
-      </head>
-      <body>
-        <RouteHandler></RouteHandler>
-        {__DEV__ ? <script src='/main-bundle.js'></script> : null}
-      </body>
-    </html>;
+    return (
+      <html>
+        <head>
+          <title>{pageTitle}</title>
+          <meta
+            name='viewport'
+            content='width=device-width, initial-scale=1, maximum-scale=1, minimal-ui'>
+          </meta>
+          <link rel="icon" type="image/png" href="assets/img/favicon.png"></link>
+          {_.map(this.getExternalHeadContent(this.getAllItems()), function (Component, i) {
+            return <Component key={'component-' + i} />;
+          })}
+          {!__DEV__?
+            <link rel='stylesheet' href='assets/main.css'></link>:
+            null}
+        </head>
+        <body>
+          <RouteHandler></RouteHandler>
+          {__DEV__ ? <script src='/main-bundle.js'></script> : null}
+        </body>
+      </html>
+    );
   }
 });
