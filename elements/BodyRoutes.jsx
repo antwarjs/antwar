@@ -41,10 +41,10 @@ function generateRoutes() {
       {[].concat.apply([], _.keys(config.paths).map(function(k, i) {
         return [
           <Route key={'root-' + i} name={'/' + k} path={'/' + k + '/?'} handler={SectionIndex}></Route>,
-          <Route key={'item-' + i} name='item' path={'/' + k + '/:item'} handler={SectionItem}></Route>,
-          <Route key={'item-with-nesting' + i} name='itemWithNesting' path={'/' + k + '/*/:item'} handler={SectionItem}></Route>
         ];
       }))}
+      <Route key={'item-route'} name='item' path={'/:item'} handler={SectionItem}></Route>
+      <Route key={'item-with-nesting-route'} name='itemWithNesting' path={'/*/:item'} handler={SectionItem}></Route>
       {pageRoutes}
     </Route>
   );

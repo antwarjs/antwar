@@ -27,18 +27,10 @@ module.exports = function(Body) {
   });
 }
 
-function getExternalContent(paths, pathName) {
+function getExternalContent(paths, currentPath) {
   return layoutHooks.bodyContent({
     config: config,
     paths: paths,
-    currentPath: getCurrentPath(paths, pathName),
+    currentPath: currentPath,
   });
-}
-
-// TODO: not sure if this is correct yet, might fail
-// if sections have resources with the same name!
-function getCurrentPath(paths, pathName) {
-  var lastPart = pathName.split('/').slice(-1)[0];
-
-  return paths[lastPart];
 }

@@ -29,7 +29,7 @@ function allItems() {
 
   items = itemHooks.preProcessItems(items);
   items = _.map(items, function(o) {
-    return processItem(o.file, o.name, o.section);
+    return processItem(o.file, o.url, o.name, o.section);
   });
   items = itemHooks.postProcessItems(items);
 
@@ -49,13 +49,16 @@ function parseModules(sectionName, section, modules) {
     var onlyName = name.slice(2); // eliminate ./
 
     return {
-      path: sectionName,
       name: onlyName,
-      url: sectionName + '/' + onlyName,
+      url: sectionName + '/' + removeExt(onlyName),
       file: modules(name),
       section: section,
     };
   });
+}
+
+function removeExt(str) {
+  return str.split('.')[0];
 }
 
 function allPages() {
@@ -113,11 +116,8 @@ function renderContent(content) {
 }
 exports.renderContent = renderContent;
 
-function processItem(o, fileName, sectionFunctions) {
+function processItem(o, url, fileName, sectionFunctions) {
   var functions = _.assign({
-    url: function(file, fileName) {
-      return fileName.slice(0, fileName.length - 3);
-    },
     date: function(file, fileName) {
       return file.date || fileName.slice(0, 10);
     },
@@ -148,6 +148,9 @@ function processItem(o, fileName, sectionFunctions) {
   _.forEach(functions, function(fn, name) {
     o[name] = fn(o, fileName);
   });
+
+  // TODO: allow url processing
+  o.url = url;
 
   return o;
 }
