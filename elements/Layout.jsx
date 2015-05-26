@@ -30,6 +30,8 @@ module.exports = React.createClass({
     pageTitle = pageTitle && pageTitle + ' / ';
     pageTitle += siteName;
 
+    // TODO: given urls can be relative, resource paths should be prefixed
+    // (ie. .., ../.. and so on depending on depth)
     return (
       <html>
         <head>
