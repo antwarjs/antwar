@@ -22,8 +22,7 @@ module.exports = {
     var splat = params.splat;
 
     if(splat) {
-      // in react-router all paths are absolute...
-      return this.getItemForPath('/' + splat + '/' + item);
+      return this.getItemForPath(splat + '/' + item);
     }
 
     return this.getItemForPath(item);

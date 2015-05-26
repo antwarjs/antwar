@@ -1,7 +1,5 @@
 'use strict';
 var React = require('react');
-var Router = require('react-router');
-var Link = Router.Link;
 
 var config = require('config');
 
@@ -12,6 +10,7 @@ module.exports = React.createClass({
     var props = this.props;
     var item = props.item;
 
-    return <Link to={item.url}>{props.children}</Link>;
+    // Router.Link yields an absolute link! better do a custom one
+    return <a href={item.url}>{props.children}</a>;
   },
 });

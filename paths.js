@@ -50,8 +50,7 @@ function parseModules(sectionName, section, modules) {
 
     return {
       name: onlyName,
-      // absolute path due to react-router
-      url: '/' + sectionName + '/' + removeExt(onlyName),
+      url: sectionName + '/' + removeExt(onlyName),
       file: modules(name),
       section: section,
     };
