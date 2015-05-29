@@ -2,6 +2,7 @@
 var _path = require('path');
 
 var async = require('async');
+var mkdirp = require('mkdirp');
 var webpack = require('webpack');
 
 var webpackConfig = require('../config/build');
@@ -31,6 +32,9 @@ module.exports = function(config) {
           output: _path.join(cwd, output),
           config: config,
         };
+
+        // XXX
+        mkdirp.sync(params.output);
 
         // Extras
         var pluginExtras = _.pluck(config.plugins, 'extra').filter(_.identity);
