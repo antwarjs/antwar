@@ -1,4 +1,5 @@
 'use strict';
+var fs = require('fs');
 var path = require('path');
 
 var async = require('async');
@@ -19,4 +20,15 @@ exports.copyExtraAssets = function(buildDir, assets, cb) {
         cpr(from, path.join(buildDir, asset.to), cb);
     }
   }, cb);
+};
+
+exports.copyIfExists = function(from, to, cb) {
+  fs.exists(from, function(exists) {
+    if(exists) {
+      cpr(from, to, cb);
+    }
+    else {
+      cb();
+    }
+  });
 };

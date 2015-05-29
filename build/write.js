@@ -3,7 +3,6 @@ var _fs = require('fs');
 var _path = require('path');
 
 var async = require('async');
-var cpr = require('cpr');
 var mkdirp = require('mkdirp');
 
 var utils = require('./utils');
@@ -19,7 +18,7 @@ exports.assets = function(o, cb) {
     }
 
     async.parallel([
-      cpr.bind(null, _path.join(o.cwd, 'assets'), assetsDir),
+      utils.copyIfExists.bind(null, _path.join(o.cwd, 'assets'), assetsDir),
       function(cb) {
         _fs.exists(mainPath, function(exists) {
           if(!exists) {
