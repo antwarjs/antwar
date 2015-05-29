@@ -28,9 +28,7 @@ module.exports = function(config) {
             _path.join(buildDir, 'index.html'),
             renderPage('/antwar_devindex', null)
           ),
-          cpr.bind(null,
-            './assets',
-            _path.join(buildDir, 'assets')),
+          copyIfExists.bind(null, './assets', _path.join(buildDir, 'assets')),
           utils.copyExtraAssets.bind(null, buildDir, config.assets),
         ], function(err) {
           if(err) {
@@ -45,3 +43,15 @@ module.exports = function(config) {
     });
   });
 };
+
+// TODO: push to utils
+function copyIfExists(from, to, cb) {
+  fs.exists(from, function(exists) {
+    if(exists) {
+      cpr(from, to, cb);
+    }
+    else {
+      cb();
+    }
+  });
+}
