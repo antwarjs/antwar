@@ -24,7 +24,7 @@ function allItems() {
       });
     }
 
-    return (section.sort || id)(paths.concat(draftPaths));
+    return (section.sort || defaultSort)(paths.concat(draftPaths));
   }));
 
   items = itemHooks.preProcessItems(items);
@@ -43,6 +43,10 @@ function allItems() {
   return ret;
 }
 exports.allItems = allItems;
+
+function defaultSort(files) {
+    return _.sortBy(files, 'date').reverse();
+}
 
 function parseModules(sectionName, section, modules) {
   return _.map(modules.keys(), function(name) {
@@ -157,5 +161,3 @@ function processItem(o, url, fileName, sectionFunctions, sectionName) {
 
   return o;
 }
-
-function id(a) {return a;}
