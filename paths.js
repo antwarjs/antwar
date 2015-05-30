@@ -50,20 +50,13 @@ function defaultSort(files) {
 
 function parseModules(sectionName, section, modules) {
   return _.map(modules.keys(), function(name) {
-    var onlyName = name.slice(2); // eliminate ./
-
     return {
-      name: onlyName,
-      url: sectionName + '/' + removeExt(onlyName),
+      name: name.slice(2),
       file: modules(name),
       section: section,
       sectionName: sectionName,
     };
   });
-}
-
-function removeExt(str) {
-  return str.split('.')[0];
 }
 
 function allPages() {
@@ -123,13 +116,13 @@ exports.renderContent = renderContent;
 
 function processItem(o, url, fileName, sectionFunctions, sectionName) {
   var functions = _.assign({
-    date: function(file, fileName) {
+    date: function(file, fileName, sectionName) {
       return file.date || fileName.slice(0, 10);
     },
-    content: function(file, fileName) {
+    content: function(file, fileName, sectionName) {
       return MdHelper.render(file.__content);
     },
-    preview: function(file, fileName) {
+    preview: function(file, fileName, sectionName) {
       if (file.preview) {
         return file.preview;
       }
@@ -145,17 +138,17 @@ function processItem(o, url, fileName, sectionFunctions, sectionName) {
       }
       return file.preview || MdHelper.getContentPreview(file.__content);
     },
-    title: function(file, fileName) {
+    title: function(file, fileName, sectionName) {
       return file.title;
-    }
+    },
+    url: function(file, fileName, sectionName) {
+      return sectionName + '/' + fileName.split('.')[0];
+    },
   }, themeFunctions, siteFunctions, sectionFunctions);
 
   _.forEach(functions, function(fn, name) {
-    o[name] = fn(o, fileName);
+    o[name] = fn(o, fileName, sectionName);
   });
-
-  // TODO: allow url processing
-  o.url = url;
 
   o.section = sectionName;
 
