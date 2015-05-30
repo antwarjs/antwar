@@ -19,7 +19,9 @@ module.exports = function(Body) {
         <Body>
           <RouteHandler></RouteHandler>
           {_.map(external, function (Component, i) {
-            return <Component key={i} />;
+            if (typeof Component === 'function') {
+              return <Component key={i} />;
+            }
           })}
         </Body>
       );
