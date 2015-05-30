@@ -59,55 +59,10 @@ function parseModules(sectionName, section, modules) {
   });
 }
 
-function allPages() {
-  // TODO: allow hooks on page processing
-  var req = pageReq();
-  var pages = {};
-
-  _.each(req.keys(), function(name) {
-    // name is format ./url_title.ext
-    var file = req(name); // require the file
-    var fileName = name.slice(2); // remove the './'
-
-    var content = renderContent(file);
-
-    // url is filename minus extension
-    var url = _.kebabCase(fileName.split('.')[0]);
-
-    // title is the capitalized url
-    var title = _.capitalize(url.replace(/\-/g, ' '));
-
-    // rewrite the index file
-    if(url === 'index') {
-      url = '/';
-    }
-
-    pages[url] = {
-      url: url,
-      fileName: fileName,
-      title: title,
-      content: content,
-    };
-  });
-  pages = itemHooks.itemProcessPages(pages);
-  return pages;
-}
-exports.allPages = allPages;
-
 function itemForPath(path) {
   return allItems()[path];
 }
 exports.itemForPath = itemForPath;
-
-function pageForPath(path) {
-  return allPages()[path];
-}
-exports.pageForPath = pageForPath;
-
-function pageReq() {
-  return require.context('pages', false);
-}
-exports.pageReq = pageReq;
 
 function renderContent(content) {
   return MdHelper.render(content);
@@ -128,6 +83,11 @@ function processItem(o, url, fileName, sectionFunctions, sectionName) {
       }
       else {
         var previewLimit = 100;
+
+        if(!file.content) {
+          return;
+        }
+
         var stripped = removeMd(file.content);
 
         if (stripped.length > previewLimit) {

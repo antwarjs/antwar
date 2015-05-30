@@ -14,6 +14,7 @@ module.exports = React.createClass({
 
   mixins: [Router.State, Paths],
 
+  // XXXXX: this probably should pass section pages?
   getExternalHeadContent: function (paths, pages) {
     var elements =  layoutHooks.headContent({
       config: config,

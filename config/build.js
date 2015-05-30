@@ -55,7 +55,7 @@ module.exports = function(config) {
           {
             test: /\.jsx?$/,
             loader: 'babel',
-            include: new RegExp(common.corePath + '|' + common.resolve.alias.pages),
+            include: new RegExp(common.corePath),
             exclude: new RegExp(common.resolve.root + '|' + common.themeDependenciesPath),
           },
           {

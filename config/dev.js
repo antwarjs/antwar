@@ -5,7 +5,8 @@ var getCommon = require('./common');
 
 
 module.exports = function(config) {
-  var ReactHotLoaderMatches = /View.coffee|Pages\//;
+  // XXX: eliminate ReactHotLoaderMatches?
+  var ReactHotLoaderMatches = /View.coffee/;
   var cwd = process.cwd();
 
   var themeConfig = config.themeConfig && config.themeConfig.development;
@@ -57,7 +58,7 @@ module.exports = function(config) {
               'react-hot',
               'babel'
             ],
-            include: new RegExp(common.corePath + '|' + common.resolve.alias.pages),
+            include: new RegExp(common.corePath),
             exclude: new RegExp(common.resolve.root + '|' + common.themeDependenciesPath),
           },
           {

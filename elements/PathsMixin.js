@@ -13,9 +13,6 @@ module.exports = {
   getAllItems: function () {
     return paths.allItems();
   },
-  getAllPages: function() {
-    return paths.getPages();
-  },
   getSection: function () {
     let routes = this.context.router.getCurrentRoutes();
     return routes && routes[1] && routes[1].name;
@@ -38,17 +35,10 @@ module.exports = {
 
     return this.getItemForPath(item);
   },
-  getPage: function() {
-    let router = this.context.router;
-
-    return this.getPageForPath(router.getCurrentPath().slice(1));
-  },
   getItemForPath: function(path) {
     return paths.itemForPath(path);
   },
-  getPageForPath: function(path) {
-    return paths.pageForPath(path);
-  },
+  // TODO: rename as getItemTitle?
   getPageTitle: function() {
     let item = this.getItem();
 

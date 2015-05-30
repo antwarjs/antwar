@@ -35,7 +35,6 @@ module.exports = function(config) {
         root: path.join(parent, 'node_modules'),
         alias: {
           'underscore': 'lodash',
-          'pages': path.join(cwd, 'pages'),
           'assets': path.join(cwd, 'assets'),
           'customStyles': path.join(cwd, 'styles'), // Should be moved to theme specific config
           'config': path.join(cwd, 'antwar.config.js'),

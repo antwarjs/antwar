@@ -42,37 +42,6 @@ exports.extraAssets = function(o, cb) {
   return utils.copyExtraAssets(o.output, o.config && o.config.assets, cb);
 };
 
-exports.pages = function(o, cb) {
-  var data = Object.keys(o.allPaths).map(function(path) {
-    if(path !== 'items') {
-      var publicPath = o.output;
-
-      if(path === '/') {
-        path = '';
-      }
-      else {
-        publicPath = _path.join(o.output, path);
-      }
-
-      // XXX: replace with async version
-      mkdirp.sync(publicPath);
-
-      return {
-        publicPath: publicPath,
-        path: path
-      };
-    }
-  }).filter(id);
-
-  async.each(data, function(d, cb) {
-    _fs.writeFile(
-      _path.join(d.publicPath, 'index.html'),
-      o.renderPage('/' + d.path, null),
-      cb
-    );
-  }, cb);
-};
-
 exports.index = function(o, cb) {
   var paths = _.keys(o.config.paths);
 
