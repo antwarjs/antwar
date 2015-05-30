@@ -5,7 +5,9 @@ var config = require('config');
 
 
 module.exports = React.createClass({
-  displayName: 'BlogLink',
+
+  displayName: 'SectionLink',
+
   render: function() {
     var props = this.props;
     var item = props.item;
