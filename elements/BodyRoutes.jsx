@@ -6,7 +6,6 @@ var Route = Router.Route;
 
 var Body = require('theme/Body');
 var SectionItem = require('theme/SectionItem');
-var MarkdownPage = require('theme/MarkdownPage');
 var SectionIndex = require('theme/SectionIndex');
 
 var BodyContent = require('./BodyContent.jsx')(Body);
@@ -17,10 +16,6 @@ var paths = require('../paths');
 var pageRoutes = _.map(paths.allPages(), function(page, key) {
   var handler = require('pages/' + page.fileName);
 
-  if(isMarkdownFile(page)) {
-    handler = MarkdownPage;
-  }
-
   var path = '/';
   if(page.url !== '/') {
     path = '/' + page.url + '/?';
@@ -29,13 +24,7 @@ var pageRoutes = _.map(paths.allPages(), function(page, key) {
   return <Route path={path} key={page.url} name={page.url} handler={handler}></Route>
 });
 
-function isMarkdownFile(page) {
-  return page.fileName && page.fileName.indexOf('.md') > -1
-}
-
-module.exports = generateRoutes();
-
-function generateRoutes() {
+module.exports = function() {
   return (
     <Route name='bodyContent' handler={BodyContent} path='/'>
       {[].concat.apply([], _.keys(config.paths).map(function(k, i) {
