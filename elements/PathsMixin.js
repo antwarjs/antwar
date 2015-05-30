@@ -2,6 +2,7 @@
 var React = require('react');
 
 var paths = require('../paths');
+var _ = require('lodash');
 
 
 module.exports = {
@@ -15,11 +16,21 @@ module.exports = {
   getAllPages: function() {
     return paths.getPages();
   },
+  getSection: function () {
+    let routes = this.context.router.getCurrentRoutes();
+    return routes && routes[1] && routes[1].name;
+  },
+  getSectionItems: function () {
+    let section = this.getSection();
+    return _.filter(this.getAllItems(), function (item) {
+      return item.section == section;
+    })
+  },
   getItem: function() {
-    var router = this.context.router;
-    var params = router.getCurrentParams();
-    var item = params.item;
-    var splat = params.splat;
+    let router = this.context.router;
+    let params = router.getCurrentParams();
+    let item = params.item;
+    let splat = params.splat;
 
     if(splat) {
       return this.getItemForPath(splat + '/' + item);
@@ -28,7 +39,7 @@ module.exports = {
     return this.getItemForPath(item);
   },
   getPage: function() {
-    var router = this.context.router;
+    let router = this.context.router;
 
     return this.getPageForPath(router.getCurrentPath().slice(1));
   },
@@ -39,16 +50,16 @@ module.exports = {
     return paths.pageForPath(path);
   },
   getPageTitle: function() {
-    var item = this.getItem();
+    let item = this.getItem();
 
     if(item && item.title) {
       return item.title;
     }
 
-    var router = this.context.router;
-    var routes = router.getCurrentRoutes();
+    let router = this.context.router;
+    let routes = router.getCurrentRoutes();
 
-    var routeName = routes[routes.length - 1].name;
+    let routeName = routes[routes.length - 1].name;
 
     if(routeName) {
       return routeName.replace('/', '');
