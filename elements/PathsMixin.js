@@ -15,7 +15,7 @@ module.exports = {
   },
   getSection: function () {
     let routes = this.context.router.getCurrentRoutes();
-    return routes && routes[1] && routes[1].name;
+    return this.getItem().section || routes && routes[1] && routes[1].name;
   },
   getSectionItems: function () {
     let section = this.getSection();
