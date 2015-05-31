@@ -73,6 +73,9 @@ function renderContent(content) {
 exports.renderContent = renderContent;
 
 function processItem(o, url, fileName, sectionFunctions, sectionName) {
+
+  sectionFunctions = _.without(sectionFunctions, ['path', 'sort']);
+
   var functions = _.assign({
     date: function(file, fileName, sectionName) {
       return file.date || null;
