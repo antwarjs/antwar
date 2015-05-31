@@ -5,11 +5,11 @@ var Router = require('react-router');
 var Route = Router.Route;
 
 var Body = require('theme/Body');
-var SectionItem = require('theme/SectionItem');
 var SectionIndex = require('theme/SectionIndex');
 
 var SiteIndex = require('./SiteIndex.jsx');
 var BodyContent = require('./BodyContent.jsx')(Body);
+var Page = require('./Page.jsx');
 
 var config = require('config');
 
@@ -26,7 +26,7 @@ module.exports = (
         <Route key={'root-' + i} name={k} path={k} handler={handler}></Route>,
       ];
     }))}
-    <Route key={'item-route'} name='item' path={':item'} handler={SectionItem}></Route>
-    <Route key={'item-with-nesting-route'} name='itemWithNesting' path={'*/:item'} handler={SectionItem}></Route>
+    <Route key={'item-route'} name='item' path={':item'} handler={Page}></Route>
+    <Route key={'item-with-nesting-route'} name='itemWithNesting' path={'*/:item'} handler={Page}></Route>
   </Route>
 );
