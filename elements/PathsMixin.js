@@ -3,6 +3,7 @@ var React = require('react');
 
 var paths = require('../paths');
 var _ = require('lodash');
+var config = require('config');
 
 
 module.exports = {
@@ -14,11 +15,17 @@ module.exports = {
     return paths.allItems();
   },
   getSection: function () {
+    return config.paths[this.getSectionName()];
+  },
+  getSectionTitle: function () {
+    return this.getSection().title;
+  },
+  getSectionName: function () {
     let routes = this.context.router.getCurrentRoutes();
     return this.getItem().section || routes && routes[1] && routes[1].name;
   },
   getSectionItems: function () {
-    let section = this.getSection();
+    let section = this.getSectionName();
     return _.filter(this.getAllItems(), function (item) {
       return item.section == section;
     })
