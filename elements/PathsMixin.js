@@ -43,7 +43,13 @@ module.exports = {
     return this.getItemForPath(item ? item : '/index');
   },
   getItemForPath: function(path) {
-    return paths.itemForPath(path);
+    var ret = paths.itemForPath(path);
+
+    if(!ret) {
+      console.warn('No item was found for path ' + path + '!');
+    }
+
+    return ret;
   },
   // TODO: rename as getItemTitle?
   getPageTitle: function() {
