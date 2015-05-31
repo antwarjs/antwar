@@ -54,7 +54,7 @@ function parseModules(sectionName, section, modules) {
       name: name.slice(2),
       file: modules(name),
       section: section,
-      sectionName: sectionName,
+      sectionName: sectionName === '/' ? '' : sectionName,
     };
   });
 }

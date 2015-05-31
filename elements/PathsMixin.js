@@ -33,7 +33,7 @@ module.exports = {
       return this.getItemForPath(splat + '/' + item);
     }
 
-    return this.getItemForPath(item);
+    return this.getItemForPath(item ? item : '/index');
   },
   getItemForPath: function(path) {
     return paths.itemForPath(path);
