@@ -29,7 +29,7 @@ function allItems() {
 
   items = itemHooks.preProcessItems(items);
   items = _.map(items, function(o) {
-    return processItem(o.file, o.url, o.name, o.section, o.sectionName);
+    return processItem(o.file, o.url, o.name, o.sectionName, o.section);
   });
   items = itemHooks.postProcessItems(items);
 
@@ -72,13 +72,11 @@ function renderContent(content) {
 }
 exports.renderContent = renderContent;
 
-function processItem(o, url, fileName, sectionFunctions, sectionName) {
+function processItem(o, url, fileName, sectionName, section) {
 
-  var layout = sectionFunctions.layout;
+  var layout = section.layout;
 
-  //XXXXX: Better solution for handling section stuff.
-
-  sectionFunctions = _.without(sectionFunctions, ['path', 'sort', 'layout']);
+  var sectionFunctions = section.processItem || {};
 
   var functions = _.assign({
     date: function(file, fileName, sectionName) {
