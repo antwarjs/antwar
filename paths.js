@@ -75,7 +75,7 @@ exports.renderContent = renderContent;
 function processItem(o, url, fileName, sectionFunctions, sectionName) {
   var functions = _.assign({
     date: function(file, fileName, sectionName) {
-      return;
+      return file.date || null;
     },
     content: function(file, fileName, sectionName) {
       return MdHelper.render(file.__content);
