@@ -74,7 +74,11 @@ exports.renderContent = renderContent;
 
 function processItem(o, url, fileName, sectionFunctions, sectionName) {
 
-  sectionFunctions = _.without(sectionFunctions, ['path', 'sort']);
+  var layout = sectionFunctions.layout;
+
+  //XXXXX: Better solution for handling section stuff.
+
+  sectionFunctions = _.without(sectionFunctions, ['path', 'sort', 'layout']);
 
   var functions = _.assign({
     date: function(file, fileName, sectionName) {
@@ -109,6 +113,9 @@ function processItem(o, url, fileName, sectionFunctions, sectionName) {
     },
     url: function(file, fileName, sectionName) {
       return sectionName + '/' + fileName.split('.')[0];
+    },
+    layout: function(file, fileName, sectionName) {
+      return layout;
     },
   }, themeFunctions, siteFunctions, sectionFunctions);
 
