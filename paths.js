@@ -96,7 +96,7 @@ function processItem(o, url, fileName, sectionName, section) {
           return;
         }
 
-        var stripped = removeMd(file.content);
+        var stripped = removeMd(file.__content);
 
         if (stripped.length > previewLimit) {
           return stripped.substr(0, previewLimit) + '…';
