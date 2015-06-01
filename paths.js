@@ -18,7 +18,7 @@ function allItems() {
     var draftPaths = [];
     if(__DEV__ && section.draft) {
       draftPaths = parseModules(sectionName, section, section.draft()).map(function(module) {
-        module.draft = true; // TODO: rename as isDraft to make this clearer
+        module.isDraft = true;
 
         return module;
       });
