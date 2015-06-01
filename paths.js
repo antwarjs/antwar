@@ -29,7 +29,11 @@ function allItems() {
 
   items = itemHooks.preProcessItems(items);
   items = _.map(items, function(o) {
-    return processItem(o.file, o.url, o.name, o.sectionName, o.section);
+    var item = processItem(o.file, o.url, o.name, o.sectionName, o.section);
+
+    item.isDraft = o.isDraft;
+
+    return item;
   });
   items = itemHooks.postProcessItems(items);
 
