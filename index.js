@@ -24,7 +24,7 @@ function parseThemeWebpackConfig(config) {
     try {
       // make sure site is in module search paths,
       // otherwise possible theme cannot be found
-      module.paths.unshift(process.cwd());
+      module.paths.unshift(path.join(process.cwd(), 'node_modules'));
 
       return require(path.basename(config.theme.name));
     }
