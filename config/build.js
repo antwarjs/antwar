@@ -47,12 +47,6 @@ module.exports = function(config) {
       module: {
         loaders: [
           {
-            test: /\.scss$/,
-            loader: ExtractTextPlugin.extract(
-              'style-loader',
-              'css-loader!autoprefixer-loader?{browsers:["last 2 version", "ie 10", "Android 4"]}!sass-loader'),
-          },
-          {
             test: /\.jsx?$/,
             loader: 'babel',
             include: new RegExp(common.corePath + '|' + cwd),
@@ -63,10 +57,6 @@ module.exports = function(config) {
             test: /\.css$/,
             loader: ExtractTextPlugin.extract(
               'style-loader', 'css-loader'),
-          },
-          {
-            test: /\.coffee$/,
-            loader: 'coffee-loader',
           },
           {
             test: /\.json$/,

@@ -47,7 +47,6 @@ module.exports = function(config) {
           '.web.js',
           '.js',
           '.jsx',
-          '.coffee',
           '.json',
         ].
         concat(themeConfig.resolve && themeConfig.resolve.extensions || []).

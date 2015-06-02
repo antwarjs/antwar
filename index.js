@@ -26,13 +26,7 @@ function parseThemeWebpackConfig(config) {
       // otherwise possible theme cannot be found
       module.paths.unshift(path.join(process.cwd(), 'node_modules'));
 
-      return {};
-
-      // XXXXX: if default theme has custom configuration, yields
-      // Error: Cannot find module "theme/Body"
-      // This has something to do with coffee-loader. If that is disabled
-      // at theme config, then it stumbles at sass config (might be invalid, didn't check)
-      //return require(path.basename(config.theme.name));
+      return require(path.basename(config.theme.name));
     }
     catch(e) {
       // XXX: figure out when to show error, when not

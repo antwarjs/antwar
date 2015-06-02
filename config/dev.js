@@ -38,10 +38,6 @@ module.exports = function(config) {
             loader: 'file-loader?prefix=font/',
           },
           {
-            test: /\.coffee$/,
-            loader: 'react-hot!coffee-loader',
-          },
-          {
             test: /\.json$/,
             loader: 'json-loader',
           },
@@ -64,15 +60,6 @@ module.exports = function(config) {
             loaders: [
               'style-loader',
               'css-loader',
-            ],
-          },
-          {
-            test: /\.scss$/,
-            loaders: [
-              'style-loader',
-              'css-loader',
-              'autoprefixer-loader?{browsers:["last 2 version", "ie 10", "Android 4"]}',
-              'sass-loader',
             ],
           },
           {
