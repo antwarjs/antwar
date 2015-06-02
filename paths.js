@@ -83,13 +83,15 @@ function processItem(o, url, fileName, sectionName, section) {
   var sectionFunctions = section.processItem || {};
 
   var functions = _.assign({
-    date: function(file, fileName, sectionName) {
-      return file.date || null;
+    date: function(o) {
+      return o.file.date || null;
     },
-    content: function(file, fileName, sectionName) {
-      return MdHelper.render(file.__content);
+    content: function(o) {
+      return MdHelper.render(o.file.__content);
     },
-    preview: function(file, fileName, sectionName) {
+    preview: function(o) {
+      var file = o.file;
+
       if (file.preview) {
         return file.preview;
       }
@@ -110,19 +112,23 @@ function processItem(o, url, fileName, sectionName, section) {
       }
       return file.preview || MdHelper.getContentPreview(file.__content);
     },
-    title: function(file, fileName, sectionName) {
-      return file.title;
+    title: function(o) {
+      return o.file.title;
     },
-    url: function(file, fileName, sectionName) {
-      return sectionName + '/' + fileName.split('.')[0];
+    url: function(o) {
+      return o.sectionName + '/' + o.fileName.split('.')[0];
     },
-    layout: function(file, fileName, sectionName) {
+    layout: function(o) {
       return layout;
     },
   }, themeFunctions, siteFunctions, sectionFunctions);
 
   _.forEach(functions, function(fn, name) {
-    o[name] = fn(o, fileName, sectionName);
+    o[name] = fn({
+      file: o,
+      fileName: fileName,
+      sectionName: sectionName
+    });
   });
 
   o.section = sectionName;
