@@ -75,20 +75,6 @@ module.exports = function(config) {
         new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.optimize.DedupePlugin()
       ],
-      jshint: {
-        bitwise: false,
-        boss: true,
-        curly: false,
-        eqnull: true,
-        expr: true,
-        newcap: false,
-        quotmark: false,
-        shadow: true,
-        strict: false,
-        sub: true,
-        undef: true,
-        unused: 'vars',
-      },
     });
   });
 };

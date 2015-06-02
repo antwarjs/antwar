@@ -86,7 +86,6 @@ module.exports = function(config) {
           }
         ].concat(themeConfig.module && themeConfig.module.loaders? themeConfig.module.loaders: []).
         concat(siteConfig.module && siteConfig.module.loaders? siteConfig.module.loaders: []),
-        jshint: common.jshint,
       }
     };
   });

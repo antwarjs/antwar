@@ -39,7 +39,7 @@ module.exports = function(config) {
           },
           {
             test: /\.coffee$/,
-            loader: 'react-hot!jshint-loader!coffee-loader',
+            loader: 'react-hot!coffee-loader',
           },
           {
             test: /\.json$/,
@@ -84,7 +84,6 @@ module.exports = function(config) {
       },
       resolve: common.resolve,
       resolveLoader: common.resolveLoader,
-      jshint: common.jshint,
     };
   });
 };
