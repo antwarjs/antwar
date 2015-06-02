@@ -37,7 +37,6 @@ function allItems() {
   });
   items = itemHooks.postProcessItems(items);
 
-  // TODO: can this conversion be avoided?
   var ret = {};
 
   _.each(items, function(o) {
