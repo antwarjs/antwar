@@ -50,8 +50,8 @@ module.exports = function(config) {
           '.coffee',
           '.json',
         ].
-        concat(themeConfig.extensions || []).
-        concat(siteConfig.extensions || [])),
+        concat(themeConfig.resolve && themeConfig.resolve.extensions || []).
+        concat(siteConfig.resolve && siteConfig.resolve.extensions || [])),
         modulesDirectories: [
           themePath,
           themeDependenciesPath,
