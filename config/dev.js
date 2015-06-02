@@ -5,8 +5,6 @@ var getCommon = require('./common');
 
 
 module.exports = function(config) {
-  // XXX: eliminate ReactHotLoaderMatches?
-  var ReactHotLoaderMatches = /View.coffee/;
   var cwd = process.cwd();
 
   var themeConfig = config.themeConfig && config.themeConfig.development;
@@ -41,7 +39,6 @@ module.exports = function(config) {
           },
           {
             test: /\.coffee$/,
-            exclude: ReactHotLoaderMatches,
             loader: 'react-hot!jshint-loader!coffee-loader',
           },
           {
@@ -77,10 +74,6 @@ module.exports = function(config) {
               'autoprefixer-loader?{browsers:["last 2 version", "ie 10", "Android 4"]}',
               'sass-loader',
             ],
-          },
-          {
-            test: ReactHotLoaderMatches,
-            loader: 'react-hot!coffee-loader',
           },
           {
             test: /\.md$/,
