@@ -76,9 +76,7 @@ function renderContent(content) {
 exports.renderContent = renderContent;
 
 function processItem(o, url, fileName, sectionName, section) {
-
   var layout = section.layout;
-
   var sectionFunctions = section.processItem || {};
 
   var functions = _.assign({
