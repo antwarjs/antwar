@@ -61,7 +61,7 @@ module.exports = function(config) {
       resolveLoader: {
         modulesDirectories: [
           path.join(parent, 'node_modules'),
-          themePath,
+          themeDependenciesPath,
           'node_modules',
         ]
       },
