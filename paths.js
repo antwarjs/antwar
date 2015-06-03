@@ -58,7 +58,10 @@ function parseModules(sectionName, section, modules) {
 }
 
 function itemForPath(path) {
-  return allItems()[path];
+  var items = allItems();
+
+  // check both to make root paths work (they have extra /)
+  return items[path] || items['/' + path];
 }
 exports.itemForPath = itemForPath;
 
