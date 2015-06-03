@@ -21,12 +21,14 @@ module.exports = {
     if(!ret) {
       console.warn('Failed to find section ' +  sectionName + ' within ' +
         Object.keys(config.paths).join(', '));
+
+      return {};
     }
 
     return ret;
   },
   getSectionTitle: function () {
-    return this.getSection().title;
+    return this.getSection().title || '';
   },
   getSectionName: function () {
     let routes = this.context.router.getCurrentRoutes();
