@@ -58,10 +58,7 @@ function parseModules(sectionName, section, modules) {
 }
 
 function itemForPath(path) {
-  var items = allItems();
-
-  // this check is needed for root paths to work (they have extra slash!)
-  return items[path] || items['/' + path];
+  return allItems()[path];
 }
 exports.itemForPath = itemForPath;
 
