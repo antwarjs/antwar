@@ -1,6 +1,5 @@
 'use strict';
 var _ = require('lodash');
-var removeMd = require('remove-markdown');
 
 var themeFunctions = require('theme').functions || {};
 
@@ -66,11 +65,6 @@ function itemForPath(path) {
 }
 exports.itemForPath = itemForPath;
 
-function renderContent(content) {
-  return MdHelper.render(content);
-}
-exports.renderContent = renderContent;
-
 function processItem(o, url, fileName, sectionName, section) {
   var layout = section.layout;
   var sectionFunctions = section.processItem || {};
@@ -91,22 +85,8 @@ function processItem(o, url, fileName, sectionName, section) {
       if (file.preview) {
         return file.preview;
       }
-      else {
-        var previewLimit = 100;
 
-        if(!file.content) {
-          return;
-        }
-
-        var stripped = removeMd(file.__content);
-
-        if (stripped.length > previewLimit) {
-          return stripped.substr(0, previewLimit) + '…';
-        }
-
-        return stripped;
-      }
-      return file.preview || MdHelper.getContentPreview(file.__content);
+      return MdHelper.renderPreview(file.__content, 100, '…');
     },
     title: function(o) {
       return o.file.title;
