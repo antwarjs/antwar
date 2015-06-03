@@ -31,8 +31,14 @@ module.exports = {
     return this.getSection().title || '';
   },
   getSectionName: function () {
-    // XXXXX: why section indices don't have section information and why they match to index?
-    return this.getItem().section;
+    let item = this.getItem();
+
+    if(item.section) {
+      return item.section;
+    }
+
+    // strip /
+    return this.context.router.getCurrentPath().slice(1);
   },
   getSectionItems: function () {
     let section = this.getSectionName();
