@@ -17,7 +17,7 @@ function allItems() {
     var draftPaths = [];
     if(__DEV__ && section.draft) {
       draftPaths = parseModules(sectionName, section, section.draft()).map(function(module) {
-        module.isDraft = true;
+        module.file.isDraft = true;
 
         return module;
       });
@@ -71,7 +71,7 @@ function processItem(o, url, fileName, sectionName, section) {
 
   var functions = _.assign({
     isDraft: function(o) {
-      return o.isDraft;
+      return o.file.isDraft || o.isDraft;
     },
     date: function(o) {
       return o.file.date || null;
