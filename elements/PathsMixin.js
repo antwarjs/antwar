@@ -47,8 +47,6 @@ module.exports = {
     let item = params.item;
     let splat = params.splat;
 
-    //console.log('params', params);
-
     if(splat) {
       return this.getItemForPath(splat + '/' + item);
     }
