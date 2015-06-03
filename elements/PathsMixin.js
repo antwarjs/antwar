@@ -36,9 +36,10 @@ module.exports = {
   },
   getSectionItems: function () {
     let section = this.getSectionName();
+
     return _.filter(this.getAllItems(), function (item) {
       return item.section == section;
-    })
+    });
   },
   getItem: function() {
     let router = this.context.router;
