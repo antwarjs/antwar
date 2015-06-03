@@ -29,11 +29,7 @@ function allItems() {
 
   items = itemHooks.preProcessItems(items);
   items = _.map(items, function(o) {
-    var item = processItem(o.file, o.url, o.name, o.sectionName, o.section);
-
-    item.isDraft = o.isDraft;
-
-    return item;
+    return processItem(o.file, o.url, o.name, o.sectionName, o.section);
   });
   items = itemHooks.postProcessItems(items);
 
@@ -80,6 +76,9 @@ function processItem(o, url, fileName, sectionName, section) {
   var sectionFunctions = section.processItem || {};
 
   var functions = _.assign({
+    isDraft: function(o) {
+      return o.isDraft;
+    },
     date: function(o) {
       return o.file.date || null;
     },
