@@ -16,7 +16,7 @@ var config = require('config');
 module.exports = (
   <Route name='bodyContent' handler={BodyContent} path='/'>
     {_.keys(config.paths).map(function(k, i) {
-      // possible root path needs to be after other paths. else it will match too early
+      // possible root path needs to be after other paths. else it can match too early
       if(k === '/') {
         return null;
       }
