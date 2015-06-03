@@ -32,9 +32,17 @@ module.exports = React.createClass({
     pageTitle += siteName;
 
     var pathName = this.getPathname();
+
     var parts = pathName.split('/').map(function() {
       return '';
-    }).join('../');
+    });
+
+    var prefix = '';
+
+    // root path
+    if(pathName[1] !== '/') {
+      prefix = parts.join('../');
+    }
 
     return (
       <html>
@@ -44,12 +52,12 @@ module.exports = React.createClass({
             name='viewport'
             content='width=device-width, initial-scale=1, maximum-scale=1, minimal-ui'>
           </meta>
-          <link rel='icon' type='image/png' href={parts + '/assets/img/favicon.png'}></link>
+          <link rel='icon' type='image/png' href={prefix + 'assets/img/favicon.png'}></link>
           {_.map(this.getExternalHeadContent(this.getAllItems()), function (Component, i) {
             return <Component key={'component-' + i} />;
           })}
           {!__DEV__?
-            <link rel='stylesheet' href={parts + '/assets/main.css'}></link>:
+            <link rel='stylesheet' href={prefix + 'assets/main.css'}></link>:
             null}
         </head>
         <body>
