@@ -13,6 +13,12 @@ var Page = require('./Page.jsx');
 
 var config = require('config');
 
+// XXXXX: for some reason this is needed for regular build to work
+var extraSlash = '/';
+if(__DEV__) {
+  extraSlash = '';
+}
+
 module.exports = (
   <Route name='bodyContent' handler={BodyContent} path='/'>
     {_.keys(config.paths).map(function(k, i) {
@@ -28,8 +34,8 @@ module.exports = (
     <Route key='item-route' name='item' path=':item' handler={Page} />
     <Route key='item-with-nesting-route' name='itemWithNesting' path='*/:item' handler={Page} />
     {config.paths['/'] ?
-    /* XXX: why //? */
-    <Route key='index-route' name='index' path='//' handler={SiteIndex} />
+    /* XXX: why // on build? */
+    <Route key='index-route' name='index' path={'/' + extraSlash} handler={SiteIndex} />
     :
     null}
   </Route>
