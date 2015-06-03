@@ -15,7 +15,15 @@ module.exports = {
     return paths.allItems();
   },
   getSection: function () {
-    return config.paths[this.getSectionName()];
+    var sectionName = this.getSectionName();
+    var ret = config.paths[sectionName];
+
+    if(!ret) {
+      console.warn('Failed to find section ' +  sectionName + ' within ' +
+        Object.keys(config.paths).join(', '));
+    }
+
+    return ret;
   },
   getSectionTitle: function () {
     return this.getSection().title;
