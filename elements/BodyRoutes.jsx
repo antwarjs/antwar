@@ -15,22 +15,22 @@ var config = require('config');
 
 module.exports = (
   <Route name='bodyContent' handler={BodyContent} path='/'>
-    {[].concat.apply([], _.keys(config.paths).map(function(k, i) {
-      var handler = SectionIndex;
-      var path = k;
-
+    {_.keys(config.paths).map(function(k, i) {
+      // possible root path needs to be after other paths. else it will match too early
       if(k === '/') {
-        handler = SiteIndex;
-        // XXXXX: why is this needed?
-        // what triggers "Warning: No route matches path "//". Make sure you have <Route path="//"> somewhere in your routes"
-        path = '//';
+        return null;
       }
 
       return [
-        <Route key={'root-' + i} name={k} path={path} handler={handler} />,
+        <Route key={'root-' + i} name={k} handler={SectionIndex} />,
       ];
-    }))}
-    <Route key='item-route' name='item' path={':item'} handler={Page} />
-    <Route key='item-with-nesting-route' name='itemWithNesting' path={'*/:item'} handler={Page} />
+    })}
+    <Route key='item-route' name='item' path=':item' handler={Page} />
+    <Route key='item-with-nesting-route' name='itemWithNesting' path='*/:item' handler={Page} />
+    {config.paths['/'] ?
+    /* XXX: why //? */
+    <Route key='index-route' name='index' path='//' handler={SiteIndex} />
+    :
+    null}
   </Route>
 );

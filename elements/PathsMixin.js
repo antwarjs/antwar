@@ -31,8 +31,8 @@ module.exports = {
     return this.getSection().title || '';
   },
   getSectionName: function () {
-    let routes = this.context.router.getCurrentRoutes();
-    return this.getItem().section || routes && routes[1] && routes[1].name;
+    // XXXXX: why section indices don't have section information and why they match to index?
+    return this.getItem().section;
   },
   getSectionItems: function () {
     let section = this.getSectionName();
@@ -46,6 +46,8 @@ module.exports = {
     let params = router.getCurrentParams();
     let item = params.item;
     let splat = params.splat;
+
+    //console.log('params', params);
 
     if(splat) {
       return this.getItemForPath(splat + '/' + item);
