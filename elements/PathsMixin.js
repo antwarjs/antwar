@@ -11,6 +11,19 @@ module.exports = {
     router: React.PropTypes.func
   },
 
+  getPathPrefix: function(pathName) {
+    var prefix = '';
+
+    // skip root paths
+    if(pathName[1] !== '/') {
+      prefix = pathName.split('/').map(function() {
+        return '';
+      }).join('../');
+    }
+
+    return prefix;
+  },
+
   getAllItems: function () {
     return paths.allItems();
   },

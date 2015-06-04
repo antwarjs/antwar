@@ -32,17 +32,7 @@ module.exports = React.createClass({
     pageTitle += siteName;
 
     var pathName = this.getPathname();
-
-    var parts = pathName.split('/').map(function() {
-      return '';
-    });
-
-    var prefix = '';
-
-    // root path
-    if(pathName[1] !== '/') {
-      prefix = parts.join('../');
-    }
+    var prefix = this.getPathPrefix(pathName);
 
     return (
       <html>
