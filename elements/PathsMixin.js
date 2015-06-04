@@ -53,11 +53,11 @@ module.exports = {
     // strip /
     return this.context.router.getCurrentPath().slice(1);
   },
-  getSectionItems: function () {
-    let section = this.getSectionName();
+  getSectionItems: function (sectionName) {
+    sectionName = sectionName || this.getSectionName();
 
     return _.filter(this.getAllItems(), function (item) {
-      return item.section == section;
+      return item.section == sectionName;
     });
   },
   getItem: function() {
