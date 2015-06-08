@@ -37,7 +37,6 @@ function allItems() {
   _.each(items, function(o) {
     ret[o.url] = o;
   });
-
   return ret;
 }
 exports.allItems = allItems;
@@ -92,7 +91,7 @@ function processItem(o, url, fileName, sectionName, section) {
       return o.file.title;
     },
     url: function(o) {
-      return o.sectionName + '/' + o.fileName.split('.')[0];
+      return o.sectionName + '/' + o.fileName.split('.')[0].toLowerCase();
     },
     layout: function(o) {
       return layout;

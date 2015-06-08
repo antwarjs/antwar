@@ -65,7 +65,6 @@ module.exports = {
     let params = router.getCurrentParams();
     let item = params.item;
     let splat = params.splat;
-
     if(splat) {
       return this.getItemForPath(splat + '/' + item);
     }
