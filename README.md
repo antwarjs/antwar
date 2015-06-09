@@ -6,7 +6,7 @@ A static site generator using [React](https://github.com/facebook/react).
 
 ## Getting started
 
-Read the [getting started section on our site](http://antwarjs.github.io/get-started)
+Read the [getting started section on our site](http://antwarjs.github.io/docs/getting-started/)
 
 ## Contributions
 
