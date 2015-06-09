@@ -12,9 +12,18 @@ Read the [getting started section on our site](http://antwarjs.github.io/docs/ge
 
 All contributions are welcome. Please open an issue if you have an idea. :)
 
-## Credits
+## Contributors
 
 This is based on the fantastic work of [Brad Denver](https://github.com/BradDenver/react-static-site).
+
+**Core developers**
+
+* [Andreas Eldh](https://github.com/eldh) - Visual design, core development
+* [Juho Vepsäläinen](https://github.com/bebraw) - Architecture design, core development
+
+**Contributors in no particular order**
+
+* [Nadav Spiegelman](https://github.com/nadavspi) - Fixed README `getting started` url.
 
 ## License
 
