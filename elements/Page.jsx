@@ -2,7 +2,10 @@ var React = require('react');
 var Router = require('react-router');
 var Paths = require('antwar-core/PathsMixin');
 
-var SectionItem = require('theme/SectionItem');
+var config = require('config');
+var themeHandlers = require('theme').handlers;
+var configHandlers = config.handlers || {};
+var SectionItem = (configHandlers.sectionItem && configHandlers.sectionItem()) || themeHandlers.sectionItem();
 
 module.exports = React.createClass({
 

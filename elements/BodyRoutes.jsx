@@ -3,15 +3,15 @@ var _ = require('lodash');
 var React = require('react');
 var Router = require('react-router');
 var Route = Router.Route;
-
-var Body = require('theme/Body');
-var SectionIndex = require('theme/SectionIndex');
-
 var SiteIndex = require('./SiteIndex.jsx');
-var BodyContent = require('./BodyContent.jsx')(Body);
 var Page = require('./Page.jsx');
 
 var config = require('config');
+var themeHandlers = require('theme').handlers;
+var configHandlers = config.handlers || {};
+var SectionIndex = (configHandlers.sectionIndex && configHandlers.sectionIndex()) || themeHandlers.sectionIndex();
+var Body = (configHandlers.body && configHandlers.body()) || themeHandlers.body();
+var BodyContent = require('./BodyContent.jsx')(Body);
 
 // XXXXX: for some reason this is needed for regular build to work
 var extraSlash = '/';
