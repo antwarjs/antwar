@@ -19,6 +19,6 @@ module.exports = React.createClass({
     }
 
     // Router.Link yields an absolute link! better do a custom one
-    return <a href={url}>{props.children}</a>;
+    return <a className="link" href={url}>{props.children}</a>;
   },
 });
