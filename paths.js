@@ -34,9 +34,19 @@ function allItems() {
 
   var ret = {};
 
-  _.each(items, function(o) {
-    ret[o.url] = o;
-  });
+  if(__DEV__) {
+    _.each(items, function(o) {
+      ret[o.url] = o;
+    });
+  }
+  else {
+    _.each(items, function(o) {
+      if(!o.isDraft) {
+        ret[o.url] = o;
+      }
+    });
+  }
+
   return ret;
 }
 exports.allItems = allItems;
