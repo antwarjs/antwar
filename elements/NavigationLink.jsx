@@ -17,22 +17,28 @@ module.exports = React.createClass({
     var item = props.item;
     var title = item.title;
     var url = item.url;
+    var pathName, prefix, wholeUrl;
 
-    var pathName = this.getPathname();
-    var prefix = this.getPathPrefix(pathName);
-
-    if(url.length > 1) {
-      url = url.slice(1);
+    if(url.indexOf('http://') || url.indexOf('https://')) {
+      wholeUrl = url;
     }
-    else if(prefix) {
-      // strip extra slash from prefix for relative root
-      prefix = prefix.slice(0, -1);
-    }
+    else {
+      pathName = this.getPathname();
+      prefix = this.getPathPrefix(pathName);
 
-    var wholeUrl = prefix + url;
+      if(url.length > 1) {
+        url = url.slice(1);
+      }
+      else if(prefix) {
+        // strip extra slash from prefix for relative root
+        prefix = prefix.slice(0, -1);
+      }
 
-    if(wholeUrl === '/') {
-      wholeUrl = './';
+      wholeUrl = prefix + url;
+
+      if(wholeUrl === '/') {
+        wholeUrl = './';
+      }
     }
 
     return <a href={wholeUrl}>{title}</a>;
