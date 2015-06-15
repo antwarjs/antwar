@@ -6,7 +6,6 @@ require('promise.prototype.finally');
 
 var build = require('./build');
 
-
 exports.develop = function(config) {
   config.themeConfig = parseThemeWebpackConfig(config);
 

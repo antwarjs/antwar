@@ -3,9 +3,16 @@ var Router = require('react-router');
 var Paths = require('antwar-core/PathsMixin');
 
 var config = require('config');
-var themeHandlers = require('theme').handlers;
+var themeHandlers = require('theme').handlers || {};
 var configHandlers = config.handlers || {};
-var SectionItem = (configHandlers.sectionItem && configHandlers.sectionItem()) || themeHandlers.sectionItem();
+
+var SectionItem = (configHandlers.sectionItem && configHandlers.sectionItem()) ||
+    (themeHandlers.sectionItem && themeHandlers.sectionItem());
+
+// TODO: push to higher level
+if(!SectionItem) {
+    console.warn('Configuration or theme is missing `sectionItem` handler');
+}
 
 module.exports = React.createClass({
 
