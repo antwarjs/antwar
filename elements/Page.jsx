@@ -6,25 +6,33 @@ var config = require('config');
 var themeHandlers = require('theme').handlers || {};
 var configHandlers = config.handlers || {};
 
-var SectionItem = (configHandlers.sectionItem && configHandlers.sectionItem()) ||
-    (themeHandlers.sectionItem && themeHandlers.sectionItem());
-
-// TODO: push to higher level
-if(!SectionItem) {
-    console.warn('Configuration or theme is missing `sectionItem` handler');
-}
-
 module.exports = React.createClass({
 
   mixins: [ Router.State, Paths ],
 
   render: function() {
+    var props = this.props;
     var item = this.getItem();
+    var layout;
 
     if (typeof item === 'function') {
-        return React.createFactory(item)(this.props);
+      return React.createFactory(item)(props);
     }
 
-    return React.createFactory(SectionItem)(this.props);
+    if(item.layout) {
+      layout = item.layout;
+    }
+    else if(configHandlers.sectionItem) {
+      layout = configHandlers.sectionItem();
+    }
+    else if(themeHandlers.sectionItem) {
+      layout = themeHandlers.sectionItem();
+    }
+    else {
+      // TODO: push to higher level
+      console.warn('Configuration or theme is missing `sectionItem` handler');
+    }
+
+    return React.createFactory(layout)(props);
   }
 });
