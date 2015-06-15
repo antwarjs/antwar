@@ -19,7 +19,7 @@ module.exports = React.createClass({
       return React.createFactory(item)(props);
     }
 
-    if(item.layout) {
+    if(item.layout && typeof item.layout === 'function') {
       layout = item.layout;
     }
     else if(configHandlers.sectionItem) {
