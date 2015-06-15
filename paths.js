@@ -103,9 +103,7 @@ function processItem(o, url, fileName, sectionName, section) {
     url: function(o) {
       return o.sectionName + '/' + o.fileName.split('.')[0].toLowerCase();
     },
-    layout: function(o) {
-      return layout;
-    },
+    layout: function(o) {},
   }, themeFunctions, siteFunctions, sectionFunctions);
 
   _.forEach(functions, function(fn, name) {
