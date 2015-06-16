@@ -19,6 +19,12 @@ module.exports = React.createClass({
       return React.createFactory(item)(props);
     }
 
+    // this can happen if you navigate to a page that doesn't exist
+    // during development. TODO: give a nice 404 page?
+    if(!item) {
+      return null;
+    }
+
     if(item.layout && typeof item.layout === 'function') {
       layout = item.layout;
     }
