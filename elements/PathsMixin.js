@@ -80,7 +80,6 @@ module.exports = {
 
     return ret;
   },
-  // TODO: rename as getItemTitle?
   getPageTitle: function() {
     let item = this.getItem();
 
