@@ -25,11 +25,8 @@ module.exports = React.createClass({
   },
 
   render: function() {
-    var pageTitle = this.getPageTitle();
-    var siteName = config.name || '';
-
-    pageTitle = pageTitle && pageTitle + ' / ';
-    pageTitle += siteName;
+    var titleGetter = config.pageTitle || getPageTitle;
+    var pageTitle = titleGetter(config, this.getPageTitle());
 
     var pathName = this.getPathname();
     var prefix = this.getPathPrefix(pathName);
@@ -58,3 +55,12 @@ module.exports = React.createClass({
     );
   }
 });
+
+function getPageTitle(config, pageTitle) {
+  var siteName = config.name || '';
+  var ret = pageTitle && pageTitle + ' / ';
+
+  ret += siteName;
+
+  return ret;
+}
