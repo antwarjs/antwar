@@ -12,16 +12,9 @@ module.exports = {
   },
 
   getPathPrefix: function(pathName) {
-    var prefix = '';
-
-    // skip root paths
-    if(pathName[1] !== '/') {
-      prefix = pathName.split('/').map(function() {
-        return '';
-      }).join('../');
-    }
-
-    return prefix;
+    return pathName.split('/').map(function() {
+      return '';
+    }).join('../');
   },
 
   getAllItems: function () {
