@@ -30,6 +30,7 @@ module.exports = React.createClass({
 
     var pathName = this.getPathname();
     var prefix = this.getPathPrefix(pathName);
+    var item = this.getItem();
 
     return (
       <html>
@@ -37,8 +38,13 @@ module.exports = React.createClass({
           <title>{pageTitle}</title>
           <meta
             name='viewport'
-            content='width=device-width, initial-scale=1, maximum-scale=1, minimal-ui'>
-          </meta>
+            content='width=device-width, initial-scale=1, maximum-scale=1, minimal-ui' />
+          <meta
+            name='description'
+            content={item.description} />
+          <meta
+            name='keywords'
+            content={item.keywords} />
           <link rel='icon' type='image/png' href={prefix + 'assets/img/favicon.png'}></link>
           {_.map(this.getExternalHeadContent(this.getAllItems()), function (Component, i) {
             return <Component key={'component-' + i} />;

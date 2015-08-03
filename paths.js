@@ -97,6 +97,21 @@ function processItem(o, url, fileName, sectionName, section) {
 
       return MdHelper.renderPreview(file.__content, 100, '…');
     },
+    description: function(o) {
+      var file = o.file;
+
+      return file.description || file.preview || config.description;
+    },
+    keywords: function(o) {
+      var file = o.file;
+      var keywords = file.keywords || config.keywords || [];
+
+      if(_.isString(keywords)) {
+        return keywords;
+      }
+
+      return keywords.join(',');
+    },
     title: function(o) {
       return o.file.title;
     },
