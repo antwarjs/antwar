@@ -83,9 +83,6 @@ exports.items = function(o, cb) {
   var data = Object.keys(o.allPaths.items).map(function(item) {
     var p = _path.join(o.output, item);
 
-    // XXX: replace with async version
-    mkdirp.sync(p);
-
     return {
       path: p,
       item: item,
@@ -93,13 +90,20 @@ exports.items = function(o, cb) {
   });
 
   async.each(data, function(d, cb) {
-    mkdirp(d.path, function(err) {
+    var p = d.path;
+
+    // skip writing index/index.html
+    if(p.split('/').slice(-1)[0] === 'index') {
+      return cb();
+    }
+
+    mkdirp(p, function(err) {
       if(err) {
         return cb(err);
       }
 
       _fs.writeFile(
-        _path.join(d.path, 'index.html'),
+        _path.join(p, 'index.html'),
         o.renderPage('/' + d.item),
         cb
       );
