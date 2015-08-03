@@ -3,6 +3,7 @@ var _path = require('path');
 
 var async = require('async');
 var mkdirp = require('mkdirp');
+var rimraf = require('rimraf');
 var webpack = require('webpack');
 
 var webpackConfig = require('../config/build');
@@ -33,26 +34,35 @@ module.exports = function(config) {
           config: config,
         };
 
-        // XXX
-        mkdirp.sync(params.output);
-
-        // Extras
-        var pluginExtras = _.pluck(config.plugins, 'extra').filter(_.identity);
-        var extraFiles = _.map(pluginExtras, function(plugin) {
-          return plugin(params.allPaths, config);
-        });
-        async.parallel([
-          write.assets.bind(null, params),
-          write.extraAssets.bind(null, params),
-          write.index.bind(null, params),
-          write.items.bind(null, params),
-          write.extras.bind(null, params, extraFiles),
-        ], function(err) {
+        rimraf(params.output, function(err, cb) {
           if(err) {
             return reject(err);
           }
-          resolve();
-        });
+
+          mkdirp(params.output, function(err) {
+            if(err) {
+              return reject(err);
+            }
+
+            // Extras
+            var pluginExtras = _.pluck(config.plugins, 'extra').filter(_.identity);
+            var extraFiles = _.map(pluginExtras, function(plugin) {
+              return plugin(params.allPaths, config);
+            });
+            async.parallel([
+              write.assets.bind(null, params),
+              write.extraAssets.bind(null, params),
+              write.index.bind(null, params),
+              write.items.bind(null, params),
+              write.extras.bind(null, params, extraFiles),
+            ], function(err) {
+              if(err) {
+                return reject(err);
+              }
+              resolve();
+            });
+          })
+        })
       });
     }).catch(function(err) {
       reject(err);
