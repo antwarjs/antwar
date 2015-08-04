@@ -131,6 +131,15 @@ function processItem(o, url, fileName, sectionName, section) {
     });
   });
 
+  // allow custom extra properties to be set per section
+  if(sectionFunctions.extra) {
+    o = _.assign(o, sectionFunctions.extra({
+      file: o,
+      fileName: fileName,
+      sectionName: sectionName
+    }));
+  }
+
   o.section = sectionName;
 
   return o;
