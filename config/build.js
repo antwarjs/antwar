@@ -2,12 +2,9 @@
 var path = require('path');
 
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
-process.env.BUILD_DEV = 0;
-
-var getCommon = require('./common');
-
 
 module.exports = function(config) {
+  var getCommon = require('./common');
   var cwd = process.cwd();
 
   var themeConfig = config.themeConfig && config.themeConfig.build;
@@ -17,6 +14,8 @@ module.exports = function(config) {
 
   var siteConfig = config.webpack && config.webpack.build;
   siteConfig = siteConfig || {};
+
+  config.buildDev = config.buildDev || 0;
 
   return getCommon(config).then(function(common) {
     return {

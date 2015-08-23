@@ -5,7 +5,6 @@ var path = require('path');
 var _ = require('lodash');
 var webpack = require('webpack');
 
-
 module.exports = function(config) {
   return new Promise(function(resolve, reject) {
     var theme = config.theme;
@@ -66,9 +65,9 @@ module.exports = function(config) {
       },
       plugins: [
         new webpack.DefinePlugin({
-          __DEV__: JSON.stringify(JSON.parse(process.env.BUILD_DEV)),
+          __DEV__: JSON.stringify(JSON.parse(config.buildDev)),
           'process.env': {
-            'NODE_ENV': JSON.stringify(process.env.BUILD_DEV ? 'dev' : 'production')
+            'NODE_ENV': JSON.stringify(config.buildDev ? 'dev' : 'production')
           }
         }),
         new webpack.optimize.OccurenceOrderPlugin(),

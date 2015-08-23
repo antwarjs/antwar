@@ -4,13 +4,12 @@ var _path = require('path');
 
 var async = require('async');
 var webpack = require('webpack');
-var webpackConfig = require('../config/build');
 
+var webpackConfig = require('../config/build');
 var utils = require('./utils');
 
-
 module.exports = function(config) {
-  process.env.BUILD_DEV = 1;
+  config.buildDev = 1;
 
   return new Promise(function(resolve, reject) {
     webpackConfig(config).then(function(c) {

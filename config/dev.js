@@ -1,8 +1,6 @@
 'use strict';
 var path = require('path');
-
 var getCommon = require('./common');
-
 
 module.exports = function(config) {
   var cwd = process.cwd();
