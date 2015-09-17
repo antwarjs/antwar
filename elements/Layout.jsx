@@ -25,6 +25,7 @@ module.exports = React.createClass({
   },
 
   render: function() {
+    var language = config.language || 'en';
     var titleGetter = config.pageTitle || getPageTitle;
     var pageTitle = titleGetter(config, this.getPageTitle());
 
@@ -33,7 +34,7 @@ module.exports = React.createClass({
     var item = this.getItem();
 
     return (
-      <html>
+      <html lang={language}>
         <head>
           <title>{pageTitle}</title>
           <meta
