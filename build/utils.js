@@ -12,8 +12,9 @@ exports.copyExtraAssets = function(buildDir, assets, cb) {
 
   async.forEach(assets, function(asset, cb) {
     var from = asset.from;
+    var stats = fs.statSync(from);
 
-    if(from.indexOf('./') === 0) {
+    if(from.indexOf('./') === 0 && stats.isFile()) {
         cp(from, path.join(buildDir, asset.to, from), cb);
     }
     else {
