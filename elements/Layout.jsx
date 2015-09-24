@@ -33,7 +33,7 @@ module.exports = React.createClass({
     var prefix = this.getPathPrefix(pathName);
     var item = this.getItem();
     var description =  item.description || config.description;
-    var description = item.keywords || config.keywords;
+    var keywords = item.keywords || config.keywords;
 
     return (
       <html lang={language}>
