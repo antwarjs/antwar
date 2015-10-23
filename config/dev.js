@@ -12,6 +12,16 @@ module.exports = function(config) {
   siteConfig = siteConfig || {};
 
   return getCommon(config).then(function(common) {
+    var includes = [
+      common.corePath,
+      cwd
+    ];
+    var excludes = [
+      common.resolve.root,
+      common.themeDependenciesPath,
+      path.join(cwd, 'node_modules')
+    ];
+
     return {
       cache: true,
       node: {
@@ -30,18 +40,26 @@ module.exports = function(config) {
           {
             test: /\.woff$/,
             loader: 'url-loader?prefix=font/&limit=5000&mimetype=application/font-woff',
+            include: includes,
+            exclude: excludes
           },
           {
             test: /\.ttf$|\.eot$/,
             loader: 'file-loader?prefix=font/',
+            include: includes,
+            exclude: excludes
           },
           {
             test: /\.json$/,
             loader: 'json-loader',
+            //include: includes,
+            //exclude: excludes
           },
           {
             test: /\.svg$/,
             loader: 'raw-loader',
+            include: includes,
+            exclude: excludes
           },
           {
             test: /\.jsx?$/,
@@ -49,9 +67,8 @@ module.exports = function(config) {
               'react-hot',
               'babel'
             ],
-            include: new RegExp(common.corePath + '|' + cwd),
-            exclude: new RegExp(common.resolve.root + '|' + common.themeDependenciesPath +
-              '|' + path.join(cwd, 'node_modules')),
+            include: includes,
+            exclude: excludes
           },
           {
             test: /\.css$/,
@@ -59,10 +76,14 @@ module.exports = function(config) {
               'style-loader',
               'css-loader',
             ],
+            include: includes
+            //exclude: excludes
           },
           {
             test: /\.md$/,
             loader: 'json!yaml-frontmatter-loader',
+            //include: includes,
+            exclude: excludes
           }
         ].concat(themeConfig.module && themeConfig.module.loaders? themeConfig.module.loaders: []).
         concat(siteConfig.module && siteConfig.module.loaders? siteConfig.module.loaders: []),
