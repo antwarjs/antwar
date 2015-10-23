@@ -10,7 +10,6 @@
     "css-loader": "^0.12.1",
     "es6-promise": "^2.1.1",
     "exports-loader": "^0.6.2",
-    "expose-loader": "^0.6.0",
     "extract-text-webpack-plugin": "^0.8.0",
     "file-loader": "^0.8.1",
     "imports-loader": "^0.6.3",
