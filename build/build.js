@@ -32,7 +32,7 @@ module.exports = function(config) {
           config: config,
         };
 
-        rimraf(params.output, function(err, cb) {
+        rimraf(params.output, function(err) {
           if(err) {
             return reject(err);
           }
