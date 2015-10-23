@@ -12,7 +12,6 @@
     "exports-loader": "^0.6.2",
     "extract-text-webpack-plugin": "^0.8.0",
     "file-loader": "^0.8.1",
-    "imports-loader": "^0.6.3",
     "json-loader": "^0.5.1",
     "lodash": "^3.9.1",
     "markdown-loader": "^0.1.2",
