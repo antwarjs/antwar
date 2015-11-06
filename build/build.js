@@ -1,12 +1,14 @@
 'use strict';
 var _path = require('path');
-var _os = require('os');
 
 var _ = require('lodash');
 var async = require('async');
 var mkdirp = require('mkdirp');
 var rimraf = require('rimraf');
 var webpack = require('webpack');
+
+var workerFarm = require('worker-farm');
+var workers = workerFarm(require.resolve('./build_worker'));
 
 var webpackConfig = require('../config/build');
 var write = require('./write');
@@ -59,20 +61,19 @@ module.exports = function(config) {
             async.parallel([
               write.assets.bind(null, params),
               write.extraAssets.bind(null, params),
-              write.index.bind(null, params),
-              write.items.bind(null, params),
+              write.indices.bind(null, params),
               write.extras.bind(null, params, extraFiles),
-            ], function(err, functions) {
+              write.pages.bind(null, params),
+            ], function(err, tasks) {
               if(err) {
                 return reject(err);
               }
 
-              functions = _.flatten(functions).filter(_.identity);
+              tasks = _.flatten(tasks).filter(_.identity);
 
-              // execute functions parallel (still in single thread, though...)
-              async.eachLimit(functions, _os.cpus().length, function(fn, cb) {
-                fn(cb);
-              }, function(err) {
+              async.each(tasks, workers, function(err) {
+                workerFarm.end(workers);
+
                 if(err) {
                   return reject(err);
                 }

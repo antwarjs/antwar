@@ -24,40 +24,34 @@ exports.assets = function(o, cb) {
 
     info('Wrote asset directory');
 
+    // TODO: define a protocol + pass task name + params there
+    // array of objects
     cb(null, [
-      utils.copyIfExists.bind(null, _path.join(o.cwd, 'assets'), assetsDir),
-      function(cb) {
-        _fs.exists(mainPath, function(exists) {
-          if(!exists) {
-            return cb();
-          }
-
-          log('Writing main.css');
-
-          _fs.readFile(mainPath, function(err, data) {
-            if(err) {
-              return cb(err);
-            }
-
-            _fs.writeFile(_path.join(assetsDir, 'main.css'), data, function(err) {
-              info('Wrote main.css');
-
-              cb(err);
-            });
-          });
-        });
-      }
+      {
+        task: 'copy_assets',
+        params: [_path.join(o.cwd, 'assets'), assetsDir],
+      },
+      {
+        task: 'write_main',
+        params: {
+          assetsDir: assetsDir,
+          mainPath: mainPath,
+        }
+      },
     ]);
   });
 };
 
 exports.extraAssets = function(o, cb) {
   cb(null, [
-    utils.copyExtraAssets.bind(null, o.output, o.config && o.config.assets)
+    {
+      task: 'copy_extra_assets',
+      params: [o.output, o.config && o.config.assets],
+    }
   ]);
 };
 
-exports.index = function(o, cb) {
+exports.indices = function(o, cb) {
   var config = o.config;
   var log = config.console.log;
   var info = config.console.info;
@@ -79,16 +73,13 @@ exports.index = function(o, cb) {
         pathRoot = '';
       }
 
-      cb(null, function(cb) {
-        var p = _path.join(o.output, pathRoot, 'index.html');
-
-        log('Writing index', p);
-
-        _fs.writeFile(p, o.renderPage('/' + pathRoot, null), function(err) {
-          info('Wrote index', p);
-
-          cb(err);
-        });
+      // XXX: rendering isn't parallel
+      cb(null, {
+        task: 'write',
+        params: {
+          path: _path.join(o.output, pathRoot, 'index.html'),
+          data: o.renderPage('/' + pathRoot, null),
+        }
       });
     });
   }, cb);
@@ -110,14 +101,12 @@ exports.extras = function(o, files, cb) {
 
       var p = _path.join(o.output, fileName);
 
-      cb(null, function(cb) {
-        log('Writing extra', p);
-
-        _fs.writeFile(p, fileContent, function(err) {
-          info('Wrote extra', p);
-
-          cb(err);
-        });
+      cb(null, {
+        task: 'write',
+        params: {
+          path: p,
+          data: fileContent,
+        }
       });
     }, cb);
   }, function(err, d) {
@@ -125,7 +114,7 @@ exports.extras = function(o, files, cb) {
   });
 };
 
-exports.items = function(o, cb) {
+exports.pages = function(o, cb) {
   var log = o.config.console.log;
   var info = o.config.console.info;
 
@@ -146,23 +135,20 @@ exports.items = function(o, cb) {
       return cb();
     }
 
-    cb(null, function(cb) {
-      log('Writing item', p);
+    // XXX: mkdirp could be pushed to task
+    mkdirp(p, function(err) {
+      if(err) {
+        return cb(err);
+      }
 
-      mkdirp(p, function(err) {
-        if(err) {
-          return cb(err);
+      // XXXXX: not parallel - this is very slow on big sites!
+      // it would be far better to push webpack bits inside the process itself
+      cb(null, {
+        task: 'write',
+        params: {
+          path: _path.join(p, 'index.html'),
+          data: o.renderPage('/' + d.item)
         }
-
-        _fs.writeFile(
-          _path.join(p, 'index.html'),
-          o.renderPage('/' + d.item),
-          function(err) {
-            info('Wrote item', p);
-
-            cb(err);
-          }
-        );
       });
     });
   }, cb);
