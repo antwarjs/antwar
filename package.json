@@ -9,7 +9,7 @@
     "css-loader": "^0.14.5",
     "es6-promise": "^3.0.2",
     "exports-loader": "^0.6.2",
-    "extract-text-webpack-plugin": "^0.8.2",
+    "extract-text-webpack-plugin": "^0.9.1",
     "file-loader": "^0.8.1",
     "json-loader": "^0.5.3",
     "lodash": "^3.10.1",
