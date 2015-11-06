@@ -12,6 +12,7 @@ var write = require('./write');
 module.exports = function(config) {
   return new Promise(function(resolve, reject) {
     var output = config.output;
+    var log = config.console.log;
 
     if(!output) {
       return reject(new Error('Missing output directory'));
@@ -32,10 +33,14 @@ module.exports = function(config) {
           config: config,
         };
 
+        log('Removing old output directory');
+
         rimraf(params.output, function(err) {
           if(err) {
             return reject(err);
           }
+
+          log('Creating new output directory');
 
           mkdirp(params.output, function(err) {
             if(err) {
@@ -47,16 +52,19 @@ module.exports = function(config) {
             var extraFiles = _.map(pluginExtras, function(plugin) {
               return plugin(params.allPaths, config);
             });
-            async.parallel([
+
+            // Write
+            async.parallelLimit([
               write.assets.bind(null, params),
               write.extraAssets.bind(null, params),
               write.index.bind(null, params),
               write.items.bind(null, params),
               write.extras.bind(null, params, extraFiles),
-            ], function(err) {
+            ], 1, function(err) {
               if(err) {
                 return reject(err);
               }
+
               resolve();
             });
           })
