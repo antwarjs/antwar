@@ -2,6 +2,7 @@
 var _fs = require('fs');
 var _path = require('path');
 
+var _ = require('lodash');
 var async = require('async');
 var mkdirp = require('mkdirp');
 
@@ -21,10 +22,9 @@ exports.assets = function(o, cb) {
       return cb(err);
     }
 
-    log('Copying assets');
+    info('Wrote asset directory');
 
-    // TODO: move control to higher level so there's better control over workers
-    async.parallelLimit([
+    cb(null, [
       utils.copyIfExists.bind(null, _path.join(o.cwd, 'assets'), assetsDir),
       function(cb) {
         _fs.exists(mainPath, function(exists) {
@@ -47,25 +47,14 @@ exports.assets = function(o, cb) {
           });
         });
       }
-    ], 1, function(err) {
-      info('Copied assets');
-
-      cb(err);
-    });
+    ]);
   });
 };
 
 exports.extraAssets = function(o, cb) {
-  var log = o.config.console.log;
-  var info = o.config.console.info;
-
-  log('Copying extra assets');
-
-  return utils.copyExtraAssets(o.output, o.config && o.config.assets, function(err) {
-    info('Copied extra assets');
-
-    cb(err);
-  });
+  cb(null, [
+    utils.copyExtraAssets.bind(null, o.output, o.config && o.config.assets)
+  ]);
 };
 
 exports.index = function(o, cb) {
@@ -73,9 +62,7 @@ exports.index = function(o, cb) {
   var log = config.console.log;
   var info = config.console.info;
 
-  log('Writing indices');
-
-  async.each(_.keys(config.paths), function(pathRoot, cb) {
+  async.map(_.keys(config.paths), function(pathRoot, cb) {
     var p = _path.join(o.output, pathRoot);
 
     log('Writing index directory', p);
@@ -85,26 +72,26 @@ exports.index = function(o, cb) {
         return cb(err);
       }
 
+      info('Wrote index directory');
+
       // index is a special case
       if(pathRoot === '/') {
         pathRoot = '';
       }
 
-      var p = _path.join(o.output, pathRoot, 'index.html');
+      cb(null, function(cb) {
+        var p = _path.join(o.output, pathRoot, 'index.html');
 
-      log('Writing index', p);
+        log('Writing index', p);
 
-      _fs.writeFile(p, o.renderPage('/' + pathRoot, null), function(err) {
-        info('Wrote index', p);
+        _fs.writeFile(p, o.renderPage('/' + pathRoot, null), function(err) {
+          info('Wrote index', p);
 
-        cb(err);
+          cb(err);
+        });
       });
     });
-  }, function(err) {
-    info('Wrote indices');
-
-    cb(err);
-  });
+  }, cb);
 };
 
 exports.extras = function(o, files, cb) {
@@ -115,29 +102,26 @@ exports.extras = function(o, files, cb) {
     return cb();
   }
 
-  log('Writing extras');
-
-  // TODO: move control to higher level so there's better control over workers
-  async.eachLimit(files, 1, function(file, cb) {
-    async.each(file, function(f, cb) {
+  async.map(files, function(file, cb) {
+    async.map(file, function(f, cb) {
       // XXXXX: define a better interface. now it's just an object
       var fileName = f[Object.keys(f)];
       var fileContent = f[fileName];
 
       var p = _path.join(o.output, fileName);
 
-      log('Writing extra', p);
+      cb(null, function(cb) {
+        log('Writing extra', p);
 
-      _fs.writeFile(p, fileContent, function(err) {
-        info('Wrote extra', p);
+        _fs.writeFile(p, fileContent, function(err) {
+          info('Wrote extra', p);
 
-        cb(err);
+          cb(err);
+        });
       });
     }, cb);
-  }, function(err) {
-    info('Wrote extras');
-
-    cb(err);
+  }, function(err, d) {
+    cb(err, _.flatten(d));
   });
 };
 
@@ -154,10 +138,7 @@ exports.items = function(o, cb) {
     };
   });
 
-  log('Writing items', data.length);
-
-  // TODO: move control to higher level so there's better control over workers
-  async.eachLimit(data, 1, function(d, cb) {
+  async.map(data, function(d, cb) {
     var p = d.path;
 
     // skip writing index/index.html
@@ -165,28 +146,26 @@ exports.items = function(o, cb) {
       return cb();
     }
 
-    log('Writing item', p);
+    cb(null, function(cb) {
+      log('Writing item', p);
 
-    mkdirp(p, function(err) {
-      if(err) {
-        return cb(err);
-      }
-
-      _fs.writeFile(
-        _path.join(p, 'index.html'),
-        o.renderPage('/' + d.item),
-        function(err) {
-          info('Wrote item', p);
-
-          cb(err);
+      mkdirp(p, function(err) {
+        if(err) {
+          return cb(err);
         }
-      );
-    });
-  }, function(err) {
-    info('Wrote items');
 
-    cb(err);
-  });
+        _fs.writeFile(
+          _path.join(p, 'index.html'),
+          o.renderPage('/' + d.item),
+          function(err) {
+            info('Wrote item', p);
+
+            cb(err);
+          }
+        );
+      });
+    });
+  }, cb);
 };
 
 function id(a) {return a;}

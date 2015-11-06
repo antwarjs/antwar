@@ -1,6 +1,8 @@
 'use strict';
 var _path = require('path');
+var _os = require('os');
 
+var _ = require('lodash');
 var async = require('async');
 var mkdirp = require('mkdirp');
 var rimraf = require('rimraf');
@@ -53,19 +55,30 @@ module.exports = function(config) {
               return plugin(params.allPaths, config);
             });
 
-            // Write
-            async.parallelLimit([
+            // get functions to execute
+            async.parallel([
               write.assets.bind(null, params),
               write.extraAssets.bind(null, params),
               write.index.bind(null, params),
               write.items.bind(null, params),
               write.extras.bind(null, params, extraFiles),
-            ], 1, function(err) {
+            ], function(err, functions) {
               if(err) {
                 return reject(err);
               }
 
-              resolve();
+              functions = _.flatten(functions).filter(_.identity);
+
+              // execute functions parallel (still in single thread, though...)
+              async.eachLimit(functions, _os.cpus().length, function(fn, cb) {
+                fn(cb);
+              }, function(err) {
+                if(err) {
+                  return reject(err);
+                }
+
+                resolve();
+              });
             });
           })
         })
