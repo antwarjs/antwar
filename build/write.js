@@ -24,8 +24,6 @@ exports.assets = function(o, cb) {
 
     info('Wrote asset directory');
 
-    // TODO: define a protocol + pass task name + params there
-    // array of objects
     cb(null, [
       {
         task: 'copy_assets',
