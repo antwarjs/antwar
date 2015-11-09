@@ -1,6 +1,7 @@
 'use strict';
 var _fs = require('fs');
 var _path = require('path');
+var _os = require('os');
 
 var _ = require('lodash');
 var async = require('async');
@@ -130,17 +131,29 @@ exports.pages = function(o, cb) {
         return cb(err);
       }
 
-      // XXXXX: not parallel - this is very slow on big sites!
-      // it would be far better to push webpack bits inside the process itself
       cb(null, {
-        task: 'write',
-        params: {
-          path: _path.join(p, 'index.html'),
-          data: o.renderPage('/' + d.item)
-        }
+        path: _path.join(p, 'index.html'),
+        item: '/' + d.item,
       });
     });
-  }, cb);
+  }, function(err, d) {
+    if(err) {
+      return cb(err);
+    }
+
+    var amountOfCpus = _os.cpus().length;
+    var partitions = _.partition(d, function(n) {
+      return n % amountOfCpus;
+    });
+    cb(null, partitions.map(function(partition) {
+      return {
+        task: 'write_pages',
+        params: {
+          pages: partition
+        }
+      }
+    }));
+  });
 };
 
 function id(a) {return a;}
