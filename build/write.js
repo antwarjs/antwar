@@ -141,11 +141,7 @@ exports.pages = function(o, cb) {
       return cb(err);
     }
 
-    var amountOfCpus = _os.cpus().length;
-    var partitions = _.partition(d, function(n) {
-      return n % amountOfCpus;
-    });
-    cb(null, partitions.map(function(partition) {
+    cb(null, _.chunk(d, _os.cpus().length).map(function(partition) {
       return {
         task: 'write_pages',
         params: {
