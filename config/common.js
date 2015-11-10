@@ -5,6 +5,8 @@ var path = require('path');
 var _ = require('lodash');
 var webpack = require('webpack');
 
+var parseThemeWebpackConfig = require('./parse_theme');
+
 module.exports = function(config) {
   return new Promise(function(resolve, reject) {
     var theme = config.theme;
@@ -16,8 +18,8 @@ module.exports = function(config) {
     var cwd = process.cwd();
     var parent = path.join(__dirname, '..');
 
-    var themeConfig = config.themeConfig && config.themeConfig.common;
-    themeConfig = themeConfig && themeConfig() || {};
+    var themeConfig = parseThemeWebpackConfig(config);
+    var commonThemeConfig = themeConfig && themeConfig.common();
 
     var siteConfig = config.webpack && config.webpack.common;
     siteConfig = siteConfig || {};
@@ -27,6 +29,7 @@ module.exports = function(config) {
     var corePath = path.join(parent, 'elements');
 
     resolve({
+      themeConfig: themeConfig,
       corePath: corePath,
       parent: parent,
       themeDependenciesPath: themeDependenciesPath,
@@ -48,7 +51,7 @@ module.exports = function(config) {
           '.jsx',
           '.json',
         ].
-        concat(themeConfig.resolve && themeConfig.resolve.extensions || []).
+        concat(commonThemeConfig.resolve && commonThemeConfig.resolve.extensions || []).
         concat(siteConfig.resolve && siteConfig.resolve.extensions || [])),
         modulesDirectories: [
           themePath,

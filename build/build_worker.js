@@ -69,10 +69,16 @@ function writePages(params, cb) {
       var renderPage = require(_path.join(cwd, './.antwar/build/bundleStaticPage.js'));
 
       async.each(params.pages, function(page, cb) {
-        writeIndex({
-          path: page.path,
-          data: renderPage(page.item),
-        }, cb);
+        // XXX: why page can be null?
+        if(page) {
+          write({
+            path: page.path,
+            data: renderPage(page.item),
+          }, cb);
+        }
+        else {
+          cb();
+        }
       }, cb);
     });
   }).catch(cb);

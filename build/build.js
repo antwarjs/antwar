@@ -71,7 +71,17 @@ module.exports = function(config) {
 
               tasks = _.flatten(tasks).filter(_.identity);
 
-              async.each(tasks, workers, function(err) {
+              async.each(tasks, function(o, cb) {
+                log('Starting task', o.task);
+
+                workers(o, function(err) {
+                  log('Finished task', o.task);
+
+                  cb(err);
+                });
+              }, function(err) {
+                console.log('Tasks finished');
+
                 workerFarm.end(workers);
 
                 if(err) {

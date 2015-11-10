@@ -9,8 +9,6 @@ require('promise.prototype.finally');
 var build = require('./build');
 
 exports.develop = function(config) {
-  config.themeConfig = parseThemeWebpackConfig(config);
-
   var buildDir = path.join(process.cwd(), './.antwar');
 
   return new Promise(function(resolve, reject) {
@@ -27,26 +25,4 @@ exports.develop = function(config) {
   });
 };
 
-exports.build = function(config) {
-  config.themeConfig = parseThemeWebpackConfig(config);
-
-  return build(config);
-};
-
-function parseThemeWebpackConfig(config) {
-  if(config && config.theme && config.theme.name) {
-    try {
-      // make sure site is in module search paths,
-      // otherwise possible theme cannot be found
-      module.paths.unshift(path.join(process.cwd(), 'node_modules'));
-
-      return require(path.basename(config.theme.name));
-    }
-    catch(e) {
-      // XXX: figure out when to show error, when not
-      //console.error(e);
-    }
-  }
-
-  return {};
-}
+exports.build = build;

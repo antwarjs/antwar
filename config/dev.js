@@ -5,13 +5,13 @@ var getCommon = require('./common');
 module.exports = function(config) {
   var cwd = process.cwd();
 
-  var themeConfig = config.themeConfig && config.themeConfig.development;
-  themeConfig = themeConfig && themeConfig() || {};
-
   var siteConfig = config.webpack && config.webpack.development;
   siteConfig = siteConfig || {};
 
   return getCommon(config).then(function(common) {
+    var themeConfig = common.themeConfig && common.themeConfig.development;
+    themeConfig = themeConfig && themeConfig() || {};
+
     var includes = [
       common.corePath,
       cwd
