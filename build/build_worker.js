@@ -17,7 +17,7 @@ module.exports = function(o, cb) {
     utils.copyExtraAssets.apply(null, o.params.concat([cb]));
   }
   else if(o.task === 'write') {
-    writeIndex(o.params, cb);
+    write(o.params, cb);
   }
   else {
     cb();
@@ -43,6 +43,6 @@ function writeMain(params, cb) {
   });
 }
 
-function writeIndex(params, cb) {
+function write(params, cb) {
   _fs.writeFile(params.path, params.data, cb);
 }

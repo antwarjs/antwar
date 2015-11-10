@@ -2,12 +2,10 @@
 var _fs = require('fs');
 var _path = require('path');
 
-var _ = require('lodash');
 var async = require('async');
 var mkdirp = require('mkdirp');
 
 var utils = require('./utils');
-
 
 exports.assets = function(o, cb) {
   var assetsDir = _path.join(o.output, 'assets');
@@ -92,24 +90,20 @@ exports.extras = function(o, files, cb) {
   }
 
   async.map(files, function(file, cb) {
-    async.map(file, function(f, cb) {
-      // XXXXX: define a better interface. now it's just an object
-      var fileName = f[Object.keys(f)];
-      var fileContent = f[fileName];
+    // XXXXX: define a better interface. now it's just an object
+    var fileName = Object.keys(file)[0];
+    var fileContent = file[fileName];
 
-      var p = _path.join(o.output, fileName);
+    var p = _path.join(o.output, fileName);
 
-      cb(null, {
-        task: 'write',
-        params: {
-          path: p,
-          data: fileContent,
-        }
-      });
-    }, cb);
-  }, function(err, d) {
-    cb(err, _.flatten(d));
-  });
+    cb(null, {
+      task: 'write',
+      params: {
+        path: p,
+        data: fileContent,
+      }
+    });
+  }, cb);
 };
 
 exports.pages = function(o, cb) {
