@@ -2,6 +2,7 @@
 var _fs = require('fs');
 var _path = require('path');
 
+var _ = require('lodash');
 var async = require('async');
 var mkdirp = require('mkdirp');
 
@@ -89,21 +90,17 @@ exports.extras = function(o, files, cb) {
     return cb();
   }
 
-  async.map(files, function(file, cb) {
-    // XXXXX: define a better interface. now it's just an object
-    var fileName = Object.keys(file)[0];
-    var fileContent = file[fileName];
-
-    var p = _path.join(o.output, fileName);
-
-    cb(null, {
-      task: 'write',
-      params: {
-        path: p,
-        data: fileContent,
-      }
+  cb(null, _.flatten(files.map(function(fileCollection) {
+    return _.map(fileCollection, function(fileContent, fileName) {
+      return {
+        task: 'write',
+        params: {
+          path: _path.join(o.output, fileName),
+          data: fileContent
+        }
+      };
     });
-  }, cb);
+  })));
 };
 
 exports.pages = function(o, cb) {
