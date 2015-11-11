@@ -69,6 +69,8 @@ module.exports = {
 
     if(!ret) {
       console.warn('No item was found for path ' + path + '!');
+
+      return {};
     }
 
     return ret;
