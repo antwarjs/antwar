@@ -4,12 +4,12 @@ var React = require('react');
 var Router = require('react-router');
 var Route = Router.Route;
 var SiteIndex = require('./SiteIndex.jsx');
+var SectionIndex = require('./SectionIndex.jsx');
 var Page = require('./Page.jsx');
 
 var config = require('config');
 var themeHandlers = require('theme').handlers;
 var configHandlers = config.handlers || {};
-var SectionIndex = (configHandlers.sectionIndex && configHandlers.sectionIndex()) || themeHandlers.sectionIndex();
 var Body = (configHandlers.body && configHandlers.body()) || themeHandlers.body();
 var BodyContent = require('./BodyContent.jsx')(Body);
 

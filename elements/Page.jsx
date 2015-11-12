@@ -1,5 +1,4 @@
 var React = require('react');
-var Router = require('react-router');
 var Paths = require('antwar-core/PathsMixin');
 
 var config = require('config');
@@ -7,7 +6,7 @@ var themeHandlers = require('theme').handlers || {};
 var configHandlers = config.handlers || {};
 
 module.exports = React.createClass({
-  mixins: [ Router.State, Paths ],
+  mixins: [Paths],
   render: function() {
     var item = this.getItem();
     var layout;
