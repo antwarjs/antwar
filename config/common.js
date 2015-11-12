@@ -89,5 +89,17 @@ function getThemePath(name) {
     return path.join(cwd, name);
   }
 
-  return path.join(cwd, 'node_modules', name);
+  var localNodeModulesTheme = path.join(cwd, 'node_modules', name);
+
+  if(fs.existsSync(localNodeModulesTheme)) {
+    return localNodeModulesTheme;
+  }
+
+  var globalNodeModulesTheme = path.join(process.env.NODE_PATH, name);
+
+  if(fs.existsSync(globalNodeModulesTheme)) {
+    return globalNodeModulesTheme;
+  }
+
+  console.error('Failed to find theme!');
 }
