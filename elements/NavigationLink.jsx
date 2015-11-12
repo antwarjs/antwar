@@ -15,6 +15,13 @@ module.exports = React.createClass({
   render: function() {
     var props = this.props;
     var page = props.page;
+
+    if(!page) {
+      console.warn('NavigationLink - missing page');
+
+      return;
+    }
+
     var title = page.title;
     var url = page.url;
     var pathName, prefix, wholeUrl;
