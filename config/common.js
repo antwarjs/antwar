@@ -20,6 +20,7 @@ module.exports = function(config) {
 
     var themeConfig = parseThemeWebpackConfig(config);
     var commonThemeConfig = themeConfig.common && themeConfig.common();
+    commonThemeConfig = commonThemeConfig || {};
 
     var siteConfig = config.webpack && config.webpack.common;
     siteConfig = siteConfig || {};
