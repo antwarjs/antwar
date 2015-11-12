@@ -7,11 +7,8 @@ var themeHandlers = require('theme').handlers || {};
 var configHandlers = config.handlers || {};
 
 module.exports = React.createClass({
-
   mixins: [ Router.State, Paths ],
-
   render: function() {
-    var props = this.props;
     var item = this.getItem();
     var layout;
 
@@ -38,6 +35,17 @@ module.exports = React.createClass({
       // TODO: push to higher level
       console.warn('Configuration or theme is missing `sectionItem` handler');
     }
+
+    // XXX: tidy up and optimize
+    let section = this.getSection();
+    section.name = this.getSectionName();
+    // allow access to all or just part if needed
+    section.items = this.getSectionItems;
+
+    const props = Object.assign({}, this.props, {
+      section: section,
+      page: item
+    });
 
     return React.createFactory(layout)(props);
   }

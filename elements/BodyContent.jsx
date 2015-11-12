@@ -14,12 +14,17 @@ module.exports = function(Body) {
     mixins: [Router.State, Paths],
 
     render: function() {
-      const page = this.getItem();
-      const sectionName = this.getSectionName();
       const external = getExternalContent(this.getAllItems(), this.getPathname());
+      const page = this.getItem();
+
+      // XXX: tidy up and optimize
+      let section = this.getSection();
+      section.name = this.getSectionName();
+      // allow access to all or just part if needed
+      section.items = this.getSectionItems;
 
       return (
-        <Body sectionName={sectionName} page={page}>
+        <Body section={section} page={page}>
           <RouteHandler></RouteHandler>
           {_.map(external, function (Component, i) {
             if (typeof Component === 'function') {

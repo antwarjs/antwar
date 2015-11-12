@@ -21,7 +21,7 @@ module.exports = {
     return paths.allItems();
   },
   getSection: function () {
-    var sectionName = this.getSectionName();
+    var sectionName = this.getSectionName() || '/';
     var ret = config.paths[sectionName];
 
     if(!ret) {
@@ -36,6 +36,13 @@ module.exports = {
   getSectionTitle: function () {
     return this.getSection().title || '';
   },
+  getSectionItems: function (sectionName) {
+    sectionName = sectionName || this.getSectionName();
+
+    return _.filter(this.getAllItems(), function (item) {
+      return item.section == sectionName;
+    });
+  },
   getSectionName: function () {
     let item = this.getItem();
 
@@ -45,13 +52,6 @@ module.exports = {
 
     // strip /
     return this.context.router.getCurrentPath().slice(1);
-  },
-  getSectionItems: function (sectionName) {
-    sectionName = sectionName || this.getSectionName();
-
-    return _.filter(this.getAllItems(), function (item) {
-      return item.section == sectionName;
-    });
   },
   getItem: function() {
     let router = this.context.router;
