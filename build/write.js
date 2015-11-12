@@ -108,12 +108,12 @@ exports.pages = function(o, cb) {
   var log = o.config.console.log;
   var info = o.config.console.info;
 
-  var data = Object.keys(o.allPaths.items).map(function(item) {
-    var p = _path.join(o.output, item);
+  var data = Object.keys(o.allPaths.pages).map(function(page) {
+    var p = _path.join(o.output, page);
 
     return {
       path: p,
-      item: item,
+      page: page,
     };
   });
 
@@ -133,7 +133,7 @@ exports.pages = function(o, cb) {
 
       cb(null, {
         path: _path.join(p, 'index.html'),
-        item: '/' + d.item,
+        page: '/' + d.page,
       });
     });
   }, function(err, d) {

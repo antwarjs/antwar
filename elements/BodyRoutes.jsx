@@ -25,8 +25,8 @@ module.exports = (
         <Route key={'root-' + i} name={k} handler={SectionIndex} />,
       ];
     })}
-    <Route key='item-route' name='item' path=':item/?' handler={Page} />
-    <Route key='item-with-nesting-route' name='itemWithNesting' path='*/:item/?' handler={Page} />
+    <Route key='page-route' name='page' path=':page/?' handler={Page} />
+    <Route key='page-with-nesting-route' name='pageWithNesting' path='*/:page/?' handler={Page} />
     {config.paths['/'] ?
     <Route key='index-route' name='index' path={'/'} handler={SiteIndex} />
     :

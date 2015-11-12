@@ -73,7 +73,7 @@ function writePages(params, cb) {
         if(page) {
           write({
             path: page.path,
-            data: renderPage(page.item),
+            data: renderPage(page.page),
           }, cb);
         }
         else {

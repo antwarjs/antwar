@@ -10,15 +10,13 @@ module.exports = {
   contextTypes: {
     router: React.PropTypes.func
   },
-
   getPathPrefix: function(pathName) {
     return pathName.split('/').map(function() {
       return '';
     }).join('../');
   },
-
-  getAllItems: function () {
-    return paths.allItems();
+  getAllPages: function () {
+    return paths.allPages();
   },
   getSection: function () {
     var sectionName = this.getSectionName() || '/';
@@ -36,39 +34,40 @@ module.exports = {
   getSectionTitle: function () {
     return this.getSection().title || '';
   },
-  getSectionItems: function (sectionName) {
+  getSectionPages: function (sectionName) {
     sectionName = sectionName || this.getSectionName();
 
-    return _.filter(this.getAllItems(), function (item) {
-      return item.section == sectionName;
+    return _.filter(this.getAllPages(), function (page) {
+      return page.section == sectionName;
     });
   },
   getSectionName: function () {
-    let item = this.getItem();
+    const page = this.getPage();
 
-    if(item.section) {
-      return item.section;
+    if(page.section) {
+      return page.section;
     }
 
     // strip /
     return this.context.router.getCurrentPath().slice(1);
   },
-  getItem: function() {
-    let router = this.context.router;
-    let params = router.getCurrentParams();
-    let item = params.item;
-    let splat = params.splat;
+  getPage: function() {
+    const router = this.context.router;
+    const params = router.getCurrentParams();
+    const page = params.page;
+    const splat = params.splat;
+
     if(splat) {
-      return this.getItemForPath(splat + '/' + item);
+      return this.getPageForPath(splat + '/' + page);
     }
 
-    return this.getItemForPath(item ? item : '/index');
+    return this.getPageForPath(page ? page : '/index');
   },
-  getItemForPath: function(path) {
-    var ret = paths.itemForPath(path);
+  getPageForPath: function(path) {
+    const ret = paths.pageForPath(path);
 
     if(!ret) {
-      console.warn('No item was found for path ' + path + '!');
+      console.warn('No page was found for path ' + path + '!');
 
       return {};
     }
@@ -76,16 +75,16 @@ module.exports = {
     return ret;
   },
   getPageTitle: function() {
-    let item = this.getItem();
+    const page = this.getPage();
 
-    if(item && item.title) {
-      return item.title;
+    if(page && page.title) {
+      return page.title;
     }
 
-    let router = this.context.router;
-    let routes = router.getCurrentRoutes();
+    const router = this.context.router;
+    const routes = router.getCurrentRoutes();
 
-    let routeName = routes[routes.length - 1].name;
+    const routeName = routes[routes.length - 1].name;
 
     if(routeName) {
       return routeName.replace('/', '');

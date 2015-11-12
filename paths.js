@@ -4,12 +4,12 @@ var _ = require('lodash');
 var themeFunctions = require('theme').functions || {};
 
 var MdHelper = require('./elements/MdHelper');
-var itemHooks = require('./itemHooks');
+var pageHooks = require('./pageHooks');
 var config = require('config');
 var siteFunctions = config.functions || {} ;
 
-function allItems() {
-  var items = [].concat.apply([], _.keys(config.paths).map(function(sectionName) {
+function allPages() {
+  var pages = [].concat.apply([], _.keys(config.paths).map(function(sectionName) {
     var section = config.paths[sectionName];
 
     var paths = parseModules(sectionName, section, section.path());
@@ -26,21 +26,21 @@ function allItems() {
     return (section.sort || defaultSort)(paths.concat(draftPaths));
   }));
 
-  items = itemHooks.preProcessItems(items);
-  items = _.map(items, function(o) {
-    return processItem(o.file, o.url, o.name, o.sectionName, o.section);
+  pages = pageHooks.preProcessPages(pages);
+  pages = _.map(pages, function(o) {
+    return processPage(o.file, o.url, o.name, o.sectionName, o.section);
   });
-  items = itemHooks.postProcessItems(items);
+  pages = pageHooks.postProcessPages(pages);
 
   var ret = {};
 
   if(__DEV__) {
-    _.each(items, function(o) {
+    _.each(pages, function(o) {
       ret[o.url] = o;
     });
   }
   else {
-    _.each(items, function(o) {
+    _.each(pages, function(o) {
       if(!o.isDraft) {
         ret[o.url] = o;
       }
@@ -49,7 +49,7 @@ function allItems() {
 
   return ret;
 }
-exports.allItems = allItems;
+exports.allPages = allPages;
 
 function defaultSort(files) {
     return _.sortBy(files, 'date').reverse();
@@ -66,17 +66,17 @@ function parseModules(sectionName, section, modules) {
   });
 }
 
-function itemForPath(path) {
-  var items = allItems();
+function pageForPath(path) {
+  var pages = allPages();
 
   // check both to make root paths work (they have extra /)
-  return items[path] || items['/' + path];
+  return pages[path] || pages['/' + path];
 }
-exports.itemForPath = itemForPath;
+exports.pageForPath = pageForPath;
 
-function processItem(o, url, fileName, sectionName, section) {
+function processPage(o, url, fileName, sectionName, section) {
   var layout = section.layout;
-  var sectionFunctions = section.processItem || {};
+  var sectionFunctions = section.processPage || {};
 
   var functions = _.assign({
     isDraft: function(o) {

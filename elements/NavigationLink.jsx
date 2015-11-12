@@ -14,9 +14,9 @@ module.exports = React.createClass({
 
   render: function() {
     var props = this.props;
-    var item = props.item;
-    var title = item.title;
-    var url = item.url;
+    var page = props.page;
+    var title = page.title;
+    var url = page.url;
     var pathName, prefix, wholeUrl;
 
     if(url.indexOf('http://') || url.indexOf('https://')) {

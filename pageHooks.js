@@ -4,15 +4,36 @@ var _ = require('lodash');
 var themeFunctions = require('theme').functions || {};
 var config = require('config');
 
-var applyHooks = function (items, functionArray) {
+module.exports = {
+  preProcessPages: process.bind(null, 'preProcess'),
+  postProcessPages: process.bind(null, 'postProcess')
+};
+
+// XXX: drop deprecated bit in the future
+function process(prefix, pages) {
+  const oldFn = prefix + 'Items';
+  const newFn = prefix + 'Pages';
+  let itemFunctions = getFunctions(oldFn);
+
+  if(itemFunctions.length) {
+    console.warn(oldFn + ' has been deprecated, use ' + newFn + ' instead');
+  }
+  else {
+    itemFunctions = getFunctions(newFn);
+  }
+
+  return applyHooks(pages, itemFunctions);
+}
+
+function applyHooks(items, functionArray) {
   functionArray.forEach(function(callback){
     items = callback(items);
   });
 
   return items;
-};
+}
 
-var getFunctions = function (hookName) {
+function getFunctions(hookName) {
   var functions = [];
 
   if (themeFunctions[hookName]) {
@@ -30,13 +51,4 @@ var getFunctions = function (hookName) {
   }
 
   return functions;
-};
-
-module.exports = {
-  preProcessItems: function (items) {
-    return applyHooks(items, getFunctions('preProcessItems'));
-  },
-  postProcessItems: function (items) {
-    return applyHooks(items, getFunctions('postProcessItems'));
-  },
-};
+}

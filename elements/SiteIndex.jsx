@@ -9,13 +9,13 @@ module.exports = React.createClass({
     let section = this.getSection();
     section.name = this.getSectionName();
     // allow access to all or just part if needed
-    section.items = this.getSectionItems;
+    section.pages = this.getSectionPages;
 
     const props = Object.assign({}, this.props, {
       section: section,
-      page: this.getItem()
+      page: this.getPage()
     });
 
-    return React.createFactory(this.getItem())(props);
+    return React.createFactory(this.getPage())(props);
   }
 });

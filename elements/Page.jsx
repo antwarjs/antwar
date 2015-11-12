@@ -8,42 +8,42 @@ var configHandlers = config.handlers || {};
 module.exports = React.createClass({
   mixins: [Paths],
   render: function() {
-    var item = this.getItem();
+    var page = this.getPage();
     var layout;
 
     // XXX: tidy up and optimize
     let section = this.getSection();
     section.name = this.getSectionName();
     // allow access to all or just part if needed
-    section.items = this.getSectionItems;
+    section.pages = this.getSectionPages;
 
     const props = Object.assign({}, this.props, {
       section: section,
-      page: item
+      page: page
     });
 
-    if (typeof item === 'function') {
-      return React.createFactory(item)(props);
+    if (typeof page === 'function') {
+      return React.createFactory(page)(props);
     }
 
     // this can happen if you navigate to a page that doesn't exist
     // during development. TODO: give a nice 404 page?
-    if(!item) {
+    if(!page) {
       return null;
     }
 
-    if(item.layout && typeof item.layout === 'function') {
-      layout = item.layout;
+    if(page.layout && typeof page.layout === 'function') {
+      layout = page.layout;
     }
-    else if(configHandlers.sectionItem) {
-      layout = configHandlers.sectionItem();
+    else if(configHandlers.sectionPage) {
+      layout = configHandlers.sectionPage();
     }
-    else if(themeHandlers.sectionItem) {
-      layout = themeHandlers.sectionItem();
+    else if(themeHandlers.sectionPage) {
+      layout = themeHandlers.sectionPage();
     }
     else {
       // TODO: push to higher level
-      console.warn('Configuration or theme is missing `sectionItem` handler');
+      console.warn('Configuration or theme is missing `sectionPage` handler');
     }
 
     return React.createFactory(layout)(props);

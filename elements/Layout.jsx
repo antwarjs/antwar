@@ -31,9 +31,9 @@ module.exports = React.createClass({
 
     var pathName = this.getPathname();
     var prefix = this.getPathPrefix(pathName);
-    var item = this.getItem();
-    var description =  item.description || config.description;
-    var keywords = item.keywords || config.keywords;
+    var page = this.getPage();
+    var description =  page.description || config.description;
+    var keywords = page.keywords || config.keywords;
 
     return (
       <html lang={language}>
@@ -49,7 +49,7 @@ module.exports = React.createClass({
             name='keywords'
             content={keywords} />
           <link rel='icon' type='image/png' href={prefix + 'assets/img/favicon.png'}></link>
-          {_.map(this.getExternalHeadContent(this.getAllItems()), function (Component, i) {
+          {_.map(this.getExternalHeadContent(this.getAllPages()), function (Component, i) {
             return <Component key={'component-' + i} />;
           })}
           {!__DEV__?
