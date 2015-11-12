@@ -19,7 +19,7 @@ module.exports = function(config) {
     var parent = path.join(__dirname, '..');
 
     var themeConfig = parseThemeWebpackConfig(config);
-    var commonThemeConfig = themeConfig && themeConfig.common();
+    var commonThemeConfig = themeConfig.common && themeConfig.common();
 
     var siteConfig = config.webpack && config.webpack.common;
     siteConfig = siteConfig || {};
