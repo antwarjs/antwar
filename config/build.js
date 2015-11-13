@@ -1,6 +1,6 @@
 'use strict';
 var path = require('path');
-
+var merge = require('webpack-merge');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = function(config) {
@@ -18,7 +18,7 @@ module.exports = function(config) {
       ExtractTextPlugin: ExtractTextPlugin
     }) || {};
 
-    return {
+    var common = {
       node: {
         fs: 'empty',
       },
@@ -48,9 +48,15 @@ module.exports = function(config) {
           {
             test: /\.jsx?$/,
             loader: 'babel',
-            include: new RegExp(common.corePath + '|' + cwd),
-            exclude: new RegExp(common.resolve.root + '|' + common.themeDependenciesPath +
-              '|' + path.join(cwd, 'node_modules')),
+            include: [
+              common.corePath,
+              cwd
+            ],
+            exclude: [
+              common.resolve.root,
+              common.themeDependenciesPath,
+              path.join(cwd, 'node_modules')
+            ]
           },
           {
             test: /\.css$/,
@@ -73,9 +79,10 @@ module.exports = function(config) {
             test: /\.md$/,
             loader: 'json!yaml-frontmatter-loader',
           }
-        ].concat(themeConfig.module && themeConfig.module.loaders? themeConfig.module.loaders: []).
-        concat(siteConfig.module && siteConfig.module.loaders? siteConfig.module.loaders: []),
+        ]
       }
     };
+
+    return merge(common, themeConfig, siteConfig);
   });
 };

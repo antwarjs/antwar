@@ -1,5 +1,6 @@
 'use strict';
 var path = require('path');
+var merge = require('webpack-merge');
 var getCommon = require('./common');
 
 module.exports = function(config) {
@@ -22,7 +23,7 @@ module.exports = function(config) {
       path.join(cwd, 'node_modules')
     ];
 
-    return {
+    var common = {
       cache: true,
       node: {
         __filename: true,
@@ -85,11 +86,12 @@ module.exports = function(config) {
             //include: includes,
             exclude: excludes
           }
-        ].concat(themeConfig.module && themeConfig.module.loaders? themeConfig.module.loaders: []).
-        concat(siteConfig.module && siteConfig.module.loaders? siteConfig.module.loaders: []),
+        ]
       },
       resolve: common.resolve,
       resolveLoader: common.resolveLoader,
     };
+
+    return merge(common, themeConfig, siteConfig);
   });
 };

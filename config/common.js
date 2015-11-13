@@ -1,8 +1,7 @@
 'use strict';
 var fs = require('fs');
 var path = require('path');
-
-var _ = require('lodash');
+var merge = require('webpack-merge');
 var webpack = require('webpack');
 
 var parseThemeWebpackConfig = require('./parse_theme');
@@ -29,7 +28,7 @@ module.exports = function(config) {
     var themeDependenciesPath = path.join(themePath, 'node_modules');
     var corePath = path.join(parent, 'elements');
 
-    resolve({
+    var common = {
       themeConfig: themeConfig,
       corePath: corePath,
       parent: parent,
@@ -44,16 +43,14 @@ module.exports = function(config) {
           'antwar-core': corePath,
           'theme': themePath,
         },
-        extensions: _.uniq([
+        extensions: [
           '',
           '.webpack.js',
           '.web.js',
           '.js',
           '.jsx',
           '.json',
-        ].
-        concat(commonThemeConfig.resolve && commonThemeConfig.resolve.extensions || []).
-        concat(siteConfig.resolve && siteConfig.resolve.extensions || [])),
+        ],
         modulesDirectories: [
           themePath,
           themeDependenciesPath,
@@ -77,7 +74,9 @@ module.exports = function(config) {
         new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.optimize.DedupePlugin()
       ],
-    });
+    };
+
+    resolve(merge(common, commonThemeConfig, siteConfig));
   });
 };
 
