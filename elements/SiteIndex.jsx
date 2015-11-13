@@ -3,7 +3,7 @@ var Router = require('react-router');
 var Paths = require('antwar-core/PathsMixin');
 
 module.exports = React.createClass({
-  mixins: [ Router.State, Paths ],
+  mixins: [Router.State, Paths],
   render: function() {
     // XXX: tidy up and optimize
     let section = this.getSection();
