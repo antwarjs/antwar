@@ -2,7 +2,6 @@ var React = require('react');
 var Paths = require('antwar-core/PathsMixin');
 
 var config = require('config');
-var themeHandlers = require('theme').handlers || {};
 var configHandlers = config.handlers || {};
 
 module.exports = React.createClass({
@@ -38,12 +37,9 @@ module.exports = React.createClass({
     else if(configHandlers.sectionPage) {
       layout = configHandlers.sectionPage();
     }
-    else if(themeHandlers.sectionPage) {
-      layout = themeHandlers.sectionPage();
-    }
     else {
       // TODO: push to higher level
-      console.warn('Configuration or theme is missing `sectionPage` handler');
+      console.warn('Configuration is missing `sectionPage` handler');
     }
 
     return React.createFactory(layout)(props);

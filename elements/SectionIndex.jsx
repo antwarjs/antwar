@@ -2,9 +2,8 @@ var React = require('react');
 var Paths = require('antwar-core/PathsMixin');
 
 var config = require('config');
-var themeHandlers = require('theme').handlers || {};
 var configHandlers = config.handlers || {};
-var SectionIndex = (configHandlers.sectionIndex && configHandlers.sectionIndex()) || themeHandlers.sectionIndex();
+var SectionIndex = configHandlers.sectionIndex && configHandlers.sectionIndex();
 
 module.exports = React.createClass({
   mixins: [Paths],

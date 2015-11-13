@@ -8,9 +8,8 @@ var SectionIndex = require('./SectionIndex.jsx');
 var Page = require('./Page.jsx');
 
 var config = require('config');
-var themeHandlers = require('theme').handlers || {};
 var configHandlers = config.handlers || {};
-var Body = (configHandlers.body && configHandlers.body()) || themeHandlers.body();
+var Body = configHandlers.body && configHandlers.body();
 var BodyContent = require('./BodyContent.jsx')(Body);
 
 module.exports = (
