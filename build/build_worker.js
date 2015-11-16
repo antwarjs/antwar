@@ -71,6 +71,9 @@ function writePages(params, cb) {
       async.each(params.pages, function(page, cb) {
         // XXX: why page can be null?
         if(page) {
+          // TODO: use user defined logger instead
+          console.log('Starting to write page', page.page);
+
           renderPage(page.page, function(err, html) {
             if(err) {
               return cb(err);
@@ -79,7 +82,16 @@ function writePages(params, cb) {
             write({
               path: page.path,
               data: html
-            }, cb);
+            }, function(err) {
+              if(err) {
+                return cb(err);
+              }
+
+              // TODO: use user defined logger instead
+              console.log('Finished writing page', page.page);
+
+              cb();
+            });
           });
         }
         else {
