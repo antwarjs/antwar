@@ -19,7 +19,7 @@ module.exports = function(url, cb) {
       }
 
       if(!renderProps) {
-        console.warn('page - missing render props!');
+        console.warn('page - missing render props!', url);
       }
 
       cb(

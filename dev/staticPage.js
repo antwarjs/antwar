@@ -19,7 +19,7 @@ module.exports = function(url, cb) {
       }
 
       if(!renderProps) {
-        console.warn('staticPage - missing render props!');
+        console.warn('staticPage - missing render props!', url);
       }
 
       cb(
