@@ -1,39 +1,41 @@
 'use strict';
 var path = require('path');
 
-var _ = require('lodash');
+var merge = require('webpack-merge');
 var portfinder = require('portfinder');
 var webpack = require('webpack');
 
 var WebpackDevServer = require('webpack-dev-server');
 var devConfig = require('../config/dev');
 
-function devServer(port, config) {
-  var devConfigParams = {};
+module.exports = function(config) {
+  return new Promise(function(resolve, reject) {
+    portfinder.getPort(function(err, port) {
+      if(err) {
+        return reject(err);
+      }
 
-  devConfigParams.entry = {
-    main: [
-      'webpack-dev-server/client?http://localhost:' + port,
-      'webpack/hot/dev-server',
-      path.join(__dirname, './dev_entry.js'),
+      devServer(port, config);
+
+      resolve();
+    });
+  });
+};
+
+function devServer(port, config) {
+  var devConfigParams = {
+    entry: {
+      main: path.join(__dirname, './dev_entry.js'),
+    },
+    plugins: [
+      new webpack.HotModuleReplacementPlugin()
     ],
+    devtool: 'eval',
+    debug: true
   };
 
-  devConfigParams.plugins = [
-    new webpack.HotModuleReplacementPlugin(),
-  ];
-
-  devConfigParams.devtool = 'eval';
-  devConfigParams.debug = true;
-
   return devConfig(config).then(function(c) {
-    runServer(port, merge(devConfigParams, c));
-  });
-}
-
-function merge(parent, child) {
-  return _.merge({}, child, parent, function(a, b) {
-    return _.isArray(a) ? a.concat(b) : undefined;
+    runServer(port, merge(c, devConfigParams));
   });
 }
 
@@ -41,6 +43,7 @@ function runServer(port, config) {
   new WebpackDevServer(webpack(config), {
     contentBase: path.join(process.cwd(), './.antwar/build'),
     hot: true,
+    inline: true,
     historyApiFallback: true,
     stats: {
       hash: false,
@@ -57,17 +60,3 @@ function runServer(port, config) {
     console.info('Listening at port ' + port);
   });
 }
-
-module.exports = function(config) {
-  return new Promise(function(resolve, reject) {
-    portfinder.getPort(function(err, port) {
-      if(err) {
-        return reject(err);
-      }
-
-      devServer(port, config);
-
-      resolve();
-    });
-  });
-};
