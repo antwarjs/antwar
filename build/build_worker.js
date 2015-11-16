@@ -66,15 +66,21 @@ function writePages(params, cb) {
         return cb(err);
       }
 
-      var renderPage = require(_path.join(cwd, './.antwar/build/bundleStaticPage.js'));
+      var renderPage = require(_path.join(cwd, './.antwar/build/bundleStaticPage.jsx'));
 
       async.each(params.pages, function(page, cb) {
         // XXX: why page can be null?
         if(page) {
-          write({
-            path: page.path,
-            data: renderPage(page.page),
-          }, cb);
+          renderPage(page.page, function(err, html) {
+            if(err) {
+              return cb(err);
+            }
+
+            write({
+              path: page.path,
+              data: html
+            }, cb);
+          });
         }
         else {
           cb();

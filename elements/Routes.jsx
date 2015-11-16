@@ -8,8 +8,8 @@ var DevIndex = require('./DevIndex.jsx');
 var BodyRoutes = require('./BodyRoutes.jsx');
 
 export default (
-  <Route name='home' title='Home' handler={Layout}>
-    <Route name='/antwar_devindex' handler={DevIndex}></Route>
+  <Route path='home' title='Home' component={Layout}>
+    <Route path='/antwar_devindex' component={DevIndex}></Route>
     {BodyRoutes}
   </Route>
 );

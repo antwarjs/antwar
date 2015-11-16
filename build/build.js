@@ -31,7 +31,7 @@ module.exports = function(config) {
         var cwd = process.cwd();
         var params = {
           cwd: cwd,
-          renderPage: require(_path.join(cwd, './.antwar/build/bundleStaticPage.js')),
+          renderPage: require(_path.join(cwd, './.antwar/build/bundleStaticPage.jsx')),
           allPaths: require(_path.join(cwd, './.antwar/build/paths.js'))(),
           output: _path.join(cwd, output),
           config: config,

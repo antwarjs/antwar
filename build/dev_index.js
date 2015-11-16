@@ -19,13 +19,22 @@ module.exports = function(config) {
         }
 
         var buildDir = _path.join(process.cwd(), './.antwar/build');
-        var renderPage = require(_path.join(buildDir, 'bundleStaticPage.js'));
+        var renderPage = require(_path.join(buildDir, 'bundleStaticPage.jsx'));
 
         async.parallel([
-          fs.writeFile.bind(null,
-            _path.join(buildDir, 'index.html'),
-            renderPage('/antwar_devindex', null)
-          ),
+          function(cb) {
+            renderPage('./antwar_devindex', function(err, html) {
+              if(err) {
+                return cb(err);
+              }
+
+              fs.writeFile(
+                _path.join(buildDir, 'index.html'),
+                html,
+                cb
+              );
+            });
+          },
           utils.copyIfExists.bind(null, './assets', _path.join(buildDir, 'assets')),
           utils.copyExtraAssets.bind(null, buildDir, config.assets),
         ], function(err) {

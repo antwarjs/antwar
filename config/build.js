@@ -23,8 +23,8 @@ module.exports = function(config) {
       target: 'node',
       context: path.join(__dirname, '..', './'),
       entry: {
-        bundlePage: './dev/page.js',
-        bundleStaticPage: './dev/staticPage.js',
+        bundlePage: './dev/page.jsx',
+        bundleStaticPage: './dev/staticPage.jsx',
         paths: './dev/exportPaths.js',
       },
       output: {

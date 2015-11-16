@@ -1,17 +1,11 @@
 'use strict';
 var React = require('react');
-var Router = require('react-router');
-
 var config = require('config');
-
 var Paths = require('./PathsMixin');
 
 module.exports = React.createClass({
-
   displayName: 'NavigationLink',
-
-  mixins: [Router.State, Paths],
-
+  mixins: [Paths],
   render: function() {
     var props = this.props;
     var page = props.page;
@@ -30,7 +24,7 @@ module.exports = React.createClass({
       wholeUrl = url;
     }
     else {
-      pathName = this.getPathname();
+      pathName = this.props.location.pathname;
       prefix = this.getPathPrefix(pathName);
 
       if(url.length > 1) {

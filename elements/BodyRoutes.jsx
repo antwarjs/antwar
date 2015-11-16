@@ -18,7 +18,7 @@ if(!Body) {
 var BodyContent = require('./BodyContent.jsx')(Body);
 
 module.exports = (
-  <Route name='bodyContent' handler={BodyContent} path='/'>
+  <Route component={BodyContent} path='/'>
     {_.keys(config.paths).map(function(k, i) {
       // possible root path needs to be after other paths. else it can match too early
       if(k === '/') {
@@ -26,14 +26,11 @@ module.exports = (
       }
 
       return [
-        <Route key={'root-' + i} name={k} handler={SectionIndex} />,
+        <Route key={'root-' + i} component={SectionIndex} path={k} />,
       ];
     })}
-    <Route key='page-route' name='page' path=':page/?' handler={Page} />
-    <Route key='page-with-nesting-route' name='pageWithNesting' path='*/:page/?' handler={Page} />
-    {config.paths['/'] ?
-    <Route key='index-route' name='index' path={'/'} handler={SiteIndex} />
-    :
-    null}
+    <Route key='page-route' component={Page} path=':page/?' />
+    <Route key='page-with-nesting-route' component={Page} path='*/:page/?' />
+    {config.paths['/'] && <Route key='index-route' component={SiteIndex} path='/' />}
   </Route>
 );

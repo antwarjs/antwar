@@ -1,7 +1,5 @@
 'use strict';
 var React = require('react');
-var Router = require('react-router');
-var RouteHandler = Router.RouteHandler;
 var Paths = require('./PathsMixin');
 var layoutHooks = require('../layoutHooks');
 var config = require('config');
@@ -11,9 +9,12 @@ module.exports = function(Body) {
 
   return React.createClass({
     displayName: 'BodyContent',
-    mixins: [Router.State, Paths],
+    mixins: [Paths],
     render: function() {
-      const external = getExternalContent(this.getAllPages(), this.getPathname());
+      const external = getExternalContent(
+        this.getAllPages(),
+        this.props.location.pathname
+      );
       const page = this.getPage();
 
       // XXX: tidy up and optimize
@@ -22,8 +23,7 @@ module.exports = function(Body) {
       // allow access to all or just part if needed
       section.pages = this.getSectionPages;
 
-      const pathName = this.getPathname();
-
+      const pathName = this.props.location.pathname;
       const path = {
         name: pathName,
         prefix: this.getPathPrefix(pathName)
@@ -36,7 +36,7 @@ module.exports = function(Body) {
           layoutHooks={layoutHooks}
           page={page}
           path={path}>
-          <RouteHandler></RouteHandler>
+          {this.props.children}
           {_.map(external, function (Component, i) {
             if (typeof Component === 'function') {
               return <Component key={i} />;

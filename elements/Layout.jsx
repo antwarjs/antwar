@@ -1,19 +1,15 @@
 'use strict';
 var React = require('react');
-var Router = require('react-router');
-var RouteHandler = Router.RouteHandler;
 var config = require('config');
 var layoutHooks = require('../layoutHooks');
 
 var Paths = require('./PathsMixin');
 var _ = require('lodash');
 
+// XXXXX: eliminate (use body from site instead!)
 module.exports = React.createClass({
-
   displayName: 'Layout',
-
-  mixins: [Router.State, Paths],
-
+  mixins: [Paths],
   // XXXXX: this probably should pass section pages?
   getExternalHeadContent: function (paths, pages) {
     var elements =  layoutHooks.headContent({
@@ -29,7 +25,7 @@ module.exports = React.createClass({
     var titleGetter = config.pageTitle || getPageTitle;
     var pageTitle = titleGetter(config, this.getPageTitle());
 
-    var pathName = this.getPathname();
+    var pathName = this.props.location.pathname;
     var prefix = this.getPathPrefix(pathName);
     var page = this.getPage();
     var description =  page.description || config.description;
@@ -57,7 +53,7 @@ module.exports = React.createClass({
             null}
         </head>
         <body>
-          <RouteHandler></RouteHandler>
+          {this.props.children}
           {__DEV__ ? <script src='/main-bundle.js'></script> : null}
         </body>
       </html>
