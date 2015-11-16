@@ -23,7 +23,7 @@ module.exports = function(config) {
 
         async.parallel([
           function(cb) {
-            renderPage('./antwar_devindex', function(err, html) {
+            renderPage('antwar_devindex', function(err, html) {
               if(err) {
                 return cb(err);
               }

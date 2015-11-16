@@ -67,6 +67,10 @@ function parseModules(sectionName, section, modules) {
 function pageForPath(path) {
   var pages = allPages();
 
+  if(path === '/') {
+    return pages['/index'];
+  }
+
   // check both to make root paths work (they have extra /)
   return pages[path] || pages['/' + path];
 }

@@ -18,6 +18,10 @@ module.exports = function(url, cb) {
         return cb(error);
       }
 
+      if(!renderProps) {
+        console.warn('page - missing render props!');
+      }
+
       cb(
         null,
         ReactDOMServer.renderToString(<Router.RoutingContext {...renderProps} />)

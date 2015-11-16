@@ -18,6 +18,10 @@ module.exports = function(url, cb) {
         return cb(error);
       }
 
+      if(!renderProps) {
+        console.warn('staticPage - missing render props!');
+      }
+
       cb(
         null,
         ReactDOMServer.renderToStaticMarkup(<Router.RoutingContext {...renderProps} />)

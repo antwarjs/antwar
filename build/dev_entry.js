@@ -5,12 +5,12 @@ var Router = require('react-router');
 var History = require('history');
 var Routes = require('antwar-core/BodyRoutes');
 
-const history = History.createBrowserHistory();
+const history = History.createHistory();
 const app = document.createElement('div');
 document.body.appendChild(app);
 
 ReactDOM.render(React.createElement(
-  Router,
+  Router.Router,
   { history: history },
   Routes
 ), app);

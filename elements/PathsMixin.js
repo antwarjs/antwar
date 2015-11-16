@@ -8,7 +8,7 @@ var config = require('config');
 
 module.exports = {
   contextTypes: {
-    router: React.PropTypes.func
+    location: React.PropTypes.object
   },
   getPathPrefix: function(pathName) {
     return pathName.split('/').map(function() {
@@ -48,20 +48,23 @@ module.exports = {
       return page.section;
     }
 
-    // strip /
-    return this.context.router.getCurrentPath().slice(1);
+    return this.context.location.pathname;
   },
   getPage: function() {
-    const router = this.context.router;
-    const params = router.getCurrentParams();
+    const location = this.context.location;
+    const page = location.pathname;
+
+    // XXXXX
+    /*
     const page = params.page;
     const splat = params.splat;
 
     if(splat) {
       return this.getPageForPath(splat + '/' + page);
     }
+    */
 
-    return this.getPageForPath(page ? page : '/index');
+    return this.getPageForPath(page);
   },
   getPageForPath: function(path) {
     const ret = paths.pageForPath(path);
