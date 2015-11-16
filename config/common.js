@@ -12,7 +12,7 @@ module.exports = function(config) {
     var siteConfig = config.webpack && config.webpack.common;
     siteConfig = siteConfig || {};
 
-    var corePath = path.join(parent, 'elements');
+    var corePath = path.join(parent, 'components');
 
     var common = {
       corePath: corePath,
