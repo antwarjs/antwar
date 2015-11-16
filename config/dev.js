@@ -10,16 +10,12 @@ module.exports = function(config) {
   siteConfig = siteConfig || {};
 
   return getCommon(config).then(function(common) {
-    var themeConfig = common.themeConfig && common.themeConfig.development;
-    themeConfig = themeConfig && themeConfig() || {};
-
     var includes = [
       common.corePath,
       cwd
     ];
     var excludes = [
       common.resolve.root,
-      common.themeDependenciesPath,
       path.join(cwd, 'node_modules')
     ];
 
@@ -92,6 +88,6 @@ module.exports = function(config) {
       resolveLoader: common.resolveLoader,
     };
 
-    return merge(common, themeConfig, siteConfig);
+    return merge(common, siteConfig);
   });
 };

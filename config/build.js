@@ -13,11 +13,6 @@ module.exports = function(config) {
   config.buildDev = config.buildDev || 0;
 
   return getCommon(config).then(function(common) {
-    var themeConfig = common.themeConfig && common.themeConfig.build;
-    themeConfig = themeConfig && themeConfig({
-      ExtractTextPlugin: ExtractTextPlugin
-    }) || {};
-
     var common = {
       node: {
         fs: 'empty',
@@ -54,7 +49,6 @@ module.exports = function(config) {
             ],
             exclude: [
               common.resolve.root,
-              common.themeDependenciesPath,
               path.join(cwd, 'node_modules')
             ]
           },
@@ -83,6 +77,6 @@ module.exports = function(config) {
       }
     };
 
-    return merge(common, themeConfig, siteConfig);
+    return merge(common, siteConfig);
   });
 };

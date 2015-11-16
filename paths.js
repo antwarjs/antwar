@@ -1,8 +1,6 @@
 'use strict';
 var _ = require('lodash');
 
-var themeFunctions = require('theme').functions || {};
-
 var MdHelper = require('./elements/MdHelper');
 var pageHooks = require('./pageHooks');
 var config = require('config');
@@ -121,7 +119,7 @@ function processPage(o, url, fileName, sectionName, section) {
     layout: function(o) {
       return layout;
     },
-  }, themeFunctions, siteFunctions, sectionFunctions);
+  }, siteFunctions, sectionFunctions);
 
   _.forEach(functions, function(fn, name) {
     o[name] = fn({

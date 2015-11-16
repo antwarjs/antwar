@@ -1,7 +1,6 @@
 'use strict';
 var _ = require('lodash');
 
-var themeFunctions = require('theme').functions || {};
 var config = require('config');
 
 module.exports = {
@@ -36,9 +35,6 @@ function applyHooks(items, functionArray) {
 function getFunctions(hookName) {
   var functions = [];
 
-  if (themeFunctions[hookName]) {
-    functions.push(themeFunctions[hookName]);
-  }
   if (config.plugins) {
     _.each(config.plugins, function (plugin) {
       if(plugin[hookName]) {
