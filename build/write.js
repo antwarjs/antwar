@@ -72,7 +72,7 @@ exports.indices = function(o, cb) {
       }
 
       // XXX: rendering isn't parallel
-      o.renderPage('/' + pathRoot, function(err, html) {
+      o.renderPage(pathRoot, function(err, html) {
         if(err) {
           return cb(err);
         }
