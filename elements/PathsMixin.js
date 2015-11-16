@@ -20,16 +20,9 @@ module.exports = {
   },
   getSection: function () {
     var sectionName = this.getSectionName() || '/';
-    var ret = config.paths[sectionName];
 
-    if(!ret) {
-      console.warn('Failed to find section ' +  sectionName + ' within ' +
-        Object.keys(config.paths).join(', '));
-
-      return {};
-    }
-
-    return ret;
+    // each page doesn't belong to a section
+    return config.paths[sectionName] || {};
   },
   getSectionTitle: function () {
     return this.getSection().title || '';
