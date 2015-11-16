@@ -72,12 +72,18 @@ exports.indices = function(o, cb) {
       }
 
       // XXX: rendering isn't parallel
-      cb(null, {
-        task: 'write',
-        params: {
-          path: _path.join(o.output, pathRoot, 'index.html'),
-          data: o.renderPage('/' + pathRoot, null),
+      o.renderPage('/' + pathRoot, function(err, html) {
+        if(err) {
+          return cb(err);
         }
+
+        cb(null, {
+          task: 'write',
+          params: {
+            path: _path.join(o.output, pathRoot, 'index.html'),
+            data: html
+          }
+        });
       });
     });
   }, cb);
