@@ -6,16 +6,8 @@ var Route = Router.Route;
 var SiteIndex = require('./SiteIndex.jsx');
 var SectionIndex = require('./SectionIndex.jsx');
 var Page = require('./Page.jsx');
-
 var config = require('config');
-var configLayouts = config.layouts || {};
-var Body = configLayouts.body && configLayouts.body();
-
-if(!Body) {
-  console.error('Missing config layouts.body!');
-}
-
-var BodyContent = require('./BodyContent.jsx')(Body);
+var BodyContent = require('./BodyContent.jsx')();
 
 module.exports = (
   <Route component={BodyContent} path='/'>

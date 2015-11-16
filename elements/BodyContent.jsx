@@ -4,7 +4,14 @@ var Paths = require('./PathsMixin');
 var layoutHooks = require('../layoutHooks');
 var config = require('config');
 
-module.exports = function(Body) {
+module.exports = function() {
+  var configLayouts = config.layouts || {};
+  var Body = configLayouts.body && configLayouts.body();
+
+  if(!Body) {
+    console.error('Missing config layouts.body!');
+  }
+
   config.styles && config.styles.body && config.styles.body();
 
   return React.createClass({
