@@ -10,6 +10,11 @@ var Page = require('./Page.jsx');
 var config = require('config');
 var configHandlers = config.handlers || {};
 var Body = configHandlers.body && configHandlers.body();
+
+if(!Body) {
+  console.error('Missing config handlers.body()!');
+}
+
 var BodyContent = require('./BodyContent.jsx')(Body);
 
 module.exports = (
