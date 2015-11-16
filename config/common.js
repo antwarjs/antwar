@@ -34,6 +34,7 @@ module.exports = function(config) {
           '.json'
         ],
         modulesDirectories: [
+          path.join(cwd, 'node_modules'),
           'node_modules'
         ]
       },

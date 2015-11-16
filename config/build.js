@@ -41,15 +41,14 @@ module.exports = function(config) {
       module: {
         loaders: [
           {
-            test: /\.jsx?$/,
+            test: /\.jsx$/,
             loader: 'babel',
             include: [
               common.corePath,
               cwd
             ],
             exclude: [
-              common.resolve.root,
-              path.join(cwd, 'node_modules')
+              common.resolve.root
             ]
           },
           {

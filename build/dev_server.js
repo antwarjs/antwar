@@ -6,9 +6,7 @@ var portfinder = require('portfinder');
 var webpack = require('webpack');
 
 var WebpackDevServer = require('webpack-dev-server');
-
 var devConfig = require('../config/dev');
-
 
 function devServer(port, config) {
   var devConfigParams = {};

@@ -8,11 +8,11 @@ var SectionIndex = require('./SectionIndex.jsx');
 var Page = require('./Page.jsx');
 
 var config = require('config');
-var configHandlers = config.handlers || {};
-var Body = configHandlers.body && configHandlers.body();
+var configLayouts = config.layouts || {};
+var Body = configLayouts.body && configLayouts.body();
 
 if(!Body) {
-  console.error('Missing config handlers.body()!');
+  console.error('Missing config layouts.body!');
 }
 
 var BodyContent = require('./BodyContent.jsx')(Body);

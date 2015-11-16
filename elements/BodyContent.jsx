@@ -23,8 +23,20 @@ module.exports = function(Body) {
       // allow access to all or just part if needed
       section.pages = this.getSectionPages;
 
+      const pathName = this.getPathname();
+
+      const path = {
+        name: pathName,
+        prefix: this.getPathPrefix(pathName)
+      };
+
       return (
-        <Body section={section} page={page}>
+        <Body
+          config={config}
+          section={section}
+          layoutHooks={layoutHooks}
+          page={page}
+          path={path}>
           <RouteHandler></RouteHandler>
           {_.map(external, function (Component, i) {
             if (typeof Component === 'function') {

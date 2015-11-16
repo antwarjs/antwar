@@ -15,8 +15,7 @@ module.exports = function(config) {
       cwd
     ];
     var excludes = [
-      common.resolve.root,
-      path.join(cwd, 'node_modules')
+      common.resolve.root
     ];
 
     var common = {
@@ -59,7 +58,7 @@ module.exports = function(config) {
             exclude: excludes
           },
           {
-            test: /\.jsx?$/,
+            test: /\.jsx$/,
             loaders: [
               'react-hot',
               'babel'
