@@ -139,7 +139,7 @@ exports.pages = function(o, cb) {
 
       cb(null, {
         path: _path.join(p, 'index.html'),
-        page: '/' + d.page,
+        page: d.page,
       });
     });
   }, function(err, d) {
