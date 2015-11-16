@@ -23,9 +23,9 @@ module.exports = function(config) {
       target: 'node',
       context: path.join(__dirname, '..', './'),
       entry: {
-        bundlePage: './dev/page.jsx',
-        bundleStaticPage: './dev/staticPage.jsx',
-        paths: './dev/exportPaths.js',
+        bundlePage: path.join(__dirname, '../dev/page.jsx'),
+        bundleStaticPage: path.join(__dirname, '../dev/staticPage.jsx'),
+        paths: path.join(__dirname, '../dev/exportPaths.js')
       },
       output: {
         path: path.join(cwd, './.antwar/build'),
