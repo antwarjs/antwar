@@ -9,4 +9,8 @@ const history = History.createBrowserHistory();
 const app = document.createElement('div');
 document.body.appendChild(app);
 
-ReactDOM.render(<Router history={history}>{Routes}</Router>, app);
+ReactDOM.render(React.createElement(
+  Router,
+  { history: history },
+  Routes
+), app);

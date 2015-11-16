@@ -23,8 +23,8 @@ module.exports = function(config) {
       target: 'node',
       context: path.join(__dirname, '..', './'),
       entry: {
-        bundlePage: path.join(__dirname, '../dev/page.jsx'),
-        bundleStaticPage: path.join(__dirname, '../dev/staticPage.jsx'),
+        bundlePage: path.join(__dirname, '../dev/page.js'),
+        bundleStaticPage: path.join(__dirname, '../dev/staticPage.js'),
         paths: path.join(__dirname, '../dev/exportPaths.js')
       },
       output: {
@@ -42,6 +42,12 @@ module.exports = function(config) {
       resolveLoader: common.resolveLoader,
       module: {
         loaders: [
+          {
+            test: /\.js$/,
+            loader: 'babel',
+            include: path.join(__dirname, '..'),
+            exclude: path.join(__dirname, '..', 'node_modules')
+          },
           {
             test: /\.jsx$/,
             loader: 'babel',
