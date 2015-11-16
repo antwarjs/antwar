@@ -66,7 +66,7 @@ function writePages(params, cb) {
         return cb(err);
       }
 
-      var renderPage = require(_path.join(cwd, './.antwar/build/bundleStaticPage.jsx'));
+      var renderPage = require(_path.join(cwd, './.antwar/build/bundleStaticPage.js'));
 
       async.each(params.pages, function(page, cb) {
         // XXX: why page can be null?

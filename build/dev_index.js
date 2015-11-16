@@ -19,7 +19,7 @@ module.exports = function(config) {
         }
 
         var buildDir = _path.join(process.cwd(), './.antwar/build');
-        var renderPage = require(_path.join(buildDir, 'bundleStaticPage.jsx'));
+        var renderPage = require(_path.join(buildDir, 'bundleStaticPage.js'));
 
         async.parallel([
           function(cb) {
