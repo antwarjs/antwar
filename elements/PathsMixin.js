@@ -37,7 +37,7 @@ module.exports = {
   getSectionName: function () {
     const page = this.getPage();
 
-    if(page.section) {
+    if(page && page.section) {
       return page.section;
     }
 
@@ -60,6 +60,10 @@ module.exports = {
     return this.getPageForPath(page);
   },
   getPageForPath: function(path) {
+    if(path === 'antwar_devindex') {
+      return;
+    }
+
     const ret = paths.pageForPath(path);
 
     if(!ret) {

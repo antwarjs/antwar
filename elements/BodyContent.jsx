@@ -37,15 +37,15 @@ module.exports = React.createClass({
       config,
       section,
       layoutHooks,
-      page,
+      page: page || {},
       path
     };
 
     return (
       <Body {...props}>
-        {React.createFactory(page)(props)}
+        {page ? React.createFactory(page)(props) : null}
         {_.map(external, function (Component, i) {
-          if (typeof Component === 'function') {
+          if(typeof Component === 'function') {
             return <Component key={i} />;
           }
         })}
