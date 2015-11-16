@@ -6,13 +6,12 @@ var Paths = require('./PathsMixin');
 var layoutHooks = require('../layoutHooks');
 var config = require('config');
 
-
 module.exports = function(Body) {
+  config.styles && config.styles.body && config.styles.body();
+
   return React.createClass({
     displayName: 'BodyContent',
-
     mixins: [Router.State, Paths],
-
     render: function() {
       const external = getExternalContent(this.getAllPages(), this.getPathname());
       const page = this.getPage();

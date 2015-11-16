@@ -8,7 +8,9 @@ module.exports = function(config) {
   var cwd = process.cwd();
 
   var siteConfig = config.webpack && config.webpack.build;
-  siteConfig = siteConfig || {};
+  siteConfig = siteConfig && siteConfig({
+    ExtractTextPlugin: ExtractTextPlugin
+  }) || {};
 
   config.buildDev = config.buildDev || 0;
 

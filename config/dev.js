@@ -7,7 +7,7 @@ module.exports = function(config) {
   var cwd = process.cwd();
 
   var siteConfig = config.webpack && config.webpack.development;
-  siteConfig = siteConfig || {};
+  siteConfig = siteConfig && siteConfig() || {};
 
   return getCommon(config).then(function(common) {
     var includes = [
