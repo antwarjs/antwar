@@ -33,15 +33,17 @@ module.exports = React.createClass({
       name: pathName,
       prefix: this.getPathPrefix(pathName)
     };
+    const props = {
+      config,
+      section,
+      layoutHooks,
+      page,
+      path
+    };
 
     return (
-      <Body
-        config={config}
-        section={section}
-        layoutHooks={layoutHooks}
-        page={page}
-        path={path}>
-        {this.props.children}
+      <Body {...props}>
+        {React.createFactory(page)(props)}
         {_.map(external, function (Component, i) {
           if (typeof Component === 'function') {
             return <Component key={i} />;
