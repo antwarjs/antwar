@@ -36,7 +36,7 @@ module.exports = function(config) {
             });
           },
           utils.copyIfExists.bind(null, './assets', _path.join(buildDir, 'assets')),
-          utils.copyExtraAssets.bind(null, buildDir, config.assets),
+          utils.copyExtraAssets.bind(null, buildDir, config.assets)
         ], function(err) {
           if(err) {
             return reject(err);

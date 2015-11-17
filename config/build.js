@@ -17,7 +17,7 @@ module.exports = function(config) {
   return getCommon(config).then(function(common) {
     var common = {
       node: {
-        fs: 'empty',
+        fs: 'empty'
       },
       name: 'server',
       target: 'node',
@@ -31,7 +31,7 @@ module.exports = function(config) {
         path: path.join(cwd, './.antwar/build'),
         filename: '[name].js',
         publicPath: path.join(cwd, './.antwar/build'),
-        libraryTarget: 'commonjs2',
+        libraryTarget: 'commonjs2'
       },
       plugins: common.plugins.concat([
         new ExtractTextPlugin('[name].css', {
@@ -62,23 +62,23 @@ module.exports = function(config) {
           {
             test: /\.css$/,
             loader: ExtractTextPlugin.extract(
-              'style-loader', 'css-loader'),
+              'style-loader', 'css-loader')
           },
           {
             test: /\.json$/,
-            loader: 'json-loader',
+            loader: 'json-loader'
           },
           {
             test: /\.html$/,
-            loader: 'raw',
+            loader: 'raw'
           },
           {
             test: /\.svg$/,
-            loader: 'raw',
+            loader: 'raw'
           },
           {
             test: /\.md$/,
-            loader: 'json!yaml-frontmatter-loader',
+            loader: 'json!yaml-frontmatter-loader'
           }
         ]
       }

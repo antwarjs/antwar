@@ -15,6 +15,9 @@ config.styles && config.styles.body && config.styles.body();
 module.exports = React.createClass({
   displayName: 'BodyContent',
   mixins: [Paths],
+  propTypes: {
+    location: React.PropTypes.object
+  },
   render: function() {
     const external = getExternalContent(
       this.getAllPages(),
@@ -51,7 +54,7 @@ module.exports = React.createClass({
         })}
       </Body>
     );
-  },
+  }
 });
 
 function getExternalContent(paths, pathName) {
@@ -60,6 +63,6 @@ function getExternalContent(paths, pathName) {
     paths: paths,
     pathName: pathName,
     // starts with a slash, strip it
-    currentPath: paths[pathName.slice(1)] || {},
+    currentPath: paths[pathName.slice(1)] || {}
   });
 }

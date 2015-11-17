@@ -25,7 +25,7 @@ module.exports = function(config) {
 function devServer(port, config) {
   var devConfigParams = {
     entry: {
-      main: path.join(__dirname, './dev_entry.js'),
+      main: path.join(__dirname, './dev_entry.js')
     },
     plugins: [
       new webpack.HotModuleReplacementPlugin()
@@ -50,7 +50,7 @@ function runServer(port, config) {
       version: false,
       assets: false,
       cached: false,
-      colors: true,
+      colors: true
     }
   }).listen(port, function(err) {
     if(err) {

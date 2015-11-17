@@ -22,13 +22,13 @@ module.exports = function(config) {
       cache: true,
       node: {
         __filename: true,
-        fs: 'empty',
+        fs: 'empty'
       },
       output: {
         path: path.join(cwd, './.antwar/build/'),
         publicPath: '/',
         filename: '[name]-bundle.js',
-        chunkFilename: '[chunkhash].js',
+        chunkFilename: '[chunkhash].js'
       },
       plugins: common.plugins,
       module: {
@@ -47,7 +47,7 @@ module.exports = function(config) {
           },
           {
             test: /\.json$/,
-            loader: 'json-loader',
+            loader: 'json-loader'
             //include: includes,
             //exclude: excludes
           },
@@ -70,7 +70,7 @@ module.exports = function(config) {
             test: /\.css$/,
             loaders: [
               'style-loader',
-              'css-loader',
+              'css-loader'
             ],
             include: includes
             //exclude: excludes
@@ -84,7 +84,7 @@ module.exports = function(config) {
         ]
       },
       resolve: common.resolve,
-      resolveLoader: common.resolveLoader,
+      resolveLoader: common.resolveLoader
     };
 
     return merge(common, siteConfig);

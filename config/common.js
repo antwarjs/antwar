@@ -53,7 +53,7 @@ module.exports = function(config) {
         }),
         new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.optimize.DedupePlugin()
-      ],
+      ]
     };
 
     resolve(merge(common, siteConfig));

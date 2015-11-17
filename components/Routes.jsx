@@ -8,7 +8,7 @@ var BodyRoutes = require('./BodyRoutes.jsx');
 
 export default (
   <Route component={BodyContent}>
-    <Route path='antwar_devindex' component={DevIndex}></Route>
+    <Route path="antwar_devindex" component={DevIndex} />
     {BodyRoutes}
   </Route>
 );

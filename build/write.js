@@ -27,15 +27,15 @@ exports.assets = function(o, cb) {
     cb(null, [
       {
         task: 'copy_assets',
-        params: [_path.join(o.cwd, 'assets'), assetsDir],
+        params: [_path.join(o.cwd, 'assets'), assetsDir]
       },
       {
         task: 'write_main',
         params: {
           assetsDir: assetsDir,
-          mainPath: mainPath,
+          mainPath: mainPath
         }
-      },
+      }
     ]);
   });
 };
@@ -44,7 +44,7 @@ exports.extraAssets = function(o, cb) {
   cb(null, [
     {
       task: 'copy_extra_assets',
-      params: [o.output, o.config && o.config.assets],
+      params: [o.output, o.config && o.config.assets]
     }
   ]);
 };
@@ -119,7 +119,7 @@ exports.pages = function(o, cb) {
 
     return {
       path: p,
-      page: page,
+      page: page
     };
   });
 
@@ -139,7 +139,7 @@ exports.pages = function(o, cb) {
 
       cb(null, {
         path: _path.join(p, 'index.html'),
-        page: d.page,
+        page: d.page
       });
     });
   }, function(err, d) {

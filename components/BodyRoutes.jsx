@@ -15,10 +15,12 @@ module.exports = (
       // generate paths per each page below path
       if(v.path) {
         pathRoutes = getPaths(v.path()).map((p, j) => {
-          return <Route
-            key={'root-' + i + '-path-' + j}
-            component={BodyContent}
-            path={p} />
+          return (
+            <Route
+              key={'root-' + i + '-path-' + j}
+              component={BodyContent}
+              path={p} />
+          );
         });
       }
 
@@ -31,10 +33,10 @@ module.exports = (
       i++;
 
       return pathRoutes.concat([
-        <Route key={'root-' + i} component={BodyContent} path={k} />,
+        <Route key={'root-' + i} component={BodyContent} path={k} />
       ]);
     })}
-    {config.paths['/'] && <Route key='index-route' component={BodyContent} path='/' />}
+    {config.paths['/'] && <Route key="index-route" component={BodyContent} path="/" />}
   </Route>
 );
 

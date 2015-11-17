@@ -6,6 +6,9 @@ var Paths = require('./PathsMixin');
 module.exports = React.createClass({
   displayName: 'NavigationLink',
   mixins: [Paths],
+  propTypes: {
+    location: React.PropTypes.object
+  },
   render: function() {
     var props = this.props;
     var page = props.page;
@@ -43,5 +46,5 @@ module.exports = React.createClass({
     }
 
     return <a href={wholeUrl}>{title}</a>;
-  },
+  }
 });

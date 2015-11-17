@@ -59,7 +59,7 @@ function parseModules(sectionName, section, modules) {
       name: name.slice(2),
       file: modules(name),
       section: section,
-      sectionName: sectionName === '/' ? '' : sectionName,
+      sectionName: sectionName === '/' ? '' : sectionName
     };
   });
 }
@@ -122,7 +122,7 @@ function processPage(o, url, fileName, sectionName, section) {
     },
     layout: function(o) {
       return layout;
-    },
+    }
   }, siteFunctions, sectionFunctions);
 
   _.forEach(functions, function(fn, name) {

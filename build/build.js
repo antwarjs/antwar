@@ -34,7 +34,7 @@ module.exports = function(config) {
           renderPage: require(_path.join(cwd, './.antwar/build/bundleStaticPage.js')),
           allPaths: require(_path.join(cwd, './.antwar/build/paths.js'))(),
           output: _path.join(cwd, output),
-          config: config,
+          config: config
         };
 
         log('Removing old output directory');
@@ -63,7 +63,7 @@ module.exports = function(config) {
               write.extraAssets.bind(null, params),
               write.indices.bind(null, params),
               write.extras.bind(null, params, extraFiles),
-              write.pages.bind(null, params),
+              write.pages.bind(null, params)
             ], function(err, tasks) {
               if(err) {
                 return reject(err);

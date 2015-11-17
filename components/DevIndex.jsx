@@ -5,5 +5,5 @@ module.exports = React.createClass({
   displayName: 'DevIndex',
   render() {
     return null;
-  },
+  }
 });
