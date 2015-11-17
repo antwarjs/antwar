@@ -8,7 +8,7 @@ var WebpackDevServer = require('webpack-dev-server');
 var devConfig = require('../config/dev');
 
 module.exports = function(config) {
-  var devConfigParams = {
+  const devConfigParams = {
     entry: {
       main: path.join(__dirname, './dev_entry.js')
     },
@@ -20,12 +20,15 @@ module.exports = function(config) {
   };
 
   return devConfig(config).then(function(c) {
-    runServer(config.port, merge(c, devConfigParams));
+    runServer(config, merge(c, devConfigParams));
   });
 }
 
-function runServer(port, config) {
-  new WebpackDevServer(webpack(config), {
+function runServer(siteConfig, webpackConfig) {
+  const port = siteConfig.port;
+  const console = siteConfig.console;
+
+  new WebpackDevServer(webpack(webpackConfig), {
     contentBase: path.join(process.cwd(), './.antwar/build'),
     hot: true,
     inline: true,
