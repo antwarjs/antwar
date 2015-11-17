@@ -1,6 +1,6 @@
 'use strict';
 import React from 'react';
-var Paths = require('./PathsMixin');
+var Paths = require('../mixins/PathsMixin');
 var layoutHooks = require('../layoutHooks');
 var config = require('config');
 

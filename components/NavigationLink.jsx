@@ -1,7 +1,7 @@
 'use strict';
 var React = require('react');
 var config = require('config');
-var Paths = require('./PathsMixin');
+var Paths = require('../mixins/PathsMixin');
 
 module.exports = React.createClass({
   displayName: 'NavigationLink',
