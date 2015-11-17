@@ -27,11 +27,7 @@ module.exports = {
     return this.getSection().title || '';
   },
   getSectionPages: function(sectionName) {
-    sectionName = sectionName || this.getSectionName();
-
-    return _.filter(this.getAllPages(), function (page) {
-      return page.section == sectionName;
-    });
+    return paths.getSectionPages(sectionName || this.getSectionName());
   },
   getSectionName: function () {
     const page = this.getPage();

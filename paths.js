@@ -5,6 +5,23 @@ var pageHooks = require('./hooks/page');
 var config = require('config');
 var siteFunctions = config.functions || {} ;
 
+function getSectionPages(sectionName) {
+  var pages = allPages();
+
+  if(sectionName === '/') {
+    return _.uniq(config.paths['/'].path().keys().map((k) => {
+      return {
+        url: _.trim(k.split('.')[1], '/')
+      };
+    }));
+  }
+
+  return _.filter(pages, function(page) {
+    return page.section == sectionName;
+  });
+}
+exports.getSectionPages = getSectionPages;
+
 function allPages() {
   var pages = [].concat.apply([], _.keys(config.paths).map(function(sectionName) {
     var section = config.paths[sectionName];
@@ -46,6 +63,7 @@ function allPages() {
 
   return ret;
 }
+
 exports.allPages = allPages;
 
 function defaultSort(files) {
@@ -70,7 +88,8 @@ function pageForPath(path) {
     return pages['/index'];
   }
 
-  return pages[_.trim(path, '/')];
+  // latter is needed by root pages!
+  return pages[_.trim(path, '/')] || pages[path];
 }
 exports.pageForPath = pageForPath;
 

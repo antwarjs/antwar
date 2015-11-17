@@ -21,10 +21,10 @@ module.exports = React.createClass({
     section.name = this.getSectionName();
     // allow access to all or just part if needed
     section.pages = this.getSectionPages;
-    let SectionLayout = 'div';
+    let sectionLayout;
 
     if(section && section.layouts) {
-      SectionLayout = section.layouts[page ? 'page' : 'index']();
+      sectionLayout = section.layouts[page ? 'page' : 'index']();
     }
 
     const pathName = this.props.location.pathname;
@@ -53,11 +53,13 @@ module.exports = React.createClass({
 
     config.style && config.style();
 
+    const pageComponent = React.createFactory(_.isPlainObject(page) || !page ? 'div' : page)(props);
+
     return (
       <Body {...props}>
-        <SectionLayout {...props}>
-          {React.isValidElement(page) ? React.createFactory(page)(props) : null}
-        </SectionLayout>
+        {sectionLayout ?
+          React.createFactory(sectionLayout)(props, pageComponent) :
+          pageComponent}
 
         {_.map(external, function (Component, i) {
           if(typeof Component === 'function') {
