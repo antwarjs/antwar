@@ -1,16 +1,8 @@
 'use strict';
-var React = require('react');
+import React from 'react';
 var Paths = require('./PathsMixin');
 var layoutHooks = require('../layoutHooks');
 var config = require('config');
-var configLayouts = config.layouts || {};
-var Body = configLayouts.body && configLayouts.body();
-
-if(!Body) {
-  console.error('Missing config layouts.body!');
-}
-
-config.styles && config.styles.body && config.styles.body();
 
 module.exports = React.createClass({
   displayName: 'BodyContent',
@@ -43,6 +35,19 @@ module.exports = React.createClass({
       page: page || {},
       path
     };
+    const layout = config.layout;
+    let Body;
+
+    if(layout) {
+      Body = layout && layout();
+    }
+    else {
+      console.error('Page is missing layout', props);
+
+      // XXX: use some dummy Body now
+    }
+
+    config.style && config.style();
 
     return (
       <Body {...props}>
