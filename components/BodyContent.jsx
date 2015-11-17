@@ -23,8 +23,8 @@ module.exports = React.createClass({
     section.pages = this.getSectionPages;
     let SectionLayout = 'div';
 
-    if(!page) {
-      SectionLayout = section.layouts.index();
+    if(section && section.layouts) {
+      SectionLayout = section.layouts[page ? 'page' : 'index']();
     }
 
     const pathName = this.props.location.pathname;
@@ -56,7 +56,7 @@ module.exports = React.createClass({
     return (
       <Body {...props}>
         <SectionLayout {...props}>
-          {page ? React.createFactory(page)(props) : null}
+          {React.isValidElement(page) ? React.createFactory(page)(props) : null}
         </SectionLayout>
 
         {_.map(external, function (Component, i) {

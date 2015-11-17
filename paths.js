@@ -70,8 +70,7 @@ function pageForPath(path) {
     return pages['/index'];
   }
 
-  // check both to make root paths work (they have extra /)
-  return pages[path] || pages['/' + path];
+  return pages[_.trim(path, '/')];
 }
 exports.pageForPath = pageForPath;
 

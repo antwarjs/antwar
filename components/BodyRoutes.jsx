@@ -1,4 +1,5 @@
 'use strict';
+var path = require('path');
 var _ = require('lodash');
 var React = require('react');
 var Router = require('react-router');
@@ -19,7 +20,7 @@ module.exports = (
             <Route
               key={'root-' + i + '-path-' + j}
               component={BodyContent}
-              path={p} />
+              path={k == '/' ? p : k + '/' + p} />
           );
         });
       }
@@ -40,17 +41,8 @@ module.exports = (
   </Route>
 );
 
-//<Route key='page-route' component={BodyContent} path=':page/?' />
-//<Route key='page-with-nesting-route' component={BodyContent} path='*/:page/?' />
-
 function getPaths(req) {
-  return req.keys().filter((k) => {
-    // skip paths with extensions
-    if(k.split('.').length < 3) {
-      return k;
-    }
-  }).map((k) => {
-    // get rid of ./
-    return k.split('/')[1];
-  });
+  return _.uniq(req.keys().map((k) => {
+    return _.trim(k.split('.')[1], '/');
+  }));
 }
