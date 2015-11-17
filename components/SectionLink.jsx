@@ -1,11 +1,8 @@
-'use strict';
-var React = require('react');
+import React from 'react';
 
-var config = require('config');
-
-module.exports = React.createClass({
+export default React.createClass({
   displayName: 'SectionLink',
-  render: function() {
+  render() {
     const props = this.props;
     const page = props.page;
     let url = page.url;
