@@ -1,7 +1,7 @@
 'use strict';
 import React from 'react';
 var Paths = require('../mixins/PathsMixin');
-var layoutHooks = require('../layoutHooks');
+var layoutHooks = require('../hooks/layout');
 var config = require('config');
 
 module.exports = React.createClass({

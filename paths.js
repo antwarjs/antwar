@@ -1,8 +1,7 @@
 'use strict';
 var _ = require('lodash');
-
 var MdHelper = require('./components/MdHelper');
-var pageHooks = require('./pageHooks');
+var pageHooks = require('./hooks/page');
 var config = require('config');
 var siteFunctions = config.functions || {} ;
 
