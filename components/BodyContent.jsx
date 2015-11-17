@@ -17,7 +17,6 @@ module.exports = React.createClass({
     );
     const page = this.getPage();
 
-    // XXX: tidy up and optimize
     let section = this.getSection();
     section.name = this.getSectionName();
     // allow access to all or just part if needed
@@ -36,15 +35,15 @@ module.exports = React.createClass({
       path
     };
     const layout = config.layout;
-    let Body;
+    let Body = 'div';
 
     if(layout) {
-      Body = layout && layout();
+      if(!__DEV__ || path.name === 'antwar_devindex') {
+        Body = layout();
+      }
     }
     else {
       console.error('Page is missing layout', props);
-
-      // XXX: use some dummy Body now
     }
 
     config.style && config.style();
