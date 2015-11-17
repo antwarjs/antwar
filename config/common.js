@@ -27,8 +27,6 @@ module.exports = function(config) {
         },
         extensions: [
           '',
-          '.webpack.js',
-          '.web.js',
           '.js',
           '.jsx',
           '.json'
