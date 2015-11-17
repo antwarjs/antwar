@@ -2,27 +2,12 @@
 var path = require('path');
 
 var merge = require('webpack-merge');
-var portfinder = require('portfinder');
 var webpack = require('webpack');
 
 var WebpackDevServer = require('webpack-dev-server');
 var devConfig = require('../config/dev');
 
 module.exports = function(config) {
-  return new Promise(function(resolve, reject) {
-    portfinder.getPort(function(err, port) {
-      if(err) {
-        return reject(err);
-      }
-
-      devServer(port, config);
-
-      resolve();
-    });
-  });
-};
-
-function devServer(port, config) {
   var devConfigParams = {
     entry: {
       main: path.join(__dirname, './dev_entry.js')
@@ -35,7 +20,7 @@ function devServer(port, config) {
   };
 
   return devConfig(config).then(function(c) {
-    runServer(port, merge(c, devConfigParams));
+    runServer(config.port, merge(c, devConfigParams));
   });
 }
 
