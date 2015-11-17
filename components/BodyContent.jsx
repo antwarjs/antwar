@@ -21,6 +21,11 @@ module.exports = React.createClass({
     section.name = this.getSectionName();
     // allow access to all or just part if needed
     section.pages = this.getSectionPages;
+    let SectionLayout = 'div';
+
+    if(!page) {
+      SectionLayout = section.layouts.index();
+    }
 
     const pathName = this.props.location.pathname;
     const path = {
@@ -50,7 +55,10 @@ module.exports = React.createClass({
 
     return (
       <Body {...props}>
-        {page ? React.createFactory(page)(props) : null}
+        <SectionLayout {...props}>
+          {page ? React.createFactory(page)(props) : null}
+        </SectionLayout>
+
         {_.map(external, function (Component, i) {
           if(typeof Component === 'function') {
             return <Component key={i} />;

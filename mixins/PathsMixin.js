@@ -13,19 +13,20 @@ module.exports = {
       return '';
     }).join('../');
   },
-  getAllPages: function () {
+  getAllPages: function() {
     return paths.allPages();
   },
-  getSection: function () {
-    var sectionName = this.getSectionName() || '/';
+  getSection: function() {
+    const sectionName = this.getSectionName() || '/';
 
     // each page doesn't belong to a section
+    // as it may be a section itself
     return config.paths[sectionName] || {};
   },
-  getSectionTitle: function () {
+  getSectionTitle: function() {
     return this.getSection().title || '';
   },
-  getSectionPages: function (sectionName) {
+  getSectionPages: function(sectionName) {
     sectionName = sectionName || this.getSectionName();
 
     return _.filter(this.getAllPages(), function (page) {
@@ -39,38 +40,19 @@ module.exports = {
       return page.section;
     }
 
-    return this.context.location.pathname;
+    return _.trim(this.context.location.pathname, '/');
   },
   getPage: function() {
     const location = this.context.location;
-    const page = location.pathname;
 
-    // XXXXX
-    /*
-    const page = params.page;
-    const splat = params.splat;
-
-    if(splat) {
-      return this.getPageForPath(splat + '/' + page);
-    }
-    */
-
-    return this.getPageForPath(page);
+    return this.getPageForPath(location.pathname);
   },
   getPageForPath: function(path) {
     if(path === 'antwar_devindex') {
       return;
     }
 
-    const ret = paths.pageForPath(path);
-
-    if(!ret) {
-      console.warn('No page was found for path ' + path + '!');
-
-      return {};
-    }
-
-    return ret;
+    return paths.pageForPath(path);
   },
   getPageTitle: function() {
     const page = this.getPage();
