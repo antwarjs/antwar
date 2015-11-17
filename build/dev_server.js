@@ -10,7 +10,11 @@ var devConfig = require('../config/dev');
 module.exports = function(config) {
   const devConfigParams = {
     entry: {
-      main: path.join(__dirname, './dev_entry.js')
+      main: [
+        'webpack-dev-server/client?http://localhost:' + config.port,
+        'webpack/hot/dev-server',
+        path.join(__dirname, './dev_entry.js')
+      ]
     },
     plugins: [
       new webpack.HotModuleReplacementPlugin()
@@ -31,7 +35,6 @@ function runServer(siteConfig, webpackConfig) {
   new WebpackDevServer(webpack(webpackConfig), {
     contentBase: path.join(process.cwd(), './.antwar/build'),
     hot: true,
-    inline: true,
     historyApiFallback: true,
     stats: 'errors-only'
   }).listen(port, function(err) {
