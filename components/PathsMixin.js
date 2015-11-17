@@ -1,10 +1,8 @@
 'use strict';
 var React = require('react');
-
-var paths = require('../paths');
 var _ = require('lodash');
+var paths = require('../paths');
 var config = require('config');
-
 
 module.exports = {
   contextTypes: {
