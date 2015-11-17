@@ -45,13 +45,7 @@ function runServer(port, config) {
     hot: true,
     inline: true,
     historyApiFallback: true,
-    stats: {
-      hash: false,
-      version: false,
-      assets: false,
-      cached: false,
-      colors: true
-    }
+    stats: 'errors-only'
   }).listen(port, function(err) {
     if(err) {
       return console.error(err);
