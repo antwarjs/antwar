@@ -80,6 +80,6 @@ function getExternalContent(paths, pathName) {
     paths: paths,
     pathName: pathName,
     // starts with a slash, strip it
-    currentPath: paths[pathName.slice(1)] || {}
+    currentPath: paths[_.trim(pathName, '/')] || {}
   });
 }
