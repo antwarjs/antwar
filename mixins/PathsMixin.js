@@ -8,11 +8,6 @@ module.exports = {
   contextTypes: {
     location: React.PropTypes.object
   },
-  getPathPrefix: function(pathName) {
-    return pathName.split('/').map(function() {
-      return '';
-    }).join('../');
-  },
   getAllPages: function() {
     return paths.allPages();
   },

@@ -29,8 +29,7 @@ module.exports = React.createClass({
 
     const pathName = this.props.location.pathname;
     const path = {
-      name: pathName,
-      prefix: this.getPathPrefix(pathName)
+      name: pathName
     };
     const props = {
       config,
