@@ -1,6 +1,6 @@
 import React from 'react';
 import config from 'config';
-import paths from '../paths';
+import paths from '../libs/paths';
 import DevContainer from './DevContainer.jsx';
 
 export default React.createClass({

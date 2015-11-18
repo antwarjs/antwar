@@ -1,5 +1,5 @@
 'use strict';
-var paths = require('../paths');
+var paths = require('../libs/paths');
 
 module.exports = function() {
   return {

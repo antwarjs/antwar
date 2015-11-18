@@ -6,7 +6,7 @@ var Router = require('react-router');
 var Route = Router.Route;
 var config = require('config');
 var BodyContent = require('./BodyContent.jsx');
-var paths = require('../paths');
+var paths = require('../libs/paths');
 
 var i = 0;
 module.exports = (
