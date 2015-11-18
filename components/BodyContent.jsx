@@ -1,13 +1,11 @@
 'use strict';
 import React from 'react';
-import Paths from '../mixins/PathsMixin';
 import layoutHooks from '../hooks/layout';
 import config from 'config';
 import paths from '../paths';
 
 module.exports = React.createClass({
   displayName: 'BodyContent',
-  mixins: [Paths],
   propTypes: {
     location: React.PropTypes.object
   },
@@ -18,7 +16,7 @@ module.exports = React.createClass({
       paths.allPages(),
       location.pathname
     );
-    const page = this.getPage();
+    const page = paths.pageForPath(location.pathname);
 
     const sectionName = page && page.section ? page.section : _.trim(location, '/');
     let section = config.paths[sectionName || '/'] || {};
