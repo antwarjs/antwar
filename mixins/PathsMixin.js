@@ -44,23 +44,5 @@ module.exports = {
     }
 
     return paths.pageForPath(path);
-  },
-  getPageTitle: function() {
-    const page = this.getPage();
-
-    if(page && page.title) {
-      return page.title;
-    }
-
-    const router = this.context.router;
-    const routes = router.getCurrentRoutes();
-
-    const routeName = routes[routes.length - 1].name;
-
-    if(routeName) {
-      return routeName.replace('/', '');
-    }
-
-    return '';
   }
 };
