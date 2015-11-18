@@ -36,13 +36,6 @@ module.exports = {
   getPage: function() {
     const location = this.context.location;
 
-    return this.getPageForPath(location.pathname);
-  },
-  getPageForPath: function(path) {
-    if(path === 'antwar_devindex') {
-      return;
-    }
-
-    return paths.pageForPath(path);
+    return paths.pageForPath(location.pathname);
   }
 };

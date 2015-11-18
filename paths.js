@@ -82,7 +82,11 @@ function parseModules(sectionName, section, modules) {
 }
 
 function pageForPath(path) {
-  var pages = allPages();
+  if(path === 'antwar_devindex') {
+    return;
+  }
+
+  const pages = allPages();
 
   if(path === '/') {
     return pages['/index'];
