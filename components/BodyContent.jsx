@@ -12,12 +12,9 @@ module.exports = React.createClass({
   render: function() {
     const allPages = paths.allPages();
     const location = this.props.location;
-    const external = getExternalContent(
-      paths.allPages(),
-      location.pathname
-    );
-    const page = paths.pageForPath(location.pathname);
+    const pathname = location.pathname;
 
+    const page = paths.pageForPath(pathname);
     const sectionName = page && page.section ? page.section : _.trim(location, '/');
     let section = config.paths[sectionName || '/'] || {};
     section.name = sectionName;
@@ -34,7 +31,7 @@ module.exports = React.createClass({
       page: page || {},
       location
     };
-    const Body = this.getBody(config.layout, location.pathname, props);
+    const Body = this.getBody(config.layout, pathname, props);
     const sectionLayout = this.getSectionLayout(section, page);
 
     config.style && config.style();
@@ -47,11 +44,7 @@ module.exports = React.createClass({
           React.createFactory(sectionLayout)(props, pageComponent) :
           pageComponent}
 
-        {_.map(external, function (Component, i) {
-          if(typeof Component === 'function') {
-            return <Component key={i} />;
-          }
-        })}
+        {this.renderExternal(allPages, pathname)}
       </Body>
     );
   },
@@ -71,6 +64,13 @@ module.exports = React.createClass({
     if(section && section.layouts) {
       return section.layouts[page ? 'page' : 'index']();
     }
+  },
+  renderExternal(allPages, pathname) {
+    return _.map(getExternalContent(allPages, pathname), (Component, i) => {
+      if(typeof Component === 'function') {
+        return <Component key={i} />;
+      }
+    });
   }
 });
 
