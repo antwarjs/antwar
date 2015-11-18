@@ -33,22 +33,18 @@ module.exports = React.createClass({
       sectionLayout = section.layouts[page ? 'page' : 'index']();
     }
 
-    const pathName = this.props.location.pathname;
-    const path = {
-      name: pathName
-    };
     const props = {
       config,
       section,
       layoutHooks,
       page: page || {},
-      path
+      location
     };
     const layout = config.layout;
     let Body = 'div';
 
     if(layout) {
-      if(!__DEV__ || path.name === 'antwar_devindex') {
+      if(!__DEV__ || location.pathname === 'antwar_devindex') {
         Body = layout();
       }
     }
