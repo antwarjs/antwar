@@ -4,7 +4,7 @@ import layoutHooks from '../hooks/layout';
 import config from 'config';
 import paths from '../paths';
 
-module.exports = React.createClass({
+export default React.createClass({
   displayName: 'BodyContent',
   propTypes: {
     location: React.PropTypes.object
