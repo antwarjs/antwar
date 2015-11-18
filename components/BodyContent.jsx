@@ -27,12 +27,6 @@ module.exports = React.createClass({
       return paths.getSectionPages(sectionName || section.name);
     };
 
-    let sectionLayout;
-
-    if(section && section.layouts) {
-      sectionLayout = section.layouts[page ? 'page' : 'index']();
-    }
-
     const props = {
       config,
       section,
@@ -40,17 +34,8 @@ module.exports = React.createClass({
       page: page || {},
       location
     };
-    const layout = config.layout;
-    let Body = 'div';
-
-    if(layout) {
-      if(!__DEV__ || location.pathname === 'antwar_devindex') {
-        Body = layout();
-      }
-    }
-    else {
-      console.error('Page is missing layout', props);
-    }
+    const Body = this.getBody(config.layout, location.pathname, props);
+    const sectionLayout = this.getSectionLayout(section, page);
 
     config.style && config.style();
 
@@ -69,6 +54,23 @@ module.exports = React.createClass({
         })}
       </Body>
     );
+  },
+  getBody(layout, pathname, props) {
+    if(layout) {
+      if(!__DEV__ || pathname === 'antwar_devindex') {
+        return layout();
+      }
+    }
+    else {
+      console.error('Page is missing layout', props);
+    }
+
+    return 'div';
+  },
+  getSectionLayout(section, page) {
+    if(section && section.layouts) {
+      return section.layouts[page ? 'page' : 'index']();
+    }
   }
 });
 
