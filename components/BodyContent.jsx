@@ -13,14 +13,17 @@ module.exports = React.createClass({
   },
   render: function() {
     const allPages = paths.allPages();
+    const location = this.props.location;
     const external = getExternalContent(
       paths.allPages(),
-      this.props.location.pathname
+      location.pathname
     );
     const page = this.getPage();
 
-    let section = this.getSection();
-    section.name = this.getSectionName();
+    const sectionName = page && page.section ? page.section : _.trim(location, '/');
+    let section = config.paths[sectionName || '/'] || {};
+    section.name = sectionName;
+
     // allow access to all or just part if needed
     section.pages = function(sectionName) {
       return paths.getSectionPages(sectionName || section.name);
