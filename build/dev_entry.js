@@ -6,11 +6,12 @@ var History = require('history');
 var Routes = require('antwar-core/BodyRoutes');
 
 const history = History.createHistory();
-const app = document.createElement('div');
-document.body.appendChild(app);
+const container = document.getElementById('dev-container');
 
 ReactDOM.render(React.createElement(
   Router.Router,
-  { history: history },
+  {
+    history: history
+  },
   Routes
-), app);
+), container);

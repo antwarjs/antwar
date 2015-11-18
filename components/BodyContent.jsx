@@ -1,7 +1,7 @@
-'use strict';
 import React from 'react';
 import config from 'config';
 import paths from '../paths';
+import DevContainer from './DevContainer.jsx';
 
 export default React.createClass({
   displayName: 'BodyContent',
@@ -35,7 +35,7 @@ export default React.createClass({
     config.style && config.style();
 
     const pageComponent = React.createFactory(
-      _.isPlainObject(page) || !page ? 'div' : page
+      _.isPlainObject(page) || !page ? DevContainer : page
     )(props);
 
     return (
