@@ -1,7 +1,7 @@
 'use strict';
 var _ = require('lodash');
-var MdHelper = require('./MdHelper');
-var pageHooks = require('../libs/page_hooks');
+var MdHelpers = require('./md_helpers');
+var pageHooks = require('./page_hooks');
 var config = require('config');
 var siteFunctions = config.functions || {} ;
 
@@ -109,7 +109,7 @@ function processPage(o, url, fileName, sectionName, section) {
       return o.file.date || null;
     },
     content: function(o) {
-      return MdHelper.render(o.file.__content);
+      return MdHelpers.render(o.file.__content);
     },
     preview: function(o) {
       var file = o.file;
@@ -118,7 +118,7 @@ function processPage(o, url, fileName, sectionName, section) {
         return file.preview;
       }
 
-      return MdHelper.renderPreview(file.__content, 100, '…');
+      return MdHelpers.renderPreview(file.__content, 100, '…');
     },
     description: function(o) {
       var file = o.file;
