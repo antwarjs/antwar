@@ -5,8 +5,8 @@ var pageHooks = require('./hooks/page');
 var config = require('config');
 var siteFunctions = config.functions || {} ;
 
-function getSectionPages(sectionName) {
-  var pages = allPages();
+function getSectionPages(sectionName, allPaths) {
+  var pages = allPaths || allPages();
 
   if(sectionName === '/') {
     return _.uniq(config.paths['/'].path().keys().map((k) => {
@@ -81,12 +81,12 @@ function parseModules(sectionName, section, modules) {
   });
 }
 
-function pageForPath(path) {
+function pageForPath(path, allPaths) {
   if(path === 'antwar_devindex') {
     return;
   }
 
-  const pages = allPages();
+  const pages = allPaths || allPages();
 
   if(path === '/') {
     return pages['/index'];

@@ -14,14 +14,14 @@ module.exports = React.createClass({
     const location = this.props.location;
     const pathname = location.pathname;
 
-    const page = paths.pageForPath(pathname);
+    const page = paths.pageForPath(pathname, allPages);
     const sectionName = page && page.section ? page.section : _.trim(location, '/');
     let section = config.paths[sectionName || '/'] || {};
     section.name = sectionName;
 
     // allow access to all or just part if needed
     section.pages = function(sectionName) {
-      return paths.getSectionPages(sectionName || section.name);
+      return paths.getSectionPages(sectionName || section.name, allPages);
     };
 
     const props = {
