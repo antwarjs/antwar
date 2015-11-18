@@ -36,7 +36,9 @@ module.exports = React.createClass({
 
     config.style && config.style();
 
-    const pageComponent = React.createFactory(_.isPlainObject(page) || !page ? 'div' : page)(props);
+    const pageComponent = React.createFactory(
+      _.isPlainObject(page) || !page ? 'div' : page
+    )(props);
 
     return (
       <Body {...props}>
