@@ -1,6 +1,5 @@
 'use strict';
 import React from 'react';
-import layoutHooks from '../hooks/layout';
 import config from 'config';
 import paths from '../paths';
 
@@ -27,7 +26,6 @@ export default React.createClass({
     const props = {
       config,
       section,
-      layoutHooks,
       page: page || {},
       location
     };
