@@ -15,9 +15,6 @@ module.exports = {
     // as it may be a section itself
     return config.paths[sectionName] || {};
   },
-  getSectionTitle: function() {
-    return this.getSection().title || '';
-  },
   getSectionPages: function(sectionName) {
     return paths.getSectionPages(sectionName || this.getSectionName());
   },
