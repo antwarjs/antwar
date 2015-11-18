@@ -22,7 +22,10 @@ module.exports = React.createClass({
     let section = this.getSection();
     section.name = this.getSectionName();
     // allow access to all or just part if needed
-    section.pages = this.getSectionPages;
+    section.pages = function(sectionName) {
+      return paths.getSectionPages(sectionName || section.name);
+    };
+
     let sectionLayout;
 
     if(section && section.layouts) {
