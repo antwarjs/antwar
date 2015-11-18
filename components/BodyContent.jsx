@@ -1,8 +1,9 @@
 'use strict';
 import React from 'react';
-var Paths = require('../mixins/PathsMixin');
-var layoutHooks = require('../hooks/layout');
-var config = require('config');
+import Paths from '../mixins/PathsMixin';
+import layoutHooks from '../hooks/layout';
+import config from 'config';
+import paths from '../paths';
 
 module.exports = React.createClass({
   displayName: 'BodyContent',
@@ -11,8 +12,9 @@ module.exports = React.createClass({
     location: React.PropTypes.object
   },
   render: function() {
+    const allPages = paths.allPages();
     const external = getExternalContent(
-      this.getAllPages(),
+      paths.allPages(),
       this.props.location.pathname
     );
     const page = this.getPage();

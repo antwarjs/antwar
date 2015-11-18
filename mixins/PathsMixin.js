@@ -8,9 +8,6 @@ module.exports = {
   contextTypes: {
     location: React.PropTypes.object
   },
-  getAllPages: function() {
-    return paths.allPages();
-  },
   getSection: function() {
     const sectionName = this.getSectionName() || '/';
 
