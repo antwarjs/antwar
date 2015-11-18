@@ -6,9 +6,6 @@ var config = require('config');
 module.exports = {
   headContent: function (options) {
     return applyHooks(options, getFunctions('headContent'));
-  },
-  bodyContent: function (options) {
-    return applyHooks(options, getFunctions('bodyContent'));
   }
 };
 

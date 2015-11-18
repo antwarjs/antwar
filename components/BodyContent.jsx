@@ -45,8 +45,6 @@ export default React.createClass({
         {sectionLayout ?
           React.createFactory(sectionLayout)(props, pageComponent) :
           pageComponent}
-
-        {this.renderExternal(allPages, pathname)}
       </Body>
     );
   },
@@ -66,22 +64,5 @@ export default React.createClass({
     if(section && section.layouts) {
       return section.layouts[page ? 'page' : 'index']();
     }
-  },
-  renderExternal(allPages, pathname) {
-    return _.map(getExternalContent(allPages, pathname), (Component, i) => {
-      if(typeof Component === 'function') {
-        return <Component key={i} />;
-      }
-    });
   }
 });
-
-function getExternalContent(paths, pathName) {
-  return layoutHooks.bodyContent({
-    config: config,
-    paths: paths,
-    pathName: pathName,
-    // starts with a slash, strip it
-    currentPath: paths[_.trim(pathName, '/')] || {}
-  });
-}
