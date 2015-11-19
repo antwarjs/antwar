@@ -7,7 +7,7 @@ import paths from '../libs/paths';
 import config from 'config';
 
 export default (
-  <Route component={BodyContent}>
+  <Route>
     {__DEV__ && <Route path="antwar_devindex" component={DevIndex} />}
     {_.map(config.paths, function(v, k) {
       const pathRoutes = paths.getSectionPages(k).map(_.property('url')).map((url) =>

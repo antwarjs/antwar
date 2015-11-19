@@ -82,18 +82,14 @@ function parseModules(sectionName, section, modules) {
 }
 
 function pageForPath(path, allPaths) {
-  if(path === 'antwar_devindex') {
-    return;
-  }
-
   const pages = allPaths || allPages();
 
   if(path === '/') {
-    return pages['/index'];
+    return pages['/index'] || {};
   }
 
   // latter is needed by root pages!
-  return pages[_.trim(path, '/')] || pages[path];
+  return pages[_.trim(path, '/')] || pages[path] || {};
 }
 exports.pageForPath = pageForPath;
 
