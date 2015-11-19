@@ -7,6 +7,7 @@ module.exports = React.createClass({
   render() {
     const props = {
       config,
+      section: {},
       page: {},
       location: this.props.location
     };
