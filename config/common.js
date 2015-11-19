@@ -3,6 +3,7 @@ var fs = require('fs');
 var path = require('path');
 var merge = require('webpack-merge');
 var webpack = require('webpack');
+var SystemBellPlugin = require('system-bell-webpack-plugin');
 
 module.exports = function(config) {
   return new Promise(function(resolve, reject) {
@@ -50,7 +51,8 @@ module.exports = function(config) {
           }
         }),
         new webpack.optimize.OccurenceOrderPlugin(),
-        new webpack.optimize.DedupePlugin()
+        new webpack.optimize.DedupePlugin(),
+        new SystemBellPlugin()
       ]
     };
 

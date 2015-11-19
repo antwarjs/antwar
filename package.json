@@ -31,6 +31,7 @@
     "rimraf": "^2.4.3",
     "script-loader": "^0.6.1",
     "style-loader": "^0.13.0",
+    "system-bell-webpack-plugin": "^1.0.0",
     "url-loader": "^0.5.5",
     "webpack": "^1.12.2",
     "webpack-dev-server": "^1.12.1",
