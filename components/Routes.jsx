@@ -10,7 +10,7 @@ export default (
   <Route>
     {__DEV__ && <Route path="antwar_devindex" component={DevIndex} />}
     {_.map(config.paths, function(v, k) {
-      const pathRoutes = paths.getSectionPages(k).map(_.property('url')).map((url) =>
+      const pathRoutes = paths.getSectionPages(k).map(({url}) =>
         <Route component={BodyContent} path={url} />
       );
 
