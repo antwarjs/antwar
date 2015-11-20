@@ -15,16 +15,29 @@ module.exports = function(config) {
 
     var corePath = path.join(parent, 'components');
 
+    var cwd = process.cwd();
+    var paths = {
+      assets: path.join(cwd, 'assets'),
+      config: path.join(cwd, 'antwar.config.js'),
+      core: path.join(parent, 'components'),
+      cwd: cwd,
+      parent: path.join(__dirname, '..')
+    }
+
+    var includes = [
+      paths.core,
+      paths.cwd
+    ];
+
     var common = {
-      corePath: corePath,
       parent: parent,
       resolve: {
-        root: path.join(parent, 'node_modules'),
+        root: cwd,
         alias: {
           'underscore': 'lodash',
-          'assets': path.join(cwd, 'assets'),
-          'config': path.join(cwd, 'antwar.config.js'),
-          'antwar-core': corePath
+          'assets': paths.assets,
+          'config': paths.config,
+          'antwar-core': paths.core
         },
         extensions: [
           '',
@@ -33,16 +46,17 @@ module.exports = function(config) {
           '.json'
         ],
         modulesDirectories: [
-          path.join(cwd, 'node_modules'),
+          path.join(paths.cwd, 'node_modules'),
           'node_modules'
         ]
       },
       resolveLoader: {
         modulesDirectories: [
-          path.join(parent, 'node_modules'),
+          path.join(paths.parent, 'node_modules'),
           'node_modules'
         ]
       },
+      includes: includes,
       module: {
         // TODO: set up good include/exclude rules for these
         loaders: [

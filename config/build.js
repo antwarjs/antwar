@@ -48,12 +48,9 @@ module.exports = function(config) {
           {
             test: /\.jsx$/,
             loader: 'babel',
-            include: [
-              commonConfig.corePath,
-              cwd
-            ],
+            include: commonConfig.includes,
             exclude: [
-              commonConfig.resolve.root
+              path.join(commonConfig.parent, 'node_modules')
             ]
           },
           {

@@ -10,10 +10,6 @@ module.exports = function(config) {
   siteConfig = siteConfig && siteConfig() || {};
 
   return getCommon(config).then(function(commonConfig) {
-    var includes = [
-      commonConfig.corePath,
-      cwd
-    ];
     var excludes = [
       commonConfig.resolve.root
     ];
@@ -38,7 +34,7 @@ module.exports = function(config) {
               'react-hot',
               'babel'
             ],
-            include: includes,
+            include: commonConfig.includes,
             exclude: excludes
           },
           {
@@ -47,8 +43,8 @@ module.exports = function(config) {
               'style-loader',
               'css-loader'
             ],
-            include: includes
-            //exclude: excludes
+            include: commonConfig.includes,
+            exclude: excludes
           }
         ]
       }
