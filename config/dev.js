@@ -30,19 +30,13 @@ module.exports = function(config) {
         loaders: [
           {
             test: /\.jsx$/,
-            loaders: [
-              'react-hot',
-              'babel'
-            ],
+            loaders: ['react-hot', 'babel'],
             include: commonConfig.includes,
             exclude: excludes
           },
           {
             test: /\.css$/,
-            loaders: [
-              'style-loader',
-              'css-loader'
-            ],
+            loaders: ['style', 'css'],
             include: commonConfig.includes,
             exclude: excludes
           }

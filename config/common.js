@@ -62,27 +62,27 @@ module.exports = function(config) {
         loaders: [
           {
             test: /\.woff$/,
-            loader: 'url-loader?prefix=font/&limit=5000&mimetype=application/font-woff'
+            loaders: ['url?prefix=font/&limit=5000&mimetype=application/font-woff']
           },
           {
             test: /\.ttf$|\.eot$/,
-            loader: 'file-loader?prefix=font/'
+            loaders: ['file?prefix=font/']
           },
           {
             test: /\.json$/,
-            loader: 'json-loader'
+            loaders: ['json']
           },
           {
             test: /\.svg$/,
-            loader: 'raw-loader'
+            loaders: ['raw']
           },
           {
             test: /\.html$/,
-            loader: 'raw'
+            loaders: ['raw']
           },
           {
             test: /\.md$/,
-            loader: 'json!yaml-frontmatter-loader'
+            loaders: ['json', 'yaml-frontmatter']
           }
         ]
       },

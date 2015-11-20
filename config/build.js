@@ -49,14 +49,11 @@ module.exports = function(config) {
             test: /\.jsx$/,
             loader: 'babel',
             include: commonConfig.includes,
-            exclude: [
-              path.join(commonConfig.parent, 'node_modules')
-            ]
+            exclude: path.join(commonConfig.parent, 'node_modules')
           },
           {
             test: /\.css$/,
-            loader: ExtractTextPlugin.extract(
-              'style-loader', 'css-loader')
+            loader: ExtractTextPlugin.extract('style', 'css')
           }
         ]
       }
