@@ -8,10 +8,6 @@ module.exports = function(config) {
   siteConfig = siteConfig && siteConfig() || {};
 
   return getCommon(config).then(function(commonConfig) {
-    var excludes = [
-      commonConfig.resolve.root
-    ];
-
     var devConfig = {
       cache: true,
       node: {
@@ -29,14 +25,12 @@ module.exports = function(config) {
           {
             test: /\.jsx$/,
             loaders: ['react-hot', 'babel'],
-            include: commonConfig.includes,
-            exclude: excludes
+            include: commonConfig.includes
           },
           {
             test: /\.css$/,
             loaders: ['style', 'css'],
-            include: commonConfig.includes,
-            exclude: excludes
+            include: commonConfig.includes
           }
         ]
       }
