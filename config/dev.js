@@ -4,8 +4,6 @@ var merge = require('webpack-merge');
 var getCommon = require('./common');
 
 module.exports = function(config) {
-  var cwd = process.cwd();
-
   var siteConfig = config.webpack && config.webpack.development;
   siteConfig = siteConfig && siteConfig() || {};
 
@@ -21,7 +19,7 @@ module.exports = function(config) {
         fs: 'empty'
       },
       output: {
-        path: path.join(cwd, './.antwar/build/'),
+        path: path.join(process.cwd(), './.antwar/build/'),
         publicPath: '/',
         filename: '[name]-bundle.js',
         chunkFilename: '[chunkhash].js'
