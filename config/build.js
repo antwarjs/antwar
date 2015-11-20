@@ -14,8 +14,8 @@ module.exports = function(config) {
 
   config.buildDev = config.buildDev || 0;
 
-  return getCommon(config).then(function(common) {
-    var common = {
+  return getCommon(config).then(function(commonConfig) {
+    var buildConfig = {
       node: {
         fs: 'empty'
       },
@@ -32,13 +32,11 @@ module.exports = function(config) {
         publicPath: path.join(cwd, './.antwar/build'),
         libraryTarget: 'commonjs2'
       },
-      plugins: common.plugins.concat([
+      plugins: [
         new ExtractTextPlugin('[name].css', {
           allChunks: true
         })
-      ]),
-      resolve: common.resolve,
-      resolveLoader: common.resolveLoader,
+      ],
       module: {
         loaders: [
           {
@@ -51,11 +49,11 @@ module.exports = function(config) {
             test: /\.jsx$/,
             loader: 'babel',
             include: [
-              common.corePath,
+              commonConfig.corePath,
               cwd
             ],
             exclude: [
-              common.resolve.root
+              commonConfig.resolve.root
             ]
           },
           {
@@ -83,6 +81,6 @@ module.exports = function(config) {
       }
     };
 
-    return merge(common, siteConfig);
+    return merge(commonConfig, buildConfig, siteConfig);
   });
 };

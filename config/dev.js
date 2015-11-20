@@ -9,16 +9,16 @@ module.exports = function(config) {
   var siteConfig = config.webpack && config.webpack.development;
   siteConfig = siteConfig && siteConfig() || {};
 
-  return getCommon(config).then(function(common) {
+  return getCommon(config).then(function(commonConfig) {
     var includes = [
-      common.corePath,
+      commonConfig.corePath,
       cwd
     ];
     var excludes = [
-      common.resolve.root
+      commonConfig.resolve.root
     ];
 
-    var common = {
+    var devConfig = {
       cache: true,
       node: {
         __filename: true,
@@ -30,7 +30,6 @@ module.exports = function(config) {
         filename: '[name]-bundle.js',
         chunkFilename: '[chunkhash].js'
       },
-      plugins: common.plugins,
       module: {
         loaders: [
           {
@@ -82,11 +81,9 @@ module.exports = function(config) {
             exclude: excludes
           }
         ]
-      },
-      resolve: common.resolve,
-      resolveLoader: common.resolveLoader
+      }
     };
 
-    return merge(common, siteConfig);
+    return merge(commonConfig, devConfig, siteConfig);
   });
 };
