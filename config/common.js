@@ -43,6 +43,35 @@ module.exports = function(config) {
           'node_modules'
         ]
       },
+      module: {
+        // TODO: set up good include/exclude rules for these
+        loaders: [
+          {
+            test: /\.woff$/,
+            loader: 'url-loader?prefix=font/&limit=5000&mimetype=application/font-woff'
+          },
+          {
+            test: /\.ttf$|\.eot$/,
+            loader: 'file-loader?prefix=font/'
+          },
+          {
+            test: /\.json$/,
+            loader: 'json-loader'
+          },
+          {
+            test: /\.svg$/,
+            loader: 'raw-loader'
+          },
+          {
+            test: /\.html$/,
+            loader: 'raw'
+          },
+          {
+            test: /\.md$/,
+            loader: 'json!yaml-frontmatter-loader'
+          }
+        ]
+      },
       plugins: [
         new webpack.DefinePlugin({
           __DEV__: JSON.stringify(JSON.parse(config.buildDev)),

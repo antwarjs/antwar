@@ -60,22 +60,6 @@ module.exports = function(config) {
             test: /\.css$/,
             loader: ExtractTextPlugin.extract(
               'style-loader', 'css-loader')
-          },
-          {
-            test: /\.json$/,
-            loader: 'json-loader'
-          },
-          {
-            test: /\.html$/,
-            loader: 'raw'
-          },
-          {
-            test: /\.svg$/,
-            loader: 'raw'
-          },
-          {
-            test: /\.md$/,
-            loader: 'json!yaml-frontmatter-loader'
           }
         ]
       }

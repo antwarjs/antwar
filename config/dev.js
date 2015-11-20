@@ -33,30 +33,6 @@ module.exports = function(config) {
       module: {
         loaders: [
           {
-            test: /\.woff$/,
-            loader: 'url-loader?prefix=font/&limit=5000&mimetype=application/font-woff',
-            include: includes,
-            exclude: excludes
-          },
-          {
-            test: /\.ttf$|\.eot$/,
-            loader: 'file-loader?prefix=font/',
-            include: includes,
-            exclude: excludes
-          },
-          {
-            test: /\.json$/,
-            loader: 'json-loader'
-            //include: includes,
-            //exclude: excludes
-          },
-          {
-            test: /\.svg$/,
-            loader: 'raw-loader',
-            include: includes,
-            exclude: excludes
-          },
-          {
             test: /\.jsx$/,
             loaders: [
               'react-hot',
@@ -73,12 +49,6 @@ module.exports = function(config) {
             ],
             include: includes
             //exclude: excludes
-          },
-          {
-            test: /\.md$/,
-            loader: 'json!yaml-frontmatter-loader',
-            //include: includes,
-            exclude: excludes
           }
         ]
       }
