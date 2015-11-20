@@ -24,7 +24,7 @@ export default React.createClass({
   getSection(page, pathname, allPages) {
     const sectionTitle = page.section ? page.section : _.trim(pathname, '/');
     let section = config.paths[sectionTitle || '/'] || {};
-    section.title = sectionTitle;
+    section.title = section.title || sectionTitle;
 
     // allow access to all or just part if needed
     section.pages = function(name) {
