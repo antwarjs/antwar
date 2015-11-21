@@ -9,20 +9,12 @@ import config from 'config';
 export default (
   <Route>
     {__DEV__ && <Route path="antwar_devindex" component={DevIndex} />}
-    {_.map(config.paths, function(v, k) {
-      const pathRoutes = paths.getSectionPages(k).map(({url}) =>
-        <Route component={BodyContent} path={url} />
-      );
-
-      // possible root path needs to be after other paths. else it can match too early
-      if(k === '/') {
-        return pathRoutes;
-      }
-
-      return pathRoutes.concat([
-        <Route component={BodyContent} path={k} />
-      ]);
-    })}
-    {config.paths['/'] && <Route component={BodyContent} path="/" />}
+    <Route component={BodyContent}>
+      {_.map(config.paths, (v, k) =>
+        paths.getSectionPages(k).map(({url}) =>
+          <Route path={url} />
+        ).concat([<Route path={k} />])
+      )}
+    </Route>
   </Route>
 );
