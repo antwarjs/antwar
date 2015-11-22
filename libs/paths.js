@@ -37,7 +37,9 @@ function allPages() {
       });
     }
 
-    return (section.sort || defaultSort)(paths.concat(draftPaths));
+    return (section.inject || _.identity)(
+      (section.sort || defaultSort)(paths.concat(draftPaths))
+    );
   }));
 
   pages = pageHooks.preProcessPages(pages);
