@@ -66,6 +66,7 @@ function writePages(params, cb) {
         return cb(err);
       }
 
+      // XXXXX: figure out why this path might not exist
       var renderPage = require(_path.join(cwd, './.antwar/build/bundleStaticPage.js'));
 
       async.each(params.pages, function(page, cb) {
