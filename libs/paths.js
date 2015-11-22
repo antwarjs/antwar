@@ -137,9 +137,6 @@ function processPage(o, url, fileName, sectionName, section) {
     },
     url: function(o) {
       return o.sectionName + '/' + o.fileName.split('.')[0].toLowerCase();
-    },
-    layout: function(o) {
-      return layout;
     }
   }, siteFunctions, sectionFunctions);
 
