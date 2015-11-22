@@ -63,7 +63,6 @@ function allPages() {
 
   return ret;
 }
-
 exports.allPages = allPages;
 
 function defaultSort(files) {
