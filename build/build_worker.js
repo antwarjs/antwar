@@ -6,7 +6,6 @@ var async = require('async');
 var webpack = require('webpack');
 
 var utils = require('./utils');
-var webpackConfig = require('../config/build');
 
 var cwd = process.cwd();
 
@@ -52,55 +51,38 @@ function writeMain(params, cb) {
 
 function writePages(params, cb) {
   var cwd = process.cwd();
+  var renderPage = require(_path.join(cwd, './.antwar/build/bundleStaticPage.js'));
 
-  try {
-    var config = require(_path.join(cwd, 'antwar.config.js'));
-  }
-  catch(err) {
-    return cb(err);
-  }
+  async.each(params.pages, function(page, cb) {
+    // XXX: why page can be null?
+    if(page) {
+      // TODO: use user defined logger instead
+      console.log('Starting to write page', page.page);
 
-  webpackConfig(config).then(function(c) {
-    webpack(c, function(err) {
-      if(err) {
-        return cb(err);
-      }
+      renderPage(page.page, function(err, html) {
+        if(err) {
+          return cb(err);
+        }
 
-      // XXXXX: figure out why this path might not exist
-      var renderPage = require(_path.join(cwd, './.antwar/build/bundleStaticPage.js'));
+        write({
+          path: page.path,
+          data: html
+        }, function(err) {
+          if(err) {
+            return cb(err);
+          }
 
-      async.each(params.pages, function(page, cb) {
-        // XXX: why page can be null?
-        if(page) {
           // TODO: use user defined logger instead
-          console.log('Starting to write page', page.page);
+          console.log('Finished writing page', page.page);
 
-          renderPage(page.page, function(err, html) {
-            if(err) {
-              return cb(err);
-            }
-
-            write({
-              path: page.path,
-              data: html
-            }, function(err) {
-              if(err) {
-                return cb(err);
-              }
-
-              // TODO: use user defined logger instead
-              console.log('Finished writing page', page.page);
-
-              cb();
-            });
-          });
-        }
-        else {
           cb();
-        }
-      }, cb);
-    });
-  }).catch(cb);
+        });
+      });
+    }
+    else {
+      cb();
+    }
+  }, cb);
 }
 
 function write(params, cb) {
