@@ -3,7 +3,6 @@ var _fs = require('fs');
 var _path = require('path');
 
 var async = require('async');
-var webpack = require('webpack');
 
 var utils = require('./utils');
 
