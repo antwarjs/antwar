@@ -22,13 +22,14 @@ export default React.createClass({
     return render(page, {config, section, page, location}, section);
   },
   getSection(page, pathname, allPages) {
-    const sectionTitle = page.section ? page.section : _.trim(pathname, '/');
-    let section = config.paths[sectionTitle || '/'] || {};
-    section.title = section.title || sectionTitle;
+    const sectionName = page.section ? page.section : _.trim(pathname, '/');
+    let section = config.paths[sectionName || '/'] || {};
+    section.title = section.title || sectionName;
+    section.name = sectionName;
 
     // allow access to all or just part if needed
     section.pages = function(name) {
-      return paths.getSectionPages(name || sectionTitle, allPages);
+      return paths.getSectionPages(name || sectionName, allPages);
     };
 
     return section;
