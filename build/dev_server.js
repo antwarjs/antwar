@@ -11,8 +11,9 @@ module.exports = function(config) {
   const devConfigParams = {
     entry: {
       main: [
-        'webpack-dev-server/client?http://localhost:' + config.port,
-        'webpack/hot/dev-server',
+        // XXXXX: disabled for now - need to investigate what changed in webpack
+        //'webpack-dev-server/client?http://localhost:' + config.port,
+        //'webpack/hot/dev-server',
         path.join(__dirname, './dev_entry.js')
       ]
     },
