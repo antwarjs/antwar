@@ -25,6 +25,9 @@ module.exports = function(config) {
           {
             test: /\.jsx$/,
             loaders: ['babel?cacheDirectory'],
+            query: {
+              presets: ['es2015', 'react']
+            },
             include: commonConfig.includes
           },
           {
