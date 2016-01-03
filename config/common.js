@@ -59,6 +59,7 @@ module.exports = function(config) {
       includes: includes,
       module: {
         // TODO: set up good include/exclude rules for these
+        // TODO: drop these altogether (problematic with require.context)?
         loaders: [
           {
             test: /\.woff$/,
@@ -69,20 +70,12 @@ module.exports = function(config) {
             loaders: ['file?prefix=font/']
           },
           {
-            test: /\.json$/,
-            loaders: ['json']
-          },
-          {
             test: /\.svg$/,
             loaders: ['raw']
           },
           {
             test: /\.html$/,
             loaders: ['raw']
-          },
-          {
-            test: /\.md$/,
-            loaders: ['json', 'yaml-frontmatter']
           }
         ]
       },
