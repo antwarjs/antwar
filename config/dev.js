@@ -24,7 +24,7 @@ module.exports = function(config) {
         loaders: [
           {
             test: /\.jsx$/,
-            loaders: ['react-hot', 'babel'],
+            loaders: ['react-hot', 'babel?cacheDirectory'],
             include: commonConfig.includes
           },
           {
