@@ -70,6 +70,14 @@ module.exports = function(config) {
             loaders: ['file?prefix=font/']
           },
           {
+            test: /\.jpg$/,
+            loaders: ['file']
+          },
+          {
+            test: /\.png$/,
+            loaders: ['file']
+          },
+          {
             test: /\.svg$/,
             loaders: ['raw']
           },
