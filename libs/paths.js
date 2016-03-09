@@ -127,10 +127,10 @@ function processPage(o, url, fileName, sectionName, section) {
       var keywords = file.keywords || config.keywords || [];
 
       if(_.isString(keywords)) {
-        return keywords;
+        return keywords.split(',');
       }
 
-      return keywords.join(',');
+      return keywords;
     },
     title: function(o) {
       return o.file.title;
