@@ -3,6 +3,7 @@ var _fs = require('fs');
 var _path = require('path');
 
 var async = require('async');
+var mkdirp = require('mkdirp');
 
 var utils = require('./utils');
 
@@ -23,6 +24,9 @@ module.exports = function(o, cb) {
   }
   else if(o.task === 'write_pages') {
     writePages(o.params, cb);
+  }
+  else if(o.task === 'write_redirects') {
+    writeRedirects(o.params, cb);
   }
   else {
     cb();
@@ -81,6 +85,26 @@ function writePages(params, cb) {
     else {
       cb();
     }
+  }, cb);
+}
+
+function writeRedirects(params, cb) {
+  async.each(params.redirects, function(redirect, cb) {
+    var from = redirect.from;
+    var to = redirect.to;
+
+    console.log('Writing redirect', from, to);
+
+    mkdirp(from, function(err) {
+      if(err) {
+        return cb(err);
+      }
+
+      write({
+        path: _path.join(from, 'index.html'),
+        data: '<meta http-equiv="refresh" content="0; url=' + to + '">\n<link rel="canonical" href="' + to + '" />'
+      }, cb);
+    });
   }, cb);
 }
 

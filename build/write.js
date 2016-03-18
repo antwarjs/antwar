@@ -158,4 +158,18 @@ exports.pages = function(o, cb) {
   });
 };
 
+exports.redirects = function(o, cb) {
+  cb(null, {
+    task: 'write_redirects',
+    params: {
+      redirects: utils.calculateRedirects(o.config.paths).map(function(d) {
+        return {
+          from: _path.join(o.output, d.from),
+          to: '/' + d.to
+        };
+      })
+    }
+  });
+};
+
 function id(a) {return a;}

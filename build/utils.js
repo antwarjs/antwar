@@ -1,6 +1,8 @@
 'use strict';
+var assert = require('assert');
 var fs = require('fs');
 var path = require('path');
+var _ = require('lodash');
 
 var async = require('async');
 var cpr = require('cpr');
@@ -33,3 +35,31 @@ exports.copyIfExists = function(from, to, cb) {
     }
   });
 };
+
+function calculateRedirects(paths) {
+  return [].concat.apply([], _.map(paths, function(values, path) {
+    return _.map(values.redirects, function(v, k) {
+      return {
+        from: path + '/' + k,
+        to: path + '/' + v
+      };
+    }).filter(_.identity);
+  }));
+}
+
+exports.calculateRedirects = calculateRedirects;
+
+// TODO: push to separate tests
+assert.deepEqual(calculateRedirects({
+  foo: {},
+  demo: {
+    redirects: {
+      foo: 'bar'
+    }
+  }
+}), [
+  {
+    from: 'demo/foo',
+    to: 'demo/bar'
+  }
+]);

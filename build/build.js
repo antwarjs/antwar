@@ -63,7 +63,8 @@ module.exports = function(config) {
               write.extraAssets.bind(null, params),
               write.indices.bind(null, params),
               write.extras.bind(null, params, extraFiles),
-              write.pages.bind(null, params)
+              write.pages.bind(null, params),
+              write.redirects.bind(null, params)
             ], function(err, tasks) {
               if(err) {
                 return reject(err);
