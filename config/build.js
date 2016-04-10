@@ -41,8 +41,9 @@ module.exports = function(config) {
         loaders: [
           {
             test: /\.js$/,
-            loader: 'babel?cacheDirectory',
+            loader: 'babel',
             query: {
+              cacheDirectory: true,
               presets: ['es2015', 'react']
             },
             include: path.join(__dirname, '..'),
