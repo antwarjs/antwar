@@ -3,7 +3,7 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var Router = require('react-router');
 var History = require('history');
-var Routes = require('antwar-core/Routes');
+var Routes = require('../components/Routes');
 
 const history = History.createHistory();
 const container = document.getElementById('dev-container');
