@@ -13,10 +13,12 @@ module.exports = function(config) {
 
   return new Promise(function(resolve, reject) {
     webpackConfig(config).then(function(c) {
-      webpack(c, function(err) {
+      webpack(c, function(err, stats) {
         if(err) {
           return reject(err);
         }
+
+        // TODO: dig build errors from stats.compilation.modules
 
         var buildDir = _path.join(process.cwd(), './.antwar/build');
         var renderPage = require(_path.join(buildDir, 'bundleStaticPage.js'));
