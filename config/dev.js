@@ -27,7 +27,10 @@ module.exports = function(config) {
             loader: 'babel',
             query: {
               cacheDirectory: true,
-              presets: ['es2015', 'react']
+              presets: [
+                require.resolve('babel-preset-es2015'),
+                require.resolve('babel-preset-react')
+              ]
             },
             include: commonConfig.includes
           },
