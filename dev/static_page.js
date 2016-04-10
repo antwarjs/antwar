@@ -24,7 +24,7 @@ module.exports = function(url, cb) {
 
       cb(
         null,
-        ReactDOMServer.renderToStaticMarkup(<Router.RoutingContext {...renderProps} />)
+        ReactDOMServer.renderToStaticMarkup(<Router.RouterContext {...renderProps} />)
       );
     }
   );
