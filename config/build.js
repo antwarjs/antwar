@@ -54,9 +54,13 @@ module.exports = function(config) {
           },
           {
             test: /\.jsx$/,
-            loader: 'babel?cacheDirectory',
+            loader: 'babel',
             query: {
-              presets: ['es2015', 'react']
+              cacheDirectory: true,
+              presets: [
+                require.resolve('babel-preset-es2015'),
+                require.resolve('babel-preset-react')
+              ]
             },
             include: commonConfig.includes,
             exclude: path.join(commonConfig.parent, 'node_modules')
