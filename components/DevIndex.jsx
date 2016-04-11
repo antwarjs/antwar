@@ -1,7 +1,7 @@
 import React from 'react';
 import config from 'config';
 
-export default ({location}) => {
+const DevIndex = ({location}) => {
   const props = {
     config,
     section: {
@@ -18,3 +18,6 @@ export default ({location}) => {
     </Body>
   );
 };
+DevIndex.displayName = 'DevIndex';
+
+export default DevIndex;
