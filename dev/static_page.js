@@ -3,7 +3,7 @@ var React = require('react');
 var ReactDOMServer = require('react-dom/server');
 var Router = require('react-router');
 var History = require('history');
-var Routes = require('../components/Routes');
+var Routes = require('../components/Routes').default;
 
 module.exports = function(url, cb) {
   const history = History.createMemoryHistory();
