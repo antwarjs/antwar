@@ -24,7 +24,7 @@ module.exports = function(url, cb) {
 
       cb(
         null,
-        ReactDOMServer.renderToString(<Router.RouterContext {...renderProps} />)
+        ReactDOMServer.renderToString(<Router.RoutingContext {...renderProps} />)
       );
     }
   );
