@@ -35,7 +35,12 @@ export default React.createClass({
     return section;
   },
   renderBody(page, props, section) {
-    const Body = config.layout();
+    let Body = config.layout();
+
+    // ES6 tweak
+    if(Body.default) {
+      Body = Body.default;
+    }
 
     return <Body {...props}>{this.renderSection(page, props, section)}</Body>
   },
