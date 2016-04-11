@@ -22,6 +22,11 @@ module.exports = function(url, cb) {
         console.warn('staticPage - missing render props!', url);
       }
 
+      if(!error && !redirectLocation && !renderProps) {
+        console.warn(url, location);
+        return cb(new Error('No route matching the current location was found!'));
+      }
+
       cb(
         null,
         ReactDOMServer.renderToStaticMarkup(<Router.RouterContext {...renderProps} />)
