@@ -24,5 +24,8 @@ const DevIndex = ({location}) => {
   );
 };
 DevIndex.displayName = 'DevIndex';
+DevIndex.propTypes = {
+  location: React.PropTypes.object
+}
 
 export default DevIndex;
