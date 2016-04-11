@@ -10,7 +10,12 @@ const DevIndex = ({location}) => {
     page: {},
     location
   };
-  const Body = config.layout();
+  let Body = config.layout();
+
+  // ES6 adaptation
+  if(Body.default) {
+    Body = Body.default;
+  }
 
   return (
     <Body {...props}>
