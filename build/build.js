@@ -52,7 +52,7 @@ module.exports = function(config) {
             }
 
             // Extras
-            var pluginExtras = _.pluck(config.plugins, 'extra').filter(_.identity);
+            var pluginExtras = _.map(config.plugins, 'extra').filter(_.identity);
             var extraFiles = _.map(pluginExtras, function(plugin) {
               return plugin(params.allPaths, config);
             });
