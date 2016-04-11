@@ -20,12 +20,17 @@ module.exports = function(url, cb) {
 
       if(!error && !redirectLocation && !renderProps) {
         console.warn(url, location);
-        return cb(new Error('No route matching the current location was found!'));
+
+        return cb(
+          new Error('No route matching the current location was found!')
+        );
       }
 
       cb(
         null,
-        ReactDOMServer.renderToStaticMarkup(<Router.RouterContext {...renderProps} />)
+        ReactDOMServer.renderToStaticMarkup(
+          <Router.RouterContext {...renderProps} />
+        )
       );
     }
   );
