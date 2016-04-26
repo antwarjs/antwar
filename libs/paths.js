@@ -25,8 +25,11 @@ exports.getSectionPages = getSectionPages;
 function allPages() {
   var pages = [].concat.apply([], _.keys(config.paths).map(function(sectionName) {
     var section = config.paths[sectionName];
+    var paths = [];
 
-    var paths = parseModules(sectionName, section, section.path());
+    if(_.isFunction(section.path)) {
+      paths = parseModules(sectionName, section, section.path());
+    }
 
     var draftPaths = [];
     if(__DEV__ && section.draft) {
