@@ -39,8 +39,19 @@ exports.copyIfExists = function(from, to, cb) {
 function calculateRedirects(paths) {
   return [].concat.apply([], _.map(paths, function(values, path) {
     return _.map(values.redirects, function(v, k) {
+      const from = path + '/' + k;
+
+      // Redirect to any other section
+      if(v[0] === '/') {
+        return {
+          from : from,
+          to: v.slice(1) // strip /
+        };
+      }
+
+      // Redirect to the same section
       return {
-        from: path + '/' + k,
+        from: from,
         to: path + '/' + v
       };
     }).filter(_.identity);
