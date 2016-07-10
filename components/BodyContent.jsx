@@ -1,6 +1,7 @@
 import React from 'react';
 import config from 'config';
 import paths from '../libs/paths';
+import _ from 'lodash';
 
 export default React.createClass({
   displayName: 'BodyContent',
