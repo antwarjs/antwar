@@ -1,4 +1,3 @@
-'use strict';
 var _path = require('path');
 
 var _ = require('lodash');
