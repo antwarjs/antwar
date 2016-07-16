@@ -1,4 +1,3 @@
-'use strict';
 var assert = require('assert');
 var fs = require('fs');
 var path = require('path');
@@ -39,7 +38,7 @@ exports.copyIfExists = function(from, to, cb) {
 function calculateRedirects(paths) {
   return [].concat.apply([], _.map(paths, function(values, path) {
     return _.map(values.redirects, function(v, k) {
-      const from = path + '/' + k;
+      var from = path + '/' + k;
 
       // Redirect to any other section
       if(v[0] === '/') {
