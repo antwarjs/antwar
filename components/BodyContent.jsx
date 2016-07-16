@@ -24,7 +24,8 @@ export default React.createClass({
   },
   getSection(page, pathname, allPages) {
     const sectionName = page.section ? page.section : _.trim(pathname, '/');
-    let section = config.paths[sectionName || '/'] || {};
+    let section = config.paths[sectionName || '/'] || config.paths['/'] || {};
+
     section.title = section.title || sectionName;
     section.name = sectionName;
 
