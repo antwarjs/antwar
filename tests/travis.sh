@@ -1,8 +1,8 @@
 #!/bin/bash
 set -e # exit with nonzero exit code if anything fails
 
-# install antwar so that the cli can find it
-npm i -g
+# set current directory to NODE_PATH so cli can find antwar
+export NODE_PATH="./:$NODE_PATH"
 
 # clear and re-create the test directory
 rm -rf test || exit 0
