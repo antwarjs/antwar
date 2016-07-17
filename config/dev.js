@@ -19,28 +19,6 @@ module.exports = function(config) {
         publicPath: '/',
         filename: '[name]-bundle.js',
         chunkFilename: '[chunkhash].js'
-      },
-      module: {
-        loaders: [
-          {
-            test: /\.jsx$/,
-            loader: 'babel',
-            query: {
-              cacheDirectory: true,
-              compact: true,
-              presets: [
-                require.resolve('babel-preset-es2015'),
-                require.resolve('babel-preset-react')
-              ]
-            },
-            include: commonConfig.includes
-          },
-          {
-            test: /\.css$/,
-            loaders: ['style', 'css'],
-            include: commonConfig.includes
-          }
-        ]
       }
     };
 

@@ -9,25 +9,23 @@ module.exports = function(config) {
   return new Promise(function(resolve, reject) {
     var cwd = process.cwd();
     var parent = path.join(__dirname, '..');
-
-    var siteConfig = config.webpack && config.webpack.common;
-    siteConfig = siteConfig || {};
-
-    var corePath = path.join(parent, 'components');
-
-    var cwd = process.cwd();
     var paths = {
       assets: path.join(cwd, 'assets'),
       config: path.join(cwd, 'antwar.config.js'),
       core: path.join(parent, 'components'),
       cwd: cwd,
+      dev: path.join(parent, 'dev'),
       parent: path.join(__dirname, '..')
-    }
-
+    };
     var includes = [
       paths.core,
-      paths.cwd
+      paths.dev
     ];
+
+    var siteConfig = config.webpack && config.webpack.common;
+    siteConfig = siteConfig ? siteConfig({
+      includes: includes
+    }) : {};
 
     var common = {
       parent: parent,

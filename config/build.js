@@ -7,6 +7,8 @@ module.exports = function(config) {
   var getCommon = require('./common');
   var cwd = process.cwd();
 
+  // XXX: factor webpack configuration so that extract-text-plugin
+  // dependency can be dropped from here (antwar.webpack.js)
   var siteConfig = config.webpack && config.webpack.build;
   siteConfig = siteConfig && siteConfig({
     ExtractTextPlugin: ExtractTextPlugin
@@ -31,47 +33,6 @@ module.exports = function(config) {
         filename: '[name].js',
         publicPath: path.join(cwd, './.antwar/build'),
         libraryTarget: 'commonjs2'
-      },
-      plugins: [
-        new ExtractTextPlugin('[name].css', {
-          allChunks: true
-        })
-      ],
-      module: {
-        loaders: [
-          {
-            test: /\.js$/,
-            loader: 'babel',
-            query: {
-              cacheDirectory: true,
-              compact: true,
-              presets: [
-                require.resolve('babel-preset-es2015'),
-                require.resolve('babel-preset-react')
-              ]
-            },
-            include: path.join(__dirname, '..'),
-            exclude: path.join(__dirname, '..', 'node_modules')
-          },
-          {
-            test: /\.jsx$/,
-            loader: 'babel',
-            query: {
-              cacheDirectory: true,
-              compact: true,
-              presets: [
-                require.resolve('babel-preset-es2015'),
-                require.resolve('babel-preset-react')
-              ]
-            },
-            include: commonConfig.includes,
-            exclude: path.join(commonConfig.parent, 'node_modules')
-          },
-          {
-            test: /\.css$/,
-            loader: ExtractTextPlugin.extract('style', 'css')
-          }
-        ]
       }
     };
 
