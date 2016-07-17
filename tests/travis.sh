@@ -4,9 +4,6 @@ set -e # exit with nonzero exit code if anything fails
 # set current directory to NODE_PATH so cli can find antwar
 export NODE_PATH="./:$NODE_PATH"
 
-# link the library so cli can find it
-#npm link
-
 # clear and re-create the test directory
 rm -rf test || exit 0
 mkdir test
