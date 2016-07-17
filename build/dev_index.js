@@ -17,7 +17,10 @@ module.exports = function(config) {
           return reject(err);
         }
 
-        // TODO: dig build errors from stats.compilation.modules
+        if(stats.hasErrors()) {
+          // TODO: dig build errors from stats.compilation.modules
+          return reject(stats.toString('errors-only'));
+        }
 
         var buildDir = _path.join(process.cwd(), './.antwar/build');
         var renderPage = require(_path.join(buildDir, 'bundleStaticPage.js'));
