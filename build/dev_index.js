@@ -18,7 +18,6 @@ module.exports = function(config) {
         }
 
         if(stats.hasErrors()) {
-          // TODO: dig build errors from stats.compilation.modules
           return reject(stats.toString('errors-only'));
         }
 
