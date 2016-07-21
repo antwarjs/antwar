@@ -4,9 +4,6 @@ var merge = require('webpack-merge');
 var getCommon = require('./common');
 
 module.exports = function(config) {
-  var siteConfig = config.webpack && config.webpack.development;
-  siteConfig = siteConfig && siteConfig() || {};
-
   return getCommon(config).then(function(commonConfig) {
     var devConfig = {
       cache: true,
@@ -22,6 +19,6 @@ module.exports = function(config) {
       }
     };
 
-    return merge(commonConfig, devConfig, siteConfig);
+    return merge(commonConfig, devConfig, config.webpack);
   });
 };

@@ -7,13 +7,6 @@ module.exports = function(config) {
   var getCommon = require('./common');
   var cwd = process.cwd();
 
-  // XXX: factor webpack configuration so that extract-text-plugin
-  // dependency can be dropped from here (antwar.webpack.js)
-  var siteConfig = config.webpack && config.webpack.build;
-  siteConfig = siteConfig && siteConfig({
-    ExtractTextPlugin: ExtractTextPlugin
-  }) || {};
-
   config.buildDev = config.buildDev || 0;
 
   return getCommon(config).then(function(commonConfig) {
@@ -36,6 +29,6 @@ module.exports = function(config) {
       }
     };
 
-    return merge(commonConfig, buildConfig, siteConfig);
+    return merge(commonConfig, buildConfig);
   });
 };

@@ -10,7 +10,7 @@ module.exports = function(config) {
   const devConfigParams = {
     entry: {
       main: [
-        'webpack-dev-server/client?http://localhost:' + config.port,
+        'webpack-dev-server/client?http://localhost:' + config.antwar.port,
         'webpack/hot/dev-server',
         path.join(__dirname, './dev_entry.js')
       ]
@@ -25,7 +25,7 @@ module.exports = function(config) {
   };
 
   return devConfig(config).then(function(c) {
-    runServer(config, merge(c, devConfigParams));
+    runServer(config.antwar, merge(c, devConfigParams));
   });
 }
 

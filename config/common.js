@@ -11,6 +11,7 @@ module.exports = function(config) {
     var parent = path.join(__dirname, '..');
     var paths = {
       assets: path.join(cwd, 'assets'),
+      // XXX: not correct if the user changes the default
       config: path.join(cwd, 'antwar.config.js'),
       core: path.join(parent, 'components'),
       cwd: cwd,
@@ -21,11 +22,6 @@ module.exports = function(config) {
       paths.core,
       paths.dev
     ];
-
-    var siteConfig = config.webpack && config.webpack.common;
-    siteConfig = siteConfig ? siteConfig({
-      includes: includes
-    }) : {};
 
     var common = {
       parent: parent,
@@ -55,36 +51,6 @@ module.exports = function(config) {
         ]
       },
       includes: includes,
-      module: {
-        // TODO: set up good include/exclude rules for these
-        // TODO: drop these altogether (problematic with require.context)?
-        loaders: [
-          {
-            test: /\.woff$/,
-            loaders: ['url?prefix=font/&limit=5000&mimetype=application/font-woff']
-          },
-          {
-            test: /\.ttf$|\.eot$/,
-            loaders: ['file?prefix=font/']
-          },
-          {
-            test: /\.jpg$/,
-            loaders: ['file']
-          },
-          {
-            test: /\.png$/,
-            loaders: ['file']
-          },
-          {
-            test: /\.svg$/,
-            loaders: ['raw']
-          },
-          {
-            test: /\.html$/,
-            loaders: ['raw']
-          }
-        ]
-      },
       plugins: [
         new webpack.DefinePlugin({
           __DEV__: JSON.stringify(JSON.parse(config.buildDev)),
@@ -98,6 +64,6 @@ module.exports = function(config) {
       ]
     };
 
-    resolve(merge(common, siteConfig));
+    resolve(common);
   });
 };

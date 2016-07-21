@@ -2,6 +2,7 @@ var _path = require('path');
 
 var _ = require('lodash');
 var async = require('async');
+var merge = require('webpack-merge');
 var mkdirp = require('mkdirp');
 var rimraf = require('rimraf');
 var webpack = require('webpack');
@@ -14,15 +15,15 @@ var write = require('./write');
 
 module.exports = function(config) {
   return new Promise(function(resolve, reject) {
-    var output = config.output;
-    var log = config.console.log;
+    var output = config.antwar.output;
+    var log = config.antwar.console.log;
 
     if(!output) {
       return reject(new Error('Missing output directory'));
     }
 
-    webpackConfig(config).then(function(c) {
-      webpack(c, function(err) {
+    webpackConfig(config.webpack).then(function(c) {
+      webpack(merge(c, config.webpack), function(err) {
         if(err) {
           return reject(err);
         }
@@ -33,7 +34,7 @@ module.exports = function(config) {
           renderPage: require(_path.join(cwd, './.antwar/build/bundleStaticPage.js')),
           allPaths: require(_path.join(cwd, './.antwar/build/paths.js'))(),
           output: _path.join(cwd, output),
-          config: config
+          config: config.antwar
         };
 
         log('Removing old output directory');
@@ -51,9 +52,9 @@ module.exports = function(config) {
             }
 
             // Extras
-            var pluginExtras = _.map(config.plugins, 'extra').filter(_.identity);
+            var pluginExtras = _.map(config.antwar.plugins, 'extra').filter(_.identity);
             var extraFiles = _.map(pluginExtras, function(plugin) {
-              return plugin(params.allPaths, config);
+              return plugin(params.allPaths, config.antwar);
             });
 
             // get functions to execute

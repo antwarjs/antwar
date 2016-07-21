@@ -2,6 +2,7 @@ var fs = require('fs');
 var _path = require('path');
 
 var async = require('async');
+var merge = require('webpack-merge');
 var webpack = require('webpack');
 
 var webpackConfig = require('../config/build');
@@ -12,7 +13,7 @@ module.exports = function(config) {
 
   return new Promise(function(resolve, reject) {
     webpackConfig(config).then(function(c) {
-      webpack(c, function(err, stats) {
+      webpack(merge(c, config.webpack), function(err, stats) {
         if(err) {
           return reject(err);
         }
@@ -39,7 +40,7 @@ module.exports = function(config) {
             });
           },
           utils.copyIfExists.bind(null, './assets', _path.join(buildDir, 'assets')),
-          utils.copyExtraAssets.bind(null, buildDir, config.assets)
+          utils.copyExtraAssets.bind(null, buildDir, config.antwar.assets)
         ], function(err) {
           if(err) {
             return reject(err);
