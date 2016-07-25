@@ -1,7 +1,6 @@
 'use strict';
 var path = require('path');
 var merge = require('webpack-merge');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = function(config) {
   var getCommon = require('./common');
