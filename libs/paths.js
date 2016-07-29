@@ -92,8 +92,10 @@ function pageForPath(path, allPaths) {
     return pages['/index'] || {};
   }
 
-  // latter is needed by root pages!
-  return pages[_.trim(path, '/')] || pages[path] || {};
+  return pages[_.trim(path, '/')] ||
+    pages[path] || // middle one is needed by root pages!
+    pages[_.trim(path, '/') + '/index'] ||
+    {};
 }
 exports.pageForPath = pageForPath;
 
