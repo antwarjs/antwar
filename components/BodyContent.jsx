@@ -3,67 +3,73 @@ import config from 'config';
 import paths from '../libs/paths';
 import _ from 'lodash';
 
-export default React.createClass({
-  displayName: 'BodyContent',
-  propTypes: {
-    location: React.PropTypes.object
-  },
-  render: function() {
-    config.style && config.style();
+const BodyContent = ({ location, }) => {
+  config.style && config.style();
 
-    const allPages = paths.allPages();
-    const location = this.props.location;
-    const page = paths.pageForPath(location.pathname, allPages);
-    const section = this.getSection(page, location.pathname, allPages);
+  const allPages = paths.allPages();
+  const page = paths.pageForPath(location.pathname, allPages);
+  const section = getSection(page, location.pathname, allPages);
 
-    // skip rendering body during dev, in that case it's up DevIndex
-    // to take control of that
-    const render = __DEV__ ? this.renderSection : this.renderBody;
+  // skip rendering body during dev, in that case it's up DevIndex
+  // to take control of that
+  const render = __DEV__ ? renderSection : renderBody;
 
-    return render(page, {config, section, page, location}, section);
-  },
-  getSection(page, pathname, allPages) {
-    const sectionName = page.section ? page.section : _.trim(pathname, '/');
-    let section = config.paths[sectionName || '/'] || config.paths['/'] || {};
+  return render(
+    page,
+    {config, section, page, location},
+    section
+  );
+};
+BodyContent.propTypes = {
+  location: React.PropTypes.object
+};
 
-    section.title = section.title || sectionName;
-    section.name = sectionName;
+function getSection(page, pathname, allPages) {
+  const sectionName = page.section ? page.section : _.trim(pathname, '/');
+  let section = config.paths[sectionName || '/'] || config.paths['/'] || {};
 
-    // allow access to all or just part if needed
-    section.pages = function(name) {
-      return paths.getSectionPages(name || sectionName, allPages);
-    };
+  section.title = section.title || sectionName;
+  section.name = sectionName;
 
-    return section;
-  },
-  renderBody(page, props, section) {
-    let Body = config.layout();
+  // allow access to all or just part if needed
+  section.pages = function(name) {
+    return paths.getSectionPages(name || sectionName, allPages);
+  };
 
-    // ES6 tweak
-    if(Body.default) {
-      Body = Body.default;
-    }
+  return section;
+}
 
-    return <Body {...props}>{this.renderSection(page, props, section)}</Body>
-  },
-  renderSection(page, props, section) {
-    // index doesn't have layouts
-    if(!section.layouts) {
-      return this.renderPage(page, props);
-    }
+function renderBody(page, props, section) {
+  let Body = config.layout();
 
-    // sections don't have page metadata
-    if(_.isEmpty(page)) {
-      return React.createFactory(section.layouts['index']())(props);
-    }
-
-    // ok, got a page now. render it using a page template
-    return React.createFactory(section.layouts['page']())(
-      props,
-      this.renderPage(page, props)
-    );
-  },
-  renderPage(page, props) {
-    return _.isPlainObject(page) ? 'div' : React.createFactory(page)(props);
+  // ES6 tweak
+  if(Body.default) {
+    Body = Body.default;
   }
-});
+
+  return <Body {...props}>{renderSection(page, props, section)}</Body>
+}
+
+function renderSection(page, props, section) {
+  // index doesn't have layouts
+  if(!section.layouts) {
+    return renderPage(page, props);
+  }
+
+  // sections don't have page metadata
+  if(_.isEmpty(page)) {
+    return React.createFactory(section.layouts['index']())(props);
+  }
+
+  // ok, got a page now. render it using a page template
+  return React.createFactory(section.layouts['page']())(
+    props,
+    renderPage(page, props)
+  );
+}
+
+function renderPage(page, props) {
+  return _.isPlainObject(page) ? 'div' : React.createFactory(page)(props);
+}
+
+export default BodyContent;
