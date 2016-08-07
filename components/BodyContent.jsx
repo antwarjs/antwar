@@ -3,7 +3,7 @@ import config from 'config';
 import paths from '../libs/paths';
 import _ from 'lodash';
 
-const BodyContent = ({ location, }) => {
+const BodyContent = ({ location }) => {
   config.style && config.style();
 
   const allPages = paths.allPages();
