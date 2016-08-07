@@ -10,7 +10,6 @@ var utils = require('./utils');
 
 exports.assets = function(o, cb) {
   var assetsDir = _path.join(o.output, 'assets');
-  var mainPath = './.antwar/build/bundlePage.css';
   var log = o.config.console.log;
   var info = o.config.console.info;
 
@@ -27,13 +26,6 @@ exports.assets = function(o, cb) {
       {
         task: 'copy_assets',
         params: [_path.join(o.cwd, 'assets'), assetsDir]
-      },
-      {
-        task: 'write_main',
-        params: {
-          assetsDir: assetsDir,
-          mainPath: mainPath
-        }
       }
     ]);
   });

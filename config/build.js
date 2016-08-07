@@ -16,7 +16,6 @@ module.exports = function(config) {
       name: 'server',
       target: 'node',
       entry: {
-        bundlePage: path.join(__dirname, '../dev/page.js'),
         bundleStaticPage: path.join(__dirname, '../dev/static_page.js'),
         paths: path.join(__dirname, '../dev/export_paths.js')
       },
