@@ -9,11 +9,13 @@ function getSectionPages(sectionName, allPaths) {
   var pages = allPaths || allPages();
 
   if(sectionName === '/') {
-    return _.uniq(config.paths['/'].path().keys().map((k) => {
-      return {
-        url: _.trim(k.split('.')[1], '/')
-      };
-    }));
+    return _.uniq(config.paths['/'].path().keys().map(
+      function (k) {
+        return {
+          url: _.trim(k.split('.')[1], '/')
+        };
+      }
+    ));
   }
 
   return _.filter(pages, function(page) {
@@ -86,7 +88,7 @@ function parseModules(sectionName, section, modules) {
 }
 
 function pageForPath(path, allPaths) {
-  const pages = allPaths || allPages();
+  var pages = allPaths || allPages();
 
   if(path === '/') {
     return pages['/index'] || {};

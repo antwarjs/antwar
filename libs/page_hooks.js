@@ -10,9 +10,9 @@ module.exports = {
 
 // XXX: drop deprecated bit in the future
 function process(prefix, pages) {
-  const oldFn = prefix + 'Items';
-  const newFn = prefix + 'Pages';
-  let itemFunctions = getFunctions(oldFn);
+  var oldFn = prefix + 'Items';
+  var newFn = prefix + 'Pages';
+  var itemFunctions = getFunctions(oldFn);
 
   if(itemFunctions.length) {
     console.warn(oldFn + ' has been deprecated, use ' + newFn + ' instead');
