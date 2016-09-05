@@ -1,12 +1,11 @@
-var path = require('path');
+/* eslint-disable no-console */
+const path = require('path');
+const merge = require('webpack-merge');
+const webpack = require('webpack');
+const WebpackDevServer = require('webpack-dev-server');
+const devConfig = require('../config/dev');
 
-var merge = require('webpack-merge');
-var webpack = require('webpack');
-
-var WebpackDevServer = require('webpack-dev-server');
-var devConfig = require('../config/dev');
-
-module.exports = function(config) {
+module.exports = function (config) {
   const devConfigParams = {
     entry: {
       main: [
@@ -24,10 +23,10 @@ module.exports = function(config) {
     debug: true
   };
 
-  return devConfig(config).then(function(c) {
+  return devConfig(config).then(function (c) {
     runServer(config.antwar, merge(c, devConfigParams));
   });
-}
+};
 
 function runServer(siteConfig, webpackConfig) {
   const port = siteConfig.port;
@@ -38,11 +37,11 @@ function runServer(siteConfig, webpackConfig) {
     hot: true,
     historyApiFallback: true,
     stats: 'errors-only'
-  }).listen(port, function(err) {
-    if(err) {
+  }).listen(port, function (err) {
+    if (err) {
       return console.error(err);
     }
 
-    console.info('Listening at port ' + port);
+    return console.info('Listening at port ' + port);
   });
 }

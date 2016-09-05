@@ -1,10 +1,10 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
-var Router = require('react-router');
-var History = require('history');
-var Routes = require('../components/Routes').default;
+const React = require('react');
+const ReactDOM = require('react-dom');
+const Router = require('react-router');
+const History = require('history');
+const Routes = require('../components/Routes').default;
 
-const appHistory = Router.useRouterHistory(History.createHistory)()
+const appHistory = Router.useRouterHistory(History.createHistory)();
 const container = document.getElementById('dev-container');
 
 ReactDOM.render(React.createElement(

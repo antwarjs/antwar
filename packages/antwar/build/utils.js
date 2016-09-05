@@ -1,60 +1,57 @@
-var assert = require('assert');
-var fs = require('fs');
-var path = require('path');
-var _ = require('lodash');
+const assert = require('assert');
+const fs = require('fs');
+const _path = require('path');
+const _ = require('lodash');
 
-var async = require('async');
-var cpr = require('cpr');
-var cp = require('cp');
+const async = require('async');
+const cpr = require('cpr');
+const cp = require('cp');
 
+exports.copyExtraAssets = function (buildDir, assets = [], finalCb) {
+  async.forEach(assets, function (asset, cb) {
+    const from = asset.from;
+    const stats = fs.statSync(from);
 
-exports.copyExtraAssets = function(buildDir, assets, cb) {
-  assets = assets || [];
-
-  async.forEach(assets, function(asset, cb) {
-    var from = asset.from;
-    var stats = fs.statSync(from);
-
-    if(from.indexOf('./') === 0 && stats.isFile()) {
-        cp(from, path.join(buildDir, asset.to, from), cb);
+    if (from.indexOf('./') === 0 && stats.isFile()) {
+      cp(from, _path.join(buildDir, asset.to, from), cb);
+    } else {
+      cpr(from, _path.join(buildDir, asset.to), cb);
     }
-    else {
-        cpr(from, path.join(buildDir, asset.to), cb);
-    }
-  }, cb);
+  }, finalCb);
 };
 
-exports.copyIfExists = function(from, to, cb) {
-  fs.exists(from, function(exists) {
-    if(exists) {
+exports.copyIfExists = function (from, to, cb) {
+  fs.exists(from, function (exists) {
+    if (exists) {
       cpr(from, to, cb);
-    }
-    else {
+    } else {
       cb();
     }
   });
 };
 
 function calculateRedirects(paths) {
-  return [].concat.apply([], _.map(paths, function(values, path) {
-    return _.map(values.redirects, function(v, k) {
-      var from = path + '/' + k;
+  return [].concat // eslint-disable-line prefer-spread
+    .apply([], _.map(paths, function (values, path) {
+      return _.map(values.redirects, function (v, k) {
+        const from = path + '/' + k;
 
-      // Redirect to any other section
-      if(v[0] === '/') {
+        // Redirect to any other section
+        if (v[0] === '/') {
+          return {
+            from,
+            to: v.slice(1) // strip /
+          };
+        }
+
+        // Redirect to the same section
         return {
-          from : from,
-          to: v.slice(1) // strip /
+          from,
+          to: path + '/' + v
         };
-      }
-
-      // Redirect to the same section
-      return {
-        from: from,
-        to: path + '/' + v
-      };
-    }).filter(_.identity);
-  }));
+      }).filter(_.identity);
+    })
+  );
 }
 
 exports.calculateRedirects = calculateRedirects;

@@ -1,7 +1,7 @@
 import React from 'react';
 import config from 'config';
 
-const DevIndex = ({location}) => {
+const DevIndex = ({ location }) => {
   const props = {
     config,
     section: {
@@ -13,7 +13,7 @@ const DevIndex = ({location}) => {
   let Body = config.layout();
 
   // ES6 adaptation
-  if(Body.default) {
+  if (Body.default) {
     Body = Body.default;
   }
 
@@ -26,6 +26,6 @@ const DevIndex = ({location}) => {
 DevIndex.displayName = 'DevIndex';
 DevIndex.propTypes = {
   location: React.PropTypes.object
-}
+};
 
 export default DevIndex;

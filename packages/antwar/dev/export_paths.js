@@ -1,7 +1,6 @@
-'use strict';
-var paths = require('../libs/paths');
+const paths = require('../libs/paths');
 
-module.exports = function() {
+module.exports = function () {
   return {
     pages: paths.allPages()
   };

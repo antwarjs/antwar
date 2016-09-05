@@ -1,36 +1,36 @@
-var _path = require('path');
+const _path = require('path');
 
-var _ = require('lodash');
-var async = require('async');
-var merge = require('webpack-merge');
-var mkdirp = require('mkdirp');
-var rimraf = require('rimraf');
-var webpack = require('webpack');
+const _ = require('lodash');
+const async = require('async');
+const merge = require('webpack-merge');
+const mkdirp = require('mkdirp');
+const rimraf = require('rimraf');
+const webpack = require('webpack');
+const workerFarm = require('worker-farm');
 
-var workerFarm = require('worker-farm');
-var workers = workerFarm(require.resolve('./build_worker'));
+const workers = workerFarm(require.resolve('./build_worker'));
 
-var webpackConfig = require('../config/build');
-var write = require('./write');
+const webpackConfig = require('../config/build');
+const write = require('./write');
 
-module.exports = function(config) {
-  return new Promise(function(resolve, reject) {
-    var output = config.antwar.output;
-    var log = config.antwar.console.log;
+module.exports = function (config) {
+  return new Promise(function (resolve, reject) {
+    const output = config.antwar.output;
+    const log = config.antwar.console.log;
 
-    if(!output) {
+    if (!output) {
       return reject(new Error('Missing output directory'));
     }
 
-    webpackConfig(config.webpack).then(function(c) {
-      webpack(merge(c, config.webpack), function(err) {
-        if(err) {
+    return webpackConfig(config.webpack).then(function (c) {
+      webpack(merge(c, config.webpack), function (err) {
+        if (err) {
           return reject(err);
         }
 
-        var cwd = process.cwd();
-        var params = {
-          cwd: cwd,
+        const cwd = process.cwd();
+        const params = {
+          cwd,
           renderPage: require(_path.join(cwd, './.antwar/build/bundleStaticPage.js')),
           allPaths: require(_path.join(cwd, './.antwar/build/paths.js'))(),
           output: _path.join(cwd, output),
@@ -39,63 +39,63 @@ module.exports = function(config) {
 
         log('Removing old output directory');
 
-        rimraf(params.output, function(err) {
-          if(err) {
-            return reject(err);
+        return rimraf(params.output, function (err2) {
+          if (err2) {
+            return reject(err2);
           }
 
           log('Creating new output directory');
 
-          mkdirp(params.output, function(err) {
-            if(err) {
-              return reject(err);
+          return mkdirp(params.output, function (err3) {
+            if (err3) {
+              return reject(err3);
             }
 
             // Extras
-            var pluginExtras = _.map(config.antwar.plugins, 'extra').filter(_.identity);
-            var extraFiles = _.map(pluginExtras, function(plugin) {
+            const pluginExtras = _.map(config.antwar.plugins, 'extra').filter(_.identity);
+            const extraFiles = _.map(pluginExtras, function (plugin) {
               return plugin(params.allPaths, config.antwar);
             });
 
             // get functions to execute
-            async.parallel([
+            return async.parallel([
               write.assets.bind(null, params),
               write.extraAssets.bind(null, params),
               write.indices.bind(null, params),
               write.extras.bind(null, params, extraFiles),
               write.pages.bind(null, params),
               write.redirects.bind(null, params)
-            ], function(err, tasks) {
-              if(err) {
-                return reject(err);
+            ], function (err4, tasks) {
+              if (err4) {
+                return reject(err4);
               }
 
-              tasks = _.flatten(tasks).filter(_.identity);
+              tasks = _.flatten(tasks).filter(_.identity); // eslint-disable-line no-param-reassign
 
-              async.each(tasks, function(o, cb) {
+              return async.each(tasks, function (o, cb) {
                 log('Starting task', o.task);
 
-                workers(o, function(err) {
+                workers(o, function (err5) {
                   log('Finished task', o.task);
 
-                  cb(err);
+                  cb(err5);
                 });
-              }, function(err) {
-                console.log('Tasks finished');
+              }, function (err6) {
+                log('Tasks finished');
 
                 workerFarm.end(workers);
 
-                if(err) {
+                if (err6) {
                   return reject(err);
                 }
 
-                resolve();
+                return resolve();
               });
             });
-          })
-        })
+          });
+        });
       });
-    }).catch(function(err) {
+    }).catch(function (err) {
       reject(err);
     });
   });

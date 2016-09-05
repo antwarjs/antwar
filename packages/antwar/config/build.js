@@ -1,15 +1,15 @@
-'use strict';
-var path = require('path');
-var merge = require('webpack-merge');
+const path = require('path');
+const merge = require('webpack-merge');
 
-module.exports = function(config) {
-  var getCommon = require('./common');
-  var cwd = process.cwd();
+module.exports = function (config) {
+  const getCommon = require('./common');
 
-  config.buildDev = config.buildDev || 0;
+  const cwd = process.cwd();
 
-  return getCommon(config).then(function(commonConfig) {
-    var buildConfig = {
+  config.buildDev = config.buildDev || 0; // eslint-disable-line no-param-reassign
+
+  return getCommon(config).then(function (commonConfig) {
+    const buildConfig = {
       node: {
         fs: 'empty'
       },

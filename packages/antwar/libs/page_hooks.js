@@ -1,7 +1,6 @@
-'use strict';
-var _ = require('lodash');
-
-var config = require('config');
+/* eslint-disable no-console */
+const _ = require('lodash');
+const config = require('config');
 
 module.exports = {
   preProcessPages: process.bind(null, 'preProcess'),
@@ -10,14 +9,13 @@ module.exports = {
 
 // XXX: drop deprecated bit in the future
 function process(prefix, pages) {
-  var oldFn = prefix + 'Items';
-  var newFn = prefix + 'Pages';
-  var itemFunctions = getFunctions(oldFn);
+  const oldFn = prefix + 'Items';
+  const newFn = prefix + 'Pages';
+  let itemFunctions = getFunctions(oldFn);
 
-  if(itemFunctions.length) {
+  if (itemFunctions.length) {
     console.warn(oldFn + ' has been deprecated, use ' + newFn + ' instead');
-  }
-  else {
+  } else {
     itemFunctions = getFunctions(newFn);
   }
 
@@ -25,19 +23,21 @@ function process(prefix, pages) {
 }
 
 function applyHooks(items, functionArray) {
-  functionArray.forEach(function(callback){
-    items = callback(items);
+  let ret = [];
+
+  functionArray.forEach(function (callback) {
+    ret = callback(ret);
   });
 
-  return items;
+  return ret;
 }
 
 function getFunctions(hookName) {
-  var functions = [];
+  const functions = [];
 
   if (config.plugins) {
     _.each(config.plugins, function (plugin) {
-      if(plugin[hookName]) {
+      if (plugin[hookName]) {
         functions.push(plugin[hookName]);
       }
     });

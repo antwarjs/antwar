@@ -1,38 +1,36 @@
-var fs = require('fs');
-var _path = require('path');
+const fs = require('fs');
+const _path = require('path');
+const async = require('async');
+const merge = require('webpack-merge');
+const webpack = require('webpack');
+const webpackConfig = require('../config/build');
+const utils = require('./utils');
 
-var async = require('async');
-var merge = require('webpack-merge');
-var webpack = require('webpack');
+module.exports = function (config) {
+  config.buildDev = 1; // eslint-disable-line no-param-reassign
 
-var webpackConfig = require('../config/build');
-var utils = require('./utils');
-
-module.exports = function(config) {
-  config.buildDev = 1;
-
-  return new Promise(function(resolve, reject) {
-    webpackConfig(config).then(function(c) {
-      webpack(merge(c, config.webpack), function(err, stats) {
-        if(err) {
+  return new Promise(function (resolve, reject) {
+    webpackConfig(config).then(function (c) {
+      webpack(merge(c, config.webpack), function (err, stats) {
+        if (err) {
           return reject(err);
         }
 
-        if(stats.hasErrors()) {
+        if (stats.hasErrors()) {
           return reject(stats.toString('errors-only'));
         }
 
-        var buildDir = _path.join(process.cwd(), './.antwar/build');
-        var renderPage = require(_path.join(buildDir, 'bundleStaticPage.js'));
+        const buildDir = _path.join(process.cwd(), './.antwar/build');
+        const renderPage = require(_path.join(buildDir, 'bundleStaticPage.js'));
 
-        async.parallel([
-          function(cb) {
-            renderPage('antwar_devindex', function(err, html) {
-              if(err) {
-                return cb(err);
+        return async.parallel([
+          function (cb) {
+            renderPage('antwar_devindex', function (err2, html) {
+              if (err2) {
+                return cb(err2);
               }
 
-              fs.writeFile(
+              return fs.writeFile(
                 _path.join(buildDir, 'index.html'),
                 html,
                 cb
@@ -41,15 +39,15 @@ module.exports = function(config) {
           },
           utils.copyIfExists.bind(null, './assets', _path.join(buildDir, 'assets')),
           utils.copyExtraAssets.bind(null, buildDir, config.antwar.assets)
-        ], function(err) {
-          if(err) {
-            return reject(err);
+        ], function (err2) {
+          if (err2) {
+            return reject(err2);
           }
 
-          resolve();
+          return resolve();
         });
       });
-    }).catch(function(err) {
+    }).catch(function (err) {
       reject(err);
     });
   });

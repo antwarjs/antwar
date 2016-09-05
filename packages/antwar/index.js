@@ -1,6 +1,4 @@
-'use strict';
 const path = require('path');
-
 const rimraf = require('rimraf');
 
 require('es6-promise').polyfill();
@@ -19,10 +17,10 @@ exports.develop = function (antwarConfig) {
         return reject(err);
       }
 
-      return build.devIndex(configurations).
-        then(build.devServer.bind(null, configurations)).
-        then(resolve).
-        catch(reject);
+      return build.devIndex(configurations)
+        .then(build.devServer.bind(null, configurations))
+        .then(resolve)
+        .catch(reject);
     });
   });
 };

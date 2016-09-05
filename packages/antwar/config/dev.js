@@ -1,11 +1,10 @@
-'use strict';
-var path = require('path');
-var merge = require('webpack-merge');
-var getCommon = require('./common');
+const path = require('path');
+const merge = require('webpack-merge');
+const getCommon = require('./common');
 
-module.exports = function(config) {
-  return getCommon(config).then(function(commonConfig) {
-    var devConfig = {
+module.exports = function (config) {
+  return getCommon(config).then(function (commonConfig) {
+    const devConfig = {
       cache: true,
       node: {
         __filename: true,
