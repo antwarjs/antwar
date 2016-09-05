@@ -54,6 +54,6 @@
   ],
   "watch": {
     "test": "packages/**/*.js",
-    "test:lint": "{packages,site}/**/*.js"
+    "test:lint": "{packages,site}/**/*.{js,jsx}"
   }
 }
