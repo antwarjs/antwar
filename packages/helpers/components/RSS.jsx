@@ -1,16 +1,18 @@
 import React from 'react';
 
 const RSS = props => {
-  if(__DEV__) {
+  if (__DEV__) {
     return <noscript />;
   }
 
-  return <link
-    rel="alternate"
-    key="rss-theme-link"
-    type="application/atom+xml"
-    {...props}
-  />
+  return (
+    <link
+      rel="alternate"
+      key="rss-theme-link"
+      type="application/atom+xml"
+      {...props}
+    />
+  );
 };
 RSS.propTypes = {
   href: React.PropTypes.string.isRequired

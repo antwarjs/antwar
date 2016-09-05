@@ -1,13 +1,13 @@
 module.exports = {
-  Disqus: require('./Disqus.jsx'),
-  Gitter: require('./Gitter.jsx'),
-  GoogleAnalytics: require('./GoogleAnalytics.jsx'),
-  Navigation: require('./Navigation.jsx'),
-  Markdown: require('./Markdown.jsx'),
-  Moment: require('./Moment.jsx'),
-  PrevNext: require('./PrevNext.jsx'),
-  PrevNextMini: require('./PrevNextMini.jsx'),
-  RSS: require('./RSS.jsx'),
-  Teaser: require('./Teaser.jsx'),
-  Toc: require('./Toc.jsx')
+  Disqus: require('./Disqus'),
+  Gitter: require('./Gitter'),
+  GoogleAnalytics: require('./GoogleAnalytics'),
+  Navigation: require('./Navigation'),
+  Markdown: require('./Markdown'),
+  Moment: require('./Moment'),
+  PrevNext: require('./PrevNext'),
+  PrevNextMini: require('./PrevNextMini'),
+  RSS: require('./RSS'),
+  Teaser: require('./Teaser'),
+  Toc: require('./Toc')
 };

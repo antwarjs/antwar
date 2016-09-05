@@ -13,6 +13,7 @@ module.exports = function (env, options) {
         commonConfig(options.paths),
         developmentConfig(stylePaths)
       );
+    default:
     case 'build':
       return merge(
         commonConfig(options.paths),

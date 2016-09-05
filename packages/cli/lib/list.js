@@ -1,24 +1,21 @@
-'use strict';
-var Registry = require('npm-registry');
+const Registry = require('npm-registry');
 
-var npm = new Registry({});
+const npm = new Registry({});
 
+module.exports = function (config) {
+  const console = config.console;
 
-module.exports = function(config) {
-    var console = config.console;
+  return new Promise(function (resolve, reject) {
+    npm.packages.keyword('antwar', function (err, data) {
+      if (err) {
+        return reject(err);
+      }
 
+      data.forEach(function (v) {
+        console.info('* ' + v.name + ' - ' + v.description); // eslint-disable-line no-console, max-len
+      });
 
-    return new Promise(function(resolve, reject) {
-        npm.packages.keyword('antwar', function(err, data) {
-            if(err) {
-                return reject(err);
-            }
-
-            data.forEach(function(v) {
-                console.info('* ' + v.name + ' - ' + v.description);
-            });
-
-            resolve();
-        });
+      return resolve();
     });
+  });
 };

@@ -1,74 +1,75 @@
-'use strict';
-var fs = require('fs');
-var path = require('path');
+/* eslint-disable no-console */
+const fs = require('fs');
+const path = require('path');
 
-var recast = require('recast');
-var shell = require('shelljs');
-var Registry = require('npm-registry');
+const recast = require('recast');
+const shell = require('shelljs');
+const Registry = require('npm-registry');
 
-var _ast = require('./ast');
+const _ast = require('./ast');
 
-var npm = new Registry({});
+const npm = new Registry({});
 
+module.exports = function (config) {
+  const console = config.console;
+  const theme = config.theme;
 
-module.exports = function(config) {
-    var console = config.console;
-    var theme = config.theme;
+  console.info('Fetching theme');
 
-    console.info('Fetching theme');
+  return new Promise(function (resolve, reject) {
+    npm.packages.get(theme, function (err) {
+      if (err) {
+        return reject(err);
+      }
 
-    return new Promise(function(resolve, reject) {
-        npm.packages.get(theme, function(err) {
-            if(err) {
-                return reject(err);
+      console.info('Downloading theme');
+      shell.exec('npm install ' + theme + ' --save');
+
+      console.info('Reading configuration');
+
+      const p = path.join(process.cwd(), 'antwar.config.js');
+      fs.readFile(p, {
+        encoding: 'utf-8'
+      }, function (err2, code) {
+        if (err2) {
+          return reject(err2);
+        }
+
+        console.info('Replacing theme');
+
+        return replaceTheme(code, theme).then(function (code2) {
+          console.info('Writing configuration');
+
+          fs.writeFile(p, code2, function (err3) {
+            if (err3) {
+              return reject(err3);
             }
 
-            console.info('Downloading theme');
-            shell.exec('npm install ' + theme + ' --save');
+            return resolve();
+          });
+        }).catch(reject);
+      });
 
-            console.info('Reading configuration');
-
-            var p = path.join(process.cwd(), 'antwar.config.js');
-            fs.readFile(p, {
-                encoding: 'utf-8'
-            }, function(err, code) {
-                if(err) {
-                    return reject(err);
-                }
-
-                console.info('Replacing theme');
-
-                replaceTheme(code, theme).then(function(code) {
-                    console.info('Writing configuration');
-
-                    fs.writeFile(p, code, function(err) {
-                        if(err) {
-                            return reject(err);
-                        }
-
-                        resolve();
-                    });
-                }).catch(reject);
-            });
-        });
+      return null;
     });
+  });
 };
 
 function replaceTheme(code, theme) {
-    return new Promise(function(resolve, reject) {
-        // XXX: it's not nice that AST gets mutated here...
-        var ast = recast.parse(code);
+  return new Promise(function (resolve, reject) {
+    // XXX: it's not nice that AST gets mutated here...
+    const ast = recast.parse(code);
 
-        _ast.find('ExpressionStatement', {
-            'value.expression.left.object.name': 'module',
-            'value.expression.left.property.name': 'exports',
-        }, ast).
-            then(_ast.findObjectProperty.bind(null, 'theme')).
-            then(_ast.findObjectProperty.bind(null, 'name')).
-            then(_ast.modifyValue.bind(null, theme)).
-            then(function() {
-                resolve(recast.print(ast).code);
-            }).
-            catch(reject);
-    });
+    _ast.find('ExpressionStatement', {
+      'value.expression.left.object.name': 'module',
+      'value.expression.left.property.name': 'exports'
+    }, ast)
+      .then(_ast.findObjectProperty.bind(null, 'theme'))
+      .then(_ast.findObjectProperty.bind(null, 'name'))
+      .then(_ast.modifyValue.bind(null, theme))
+      .then(function () {
+        resolve(recast.print(ast).code);
+      })
+      .catch(reject);
+  });
 }

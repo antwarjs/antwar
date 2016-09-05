@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-'use strict';
+/* eslint-disable no-console */
 const path = require('path');
 const qs = require('querystring');
 
@@ -21,17 +21,17 @@ main();
 
 function main() {
   const prettyConsole = {
-    log() {
-      console.log(simpleTimestamp(), chalk.green.apply(null, arguments));
+    log(...args) {
+      console.log(simpleTimestamp(), chalk.green.apply(null, args));
     },
-    info() {
-      console.info(simpleTimestamp(), chalk.blue.apply(null, arguments));
+    info(...args) {
+      console.info(simpleTimestamp(), chalk.blue.apply(null, args));
     },
-    error() {
-      console.error(simpleTimestamp(), chalk.bold.red.apply(null, arguments));
+    error(...args) {
+      console.error(simpleTimestamp(), chalk.bold.red.apply(null, args));
     },
-    warn() {
-      console.warn(simpleTimestamp(), chalk.yellow.apply(null, arguments));
+    warn(...args) {
+      console.warn(simpleTimestamp(), chalk.yellow.apply(null, args));
     }
   };
   const now = new Date();
@@ -47,19 +47,19 @@ function main() {
     console: prettyConsole
   };
 
-  program.version(version).
-        option('-c, --config <file>', 'Path to configuration file ' +
-            '(defaults to antwar.config.js) or `site` configuration as a querystring').
-        option('-i, --init <directory>', 'Initialize a project').
-        option('-I --install <theme>', 'Install a theme and attach it to project').
-        option('-p, --plugin <directory>', 'Initialize a plugin').
-        option('-b, --build', 'Build site').
-        option('-l --list', 'List Antwar related packages').
-        option('-s, --serve [port]', 'Serve site. Port (defaults to ' +
-            defaultConfig.port + ')', parseInt).
-        option('-D --deploy', 'Deploy to branch (defaults to ' +
-            defaultConfig.deploy.branch + ')').
-        option('-d, --develop', 'Open a browser in development mode');
+  program.version(version)
+    .option('-c, --config <file>', 'Path to configuration file ' +
+        '(defaults to antwar.config.js) or `site` configuration as a querystring')
+    .option('-i, --init <directory>', 'Initialize a project')
+    .option('-I --install <theme>', 'Install a theme and attach it to project')
+    .option('-p, --plugin <directory>', 'Initialize a plugin')
+    .option('-b, --build', 'Build site')
+    .option('-l --list', 'List Antwar related packages')
+    .option('-s, --serve [port]', 'Serve site. Port (defaults to ' +
+        defaultConfig.port + ')', parseInt)
+    .option('-D --deploy', 'Deploy to branch (defaults to ' +
+        defaultConfig.deploy.branch + ')')
+    .option('-d, --develop', 'Open a browser in development mode');
 
   program.parse(process.argv);
 
@@ -75,7 +75,7 @@ function main() {
         );
   }
 
-  config.port = parseInt(program.serve) || config.port;
+  config.port = parseInt(program.serve, 10) || config.port;
   config.output = program.init || program.plugin || config.output;
 
     // XXX: this can probably be merged somehow (map?)
@@ -86,40 +86,30 @@ function main() {
                 '` and hit `npm start` to get started'
             );
     });
-  }
-  else if (program.install) {
+  } else if (program.install) {
     config.theme = program.install;
 
     execute(config.console, now, 'installing', lib.install, config);
-  }
-  else if (program.plugin) {
+  } else if (program.plugin) {
     config.boilerplate = 'antwar-plugin-boilerplate';
 
     execute(config.console, now, 'plugin initialization', lib.init, config);
-  }
-  else if (program.build) {
+  } else if (program.build) {
     execute(config.console, now, 'building', antwar.build, config);
-  }
-  else if (program.serve) {
+  } else if (program.serve) {
     execute(config.console, now, 'serving', lib.serve, config);
-  }
-  else if (program.list) {
+  } else if (program.list) {
     execute(config.console, now, 'listing', lib.list, config);
-  }
-  else if (program.deploy) {
+  } else if (program.deploy) {
     execute(config.console, now, 'deployment', lib.deploy, config);
-  }
-  else if (program.develop) {
+  } else if (program.develop) {
     execute(config.console, now, 'developing', antwar.develop, config);
-  }
-  else if (!process.argv.slice(2).length) {
+  } else if (!process.argv.slice(2).length) {
     program.outputHelp();
   }
 }
 
-function execute(console, startTime, name, command, config, doneCb) {
-  doneCb = doneCb || noop;
-
+function execute(console, startTime, name, command, config, doneCb = noop) {
   const upperCasedName = upperCaseFirst(name);
 
   console.log('Start ' + name + '\n');
@@ -157,8 +147,7 @@ function getConfig(defaultConfig, config) {
         // it might be nice to support that as well
     if (config && config.indexOf('=') > 0) {
       loadedConfig = qs.parse(config);
-    }
-    else {
+    } else {
       try {
         loadedConfig = require(
                     path.join(process.cwd(), program.config || 'antwar.config.js')

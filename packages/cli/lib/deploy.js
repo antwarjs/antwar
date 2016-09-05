@@ -1,29 +1,28 @@
-'use strict';
-var ghpages = require('gh-pages');
+/* eslint-disable no-console */
+const ghpages = require('gh-pages');
 
+module.exports = function (config) {
+  const conf = config.deploy || {};
 
-module.exports = function(config) {
-    var conf = config.deploy || {};
+  const console = config.console;
+  const directory = config.output;
+  const branchName = conf.branch || 'gh-pages';
 
-    var console = config.console;
-    var directory = config.output;
-    var branchName = conf.branch || 'gh-pages';
+  console.info('Publishing ' + directory + ' to ' + branchName);
 
-    console.info('Publishing ' + directory + ' to ' + branchName);
+  // attach logger so we get some output if we want to
+  conf.logger = function (msg) {
+    console.info(msg);
+  };
 
-    // attach logger so we get some output if we want to
-    conf.logger = function(msg) {
-        console.info(msg);
-    };
+  return new Promise(function (resolve, reject) {
+    ghpages.clean(); // TODO: eliminate this once it's possible to configure cache dir
+    ghpages.publish(directory, conf, function (err) {
+      if (err) {
+        return reject(err);
+      }
 
-    return new Promise(function(resolve, reject) {
-        ghpages.clean(); // TODO: eliminate this once it's possible to configure cache dir
-        ghpages.publish(directory, conf, function(err) {
-            if(err) {
-                return reject(err);
-            }
-
-            resolve();
-        });
+      return resolve();
     });
+  });
 };

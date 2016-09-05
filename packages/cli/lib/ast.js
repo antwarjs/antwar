@@ -1,82 +1,82 @@
-'use strict';
-var _ = require('lodash');
-var recast = require('recast');
+/* eslint-disable no-console */
+const _ = require('lodash');
+const recast = require('recast');
 
+exports.find = function (expr, matches, ast) {
+  return new Promise(function (resolve, reject) {
+    let resolved = false;
+    const o = {};
 
-exports.find = function(expr, matches, ast) {
-    return new Promise(function(resolve, reject) {
-        var resolved = false;
-        var o = {};
+    o['visit' + expr] = function (path) {
+      if (_.every(matches, function (v, k) {
+        return resolveObject(path, k) === v;
+      })) {
+        resolved = true;
 
-        o['visit' + expr] = function(path) {
-            if(_.every(matches, function(v, k) {
-                return resolveObject(path, k) === v;
-            })) {
-                resolved = true;
+        resolve(path);
+      }
 
-                resolve(path);
-            }
+      return false;
+    };
 
-            return false;
-        };
+    recast.visit(ast, o);
 
-        recast.visit(ast, o);
-
-        if(!resolved) {
-            reject();
-        }
-    });
+    if (!resolved) {
+      reject();
+    }
+  });
 };
 
 function resolveObject(obj, path) {
-    if(!obj) {
-        return;
+  if (!obj) {
+    return null;
+  }
+
+  return [obj].concat(path.split('.')).reduce(function (prev, cur) {
+    if (prev) {
+      return prev[cur];
     }
 
-    return [obj].concat(path.split('.')).reduce(function(prev, cur) {
-        if(prev) {
-            return prev[cur];
-        }
-    });
+    return null;
+  });
 }
 
-exports.findObjectProperty = function(name, ast) {
-    return new Promise(function(resolve, reject) {
-        var resolved = false;
+exports.findObjectProperty = function (name, ast) {
+  return new Promise(function (resolve, reject) {
+    let resolved = false;
 
-        recast.visit(ast, {
-            visitObjectExpression: function(path) {
-                if(path.value && path.value.properties) {
-                    var properties = path.value.properties;
+    recast.visit(ast, {
+      visitObjectExpression(path) {
+        if (path.value && path.value.properties) {
+          const properties = path.value.properties;
 
-                    properties.forEach(function(property) {
-                        if(property.key && property.key.name && property.key.name === name) {
-                            resolved = true;
+          properties.forEach(function (property) {
+            if (property.key && property.key.name && property.key.name === name) {
+              resolved = true;
 
-                            resolve(property);
-                        }
-                    });
-                }
-
-                return false;
-            },
-        });
-
-        if(!resolved) {
-            reject();
+              resolve(property);
+            }
+          });
         }
+
+        return false;
+      }
     });
+
+    if (!resolved) {
+      reject();
+    }
+  });
 };
 
-exports.modifyValue = function(name, ast) {
-    return new Promise(function(resolve, reject) {
-        if(ast.value && ast.value.value) {
-            ast.value.value = name;
+exports.modifyValue = function (name, ast) {
+  return new Promise(function (resolve, reject) {
+    if (ast.value && ast.value.value) {
+      ast.value.value = name; // eslint-disable-line no-param-reassign
 
-            resolve();
-        }
-        else {
-            reject();
-        }
-    });
+      return resolve();
+    }
+
+    return reject();
+  });
 };

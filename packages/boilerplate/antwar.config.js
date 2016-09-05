@@ -1,5 +1,3 @@
-'use strict';
-
 const rssPlugin = require('antwar-rss-plugin');
 
 module.exports = {
@@ -19,7 +17,7 @@ module.exports = {
     })
   ],
   layout() {
-    return require('./layouts/Body.jsx');
+    return require('./layouts/Body');
   },
   theme: {
     name: 'antwar-default-theme',
