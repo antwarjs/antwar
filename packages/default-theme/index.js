@@ -1,10 +1,10 @@
 module.exports = {
-  layouts: function() {
+  layouts() {
     return require('./layouts');
   },
   webpack: {
-    build: function(plugins) {
-      var ExtractTextPlugin = plugins.ExtractTextPlugin;
+    build(plugins) {
+      const ExtractTextPlugin = plugins.ExtractTextPlugin;
 
       return {
         module: {
@@ -13,13 +13,13 @@ module.exports = {
               test: /\.scss$/,
               loader: ExtractTextPlugin.extract(
                 'style-loader',
-                'css-loader?minimize!autoprefixer-loader?{browsers:["last 2 version", "ie 10", "Android 4"]}!sass-loader'),
+                'css-loader?minimize!autoprefixer-loader?{browsers:["last 2 version", "ie 10", "Android 4"]}!sass-loader')
             }
           ]
         }
       };
     },
-    development: function() {
+    development() {
       return {
         module: {
           loaders: [
@@ -29,8 +29,8 @@ module.exports = {
                 'style-loader',
                 'css-loader',
                 'autoprefixer-loader?{browsers:["last 2 version", "ie 10", "Android 4"]}',
-                'sass-loader',
-              ],
+                'sass-loader'
+              ]
             }
           ]
         }

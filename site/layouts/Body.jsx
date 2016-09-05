@@ -1,27 +1,28 @@
-var React = require('react');
-var helpers = require('antwar-helpers');
-var Body = helpers.layouts.Body;
-var GoogleAnalytics = helpers.components.GoogleAnalytics;
-var Navigation = helpers.components.Navigation;
-var RSS = helpers.components.RSS;
+const React = require('react');
+const helpers = require('antwar-helpers');
 
-module.exports = React.createClass({
-  displayName: 'Body',
-  render() {
-    return (
-      <Body head={this.renderHead()} {...this.props}>
-        {this.props.children}
-        <Navigation {...this.props} pages={[
-          {title: 'Home', url: '/'},
-          {title: 'Documentation', url: '/docs'},
-          {title: 'Blog', url: '/blog'}
-        ]} />
+const Body = helpers.layouts.Body;
+const GoogleAnalytics = helpers.components.GoogleAnalytics;
+const Navigation = helpers.components.Navigation;
+const RSS = helpers.components.RSS;
 
-        <GoogleAnalytics analyticsId='UA-60511795-1' />
-      </Body>
-    );
-  },
-  renderHead() {
-    return <RSS />
-  }
-});
+const SiteBody = ({ children, ...props }) => (
+  <Body head={<RSS />} {...props}>
+    {children}
+    <Navigation
+      {...props}
+      pages={[
+        { title: 'Home', url: '/' },
+        { title: 'Documentation', url: '/docs' },
+        { title: 'Blog', url: '/blog' }
+      ]}
+    />
+
+    <GoogleAnalytics analyticsId="UA-60511795-1" />
+  </Body>
+);
+SiteBody.propTypes = {
+  children: React.PropTypes.any
+};
+
+export default SiteBody;

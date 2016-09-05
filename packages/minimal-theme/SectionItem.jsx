@@ -1,28 +1,15 @@
-var React = require('react');
-var Paths = require('antwar-core/PathsMixin');
-var Router = require('react-router');
-var config = require('config');
+const React = require('react');
 
-var Item = React.createClass({
+const Item = ({ title, isDraft, date, content, author }) => (
+  <div>
+    <h1>{title}</h1>
+    <div>
+      {isDraft ? <span>Draft</span> : null}
+      <div dangerouslySetInnerHTML={{ __html: content }} />
+    </div>
+    {date}
+    {author ? <span>Authored by {author}</span> : null}
+  </div>
+);
 
-  mixins: [ Router.State, Paths ],
-
-  render: function() {
-    var item = this.getItem()
-    var author = item.author ? item.author : config.author.name
-    return (
-      <div>
-        <h1>{item.title}</h1>
-        <div>
-          {item.isDraft ? <span>Draft</span> : null}
-          <div dangerouslySetInnerHTML={{__html: item.content}} />
-        </div>
-        {item.date}
-        {author ? <span>Authored by {author}</span> : null}
-      </div>
-    );
-  }
-
-});
-
-module.exports = Item;
+export default Item;

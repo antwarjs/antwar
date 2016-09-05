@@ -1,13 +1,12 @@
-'use strict';
-var test = require('tape');
-var marked = require('marked');
-var moment = require('moment');
-var element = require('../src/element');
+const test = require('tape');
+const marked = require('marked');
+const moment = require('moment');
+const element = require('../src/element');
 
 test('entries generate xml', function (t) {
   t.plan(1);
 
-  const baseUrl = 'http://demo.com/'
+  const baseUrl = 'http://demo.com/';
   const sections = ['demoSection'];
   const pages = {
     demo: {
@@ -24,7 +23,7 @@ test('entries generate xml', function (t) {
     '<title>' + pages.demo.title + '</title>' +
     '<id>ademotitle2016-02-01t00:00:00+02:00</id>' +
     '<link href="' + baseUrl + 'demo"></link>' +
-    '<updated>' +  moment(pages.demo.date, 'YYYY-MM-DD').format() + '</updated>' +
+    '<updated>' + moment(pages.demo.date, 'YYYY-MM-DD').format() + '</updated>' +
     '<content type="html">' + pages.demo.content + '</content>' +
     '</entry>';
 
@@ -34,7 +33,7 @@ test('entries generate xml', function (t) {
 test('does not resolve full urls', function (t) {
   t.plan(1);
 
-  const baseUrl = 'http://demo.com/'
+  const baseUrl = 'http://demo.com/';
   const sections = ['demoSection'];
   const pages = {
     demo: {
@@ -51,7 +50,7 @@ test('does not resolve full urls', function (t) {
     '<title>' + pages.demo.title + '</title>' +
     '<id>ademotitle2016-02-01t00:00:00+02:00</id>' +
     '<link href="' + baseUrl + 'demo"></link>' +
-    '<updated>' +  moment(pages.demo.date, 'YYYY-MM-DD').format() + '</updated>' +
+    '<updated>' + moment(pages.demo.date, 'YYYY-MM-DD').format() + '</updated>' +
     '<content type="html">&lt;p&gt;#test\n&lt;a href=&quot;http://google.com&quot;&gt;check out&lt;/a&gt;&lt;/p&gt;\n</content>' +
     '</entry>';
 
@@ -61,7 +60,7 @@ test('does not resolve full urls', function (t) {
 test('entries resolve relative urls against base', function (t) {
   t.plan(1);
 
-  const baseUrl = 'http://demo.com/'
+  const baseUrl = 'http://demo.com/';
   const sections = ['demoSection'];
   const pages = {
     demo: {
@@ -78,7 +77,7 @@ test('entries resolve relative urls against base', function (t) {
     '<title>' + pages.demo.title + '</title>' +
     '<id>ademotitle2016-02-01t00:00:00+02:00</id>' +
     '<link href="' + baseUrl + 'demo"></link>' +
-    '<updated>' +  moment(pages.demo.date, 'YYYY-MM-DD').format() + '</updated>' +
+    '<updated>' + moment(pages.demo.date, 'YYYY-MM-DD').format() + '</updated>' +
     '<content type="html">&lt;p&gt;#test\n&lt;a href=&quot;http://demo.com/blog/demo-interview&quot;&gt;check out&lt;/a&gt;&lt;/p&gt;\n</content>' +
     '</entry>';
 
@@ -88,7 +87,7 @@ test('entries resolve relative urls against base', function (t) {
 test('entries resolve absolute urls against base', function (t) {
   t.plan(1);
 
-  const baseUrl = 'http://demo.com/'
+  const baseUrl = 'http://demo.com/';
   const sections = ['demoSection'];
   const pages = {
     demo: {
@@ -105,7 +104,7 @@ test('entries resolve absolute urls against base', function (t) {
     '<title>' + pages.demo.title + '</title>' +
     '<id>ademotitle2016-02-01t00:00:00+02:00</id>' +
     '<link href="' + baseUrl + 'demo"></link>' +
-    '<updated>' +  moment(pages.demo.date, 'YYYY-MM-DD').format() + '</updated>' +
+    '<updated>' + moment(pages.demo.date, 'YYYY-MM-DD').format() + '</updated>' +
     '<content type="html">&lt;p&gt;#test\n&lt;a href=&quot;http://demo.com/blog/demo-interview&quot;&gt;check out&lt;/a&gt;&lt;/p&gt;\n</content>' +
     '</entry>';
 
@@ -115,7 +114,7 @@ test('entries resolve absolute urls against base', function (t) {
 test('entries resolve relative urls against base', function (t) {
   t.plan(1);
 
-  const baseUrl = 'http://demo.com/'
+  const baseUrl = 'http://demo.com/';
   const sections = ['blog'];
   const pages = {
     demo: {
@@ -132,7 +131,7 @@ test('entries resolve relative urls against base', function (t) {
     '<title>' + pages.demo.title + '</title>' +
     '<id>ademotitle2016-02-01t00:00:00+02:00</id>' +
     '<link href="' + baseUrl + 'demo"></link>' +
-    '<updated>' +  moment(pages.demo.date, 'YYYY-MM-DD').format() + '</updated>' +
+    '<updated>' + moment(pages.demo.date, 'YYYY-MM-DD').format() + '</updated>' +
     '<content type="html">&lt;p&gt;#test\n&lt;a href=&quot;http://demo.com/blog/demo-interview&quot;&gt;check out&lt;/a&gt;&lt;/p&gt;\n</content>' +
     '</entry>';
 

@@ -1,13 +1,13 @@
 'use strict';
 
-module.exports = function(o) {
+module.exports = function (o) {
   return {
-    bodyContent: function() {
-      var React = require('react');
+    bodyContent() {
+      const React = require('react');
 
       return React.createClass({
-        render: function() {
-          if(__DEV__) {
+        render() {
+          if (__DEV__) {
             return React.createElement('noscript');
           }
 
@@ -19,6 +19,6 @@ module.exports = function(o) {
           });
         }
       });
-    },
+    }
   };
 };

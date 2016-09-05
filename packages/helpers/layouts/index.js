@@ -1,4 +1,4 @@
 module.exports = {
-  Body: require('./Body.jsx')
+  Body: require('./Body')
 };
 

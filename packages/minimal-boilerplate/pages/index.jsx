@@ -1,16 +1,7 @@
-var React = require('react');
+const React = require('react');
 
-var Index = React.createClass({
+const Index = () => (
+  <div>Index</div>
+);
 
-	displayName: 'Index',
-
-	render: function() {
-		return (
-			<div>Index</div>
-		);
-	}
-
-});
-
-module.exports = Index;
-
+export default Index;

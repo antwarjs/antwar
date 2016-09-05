@@ -1,16 +1,7 @@
-var React = require('react');
+const React = require('react');
 
-var Page = React.createClass({
+const Page = () => (
+  <div>Page</div>
+);
 
-	displayName: 'Page',
-
-	render: function() {
-		return (
-			<div>Page</div>
-		);
-	}
-
-});
-
-module.exports = Page;
-
+export default Page;

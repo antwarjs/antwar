@@ -1,12 +1,11 @@
-'use strict';
-var test = require('tape');
-var moment = require('moment');
-var generate = require('../src/generate');
+const test = require('tape');
+const moment = require('moment');
+const generate = require('../src/generate');
 
 test('generates dummy xml', function (t) {
   t.plan(1);
 
-  const baseUrl = 'http://demo.com/'
+  const baseUrl = 'http://demo.com/';
   const sections = ['demoSection'];
   const pages = {
     demo: {
@@ -34,7 +33,7 @@ test('generates dummy xml', function (t) {
     '<title>' + pages.demo.title + '</title>' +
     '<id>ademotitle2016-02-01t00:00:00+02:00</id>' +
     '<link href="' + baseUrl + 'demo"></link>' +
-    '<updated>' +  moment(pages.demo.date, 'YYYY-MM-DD').format() + '</updated>' +
+    '<updated>' + moment(pages.demo.date, 'YYYY-MM-DD').format() + '</updated>' +
     '<content type="html">' + pages.demo.content + '</content>' +
     '</entry>' +
     '</feed>';

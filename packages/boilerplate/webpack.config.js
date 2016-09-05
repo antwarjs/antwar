@@ -1,13 +1,13 @@
-var path = require('path');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var merge = require('webpack-merge');
+const path = require('path');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const merge = require('webpack-merge');
 
-module.exports = function(env, options) {
-  var stylePaths = [
+module.exports = function (env, options) {
+  const stylePaths = [
     path.join(process.cwd(), 'styles')
   ];
 
-  switch(env) {
+  switch (env) {
     case 'start':
       return merge(
         commonConfig(options.paths),

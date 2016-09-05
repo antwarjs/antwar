@@ -1,11 +1,10 @@
-'use strict';
-var generate = require('./generate');
-var moment = require('moment');
+const generate = require('./generate');
+const moment = require('moment');
 
 // Antwar wrapper
-module.exports = function(o) {
+module.exports = function (o) {
   return {
-    extra: function(paths, config) {
+    extra(paths, config) {
       return {
         'atom.xml': generate(
           o.baseUrl,

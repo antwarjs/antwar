@@ -1,8 +1,8 @@
-'use strict';
-var themeConfig = require('antwar-default-theme');
-var rssPlugin = require('antwar-rss-plugin');
-var prevnextPlugin = require('antwar-prevnext-plugin');
-var highlightPlugin = require('antwar-highlight-plugin');
+const _ = require('lodash');
+const themeConfig = require('antwar-default-theme');
+const rssPlugin = require('antwar-rss-plugin');
+const prevnextPlugin = require('antwar-prevnext-plugin');
+const highlightPlugin = require('antwar-highlight-plugin');
 
 module.exports = {
   webpack: themeConfig.webpack, // SCSS bits
@@ -10,12 +10,12 @@ module.exports = {
   title: 'Antwar',
   author: 'Antwar',
   deploy: {
-    branch: 'master',
+    branch: 'master'
   },
-  layout: function() {
-    return require('./layouts/Body.jsx');
+  layout() {
+    return require('./layouts/Body');
   },
-  style: function() {
+  style() {
     require('antwar-default-theme/scss/main.scss');
     require('./styles/specific.scss');
     require('./styles/prism.css');
@@ -23,60 +23,60 @@ module.exports = {
   plugins: [
     rssPlugin({
       baseUrl: 'https://antwarjs.github.io/',
-      sections: ['blog'],
+      sections: ['blog']
     }),
     prevnextPlugin(),
     highlightPlugin()
   ],
   paths: {
     '/': {
-      path: function() {
+      path() {
         return require.context('./pages');
       }
     },
     blog: {
       title: 'Blog posts',
-      path: function() {
+      path() {
         return require.context('./posts', true, /^\.\/.*\.md$/);
       },
-      draft: function() {
+      draft() {
         return require.context('./drafts', true, /^\.\/.*\.md$/);
       },
       processPage: {
-        url: function(o) {
-          if(o.file.url) {
+        url(o) {
+          if (o.file.url) {
             return o.file.url;
           }
 
-          var page = o.fileName.split('.')[0].split('-').slice(1).join('-');
+          const page = o.fileName.split('.')[0].split('-').slice(1).join('-');
 
-          return o.sectionName + '/' + page;
+          return `${o.sectionName}/${page}`;
         }
       },
       layouts: {
-        index: function() {
+        index() {
           return themeConfig.layouts().SectionIndex;
         },
-        page: function() {
+        page() {
           return themeConfig.layouts().BlogPage;
         }
       }
     },
     docs: {
       title: 'Documentation',
-      path: function() {
+      path() {
         return require.context('./docs', true, /^\.\/.*\.md$/);
       },
-      sort: function (pages) {
-        return _.sortBy(pages, function(page) {
-          return page.file.sort
+      sort(pages) {
+        return _.sortBy(pages, function (page) {
+          return page.file.sort;
         });
       },
       layouts: {
-        index: function() {
+        index() {
           return themeConfig.layouts().SectionIndex;
         },
-        page: function() {
+        page() {
           return themeConfig.layouts().DocsPage;
         }
       }

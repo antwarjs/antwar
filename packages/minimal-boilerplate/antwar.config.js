@@ -1,5 +1,3 @@
-'use strict';
-
 module.exports = {
   output: 'build',
   name: 'Antwar minimal boilerplate',
@@ -8,33 +6,33 @@ module.exports = {
     email: 'antwar@antwar.com'
   },
   deploy: {
-    branch: 'gh-pages',
+    branch: 'gh-pages'
   },
   theme: {
     name: 'antwar-minimal-theme',
     navigation: [
-      {title: 'Home', path: '/'},
-      {title: 'Blog', path: '/blog'},
-      {title: 'Page', path: '/page'},
-      {title: 'MarkdownPage', path: '/markdownpage'}
+      { title: 'Home', path: '/' },
+      { title: 'Blog', path: '/blog' },
+      { title: 'Page', path: '/page' },
+      { title: 'MarkdownPage', path: '/markdownpage' }
     ]
   },
   paths: {
     '/': {
-      path: function() {
+      path() {
         return require.context('./pages');
       }
     },
     blog: {
       title: 'Blog posts',
       layout: 'blog',
-      path: function() {
+      path() {
         return require.context('./posts', true, /^\.\/.*\.md$/);
       },
-      draft: function() {
+      draft() {
         return require.context('./drafts', true, /^\.\/.*\.md$/);
-      },
+      }
     }
-  },
+  }
 };
 

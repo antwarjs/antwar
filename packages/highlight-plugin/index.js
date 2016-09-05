@@ -1,65 +1,61 @@
-'use strict';
-
-module.exports = function() {
+module.exports = function () {
   return {
-    postProcessPages: function(items) {
-      var Prism = require('prismjs');
-      var languages = require('prism-languages');
-      var highlight = Prism.highlight;
-      var _ = require('lodash');
-      var he = require('he');
-      var cheerio = require('cheerio');
+    postProcessPages(items) {
+      const Prism = require('prismjs');
+      const languages = require('prism-languages');
+
+      const highlight = Prism.highlight;
+      const _ = require('lodash');
+      const he = require('he');
+      const cheerio = require('cheerio');
 
       _.each(items, function (item) {
-        if(!item.content) {
+        if (!item.content) {
           return;
         }
 
-        var $ = cheerio.load(item.content);
+        const $ = cheerio.load(item.content);
 
-        $('code').replaceWith(function(i, e) {
-            var defaultLanguage = 'markup';
-            var $e = $(e);
-            var text = $e.text();
-            var language = $e.attr('class');
-            var result;
+        $('code').replaceWith(function (i, e) {
+          const defaultLanguage = 'markup';
+          const $e = $(e);
+          const text = $e.text();
+          let language = $e.attr('class');
+          let result;
 
-            if(language) {
-              language = language.split('-');
-              language = language.length > 1 ? language[1] : defaultLanguage;
-            }
-            else {
-              return $('<code>' + he.encode(text) + '</code>');
-            }
+          if (language) {
+            language = language.split('-');
+            language = language.length > 1 ? language[1] : defaultLanguage;
+          } else {
+            return $('<code>' + he.encode(text) + '</code>');
+          }
 
-            if(language === 'html') {
-              language = 'markup';
-            }
+          if (language === 'html') {
+            language = 'markup';
+          }
 
-            if(!languages[language]) {
-              console.warn('Failed to find language definition', language);
+          if (!languages[language]) {
+            console.warn('Failed to find language definition', language); // eslint-disable-line no-console, max-len
 
-              return $('<code>' + he.encode(text) + '</code>');
-            }
+            return $('<code>' + he.encode(text) + '</code>');
+          }
+
+          try {
+            result = highlight(text, languages[language]);
+          } catch (err) {
+            console.warn('Failed to highlight, defaulting to', defaultLanguage); // eslint-disable-line no-console, max-len
 
             try {
-              result = highlight(text, languages[language]);
+              result = highlight(text, languages[defaultLanguage]);
+            } catch (err2) {
+              result = text;
             }
-            catch(e) {
-              console.warn('Failed to highlight, defaulting to', defaultLanguage);
+          }
 
-              try {
-                result = highlight(text, languages[defaultLanguage]);
-              }
-              catch(e) {
-                result = text;
-              }
-            }
-
-            return $e.html(result);
+          return $e.html(result);
         });
 
-        item.content = $.html();
+        item.content = $.html(); // eslint-disable-line no-param-reassign
       });
 
       return items;

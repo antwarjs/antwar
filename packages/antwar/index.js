@@ -1,21 +1,21 @@
 'use strict';
-var path = require('path');
+const path = require('path');
 
-var rimraf = require('rimraf');
+const rimraf = require('rimraf');
 
 require('es6-promise').polyfill();
 require('promise.prototype.finally');
 
-var build = require('./build');
+const build = require('./build');
 
-exports.develop = function(antwarConfig) {
-  var cwd = process.cwd();
-  var configurations = parseConfigurations(antwarConfig);
-  var buildDir = path.join(cwd, './.antwar');
+exports.develop = function (antwarConfig) {
+  const cwd = process.cwd();
+  const configurations = parseConfigurations(antwarConfig);
+  const buildDir = path.join(cwd, './.antwar');
 
-  return new Promise(function(resolve, reject) {
-    rimraf(buildDir, function(err) {
-      if(err) {
+  return new Promise(function (resolve, reject) {
+    rimraf(buildDir, function (err) {
+      if (err) {
         return reject(err);
       }
 
@@ -27,23 +27,23 @@ exports.develop = function(antwarConfig) {
   });
 };
 
-exports.build = function(antwarConfig) {
-  var configurations = parseConfigurations(antwarConfig);
+exports.build = function (antwarConfig) {
+  const configurations = parseConfigurations(antwarConfig);
 
   return build(configurations);
-}
+};
 
 function parseConfigurations(antwarConfig) {
-  var cwd = process.cwd();
-  var parent = __dirname;
-  var paths = [
+  const cwd = process.cwd();
+  const parent = __dirname;
+  const paths = [
     path.join(parent, 'components'),
     path.join(parent, 'dev')
   ];
-  var webpackConfig = require(path.join(cwd, antwarConfig.webpackConfig))(
+  const webpackConfig = require(path.join(cwd, antwarConfig.webpackConfig))(
     process.env.npm_lifecycle_event,
     {
-      paths: paths
+      paths
     }
   );
 

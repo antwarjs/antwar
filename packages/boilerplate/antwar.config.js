@@ -1,6 +1,6 @@
 'use strict';
 
-var rssPlugin = require('antwar-rss-plugin');
+const rssPlugin = require('antwar-rss-plugin');
 
 module.exports = {
   output: 'build',
@@ -10,38 +10,38 @@ module.exports = {
     email: 'antwar@antwar.com'
   },
   deploy: {
-    branch: 'gh-pages',
+    branch: 'gh-pages'
   },
   plugins: [
     rssPlugin({
       baseUrl: '<your url here>',
       sections: ['blog']
-    }),
+    })
   ],
-  layout: function() {
-    return require('./layouts/Body.jsx')
+  layout() {
+    return require('./layouts/Body.jsx');
   },
   theme: {
     name: 'antwar-default-theme',
     navigation: [
-      {title: 'Home', url: '/'},
-      {title: 'Blog', url: '/blog'}
+      { title: 'Home', url: '/' },
+      { title: 'Blog', url: '/blog' }
     ],
     analyticsId: 'UA-XXXXXX-1',
     customStyles: 'specific.scss'
   },
   paths: {
     '/': {
-      path: function() {
+      path() {
         return require.context('./pages');
       }
     },
     blog: {
       title: 'Blog posts',
-      path: function() {
+      path() {
         return require.context('./posts', true, /^\.\/.*\.md$/);
       },
-      draft: function() {
+      draft() {
         return require.context('./drafts', true, /^\.\/.*\.md$/);
       }
       /*
@@ -56,5 +56,5 @@ module.exports = {
       },
       */
     }
-  },
+  }
 };
