@@ -1,0 +1,21 @@
+.transition--slide-left-enter {
+  height: 0;
+  overflow: visible;
+  @include fadeInLeftBig($transition-speed * 3, 0s, $transition-easing, both, hidden);
+}
+
+.transition--slide-left-enter-active {
+  height: 0;
+  overflow: visible;
+}
+
+.transition--slide-left-leave {
+  height: 0;
+  overflow: visible;
+  @include fadeOutRightBig($transition-speed * 2, 0s, $transition-easing, both, hidden);
+}
+
+.transition--slide-left-leave-active {
+  height: 0;
+  overflow: visible;
+}

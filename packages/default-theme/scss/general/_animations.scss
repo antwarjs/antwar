@@ -1,0 +1,18 @@
+.fadeIn-enter {
+	opacity: 0.01;
+	transform: translateX(-20px);
+	transition: all .5s ease-in;
+	&.fadeIn-enter-active {
+		transform: translateX(0px);
+		opacity: 1;
+	}
+}
+.fadeIn-leave {
+	opacity: 1;
+	transform: translateX(-20px);
+	transition: all .5s ease-in;
+	&.fadeIn-leave-active {
+		transform: translateX(200px);
+		opacity: 0.01;
+	}
+}

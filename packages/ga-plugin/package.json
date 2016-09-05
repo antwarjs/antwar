@@ -1,0 +1,23 @@
+{
+  "name": "antwar-ga-plugin",
+  "description": "Google Analytics plugin for Antwar",
+  "author": "Juho Vepsalainen <bebraw@gmail.com>",
+  "version": "0.1.2",
+  "dependencies": {},
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/antwarjs/ga-plugin.git"
+  },
+  "homepage": "https://github.com/antwarjs/ga-plugin",
+  "bugs": {
+    "url": "https://github.com/antwarjs/ga-plugin/issues"
+  },
+  "keywords": [
+    "antwar",
+    "analytics",
+    "plugin"
+  ],
+  "license": "MIT",
+  "scripts": {}
+}

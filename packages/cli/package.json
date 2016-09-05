@@ -1,0 +1,44 @@
+{
+  "name": "antwar-cli",
+  "description": "Cli for Antwar",
+  "author": "Juho Vepsalainen <bebraw@gmail.com>",
+  "version": "0.6.6",
+  "dependencies": {
+    "chalk": "^1.0.0",
+    "commander": "^2.6.0",
+    "download": "^4.0.1",
+    "elapsed": "0.0.3",
+    "es6-promise": "^2.0.1",
+    "finalhandler": "^0.3.3",
+    "gh-pages": "^0.2.0",
+    "github": "^0.2.4",
+    "lodash": "^3.5.0",
+    "npm-registry": "^0.1.13",
+    "promise-finally": "^2.0.1",
+    "recast": "^0.10.9",
+    "require-dir": "^0.1.0",
+    "serve-static": "^1.9.1",
+    "shelljs": "^0.3.0",
+    "simple-timestamp": "^1.0.0",
+    "upper-case-first": "^1.1.0"
+  },
+  "peerDependencies": {
+    "antwar": ">= 0.5.0 < 1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/antwarjs/cli.git"
+  },
+  "homepage": "https://github.com/antwarjs/cli",
+  "bugs": {
+    "url": "https://github.com/antwarjs/cli/issues"
+  },
+  "keywords": [
+    "antwar",
+    "cli"
+  ],
+  "bin": {
+    "antwar": "./index.js"
+  },
+  "license": "MIT"
+}

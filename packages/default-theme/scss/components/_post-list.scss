@@ -1,0 +1,25 @@
+.post-list {
+	list-style: none;
+	li {
+		&:before {
+			content: '';
+		}
+		@include media-query($max-width + $base-spacing-unit * 2) {
+			margin-left: 0;
+		}
+	}
+}
+.post-list__heading {
+	margin: 0;
+}
+.post-list__preview {
+	margin-bottom: $base-spacing-unit * 2;
+}
+.draft-text {
+	font-family: $small-font;
+	color: #c40000;
+	@include font-size($centi-size);
+	@include media-query('palm') {
+		padding: 0 $half-spacing-unit;
+	}
+}

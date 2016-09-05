@@ -1,0 +1,44 @@
+{
+  "name": "antwar-boilerplate",
+  "description": "Boilerplate for Antwar",
+  "author": "",
+  "version": "0.7.1",
+  "dependencies": {
+    "antwar-default-theme": "^0.5.0",
+    "antwar-rss-plugin": "^0.2.0",
+    "react": ">= 0.10.0 < 16.x"
+  },
+  "scripts": {
+    "start": "antwar -d",
+    "build": "antwar -b",
+    "deploy": "antwar -D"
+  },
+  "devDependencies": {
+    "babel-core": "^6.11.4",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-react": "^6.11.1",
+    "css-loader": "^0.23.1",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.9.0",
+    "node-sass": "^3.8.0",
+    "raw-loader": "^0.5.1",
+    "sass-loader": "^4.0.0",
+    "style-loader": "^0.13.1",
+    "url-loader": "^0.5.7",
+    "webpack-merge": "^0.14.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/antwarjs/boilerplate.git"
+  },
+  "homepage": "https://github.com/antwarjs/boilerplate",
+  "bugs": {
+    "url": "https://github.com/antwarjs/boilerplate/issues"
+  },
+  "keywords": [
+    "antwar",
+    "boilerplate"
+  ],
+  "license": "MIT"
+}

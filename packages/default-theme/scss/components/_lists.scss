@@ -1,0 +1,16 @@
+ul {
+	list-style:none;
+	>li {
+		&:before {
+			content: '- ';
+			position: absolute;
+			margin-left: -1em;
+		}
+	}
+}
+li {
+	margin-bottom: $base-spacing-unit;
+	@include media-query($max-width + $base-spacing-unit * 2) {
+		margin-left: 1em;
+	}
+}

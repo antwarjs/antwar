@@ -1,0 +1,37 @@
+@import '~antwar-default-theme/scss/_vars';
+@import '~antwar-default-theme/scss/general/_mixins';
+.logo {
+    margin-bottom: $base-spacing-unit * 1.5;
+    > svg {
+        width: $base-spacing-unit * 4;
+        height: $base-spacing-unit * 3;
+        path {
+            height: 100%;
+            fill: #fff;
+        }
+    }
+}
+.front-header {
+    font-size: $base-spacing-unit * 2;
+    line-height: 1.5;
+    @include media-query(palm) {
+        font-size: $base-spacing-unit;
+        line-height: 1;
+    }
+}
+
+.header-image--front {
+    filter: brightness(0.5);
+    @include media-query(palm) {
+        min-height: 100vh;
+    }
+}
+.front__buttons {
+    @include media-query(palm) {
+        margin-top: 0;
+    }
+}
+
+.teaser {
+    color: white;
+}

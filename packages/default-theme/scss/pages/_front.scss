@@ -1,0 +1,33 @@
+.front__buttons {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-content: center;
+	align-items: center;
+	margin-top: $base-spacing-unit;
+	> .btn {
+		margin: 0 $half-spacing-unit;
+		margin-bottom: $base-spacing-unit;
+		&:last-child {
+			margin-right: 0;
+		}
+		&:first-child {
+			margin-left: 0;
+		}
+		@include media-query(palm) {
+			width: calc(100% - #{$base-spacing-unit * 2});
+			margin-left: 0;
+			margin-right: 0;
+		}
+	}
+}
+
+.front__latestpost {
+	margin-top: $base-spacing-unit;
+	font-family: $small-font;
+	font-weight: $bold;
+	color: #fff;
+	&:hover {
+		color: lighten($action-color, 20%);
+	}
+}

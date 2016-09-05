@@ -1,0 +1,216 @@
+<html lang="en"><head><title>Antwar - Configuration</title><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimal-ui"/><meta name="description" content="Understand configuration, understand Antwar"/><meta name="keywords"/><link rel="icon" type="image/png" href="/assets/img/favicon.png"/><link rel="alternate" type="application/atom+xml" href="./atom.xml"/><link rel="stylesheet" href="/assets/main.css"/></head><body><main role="main"><div class="post"><div class="docs-nav__wrapper"><h4 class="docs-nav--header">Configuration</h4><div class="docs-nav"><a class="docs-nav__link" href="/docs/getting-started">Getting started</a><a class="docs-nav__link" href="/docs/faq">FAQ</a><span class="docs-nav__link docs-nav__link--current">Configuration</span><a class="docs-nav__link" href="/docs/deploying-to-github-pages">Deploying to GitHub Pages</a><a class="docs-nav__link" href="/docs/themes">Theming</a></div></div><h1 class="post__heading">Configuration</h1><div class="post__content"><div><p>Just like <a href="https://webpack.github.io/">Webpack</a>, the heart of Antwar, also Antwar has been built on the configuration. <code>antwar.config.js</code> describes all metadata related to your site. This includes basic information such as site title, author, sections and so on. It also defines which theme and which plugins you use.</p>
+<h2 id="basic-example">Basic Example</h2>
+<p>This is (more or less) the configuration for this site. If you are used to working with javascript, most of this should look familiar.</p>
+<pre><code class="lang-javascript"><span class="token string">&apos;use strict&apos;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">var</span> rssPlugin <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;antwar-rss-plugin&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> prevnextPlugin <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;antwar-prevnext-plugin&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> highlightPlugin <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;antwar-highlight-plugin&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+
+  <span class="token comment" spellcheck="true">// Folder name for the output</span>
+  output<span class="token punctuation">:</span> <span class="token string">&apos;build&apos;</span><span class="token punctuation">,</span>
+
+  <span class="token comment" spellcheck="true">// Name of the site</span>
+  name<span class="token punctuation">:</span> <span class="token string">&apos;Antwar&apos;</span><span class="token punctuation">,</span>
+
+  <span class="token comment" spellcheck="true">// Name of the author</span>
+  author<span class="token punctuation">:</span> <span class="token string">&apos;Antwar&apos;</span><span class="token punctuation">,</span>
+
+  <span class="token comment" spellcheck="true">// Branch to deploy to.</span>
+  deploy<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    branch<span class="token punctuation">:</span> <span class="token string">&apos;gh-pages&apos;</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+  plugins<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+    <span class="token function">rssPlugin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token function">prevnextPlugin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+
+    <span class="token comment" spellcheck="true">// Remember to load Prism style in addition to enabling highlighting!</span>
+    <span class="token function">highlightPlugin</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+
+  <span class="token comment" spellcheck="true">// Definitions for where the content is located</span>
+  paths<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token string">&apos;/&apos;</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+      path<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> require<span class="token punctuation">.</span><span class="token function">context</span><span class="token punctuation">(</span><span class="token string">&apos;./pages&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    blog<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+      path<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> require<span class="token punctuation">.</span><span class="token function">context</span><span class="token punctuation">(</span><span class="token string">&apos;./posts&apos;</span><span class="token punctuation">,</span> <span class="token keyword">true</span><span class="token punctuation">,</span> <span class="token regex">/^\.\/.*\.md$/</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      draft<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> require<span class="token punctuation">.</span><span class="token function">context</span><span class="token punctuation">(</span><span class="token string">&apos;./drafts&apos;</span><span class="token punctuation">,</span> <span class="token keyword">true</span><span class="token punctuation">,</span> <span class="token regex">/^\.\/.*\.md$/</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      layout<span class="token punctuation">:</span> <span class="token string">&apos;blog&apos;</span><span class="token punctuation">,</span>
+      title<span class="token punctuation">:</span> <span class="token string">&apos;Blog posts&apos;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    docs<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+      path<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> require<span class="token punctuation">.</span><span class="token function">context</span><span class="token punctuation">(</span><span class="token string">&apos;./docs&apos;</span><span class="token punctuation">,</span> <span class="token keyword">true</span><span class="token punctuation">,</span> <span class="token regex">/^\.\/.*\.md$/</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      sort<span class="token punctuation">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>items<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> _<span class="token punctuation">.</span><span class="token function">sortBy</span><span class="token punctuation">(</span>items<span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>item<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token keyword">return</span> item<span class="token punctuation">.</span>file<span class="token punctuation">.</span>sort<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      processItem<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        isDraft<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span>o<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">return</span> o<span class="token punctuation">.</span>file<span class="token punctuation">.</span>isDraft<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      layout<span class="token punctuation">:</span> <span class="token string">&apos;docs&apos;</span><span class="token punctuation">,</span>
+      title<span class="token punctuation">:</span> <span class="token string">&apos;Documentation&apos;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+  <span class="token comment" spellcheck="true">// Theme and config for the theme</span>
+  theme<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    name<span class="token punctuation">:</span> <span class="token string">&apos;antwar-default-theme&apos;</span><span class="token punctuation">,</span>
+    navigation<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+      <span class="token punctuation">{</span>title<span class="token punctuation">:</span> <span class="token string">&apos;Home&apos;</span><span class="token punctuation">,</span> url<span class="token punctuation">:</span> <span class="token string">&apos;/&apos;</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">{</span>title<span class="token punctuation">:</span> <span class="token string">&apos;Documentation&apos;</span><span class="token punctuation">,</span> url<span class="token punctuation">:</span> <span class="token string">&apos;/docs&apos;</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">{</span>title<span class="token punctuation">:</span> <span class="token string">&apos;Blog&apos;</span><span class="token punctuation">,</span> url<span class="token punctuation">:</span> <span class="token string">&apos;/blog&apos;</span><span class="token punctuation">}</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    analyticsId<span class="token punctuation">:</span> <span class="token string">&apos;UA-XXXXXXXXX-1&apos;</span><span class="token punctuation">,</span>
+    customStyles<span class="token punctuation">:</span> <span class="token string">&apos;specific.scss&apos;</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<h2 id="advanced-configuration">Advanced Configuration</h2>
+<p>The configuration is available at page level so you can use it in quite imaginative manners.</p>
+<p>To give you a better idea of how to approach configuration consider the real life example below. It has been taken from <a href="http://survivejs.com/">SurviveJS</a> site and is actually quite advanced example. You don&apos;t need anything this complex for a casual blog. The default settings will get you quite far with that.</p>
+<pre><code class="lang-javascript"><span class="token string">&apos;use strict&apos;</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> _ <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;lodash&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> removeMd <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;remove-markdown&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> markdown <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;commonmark&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> highlightPlugin <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;antwar-highlight-plugin&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> prevnextPlugin <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;antwar-prevnext-plugin&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">var</span> mdReader <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">markdown<span class="token punctuation">.</span>Parser</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> mdWriter <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">markdown<span class="token punctuation">.</span>HtmlRenderer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token comment" spellcheck="true">// copying files so I can refer to them easily from content</span>
+  assets<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+      from<span class="token punctuation">:</span> <span class="token string">&apos;manuscript/images&apos;</span><span class="token punctuation">,</span>
+      to<span class="token punctuation">:</span> <span class="token string">&apos;images&apos;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      from<span class="token punctuation">:</span> <span class="token string">&apos;./CNAME&apos;</span><span class="token punctuation">,</span>
+      to<span class="token punctuation">:</span> <span class="token string">&apos;./&apos;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token comment" spellcheck="true">// setting up general meta for output and such</span>
+  output<span class="token punctuation">:</span> <span class="token string">&apos;build&apos;</span><span class="token punctuation">,</span>
+  name<span class="token punctuation">:</span> <span class="token string">&apos;SurviveJS - Survive the jungles of JavaScript&apos;</span><span class="token punctuation">,</span>
+  author<span class="token punctuation">:</span> <span class="token string">&apos;Juho Veps&#xE4;l&#xE4;inen&apos;</span><span class="token punctuation">,</span>
+  deploy<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    branch<span class="token punctuation">:</span> <span class="token string">&apos;gh-pages&apos;</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token comment" spellcheck="true">// global plugins for whole site</span>
+  plugins<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+    <span class="token function">highlightPlugin</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      style<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;highlight.js/styles/github.css&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      languages<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">&apos;bash&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;javascript&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;json&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;html&apos;</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token function">prevnextPlugin</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      bodyContent<span class="token punctuation">:</span> prevnextPlugin<span class="token punctuation">.</span><span class="token function">bodyContent</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+        previous<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span>o<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">return</span> o<span class="token punctuation">.</span>title<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        previousUrl<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span>o<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">return</span> <span class="token string">&apos;../&apos;</span> <span class="token operator">+</span> o<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">&apos;/&apos;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token string">&apos;/&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        next<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span>o<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">return</span> o<span class="token punctuation">.</span>title<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        nextUrl<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span>o<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">return</span> <span class="token string">&apos;../&apos;</span> <span class="token operator">+</span> o<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">&apos;/&apos;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token string">&apos;/&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token comment" spellcheck="true">// choosing a theme and setting some theme specific settings</span>
+  theme<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    customStyles<span class="token punctuation">:</span> <span class="token string">&apos;custom.scss&apos;</span><span class="token punctuation">,</span>
+    name<span class="token punctuation">:</span> <span class="token string">&apos;antwar-default-theme&apos;</span><span class="token punctuation">,</span>
+    navigation<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+      <span class="token punctuation">{</span>title<span class="token punctuation">:</span> <span class="token string">&apos;Home&apos;</span><span class="token punctuation">,</span> url<span class="token punctuation">:</span> <span class="token string">&apos;/&apos;</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">{</span>title<span class="token punctuation">:</span> <span class="token string">&apos;Table of Contents&apos;</span><span class="token punctuation">,</span> url<span class="token punctuation">:</span> <span class="token string">&apos;/webpack_react&apos;</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token comment" spellcheck="true">// describing site structure and content mapping</span>
+  paths<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token string">&apos;/&apos;</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+      path<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// require.context is a feature of Webpack. It just loads</span>
+        <span class="token comment" spellcheck="true">// the content of given directory so we can process it</span>
+        <span class="token keyword">return</span> require<span class="token punctuation">.</span><span class="token function">context</span><span class="token punctuation">(</span><span class="token string">&apos;./pages&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token comment" spellcheck="true">// mapping an ebook (directory of Markdown files) to a section</span>
+    webpack_react<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+      title<span class="token punctuation">:</span> <span class="token string">&apos;Table of Contents&apos;</span><span class="token punctuation">,</span>
+      path<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// here we want just Markdown files. In order to be future proof</span>
+        <span class="token comment" spellcheck="true">// I get the files recursively (second parameter). This would</span>
+        <span class="token comment" spellcheck="true">// just generate a deeper structure.</span>
+        <span class="token keyword">return</span> require<span class="token punctuation">.</span><span class="token function">context</span><span class="token punctuation">(</span><span class="token string">&apos;./manuscript&apos;</span><span class="token punctuation">,</span> <span class="token keyword">true</span><span class="token punctuation">,</span> <span class="token regex">/^\.\/.*\.md$/</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      processItem<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        title<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span>o<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token comment" spellcheck="true">// picking title from first line (Markdown stripped)</span>
+          <span class="token keyword">return</span> <span class="token function">removeMd</span><span class="token punctuation">(</span>o<span class="token punctuation">.</span>file<span class="token punctuation">.</span>__content<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">&apos;\n&apos;</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        content<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span>o<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token comment" spellcheck="true">// picking everything except the first line (title, remember)</span>
+          <span class="token keyword">var</span> content <span class="token operator">=</span> o<span class="token punctuation">.</span>file<span class="token punctuation">.</span>__content<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">&apos;\n&apos;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token string">&apos;\n&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+          <span class="token comment" spellcheck="true">// rendering to html</span>
+          <span class="token keyword">return</span> mdWriter<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span>mdReader<span class="token punctuation">.</span><span class="token function">parse</span><span class="token punctuation">(</span>content<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        preview<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span>o<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token comment" spellcheck="true">// picking a limited amount of content to show for preview</span>
+          <span class="token keyword">var</span> previewLimit <span class="token operator">=</span> <span class="token number">150</span><span class="token punctuation">;</span>
+          <span class="token keyword">var</span> content <span class="token operator">=</span> o<span class="token punctuation">.</span>file<span class="token punctuation">.</span>__content<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">&apos;\n&apos;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token string">&apos;\n&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token keyword">var</span> stripped <span class="token operator">=</span> <span class="token function">removeMd</span><span class="token punctuation">(</span>content<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+          <span class="token keyword">if</span><span class="token punctuation">(</span>stripped<span class="token punctuation">.</span>length <span class="token operator">&gt;</span> previewLimit<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> stripped<span class="token punctuation">.</span><span class="token function">substr</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> previewLimit<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">&apos;&#x2026;&apos;</span><span class="token punctuation">;</span>
+          <span class="token punctuation">}</span>
+
+          <span class="token keyword">return</span> stripped<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      sort<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span>files<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// sorting section index based on an order defined at a separate file</span>
+        <span class="token keyword">var</span> order <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;raw!./manuscript/Book.txt&apos;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">&apos;\n&apos;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span>id<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">var</span> ret <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+        order<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">var</span> result <span class="token operator">=</span> _<span class="token punctuation">.</span><span class="token function">findWhere</span><span class="token punctuation">(</span>files<span class="token punctuation">,</span> <span class="token punctuation">{</span>
+            name<span class="token punctuation">:</span> name<span class="token punctuation">,</span>
+          <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+          <span class="token keyword">if</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            ret<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">return</span> ret<span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">function</span> <span class="token function">id</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token keyword">return</span> a<span class="token punctuation">;</span><span class="token punctuation">}</span>
+</code></pre>
+<p>In practice your configuration will likely look very different compared to this example. As you can see, Antwar allows you to shape a section mapping quite freely. The system leverages Webpack heavily.</p>
+<p>In addition you may use whatever tricks you have as long as they work in frontend environment. This means you won&apos;t have direct access to Node modules such as <code>fs</code> but in practice this isn&apos;t a problem as Webpack can help you as above.</p>
+<p>Each of those <code>processItem</code> hooks accepts an object as a parameter. Through it you can access <code>file</code> (Webpack context object), <code>fileName</code> (string) and <code>sectionName</code> (string) data.</p>
+</div></div></div><div class="nav__wrapper"><input type="checkbox" class="nav__toggle" id="nav__toggle"/><label class="nav__toggle-label" for="nav__toggle"></label><nav class="nav"><div class="nav__link"><a class="" href="/">Home</a></div><div class="nav__link"><a class="" href="/docs">Documentation</a></div><div class="nav__link"><a class="" href="/blog">Blog</a></div></nav></div><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', ', UA-60511795-1', 'auto');ga('send', 'pageview');</script></main></body></html>

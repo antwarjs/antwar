@@ -1,0 +1,30 @@
+{
+  "name": "antwar-default-theme",
+  "version": "0.5.0",
+  "description": "Default theme for antwar",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/antwarjs/default-theme.git"
+  },
+  "keywords": [
+    "antwar",
+    "theme"
+  ],
+  "author": "eldh",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/antwarjs/default-theme/issues"
+  },
+  "homepage": "https://github.com/antwarjs/default-theme",
+  "dependencies": {
+    "autoprefixer-loader": "^3.1.0",
+    "lodash": ">= 3.6.0 < 4.0",
+    "node-sass": "^3.2.0",
+    "moment": ">= 2.9.0 < 3.0",
+    "sass-loader": "^3.1.1"
+  }
+}

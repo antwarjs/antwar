@@ -1,0 +1,26 @@
+{
+  "name": "antwar-minimal-boilerplate",
+  "description": "Minimal Boilerplate for Antwar",
+  "author": "Juho Vepsalainen <bebraw@gmail.com>",
+  "version": "0.2.0",
+  "dependencies": {
+    "antwar-minimal-theme": "^0.2.0",
+    "react": ">= 0.10.0 < 1.x"
+  },
+  "scripts": {},
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/antwarjs/minimal-boilerplate.git"
+  },
+  "homepage": "https://github.com/antwarjs/minimal-boilerplate",
+  "bugs": {
+    "url": "https://github.com/antwarjs/minimal-boilerplate/issues"
+  },
+  "keywords": [
+    "antwar",
+    "minimal",
+    "boilerplate"
+  ],
+  "licenses": "MIT"
+}

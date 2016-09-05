@@ -1,0 +1,38 @@
+{
+  "name": "antwar-rss-plugin",
+  "version": "0.3.1",
+  "description": "RSS plugin for antwar",
+  "main": "src",
+  "scripts": {
+    "test": "tape test/*.js",
+    "test:watch": "npm-watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/antwarjs/rss-plugin.git"
+  },
+  "keywords": [
+    "antwar",
+    "plugin"
+  ],
+  "author": "eldh",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/antwarjs/rss-plugin/issues"
+  },
+  "homepage": "https://github.com/antwarjs/rss-plugin",
+  "dependencies": {
+    "absolutify": "0.0.2",
+    "lodash": "^4.15.0",
+    "moment": "^2.14.1",
+    "url-join": "^1.1.0"
+  },
+  "devDependencies": {
+    "marked": "^0.3.6",
+    "npm-watch": "^0.1.6",
+    "tape": "^4.6.0"
+  },
+  "watch": {
+    "test": "{src,test}/*.js"
+  }
+}

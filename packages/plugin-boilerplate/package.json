@@ -1,0 +1,23 @@
+{
+  "name": "antwar-plugin-boilerplate",
+  "description": "Boilerplate for Antwar plugins",
+  "author": "Juho Vepsalainen <bebraw@gmail.com>",
+  "version": "0.2.2",
+  "dependencies": {},
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/antwarjs/plugin-boilerplate.git"
+  },
+  "homepage": "https://github.com/antwarjs/plugin-boilerplate",
+  "bugs": {
+    "url": "https://github.com/antwarjs/plugin-boilerplate/issues"
+  },
+  "keywords": [
+    "antwar",
+    "boilerplate",
+    "plugin"
+  ],
+  "license": "MIT",
+  "scripts": {}
+}

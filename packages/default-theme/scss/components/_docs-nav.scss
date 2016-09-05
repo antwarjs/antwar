@@ -1,0 +1,64 @@
+$docs-min-width: 225px;
+
+.docs-nav__wrapper {
+	display: flex;
+	justify-content: flex-start;
+	align-content: flex-start;
+	align-items: flex-start;
+	width: auto;
+	flex-grow: 0;
+	flex-shrink: 0;
+	@media only screen and (min-width: #{$max-width + $docs-min-width * 2}) {
+		padding: $base-spacing-unit;
+		position: fixed;
+		left: 0;
+		top: $half-spacing-unit;
+	}
+	@include media-query('palm') {
+		padding: 0 $half-spacing-unit;
+	}
+}
+.docs-nav {
+	// position: absolute;
+	// left: 0;
+	max-width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-content: flex-start;
+	align-items: flex-start;
+
+	// padding-top: $base-spacing-unit;
+	@media only screen and (min-width: #{$max-width + $docs-min-width * 2}) {
+		max-width: $docs-min-width;
+		flex-direction: column;
+		margin-top: $base-spacing-unit / 2;
+	}
+	@media only screen and (max-width: #{$lap-start}) {
+		flex-direction: column;
+	}
+
+}
+
+.docs-nav--header {
+	margin-bottom: 0;
+}
+.docs-nav__link {
+	font-size: $deci-size;
+	font-family: $small-font;
+	margin-right: $base-spacing-unit;
+	margin-bottom: 0.3em;
+	line-height: 1.5;
+}
+.docs-nav__wrapper--push-down {
+	margin-top: 73vh; // Adjust for header image
+	& + .header-image + .post__heading + .post__content {
+		margin-top: 0;
+	}
+	@media only screen and (min-width: #{$max-width + $docs-min-width * 2}) {
+		position: absolute;
+		& + .header-image + .post__heading + .post__content {
+			margin-top: 73vh;
+		}
+	}
+}

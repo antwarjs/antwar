@@ -1,0 +1,37 @@
+{
+  "name": "antwar-highlight-plugin",
+  "version": "0.3.0",
+  "description": "Highlight plugin for antwar",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/antwarjs/highlight-plugin.git"
+  },
+  "keywords": [
+    "antwar",
+    "highlight",
+    "plugin"
+  ],
+  "author": "eldh",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/antwarjs/highlight-plugin/issues"
+  },
+  "homepage": "https://github.com/antwarjs/highlight-plugin",
+  "dependencies": {
+    "cheerio": "^0.19.0",
+    "he": "^0.5.0",
+    "lodash": "^3.9.3",
+    "prism-languages": "^0.1.2",
+    "prismjs": "0.0.1"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/antwarjs/highlight-plugin/blob/master/LICENSE"
+    }
+  ]
+}

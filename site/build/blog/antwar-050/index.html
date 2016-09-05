@@ -1,0 +1,126 @@
+<html lang="en"><head><title>Antwar - Antwar 0.5.0 - Halfway Towards Awesomeness</title><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimal-ui"/><meta name="description" content="Antwar is speeding up towards maturity"/><meta name="keywords"/><link rel="icon" type="image/png" href="/assets/img/favicon.png"/><link rel="alternate" type="application/atom+xml" href="./atom.xml"/><link rel="stylesheet" href="/assets/main.css"/></head><body><main role="main"><div><div class="post"><h1 class="post__heading">Antwar 0.5.0 - Halfway Towards Awesomeness</h1><div class="post__content"><div><p>Antwar is one of those projects that was born to fill a need. I wanted to port my <a href="http://nixtu.info/">Blogspot blog</a> to some platform that&apos;s more fun to work with. Initially I looked into <a href="https://ghost.org/">Ghost</a>. The fact that it&apos;s not static was a big turn off. I wanted my blog over Git.</p>
+<blockquote>
+<p>During my dabblings with Ghost I did write a migration path in form of <a href="https://github.com/bebraw/blogger2ghost">blogger2ghost</a>, though. Eventually I came upon <a href="https://github.com/antwarjs/antwar">Antwar</a> and here I am.</p>
+</blockquote>
+<p>Initially Antwar started as a fork of <a href="https://github.com/BradDenver/react-static-site">Brad Denver react-static-site</a>. Early on I wrote a <a href="https://github.com/antwarjs/antwar/wiki/Design">design document</a> to guide development. Since then the project has mutated a lot and gained a life of its own. I doubt Antwar would exist without Brad&apos;s pioneering work.</p>
+<p>Andreas was the first to port <a href="http://eldh.co/">his blog</a> over at Antwar. My requirements are more complex than that and there are still issues like pagination to solve. As a result I have to develop Antwar further till it meets my needs. Incidentally I managed to find a smaller case that allowed me to work towards this larger goal.</p>
+<h2 id="survivejs-webpack-and-react">SurviveJS - Webpack and React</h2>
+<p><img src="/assets/img/survivejs.jpg" class="inline-img" alt="SurviveJS site"></p>
+<p><a href="http://survivejs.com/">SurviveJS - Webpack and React</a> is a little book I have been working on lately. No book is complete without a little site to accompany it. In this case I wanted to offer people an easy way to consume the content online and optionally buy an electronic copy (<strong>wink wink, nudge nudge</strong>).</p>
+<p>I realized Antwar could allow me to reach this goal with a bit of work. As I like the design work Andreas has done on the default theme of Antwar that allowed me to focus on getting things to work adequately and focus on software design.</p>
+<p>Earlier Antwar was designed based on a static directory structure. Primarily it relied on <code>pages</code>, <code>drafts</code> and <code>posts</code> directories and Markdown (with YAML headmatter) format. My book, however, uses another kind of structure, chapters are missing headmatter and ordering of chapters is defined by an external file.</p>
+<p>This meant that Antwar had to change. And change it did.</p>
+<h2 id="antwar-0-5-0-expanded-configuration">Antwar 0.5.0 - Expanded Configuration</h2>
+<p>Antwar, just like Webpack, is based on top of the idea of a project based configuration. We call that <code>antwar.config.js</code>. The idea is that you define how your content maps as a site there. To make Antwar work for my purposes I needed to generalize the configuration quite a bit. There are a couple of important additions related to asset handling, plugins, theming and paths.</p>
+<blockquote>
+<p>You can find the exact configuration in its entirety at <a href="https://github.com/survivejs/webpack_react">survivejs/webpack_react</a> repository.</p>
+</blockquote>
+<h3 id="assets">Assets</h3>
+<p>Asset configuration allows you to copy arbitrary assets within your build. In my case I needed to copy <code>images</code> directory and <code>CNAME</code> file. Latter is used by GitHub to deal with domain mapping. If CNAME is set to point at your domain and you have configured your DNS to point at GitHub static hosting, your site will show up there.</p>
+<pre><code class="lang-javascript">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  assets<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+      from<span class="token punctuation">:</span> <span class="token string">&apos;manuscript/images&apos;</span><span class="token punctuation">,</span>
+      to<span class="token punctuation">:</span> <span class="token string">&apos;images&apos;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      from<span class="token punctuation">:</span> <span class="token string">&apos;./CNAME&apos;</span><span class="token punctuation">,</span>
+      to<span class="token punctuation">:</span> <span class="token string">&apos;./&apos;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<h3 id="plugins">Plugins</h3>
+<p>We decided to standardize on plugin format. Now each plugin should return a function which takes possible options. In this case I&apos;m setting up highlighting and previous/next links for all sections of the site. Later on we intend to allow more specific configuration per site section.</p>
+<p>Plugins can inject new metadata and even markup to pages making this a powerful extension mechanism. Besides highlight and prevnext we have set up RSS plugin and there are plans for a few others including various commenting plugins.</p>
+<pre><code class="lang-javascript"><span class="token keyword">var</span> highlightPlugin <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;antwar-highlight-plugin&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> prevnextPlugin <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;antwar-prevnext-plugin&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  plugins<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+    <span class="token function">highlightPlugin</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      style<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;highlight.js/styles/github.css&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      languages<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">&apos;bash&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;javascript&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;json&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;html&apos;</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token function">prevnextPlugin</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<h3 id="theming">Theming</h3>
+<p>In this iteration we didn&apos;t spend much thought on theming. Themes gained some minor addition but I consider this portion of Antwar underdeveloped. We have a nice looking default theme thanks to Andreas but I feel there&apos;s room for improvement here. For completeness sake consider the example below:</p>
+<pre><code class="lang-javascript">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  theme<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    customStyles<span class="token punctuation">:</span> <span class="token string">&apos;custom.scss&apos;</span><span class="token punctuation">,</span>
+    name<span class="token punctuation">:</span> <span class="token string">&apos;antwar-default-theme&apos;</span><span class="token punctuation">,</span>
+    navigation<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+      <span class="token punctuation">{</span>
+        title<span class="token punctuation">:</span> <span class="token string">&apos;Home&apos;</span><span class="token punctuation">,</span>
+        url<span class="token punctuation">:</span> <span class="token string">&apos;/&apos;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">{</span>
+        title<span class="token punctuation">:</span> <span class="token string">&apos;Table of Contents&apos;</span><span class="token punctuation">,</span>
+        url<span class="token punctuation">:</span> <span class="token string">&apos;/webpack_react&apos;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>I think we&apos;ll push navigation to a plugin eventually. Now it just renders a navigation like that for each page. This is handy but not as good as it can be.</p>
+<h3 id="paths">Paths</h3>
+<p>The greatest innovation of Antwar 0.5.0 is the path configuration. Paths allow you to map content to your site. We let Webpack do the heavy lifting for us as you can see below. The system allows you to perform heavy transformations over data, sort it and so on.</p>
+<pre><code class="lang-javascript">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  paths<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token string">&apos;/&apos;</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+      path<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> require<span class="token punctuation">.</span><span class="token function">context</span><span class="token punctuation">(</span><span class="token string">&apos;./pages&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    webpack_react<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+      title<span class="token punctuation">:</span> <span class="token string">&apos;Table of Contents&apos;</span><span class="token punctuation">,</span>
+      path<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> require<span class="token punctuation">.</span><span class="token function">context</span><span class="token punctuation">(</span><span class="token string">&apos;./manuscript&apos;</span><span class="token punctuation">,</span> <span class="token keyword">true</span><span class="token punctuation">,</span> <span class="token regex">/^\.\/.*\.md$/</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      processItem<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        title<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span>o<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">return</span> <span class="token function">removeMd</span><span class="token punctuation">(</span>o<span class="token punctuation">.</span>file<span class="token punctuation">.</span>__content<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">&apos;\n&apos;</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        content<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span>o<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">var</span> content <span class="token operator">=</span> o<span class="token punctuation">.</span>file<span class="token punctuation">.</span>__content<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">&apos;\n&apos;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token string">&apos;\n&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+          <span class="token keyword">return</span> mdWriter<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span>mdReader<span class="token punctuation">.</span><span class="token function">parse</span><span class="token punctuation">(</span>content<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        preview<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span>o<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      sort<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span>files<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">var</span> order <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;raw!./manuscript/Book.txt&apos;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">&apos;\n&apos;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span>id<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">var</span> ret <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+        <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+
+        <span class="token keyword">return</span> ret<span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<h2 id="antwar-0-5-0-not-just-for-blogs">Antwar 0.5.0 - Not Just for Blogs</h2>
+<p>Even though that&apos;s a lot of configuration you can see logic in it quite fast. It&apos;s just a series of mappings. In this case I define sections for <code>/</code> and <code>webpack_react</code>. Those <code>/</code> pages map to site root. <code>webpack_react</code> will receive a section of its own. Antwar will generate a section index and a page per entry file it finds for that.</p>
+<p>The nice thing here is that we can leverage the power of Webpack to do all the heavy lifting. That&apos;s where all those <code>require.context</code> and <code>require</code> calls come from. It&apos;s true you&apos;ll have to understand Webpack a little bit to use our tool. On the plus side we take care of the configuration for you.</p>
+<p>This design allowed us to drop the earlier static structure we depended upon. As a nice bonus we can now serve any content Webpack supports and aren&apos;t bound on Markdown anymore. You can of course author your pages through React components if you need something truly custom. The components will be compiled into HTML. One day we might want to allow something more dynamic.</p>
+<p>We also moved from absolute links to relative ones. This means you can host Antwar below an arbitrary url structure without any problem. This is important in case you want host something below GitHub Pages (ie. not at root).</p>
+<p>I think with a bit of effort you could host image galleries and such on top of Antwar but these are ideas I have yet to explore. Ideally you would just point a directory of images to it and everything would just work.</p>
+<h2 id="antwar-what-next-">Antwar - What Next?</h2>
+<p>Older features, such as interactive development mode (<code>antwar -d</code>) and easy GitHub deployment (<code>antwar -D</code>) still work of course and make Antwar pleasant to use. For me Antwar is starting to feel like a serious tool now. I can, for instance, add a blog to my book site with a bit of configuration. Particularly <code>paths</code> mappings feel powerful and allow me to develop on top of Antwar instead of in it.</p>
+<p>There is still design and work left to do on theming and plugin department. Even though it is easy to develop plugins to extend a site even right now I feel we&apos;ll need to take the approach further. In particular we&apos;ll want to make sure you can customize site per section adequately.</p>
+<p>In order to provide better sites for various libraries of mine, such as <a href="https://bebraw.github.io/reactabular/">reactabular</a>, I&apos;ll need to think carefully about integrating interactive React examples to the output. I believe with a bit of work Antwar could become a good basis for project sites.</p>
+<p>I believe Antwar 0.5.0 is an important step towards a refreshingly different static site generator. It is starting to show some promise already. If you are willing to tolerate a certain lack of features and possible little glitches, maybe you should give it a go. In any case keep an eye on the project as here we come!</p>
+</div></div><time datetime="2015-06-04T00:00:00.000Z" class="post__moment">4 Jun 2015</time><div class="prevnext"><div class="prevnext__next" style="width:100%;"><div class="prevnext__bg" style="background-image:url(https://unsplash.imgix.net/uploads/1411724908903377d4696/2e9b0cb2?q=75&amp;fm=jpg&amp;s=2016c4932a7b7a1b629cb6890bff9977);"></div><span class="prevnext__info">Next post</span><a class="prevnext__link" href="/blog/second-post">The sequel</a></div></div></div></div><div class="nav__wrapper"><input type="checkbox" class="nav__toggle" id="nav__toggle"/><label class="nav__toggle-label" for="nav__toggle"></label><nav class="nav"><div class="nav__link"><a class="" href="/">Home</a></div><div class="nav__link"><a class="" href="/docs">Documentation</a></div><div class="nav__link"><a class="" href="/blog">Blog</a></div></nav></div><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', ', UA-60511795-1', 'auto');ga('send', 'pageview');</script></main></body></html>

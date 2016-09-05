@@ -1,0 +1,37 @@
+{
+  "private": true,
+  "name": "antwarjs.github.io",
+  "description": "Demo site for Antwar",
+  "author": "eldh",
+  "version": "0.0.1",
+  "scripts": {
+    "start": "antwar -d",
+    "build": "antwar -b",
+    "deploy": "antwar -D"
+  },
+  "dependencies": {
+    "antwar": "antwarjs/antwar",
+    "antwar-cli": "antwarjs/cli",
+    "antwar-default-theme": "antwarjs/default-theme",
+    "antwar-helpers": "antwarjs/helpers",
+    "antwar-highlight-plugin": "antwarjs/highlight-plugin",
+    "antwar-prevnext-plugin": "antwarjs/prevnext-plugin",
+    "antwar-rss-plugin": "antwarjs/rss-plugin",
+    "react": "^0.14.2"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/antwarjs/antwarjs.github.io.git"
+  },
+  "homepage": "https://antwarjs.github.io",
+  "bugs": {
+    "url": "https://github.com/antwarjs/antwarjs.github.io/issues"
+  },
+  "keywords": [
+    "antwar",
+    "demo",
+    "antwarjs.github.io"
+  ],
+  "license": "MIT"
+}

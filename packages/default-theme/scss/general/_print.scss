@@ -1,0 +1,81 @@
+@media print {
+	* {
+		background-color: transparent !important;
+		color: #000 !important; /* Black prints faster: h5bp.com/s */
+		box-shadow: none !important;
+		text-shadow: none !important;
+	}
+
+	p {
+		font-family: Georgia, 'Times New Roman', serif;
+		font-size: 10pt;
+	}
+
+	a,
+	a:visited {
+		text-decoration: underline;
+	}
+
+	a[href]:after {
+		content: " (" attr(href) ")";
+		font-size: $base-font-size;
+		font-family: $body-font;
+	}
+
+	abbr[title]:after {
+		content: " (" attr(title) ")";
+		font-size: $base-font-size;
+		font-family: $body-font;
+	}
+
+	/*
+	 * Don't show links for images, or javascript/internal links
+	 */
+
+	 header a:after,
+	 .ir a:after,
+	 a[href^="javascript:"]:after,
+	 a[href^="#"]:after {
+		content: "" !important;
+	 }
+
+	 pre,
+	 blockquote {
+		border: 1px solid #999;
+		page-break-inside: avoid;
+	 }
+
+	 thead {
+		display: table-header-group; /* h5bp.com/t */
+	}
+
+	tr,
+	img {
+		page-break-inside: avoid;
+	}
+
+	img {
+		max-width: 100% !important;
+	}
+
+	@page {
+		margin: 1.5cm;
+	}
+
+	p,
+	h2,
+	h3 {
+		orphans: 3;
+		widows: 3;
+	}
+
+	h2,
+	h3 {
+		page-break-after: avoid;
+	}
+
+	nav,
+	.hide--print { //Do not display
+		display: none !important;
+	}
+}
