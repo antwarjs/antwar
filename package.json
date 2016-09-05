@@ -6,7 +6,9 @@
   "scripts": {
     "init": "npm install && lerna bootstrap",
     "start": "webpack-dev-server",
+    "test": "tape packages/*/test/*.js",
     "test:lint": "eslint . --ext .js --ext .jsx --cache",
+    "watch:test": "npm-watch",
     "gh-pages:build-and-deploy": "npm run gh-pages:build && npm run gh-pages:deploy",
     "gh-pages:build": "webpack",
     "gh-pages:deploy": "gh-pages -d gh-pages",
@@ -40,10 +42,17 @@
     "eslint-plugin-import": "^1.13.0",
     "eslint-plugin-jsx-a11y": "^2.1.0",
     "eslint-plugin-react": "^6.1.1",
-    "lerna": "2.0.0-beta.26"
+    "lerna": "2.0.0-beta.26",
+    "npm-watch": "^0.1.6",
+    "react": "^15.3.1",
+    "react-dom": "^15.3.1",
+    "tape": "^4.6.0"
   },
   "pre-push": [
     "test:lint",
     "test"
-  ]
+  ],
+  "watch": {
+    "test": "packages/**/*.js"
+  }
 }
