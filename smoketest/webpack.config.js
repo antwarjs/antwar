@@ -13,7 +13,7 @@ function commonConfig(includes) {
       loaders: [
         {
           test: /\.jsx?$/,
-          loader: 'babel',
+          loader: 'babel-loader',
           include: includes.concat([
             path.join(__dirname, 'pages')
           ])
