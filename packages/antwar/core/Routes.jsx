@@ -2,11 +2,11 @@ import _ from 'lodash';
 import React from 'react';
 import { Route } from 'react-router';
 import config from 'config';
-import DevIndex from './DevIndex.jsx';
-import BodyContent from './BodyContent.jsx';
+import DevIndex from './DevIndex';
+import BodyContent from './BodyContent';
 import paths from '../libs/paths';
 
-export default (
+module.exports = (
   <Route>
     {__DEV__ && <Route path="antwar_devindex" component={DevIndex} />}
     <Route component={BodyContent}>

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const path = require('path');
 const _ = require('lodash');
 const rimraf = require('rimraf');
@@ -30,14 +31,14 @@ module.exports = function (options) {
     antwar: _.merge(defaultConfiguration(), options.configuration),
     webpack: options.webpack(environment, {
       paths: [
-        path.join(__dirname, 'components'),
+        path.join(__dirname, 'core'),
         path.join(__dirname, 'dev')
       ]
     })
   });
 };
 
-function defaultConfiguration () {
+function defaultConfiguration() {
   const prettyConsole = {
     log(...args) {
       console.log(simpleTimestamp(), chalk.green.apply(null, args));
@@ -64,7 +65,7 @@ function defaultConfiguration () {
   };
 }
 
-function develop (configurations) {
+function develop(configurations) {
   const cwd = process.cwd();
   const buildDir = path.join(cwd, './.antwar');
 

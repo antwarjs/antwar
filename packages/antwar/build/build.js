@@ -8,7 +8,9 @@ const rimraf = require('rimraf');
 const webpack = require('webpack');
 const workerFarm = require('worker-farm');
 
-const workers = workerFarm(require.resolve('./build_worker'));
+const workers = workerFarm(
+  require.resolve('./build_worker')
+);
 
 const webpackConfig = require('../config/build');
 const write = require('./write');
@@ -31,8 +33,12 @@ module.exports = function (config) {
         const cwd = process.cwd();
         const params = {
           cwd,
-          renderPage: require(_path.join(cwd, './.antwar/build/bundleStaticPage.js')),
-          allPaths: require(_path.join(cwd, './.antwar/build/paths.js'))(),
+          renderPage: require(
+            _path.join(cwd, './.antwar/build/bundleStaticPage.js')
+          ),
+          allPaths: require(
+            _path.join(cwd, './.antwar/build/paths.js')
+          )(),
           output: _path.join(cwd, output),
           config: config.antwar
         };

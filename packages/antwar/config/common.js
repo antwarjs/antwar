@@ -10,7 +10,7 @@ module.exports = function (config) {
       assets: path.join(cwd, 'assets'),
       // XXX: not correct if the user changes the default
       config: path.join(cwd, 'antwar.config.js'),
-      core: path.join(parent, 'components'),
+      core: path.join(parent, 'core'),
       cwd,
       dev: path.join(parent, 'dev'),
       parent: path.join(__dirname, '..')
@@ -20,7 +20,7 @@ module.exports = function (config) {
       paths.dev
     ];
 
-    const common = {
+    resolve({
       parent,
       resolve: {
         root: cwd,
@@ -28,7 +28,7 @@ module.exports = function (config) {
           underscore: 'lodash',
           assets: paths.assets,
           config: paths.config,
-          'antwar-core': paths.core
+          core: paths.core
         },
         extensions: [
           '',
@@ -59,8 +59,6 @@ module.exports = function (config) {
         new webpack.optimize.DedupePlugin(),
         new SystemBellPlugin()
       ]
-    };
-
-    resolve(common);
+    });
   });
 };
