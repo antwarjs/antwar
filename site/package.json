@@ -1,37 +1,39 @@
 {
   "private": true,
-  "name": "antwarjs.github.io",
+  "name": "antwar.js.org",
   "description": "Demo site for Antwar",
-  "author": "eldh",
+  "author": "Juho Vepsäläinen",
   "version": "0.0.1",
   "scripts": {
-    "start": "antwar -d",
-    "build": "antwar -b",
-    "deploy": "antwar -D"
+    "start": "node ./antwar.config.js",
+    "build": "node ./antwar.config.js",
+    "deploy": "gh-pages -d build"
   },
-  "dependencies": {
+  "devDependencies": {
     "antwar": "antwarjs/antwar",
-    "antwar-cli": "antwarjs/cli",
-    "antwar-default-theme": "antwarjs/default-theme",
     "antwar-helpers": "antwarjs/helpers",
     "antwar-highlight-plugin": "antwarjs/highlight-plugin",
     "antwar-prevnext-plugin": "antwarjs/prevnext-plugin",
     "antwar-rss-plugin": "antwarjs/rss-plugin",
-    "react": "^0.14.2"
+    "app-module-path": "^1.1.0",
+    "babel-preset-es2015": "^6.14.0",
+    "babel-preset-react": "^6.11.1",
+    "babel-register": "^6.14.0",
+    "gh-pages": "^0.11.0",
+    "react": "^15.3.1"
   },
-  "devDependencies": {},
   "repository": {
     "type": "git",
-    "url": "https://github.com/antwarjs/antwarjs.github.io.git"
+    "url": "https://github.com/antwarjs/antwar.git"
   },
-  "homepage": "https://antwarjs.github.io",
+  "homepage": "https://antwar.js.org",
   "bugs": {
-    "url": "https://github.com/antwarjs/antwarjs.github.io/issues"
+    "url": "https://github.com/antwarjs/antwar/issues"
   },
   "keywords": [
     "antwar",
     "demo",
-    "antwarjs.github.io"
+    "antwar.js.org"
   ],
   "license": "MIT"
 }

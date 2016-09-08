@@ -1,11 +1,17 @@
+// ES6 features, JSX
+require('babel-register');
+
 const _ = require('lodash');
-const themeConfig = require('antwar-default-theme');
+const appModulePath = require('app-module-path');
+
+appModulePath.addPath('../packages');
+
+const antwar = require('antwar');
 const rssPlugin = require('antwar-rss-plugin');
 const prevnextPlugin = require('antwar-prevnext-plugin');
 const highlightPlugin = require('antwar-highlight-plugin');
 
-module.exports = {
-  webpack: themeConfig.webpack, // SCSS bits
+const config = {
   output: 'build',
   title: 'Antwar',
   author: 'Antwar',
@@ -55,10 +61,10 @@ module.exports = {
       },
       layouts: {
         index() {
-          return themeConfig.layouts().SectionIndex;
+          return require('./layouts/SectionIndex');
         },
         page() {
-          return themeConfig.layouts().BlogPage;
+          return require('./layouts/BlogPage');
         }
       }
     },
@@ -74,12 +80,17 @@ module.exports = {
       },
       layouts: {
         index() {
-          return themeConfig.layouts().SectionIndex;
+          return require('./layouts/SectionIndex');
         },
         page() {
-          return themeConfig.layouts().DocsPage;
+          return require('./layouts/DocsPage');
         }
       }
     }
   }
 };
+
+antwar({
+  config,
+  env: process.env._npm_lifecycle_event || 'dev'
+});
