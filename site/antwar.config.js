@@ -9,9 +9,6 @@ const configuration = {
   output: 'build',
   title: 'Antwar',
   author: 'Antwar',
-  deploy: {
-    branch: 'master'
-  },
   layout() {
     return require('./layouts/Body');
   },
@@ -30,7 +27,9 @@ const configuration = {
     '/': {
       path() {
         return require.context(
-          'json!yaml-frontmatter!./pages'
+          'json!yaml-frontmatter!./pages',
+          false,
+          /^\.\/.*\.md$/
         );
       }
     },
@@ -39,14 +38,14 @@ const configuration = {
       path() {
         return require.context(
           'json!yaml-frontmatter!./posts',
-          true,
+          false,
           /^\.\/.*\.md$/
         );
       },
       draft() {
         return require.context(
           'json!yaml-frontmatter!./drafts',
-          true,
+          false,
           /^\.\/.*\.md$/
         );
       },
