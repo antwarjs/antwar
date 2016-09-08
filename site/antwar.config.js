@@ -1,17 +1,11 @@
-// ES6 features, JSX
-require('babel-register');
-
 const _ = require('lodash');
-const appModulePath = require('app-module-path');
-
-appModulePath.addPath('../packages');
 
 const antwar = require('antwar');
 const rssPlugin = require('antwar-rss-plugin');
 const prevnextPlugin = require('antwar-prevnext-plugin');
 const highlightPlugin = require('antwar-highlight-plugin');
 
-const config = {
+const configuration = {
   output: 'build',
   title: 'Antwar',
   author: 'Antwar',
@@ -22,8 +16,6 @@ const config = {
     return require('./layouts/Body');
   },
   style() {
-    require('antwar-default-theme/scss/main.scss');
-    require('./styles/specific.scss');
     require('./styles/prism.css');
   },
   plugins: [
@@ -37,16 +29,26 @@ const config = {
   paths: {
     '/': {
       path() {
-        return require.context('./pages');
+        return require.context(
+          'json!yaml-frontmatter!./pages'
+        );
       }
     },
     blog: {
       title: 'Blog posts',
       path() {
-        return require.context('./posts', true, /^\.\/.*\.md$/);
+        return require.context(
+          'json!yaml-frontmatter!./posts',
+          true,
+          /^\.\/.*\.md$/
+        );
       },
       draft() {
-        return require.context('./drafts', true, /^\.\/.*\.md$/);
+        return require.context(
+          'json!yaml-frontmatter!./drafts',
+          true,
+          /^\.\/.*\.md$/
+        );
       },
       processPage: {
         url(o) {
@@ -71,7 +73,11 @@ const config = {
     docs: {
       title: 'Documentation',
       path() {
-        return require.context('./docs', true, /^\.\/.*\.md$/);
+        return require.context(
+          'json!yaml-frontmatter!./docs',
+          true,
+          /^\.\/.*\.md$/
+        );
       },
       sort(pages) {
         return _.sortBy(pages, function (page) {
@@ -91,6 +97,9 @@ const config = {
 };
 
 antwar({
-  config,
-  env: process.env._npm_lifecycle_event || 'dev'
+  configuration,
+  environment: process.env._npm_lifecycle_event || 'develop',
+  webpack: require('./webpack.config')
+}).catch(function (err) {
+  console.error(err); // eslint-disable-line no-console
 });

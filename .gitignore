@@ -1,5 +1,5 @@
 *.log
-gh-pages/
+build/
 node_modules/
 .editorconfig
 .eslintcache

@@ -1,7 +1,9 @@
 import React from 'react';
 import _ from 'lodash';
 import { Link } from 'react-router';
-import { Moment } from 'antwar-helpers/components';
+import { components } from 'antwar-helpers';
+
+const { Moment } = components;
 
 const SectionIndex = ({ section }) => (
   <div className="grid">
