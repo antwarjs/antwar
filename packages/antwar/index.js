@@ -19,7 +19,10 @@ module.exports = function (options) {
 
   if (!(environment in environments)) {
     return new Promise(function (resolve, reject) {
-      reject(new Error('No matching environment in'), Object.keys(environments));
+      reject(new Error(
+        'No matching environment in ' + Object.keys(environments).join(', ') +
+        ' for ' + environment
+      ));
     });
   }
 

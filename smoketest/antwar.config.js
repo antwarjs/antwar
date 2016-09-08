@@ -1,6 +1,4 @@
-const antwar = require('antwar');
-
-const configuration = {
+module.exports = {
   output: 'build',
   title: 'Smoketest',
   paths: {
@@ -15,11 +13,3 @@ const configuration = {
     }
   }
 };
-
-antwar({
-  configuration,
-  environment: process.env._npm_lifecycle_event || 'develop',
-  webpack: require('./webpack.config')
-}).catch(function (err) {
-  console.error(err); // eslint-disable-line no-console
-});

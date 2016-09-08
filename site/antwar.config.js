@@ -97,7 +97,7 @@ const configuration = {
 
 antwar({
   configuration,
-  environment: process.env._npm_lifecycle_event || 'develop',
+  environment: process.env.npm_lifecycle_event || 'develop',
   webpack: require('./webpack.config')
 }).catch(function (err) {
   console.error(err); // eslint-disable-line no-console
