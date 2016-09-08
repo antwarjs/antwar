@@ -11,22 +11,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/antwarjs/helpers.git"
+    "url": "https://github.com/antwarjs/antwar.git"
   },
-  "homepage": "https://github.com/antwarjs/helpers",
+  "homepage": "https://github.com/antwarjs/antwar",
   "bugs": {
-    "url": "https://github.com/antwarjs/helpers/issues"
+    "url": "https://github.com/antwarjs/antwar/issues"
   },
   "keywords": [
     "antwar",
     "components",
     "layouts"
   ],
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://github.com/antwarjs/helpers/blob/master/LICENSE"
-    }
-  ],
+  "license": "MIT",
   "scripts": {}
 }

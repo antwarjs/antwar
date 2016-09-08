@@ -7,21 +7,16 @@
   "devDependencies": {},
   "repository": {
     "type": "git",
-    "url": "https://github.com/antwarjs/prevnext.git"
+    "url": "https://github.com/antwarjs/antwar.git"
   },
-  "homepage": "https://github.com/antwarjs/prevnext",
+  "homepage": "https://github.com/antwarjs/antwar",
   "bugs": {
-    "url": "https://github.com/antwarjs/prevnext/issues"
+    "url": "https://github.com/antwarjs/antwar/issues"
   },
   "keywords": [
     "antwar",
     "plugin"
   ],
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://github.com/antwarjs/prevnext/blob/master/LICENSE"
-    }
-  ],
+  "license": "MIT",
   "scripts": {}
 }

@@ -7,11 +7,11 @@
   "devDependencies": {},
   "repository": {
     "type": "git",
-    "url": "https://github.com/antwarjs/ga-plugin.git"
+    "url": "https://github.com/antwarjs/antwar.git"
   },
-  "homepage": "https://github.com/antwarjs/ga-plugin",
+  "homepage": "https://github.com/antwarjs/antwar",
   "bugs": {
-    "url": "https://github.com/antwarjs/ga-plugin/issues"
+    "url": "https://github.com/antwarjs/antwar/issues"
   },
   "keywords": [
     "antwar",
