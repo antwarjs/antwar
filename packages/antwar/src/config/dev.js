@@ -1,5 +1,6 @@
 const path = require('path');
 const merge = require('webpack-merge');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const getCommon = require('./common');
 
 module.exports = function (config) {
@@ -15,7 +16,10 @@ module.exports = function (config) {
         publicPath: '/',
         filename: '[name]-bundle.js',
         chunkFilename: '[chunkhash].js'
-      }
+      },
+      plugins: [
+        new HtmlWebpackPlugin()
+      ]
     };
 
     return merge(commonConfig, devConfig, config.webpack);

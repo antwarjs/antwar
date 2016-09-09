@@ -10,10 +10,7 @@ const BodyContent = ({ location }) => {
   const page = paths.pageForPath(location.pathname, allPages);
   const section = getSection(page, location.pathname, allPages);
 
-  // Skip rendering body during dev
-  const render = __DEV__ ? renderSection : renderBody;
-
-  return render(
+  return renderSection(
     page,
     { config, section, page, location },
     section
@@ -36,21 +33,6 @@ function getSection(page, pathname, allPages) {
   };
 
   return section;
-}
-
-function renderBody(page, props, section) {
-  if (!config.layout) {
-    throw new Error('Missing config.layout()!');
-  }
-
-  let Body = config.layout();
-
-  // ES6 tweak
-  if (Body.default) {
-    Body = Body.default;
-  }
-
-  return <Body {...props}>{renderSection(page, props, section)}</Body>;
 }
 
 function renderSection(page, props, section) {
