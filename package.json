@@ -50,6 +50,7 @@
     "eslint-plugin-import": "^1.13.0",
     "eslint-plugin-jsx-a11y": "^2.1.0",
     "eslint-plugin-react": "^6.1.1",
+    "git-prepush-hook": "^1.0.1",
     "lerna": "2.0.0-beta.26",
     "npm-watch": "^0.1.6",
     "react": "^15.3.1",
