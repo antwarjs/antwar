@@ -4,6 +4,7 @@ node_js:
   - 5
   - 6
 script:
+  - npm run init
   - npm run test:lint
   - cd smoketest && npm install && npm run build
   - npm test
