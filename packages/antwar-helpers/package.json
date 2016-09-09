@@ -14,7 +14,8 @@
   },
   "peerDependencies": {
     "moment": ">= 2.9.0 < 3.0",
-    "react": ">=0.13.* <16.0.0"
+    "react": ">=0.13.* <16.0.0",
+    "react-router": ">= 2.0.0 < 3.0"
   },
   "main": "dist",
   "module": "dist",
