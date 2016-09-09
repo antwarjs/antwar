@@ -2,7 +2,7 @@ const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const merge = require('webpack-merge');
 
-module.exports = function (env, options) {
+module.exports = function (env) {
   const stylePaths = [
     path.join(process.cwd(), 'styles')
   ];
@@ -10,19 +10,19 @@ module.exports = function (env, options) {
   switch (env) {
     case 'build':
       return merge(
-        commonConfig(options.paths),
+        commonConfig(),
         buildConfig(stylePaths)
       );
     default:
     case 'start':
       return merge(
-        commonConfig(options.paths),
+        commonConfig(),
         developmentConfig(stylePaths)
       );
   }
 };
 
-function commonConfig(includes) {
+function commonConfig() {
   return {
     resolve: {
       extensions: ['', '.js', '.jsx']
@@ -32,12 +32,10 @@ function commonConfig(includes) {
         {
           test: /\.jsx?$/,
           loader: 'babel',
-          include: includes.concat([
-            path.dirname(require.resolve('antwar-helpers/components')),
-            path.dirname(require.resolve('antwar-helpers/layouts')),
+          include: [
             path.join(__dirname, 'layouts'),
             path.join(__dirname, 'pages')
-          ])
+          ]
         },
         {
           test: /\.woff$/,

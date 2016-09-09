@@ -29,12 +29,7 @@ module.exports = function (options) {
 
   return environments[environment]({
     antwar: _.merge(defaultConfiguration(), options.configuration),
-    webpack: options.webpack(environment, {
-      paths: [
-        path.join(__dirname, 'core'),
-        path.join(__dirname, 'dev')
-      ]
-    })
+    webpack: options.webpack(environment)
   });
 };
 

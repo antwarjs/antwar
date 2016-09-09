@@ -1,10 +1,6 @@
 const path = require('path');
 
-module.exports = function (env, options) {
-  return commonConfig(options.paths);
-};
-
-function commonConfig(includes) {
+module.exports = function () {
   return {
     resolve: {
       extensions: ['', '.js', '.jsx']
@@ -14,11 +10,11 @@ function commonConfig(includes) {
         {
           test: /\.jsx?$/,
           loader: 'babel-loader',
-          include: includes.concat([
+          include: [
             path.join(__dirname, 'pages')
-          ])
+          ]
         }
       ]
     }
   };
-}
+};
