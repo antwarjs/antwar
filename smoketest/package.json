@@ -11,6 +11,7 @@
   "devDependencies": {
     "babel-loader": "^6.2.5",
     "json-loader": "^0.5.4",
+    "marked": "^0.3.6",
     "webpack": "^1.13.2",
     "yaml-frontmatter-loader": "0.0.3"
   },
