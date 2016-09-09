@@ -10,8 +10,7 @@ const BodyContent = ({ location }) => {
   const page = paths.pageForPath(location.pathname, allPages);
   const section = getSection(page, location.pathname, allPages);
 
-  // skip rendering body during dev, in that case it's up DevIndex
-  // to take control of that
+  // Skip rendering body during dev
   const render = __DEV__ ? renderSection : renderBody;
 
   return render(

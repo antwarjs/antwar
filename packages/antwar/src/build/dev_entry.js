@@ -5,7 +5,8 @@ const History = require('history');
 const Routes = require('core/Routes');
 
 const appHistory = Router.useRouterHistory(History.createHistory)();
-const container = document.getElementById('dev-container');
+const container = document.createElement('div');
+document.body.appendChild(container);
 
 ReactDOM.render(React.createElement(
   Router.Router,

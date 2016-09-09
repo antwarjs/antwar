@@ -1,4 +1,3 @@
-const fs = require('fs');
 const _path = require('path');
 const async = require('async');
 const merge = require('webpack-merge');
@@ -21,22 +20,8 @@ module.exports = function (config) {
         }
 
         const buildDir = _path.join(process.cwd(), './.antwar/build');
-        const renderPage = require(_path.join(buildDir, 'bundleStaticPage.js'));
 
         return async.parallel([
-          function (cb) {
-            renderPage('antwar_devindex', function (err2, html) {
-              if (err2) {
-                return cb(err2);
-              }
-
-              return fs.writeFile(
-                _path.join(buildDir, 'index.html'),
-                html,
-                cb
-              );
-            });
-          },
           utils.copyIfExists.bind(null, './assets', _path.join(buildDir, 'assets')),
           utils.copyExtraAssets.bind(null, buildDir, config.antwar.assets)
         ], function (err2) {
