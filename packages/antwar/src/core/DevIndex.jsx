@@ -10,6 +10,11 @@ const DevIndex = ({ location }) => {
     page: {},
     location
   };
+
+  if (!config.layout) {
+    throw new Error('Missing config.layout()!');
+  }
+
   let Body = config.layout();
 
   // ES6 adaptation

@@ -40,6 +40,10 @@ function getSection(page, pathname, allPages) {
 }
 
 function renderBody(page, props, section) {
+  if (!config.layout) {
+    throw new Error('Missing config.layout()!');
+  }
+
   let Body = config.layout();
 
   // ES6 tweak
