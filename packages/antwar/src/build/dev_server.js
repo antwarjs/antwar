@@ -9,8 +9,6 @@ module.exports = function (config) {
   const devConfigParams = {
     entry: {
       main: [
-        'webpack-dev-server/client?http://localhost:' + config.antwar.port,
-        'webpack/hot/dev-server',
         path.join(__dirname, './dev_entry.js')
       ]
     },
@@ -36,6 +34,7 @@ function runServer(siteConfig, webpackConfig) {
     contentBase: path.join(process.cwd(), './.antwar/build'),
     hot: true,
     historyApiFallback: true,
+    inline: true,
     stats: 'errors-only'
   }).listen(port, function (err) {
     if (err) {
