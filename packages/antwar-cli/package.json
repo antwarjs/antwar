@@ -3,6 +3,10 @@
   "description": "Cli for Antwar",
   "author": "Juho Vepsalainen <bebraw@gmail.com>",
   "version": "0.6.6",
+  "scripts": {
+    "build": "rimraf ./dist && babel ./src --out-dir ./dist",
+    "prepublish": "npm run build"
+  },
   "dependencies": {
     "chalk": "^1.0.0",
     "commander": "^2.6.0",
@@ -22,9 +26,16 @@
     "simple-timestamp": "^1.0.0",
     "upper-case-first": "^1.1.0"
   },
+  "devDependencies": {
+    "babel-cli": "^6.14.0",
+    "rimraf": "^2.5.4"
+  },
   "peerDependencies": {
     "antwar": ">= 0.5.0 < 1.0"
   },
+  "main": "dist",
+  "module": "dist",
+  "jsnext:main": "dist",
   "repository": {
     "type": "git",
     "url": "https://github.com/antwarjs/antwar.git"
