@@ -7,26 +7,19 @@ module.exports = {
   postProcessPages: process.bind(null, 'postProcess')
 };
 
-// XXX: drop deprecated bit in the future
 function process(prefix, pages) {
-  const oldFn = prefix + 'Items';
-  const newFn = prefix + 'Pages';
-  let itemFunctions = getFunctions(oldFn);
-
-  if (itemFunctions.length) {
-    console.warn(oldFn + ' has been deprecated, use ' + newFn + ' instead');
-  } else {
-    itemFunctions = getFunctions(newFn);
-  }
-
-  return applyHooks(pages, itemFunctions);
+  return applyHooks(pages, getFunctions(prefix + 'Pages'));
 }
 
-function applyHooks(items, functionArray) {
+function applyHooks(pages, functionArray) {
   let ret = [];
 
+  if (!functionArray.length) {
+    return pages;
+  }
+
   functionArray.forEach(function (callback) {
-    ret = callback(ret);
+    ret = callback(pages);
   });
 
   return ret;
