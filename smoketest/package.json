@@ -9,10 +9,7 @@
     "build": "NODE_PATH=$NODE_PATH:../packages node ./bootstrap.js"
   },
   "devDependencies": {
-    "babel-core": "^6.14.0",
     "babel-loader": "^6.2.5",
-    "babel-preset-es2015": "^6.14.0",
-    "babel-preset-react": "^6.11.1",
     "json-loader": "^0.5.4",
     "webpack": "^1.13.2",
     "yaml-frontmatter-loader": "0.0.3"

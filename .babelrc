@@ -12,5 +12,12 @@
         "mode": "wrap"
       }
     ]
-  ]
+  ],
+  "env": {
+    "start": {
+      "presets": [
+        "react-hmre"
+      ]
+    }
+  }
 }

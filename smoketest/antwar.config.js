@@ -1,6 +1,9 @@
 module.exports = {
   output: 'build',
   title: 'Smoketest',
+  layout() {
+    return require('./layouts/Body');
+  },
   paths: {
     '/': {
       path() {
