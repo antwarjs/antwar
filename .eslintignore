@@ -1,3 +1,5 @@
+smoketest/node_modules
+site/node_modules
 packages/*/node_modules
 node-modules
 gh-pages
