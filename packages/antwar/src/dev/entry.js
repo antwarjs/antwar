@@ -8,10 +8,13 @@ const appHistory = Router.useRouterHistory(History.createHistory)();
 const container = document.createElement('div');
 document.body.appendChild(container);
 
-ReactDOM.render(React.createElement(
-  Router.Router,
-  {
-    history: appHistory
-  },
-  Routes
-), container);
+ReactDOM.render(
+  React.createElement(
+    Router.Router,
+    {
+      history: appHistory
+    },
+    Routes
+  ),
+  container
+);

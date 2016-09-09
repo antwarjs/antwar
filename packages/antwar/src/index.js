@@ -9,6 +9,7 @@ require('es6-promise').polyfill();
 require('promise.prototype.finally');
 
 const build = require('./build');
+const dev = require('./dev');
 
 module.exports = function (options) {
   const environment = options.environment;
@@ -71,7 +72,7 @@ function develop(configurations) {
       }
 
       return build.devIndex(configurations)
-        .then(build.devServer.bind(null, configurations))
+        .then(dev.server.bind(null, configurations))
         .then(resolve)
         .catch(reject);
     });

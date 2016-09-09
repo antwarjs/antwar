@@ -9,7 +9,7 @@ module.exports = function (config) {
   const devConfigParams = {
     entry: {
       main: [
-        path.join(__dirname, './dev_entry.js')
+        path.join(__dirname, './entry.js')
       ]
     },
     plugins: [
