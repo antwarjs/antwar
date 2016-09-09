@@ -1,5 +1,6 @@
 smoketest/node_modules
 site/node_modules
 packages/*/node_modules
+packages/*/dist
 node-modules
 gh-pages
