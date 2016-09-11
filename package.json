@@ -54,7 +54,9 @@
     "npm-watch": "^0.1.6",
     "react": "^15.3.1",
     "react-dom": "^15.3.1",
-    "tape": "^4.6.0"
+    "tape": "^4.6.0",
+    "webpack": "^1.13.2",
+    "webpack-dev-server": "^1.15.1"
   },
   "pre-push": [
     "test:lint",

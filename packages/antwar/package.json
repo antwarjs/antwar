@@ -24,14 +24,16 @@
     "rimraf": "^2.5.4",
     "simple-timestamp": "^1.0.0",
     "system-bell-webpack-plugin": "^1.0.0",
-    "webpack": "^1.13.1",
-    "webpack-dev-server": "^1.14.1",
     "webpack-merge": "^0.14.0",
     "worker-farm": "^1.3.1"
   },
   "devDependencies": {
     "babel-cli": "^6.14.0",
     "html-webpack-plugin": "^2.22.0"
+  },
+  "peerDependencies": {
+    "webpack": ">= 1.0 < 2.0",
+    "webpack-dev-server": ">= 1.0 < 2.0"
   },
   "repository": {
     "type": "git",
