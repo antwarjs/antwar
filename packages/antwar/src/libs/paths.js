@@ -1,5 +1,4 @@
 const _ = require('lodash');
-const MdHelpers = require('./md_helpers');
 const pageHooks = require('./page_hooks');
 const config = require('config');
 
@@ -116,7 +115,7 @@ function processPage(file, url, fileName, sectionName, section) {
       return o.file.date || null;
     },
     content(o) {
-      return MdHelpers.render(o.file.__content);
+      return o.file.__content;
     },
     preview(o) {
       const f = o.file;
@@ -125,7 +124,7 @@ function processPage(file, url, fileName, sectionName, section) {
         return f.preview;
       }
 
-      return MdHelpers.renderPreview(f.__content, 100, '…');
+      return f.__content.slice(0, 100) + '…';
     },
     description(o) {
       const f = o.file;
