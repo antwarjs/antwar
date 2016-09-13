@@ -39,28 +39,6 @@ exports.extraAssets = function (o, cb) {
   ]);
 };
 
-exports.indices = function (o, finalCb) {
-  const config = o.config;
-  const log = config.console.log;
-  const info = config.console.info;
-
-  async.map(_.keys(config.paths), function (pathRoot, cb) {
-    const p = _path.join(o.output, pathRoot);
-
-    log('Writing index directory', p);
-
-    mkdirp(p, function (err) {
-      if (err) {
-        return cb(err);
-      }
-
-      info('Wrote index directory');
-
-      return cb();
-    });
-  }, finalCb);
-};
-
 exports.extras = function (o, files, cb) {
   if (!files || !files.length) {
     return cb();

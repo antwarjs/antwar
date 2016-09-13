@@ -96,7 +96,6 @@ function writeExtras(config, params, log) {
     return async.parallel([
       write.assets.bind(null, params),
       write.extraAssets.bind(null, params),
-      write.indices.bind(null, params),
       write.extras.bind(null, params, extraFiles),
       write.pages.bind(null, params),
       write.redirects.bind(null, params)
