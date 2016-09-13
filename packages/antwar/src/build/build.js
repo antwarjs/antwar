@@ -34,6 +34,10 @@ module.exports = function (config) {
           return reject(stats.toString('errors-only'));
         }
 
+        // XXXXX: Capture files ending with .css from stats.compilation.assets
+        // here and inject them to template context. In addition the CSS files
+        // need to be copied to project root based on existsAt path.
+
         const cwd = process.cwd();
         const params = {
           cwd,
