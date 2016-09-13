@@ -44,14 +44,20 @@ function writePages(params, finalCb) {
         }
       });
 
-      return write({ path: page.path, data }, function (err2) {
+      return mkdirp(_path.dirname(page.path), function (err2) {
         if (err2) {
           return cb(err2);
         }
 
-        prettyConsole.log('Finished writing page', page.page);
+        return write({ path: page.path, data }, function (err3) {
+          if (err3) {
+            return cb(err3);
+          }
 
-        return cb();
+          prettyConsole.log('Finished writing page', page.page);
+
+          return cb();
+        });
       });
     });
   }, finalCb);

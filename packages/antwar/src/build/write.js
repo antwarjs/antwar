@@ -68,26 +68,12 @@ exports.pages = function (o, finalCb) {
   });
 
   async.map(data, function (d, cb) {
-    const p = d.path;
-
     // avoid writing index/index.html and write index.html instead
-    if (p.split('/').slice(-1)[0] === 'index') {
-      return cb(null, {
-        path: _path.join(p, '..', 'index.html'),
-        page: d.page
-      });
-    }
-
-    // XXX: mkdirp could be pushed to task
-    return mkdirp(p, function (err) {
-      if (err) {
-        return cb(err);
-      }
-
-      return cb(null, {
-        path: _path.join(p, 'index.html'),
-        page: d.page
-      });
+    return cb(null, {
+      path: d.path.split('/').slice(-1)[0] === 'index' ?
+        _path.join(d.path, '..', 'index.html') :
+        _path.join(d.path, 'index.html'),
+      page: d.page
     });
   }, function (err, d) {
     if (err) {
