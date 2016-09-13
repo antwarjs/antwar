@@ -1,8 +1,10 @@
 const marked = require('marked');
 
 module.exports = {
+  template: {
+    title: 'Smoke test'
+  },
   output: 'build',
-  title: 'Smoke test',
   layout() {
     return require('./layouts/Body');
   },

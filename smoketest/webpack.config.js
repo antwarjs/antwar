@@ -9,9 +9,6 @@ const PATHS = {
 };
 
 const commonConfig = {
-  template: {
-    title: 'Smoke test'
-  },
   entry: {
     style: PATHS.style
   },

@@ -42,10 +42,10 @@ module.exports = function (config) {
           output: _path.join(cwd, output),
           config: config.antwar,
           template: {
-            ...config.webpack.template,
+            ...config.antwar.template,
             // XXX: sync operation
             file: _fs.readFileSync(
-              (config.antwar.template && config.webpack.template.file) ||
+              (config.antwar.template && config.antwar.template.file) ||
               _path.join(__dirname, '../../template.ejs'),
               {
                 encoding: 'utf8'

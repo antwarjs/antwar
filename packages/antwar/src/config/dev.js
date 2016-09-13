@@ -22,10 +22,12 @@ module.exports = function (config) {
       locals: {},
       plugins: [
         new HtmlWebpackPlugin({
-          template: (config.antwar.template && config.webpack.template.file) ||
+          template: (config.antwar.template && config.antwar.template.file) ||
             path.join(__dirname, '../../template.ejs')
         })
-      ]
+      ],
+      // Copy template configuration to webpack side so HtmlWebpackPlugin picks it up
+      template: config.antwar.template
     };
 
     return merge(commonConfig, devConfig, config.webpack);
