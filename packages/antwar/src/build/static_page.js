@@ -2,7 +2,7 @@ const React = require('react');
 const ReactDOMServer = require('react-dom/server');
 const Router = require('react-router');
 const History = require('history');
-const Routes = require('core/Routes');
+const Routes = require('../core/Routes');
 
 module.exports = function (url, cb) {
   const history = History.createMemoryHistory();

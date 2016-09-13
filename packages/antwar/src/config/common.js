@@ -10,15 +10,8 @@ module.exports = function (config) {
       assets: path.join(cwd, 'assets'),
       // XXX: not correct if the user changes the default
       config: path.join(cwd, 'antwar.config.js'),
-      core: path.join(parent, 'core'),
-      cwd,
-      dev: path.join(parent, 'dev'),
       parent: path.join(__dirname, '..')
     };
-    const includes = [
-      paths.core,
-      paths.dev
-    ];
 
     resolve({
       parent,
@@ -27,8 +20,7 @@ module.exports = function (config) {
         alias: {
           underscore: 'lodash',
           assets: paths.assets,
-          config: paths.config,
-          core: paths.core
+          config: paths.config
         },
         extensions: [
           '',
@@ -37,7 +29,7 @@ module.exports = function (config) {
           '.json'
         ],
         modulesDirectories: [
-          path.join(paths.cwd, 'node_modules'),
+          path.join(cwd, 'node_modules'),
           'node_modules'
         ]
       },
@@ -47,7 +39,6 @@ module.exports = function (config) {
           'node_modules'
         ]
       },
-      includes,
       plugins: [
         new webpack.DefinePlugin({
           __DEV__: JSON.stringify(JSON.parse(config.buildDev)),
