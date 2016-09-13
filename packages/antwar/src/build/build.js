@@ -25,9 +25,13 @@ module.exports = function (config) {
     }
 
     return webpackConfig(config).then(function (c) {
-      webpack(c, function (err) {
+      webpack(c, function (err, stats) {
         if (err) {
           return reject(err);
+        }
+
+        if (stats.hasErrors()) {
+          return reject(stats.toString('errors-only'));
         }
 
         const cwd = process.cwd();
