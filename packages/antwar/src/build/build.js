@@ -1,3 +1,4 @@
+const _fs = require('fs');
 const _path = require('path');
 
 const _ = require('lodash');
@@ -39,7 +40,18 @@ module.exports = function (config) {
             _path.join(cwd, './.antwar/build/paths.js')
           )(),
           output: _path.join(cwd, output),
-          config: config.antwar
+          config: config.antwar,
+          template: {
+            ...config.antwar.template,
+            // XXX: sync operation
+            file: _fs.readFileSync(
+              (config.antwar.template && config.antwar.template.file) ||
+              _path.join(__dirname, '../../template.ejs'),
+              {
+                encoding: 'utf8'
+              }
+            )
+          }
         };
 
         log('Removing old output directory');
@@ -106,10 +118,10 @@ function executeTasks(tasks, log) {
     async.each(tasks, function (o, cb) {
       log('Starting task', o.task);
 
-      workers(o, function (err5) {
+      workers(o, function (err) {
         log('Finished task', o.task);
 
-        cb(err5);
+        cb(err);
       });
     }, function (err) {
       log('Tasks finished');

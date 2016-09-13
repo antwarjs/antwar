@@ -2,6 +2,7 @@ const _fs = require('fs');
 const _path = require('path');
 
 const async = require('async');
+const ejs = require('ejs');
 const mkdirp = require('mkdirp');
 
 const utils = require('./utils');
@@ -38,15 +39,18 @@ function writePages(params, finalCb) {
           return cb(err);
         }
 
-        return write({
-          path: page.path,
-          data: html
-        }, function (err2) {
+        const data = ejs.compile(params.template.file)({
+          webpackConfig: {
+            template: params.template,
+            html
+          }
+        });
+
+        return write({ path: page.path, data }, function (err2) {
           if (err2) {
             return cb(err2);
           }
 
-          // TODO: use user defined logger instead
           prettyConsole.log('Finished writing page', page.page);
 
           return cb();

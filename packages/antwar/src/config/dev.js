@@ -4,6 +4,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const getCommon = require('./common');
 
 module.exports = function (config) {
+  const cwd = process.cwd();
+
   return getCommon(config).then(function (commonConfig) {
     const devConfig = {
       cache: true,
@@ -12,13 +14,17 @@ module.exports = function (config) {
         fs: 'empty'
       },
       output: {
-        path: path.join(process.cwd(), './.antwar/build/'),
+        path: path.join(cwd, './.antwar/build/'),
         publicPath: '/',
         filename: '[name]-bundle.js',
         chunkFilename: '[chunkhash].js'
       },
+      locals: {},
       plugins: [
-        new HtmlWebpackPlugin()
+        new HtmlWebpackPlugin({
+          template: (config.antwar.template && config.antwar.template.file) ||
+            path.join(__dirname, '../../template.ejs')
+        })
       ]
     };
 

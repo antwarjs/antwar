@@ -135,7 +135,8 @@ exports.pages = function (o, finalCb) {
       return {
         task: 'write_pages',
         params: {
-          pages: partition
+          pages: partition,
+          template: o.template
         }
       };
     }));
