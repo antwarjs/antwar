@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 const _fs = require('fs');
 const _path = require('path');
 
@@ -6,6 +5,7 @@ const async = require('async');
 const mkdirp = require('mkdirp');
 
 const utils = require('./utils');
+const prettyConsole = require('../libs/pretty_console');
 
 const cwd = process.cwd();
 
@@ -31,8 +31,7 @@ function writePages(params, finalCb) {
   async.each(params.pages, function (page, cb) {
     // XXX: why page can be null?
     if (page) {
-      // TODO: use user defined logger instead
-      console.log('Starting to write page', page.page);
+      prettyConsole.log('Starting to write page', page.page);
 
       renderPage(page.page, function (err, html) {
         if (err) {
@@ -48,7 +47,7 @@ function writePages(params, finalCb) {
           }
 
           // TODO: use user defined logger instead
-          console.log('Finished writing page', page.page);
+          prettyConsole.log('Finished writing page', page.page);
 
           return cb();
         });
@@ -64,7 +63,7 @@ function writeRedirects(params, finalCb) {
     const from = redirect.from;
     const to = redirect.to;
 
-    console.log('Writing redirect', from, to);
+    prettyConsole.log('Writing redirect', from, to);
 
     mkdirp(from, function (err) {
       if (err) {

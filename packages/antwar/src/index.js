@@ -2,12 +2,11 @@
 const path = require('path');
 const _ = require('lodash');
 const rimraf = require('rimraf');
-const simpleTimestamp = require('simple-timestamp');
-const chalk = require('chalk');
 
 require('es6-promise').polyfill();
 require('promise.prototype.finally');
 
+const prettyConsole = require('./libs/pretty_console');
 const build = require('./build');
 const dev = require('./dev');
 
@@ -35,21 +34,6 @@ module.exports = function (options) {
 };
 
 function defaultConfiguration() {
-  const prettyConsole = {
-    log(...args) {
-      console.log(simpleTimestamp(), chalk.green.apply(null, args));
-    },
-    info(...args) {
-      console.info(simpleTimestamp(), chalk.blue.apply(null, args));
-    },
-    error(...args) {
-      console.error(simpleTimestamp(), chalk.bold.red.apply(null, args));
-    },
-    warn(...args) {
-      console.warn(simpleTimestamp(), chalk.yellow.apply(null, args));
-    }
-  };
-
   return {
     port: 3000,
     output: 'build',
