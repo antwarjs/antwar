@@ -1,6 +1,5 @@
 const _path = require('path');
 const async = require('async');
-const merge = require('webpack-merge');
 const webpack = require('webpack');
 const webpackConfig = require('../config/build');
 const utils = require('./utils');
@@ -10,7 +9,7 @@ module.exports = function (config) {
 
   return new Promise(function (resolve, reject) {
     webpackConfig(config).then(function (c) {
-      webpack(merge(c, config.webpack), function (err, stats) {
+      webpack(c, function (err, stats) {
         if (err) {
           return reject(err);
         }

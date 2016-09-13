@@ -2,7 +2,6 @@ const _path = require('path');
 
 const _ = require('lodash');
 const async = require('async');
-const merge = require('webpack-merge');
 const mkdirp = require('mkdirp');
 const rimraf = require('rimraf');
 const webpack = require('webpack');
@@ -24,8 +23,8 @@ module.exports = function (config) {
       return reject(new Error('Missing output directory'));
     }
 
-    return webpackConfig(config.webpack).then(function (c) {
-      webpack(merge(c, config.webpack), function (err) {
+    return webpackConfig(config).then(function (c) {
+      webpack(c, function (err) {
         if (err) {
           return reject(err);
         }

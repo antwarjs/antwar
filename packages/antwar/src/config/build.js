@@ -27,6 +27,6 @@ module.exports = function (config) {
       }
     };
 
-    return merge(commonConfig, buildConfig);
+    return merge(commonConfig, buildConfig, config.webpack);
   });
 };
