@@ -98,7 +98,7 @@ exports.extras = function (o, files, cb) {
 };
 
 exports.pages = function (o, finalCb) {
-  const data = Object.keys(o.allPaths.pages).map(function (page) {
+  const data = Object.keys(o.allPaths).map(function (page) {
     const p = _path.join(o.output, page);
 
     return {
