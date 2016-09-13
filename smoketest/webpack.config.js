@@ -69,6 +69,9 @@ function buildConfig(stylePaths) {
           include: stylePaths
         }
       ]
-    }
+    },
+    plugins: [
+      new ExtractTextPlugin('[name].[chunkhash].css')
+    ]
   };
 }
