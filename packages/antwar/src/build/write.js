@@ -56,25 +56,7 @@ exports.indices = function (o, finalCb) {
 
       info('Wrote index directory');
 
-      // index is a special case
-      if (pathRoot === '/') {
-        pathRoot = ''; // eslint-disable-line no-param-reassign
-      }
-
-      // XXX: rendering isn't parallel
-      return o.renderPage(pathRoot, function (err2, html) {
-        if (err2) {
-          return cb(err2);
-        }
-
-        return cb(null, {
-          task: 'write',
-          params: {
-            path: _path.join(o.output, pathRoot, 'index.html'),
-            data: html
-          }
-        });
-      });
+      return cb();
     });
   }, finalCb);
 };
@@ -110,9 +92,12 @@ exports.pages = function (o, finalCb) {
   async.map(data, function (d, cb) {
     const p = d.path;
 
-    // skip writing index/index.html
+    // avoid writing index/index.html and write index.html instead
     if (p.split('/').slice(-1)[0] === 'index') {
-      return cb();
+      return cb(null, {
+        path: _path.join(p, '..', 'index.html'),
+        page: d.page
+      });
     }
 
     // XXX: mkdirp could be pushed to task

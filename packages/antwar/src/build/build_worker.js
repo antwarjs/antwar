@@ -30,35 +30,30 @@ function writePages(params, finalCb) {
   const renderPage = require(_path.join(cwd, './.antwar/build/bundleStaticPage.js'));
 
   async.each(params.pages, function (page, cb) {
-    // XXX: why page can be null?
-    if (page) {
-      prettyConsole.log('Starting to write page', page.page);
+    prettyConsole.log('Starting to write page', page.page);
 
-      renderPage(page.page, function (err, html) {
-        if (err) {
-          return cb(err);
+    renderPage(page.page, function (err, html) {
+      if (err) {
+        return cb(err);
+      }
+
+      const data = ejs.compile(params.template.file)({
+        webpackConfig: {
+          template: params.template,
+          html
+        }
+      });
+
+      return write({ path: page.path, data }, function (err2) {
+        if (err2) {
+          return cb(err2);
         }
 
-        const data = ejs.compile(params.template.file)({
-          webpackConfig: {
-            template: params.template,
-            html
-          }
-        });
+        prettyConsole.log('Finished writing page', page.page);
 
-        return write({ path: page.path, data }, function (err2) {
-          if (err2) {
-            return cb(err2);
-          }
-
-          prettyConsole.log('Finished writing page', page.page);
-
-          return cb();
-        });
+        return cb();
       });
-    } else {
-      cb();
-    }
+    });
   }, finalCb);
 }
 
