@@ -51,53 +51,7 @@ module.exports = function (config) {
 
           log('Creating new output directory');
 
-          return mkdirp(params.output, function (err3) {
-            if (err3) {
-              return reject(err3);
-            }
-
-            // Extras
-            const pluginExtras = _.map(config.antwar.plugins, 'extra').filter(_.identity);
-            const extraFiles = _.map(pluginExtras, function (plugin) {
-              return plugin(params.allPaths, config.antwar);
-            });
-
-            // get functions to execute
-            return async.parallel([
-              write.assets.bind(null, params),
-              write.extraAssets.bind(null, params),
-              write.indices.bind(null, params),
-              write.extras.bind(null, params, extraFiles),
-              write.pages.bind(null, params),
-              write.redirects.bind(null, params)
-            ], function (err4, tasks) {
-              if (err4) {
-                return reject(err4);
-              }
-
-              tasks = _.flatten(tasks).filter(_.identity); // eslint-disable-line no-param-reassign
-
-              return async.each(tasks, function (o, cb) {
-                log('Starting task', o.task);
-
-                workers(o, function (err5) {
-                  log('Finished task', o.task);
-
-                  cb(err5);
-                });
-              }, function (err6) {
-                log('Tasks finished');
-
-                workerFarm.end(workers);
-
-                if (err6) {
-                  return reject(err);
-                }
-
-                return resolve();
-              });
-            });
-          });
+          return writeOutput(config, params, log);
         });
       });
     }).catch(function (err) {
@@ -105,3 +59,68 @@ module.exports = function (config) {
     });
   });
 };
+
+function writeOutput(config, params, log) {
+  return new Promise(function (resolve, reject) {
+    mkdirp(params.output, function (err) {
+      if (err) {
+        return reject(err);
+      }
+
+      return writeExtras(config, params, log);
+    });
+  });
+}
+
+function writeExtras(config, params, log) {
+  return new Promise(function (resolve, reject) {
+    // Extras
+    const pluginExtras = _.map(config.antwar.plugins, 'extra').filter(_.identity);
+    const extraFiles = _.map(pluginExtras, function (plugin) {
+      return plugin(params.allPaths, config.antwar);
+    });
+
+    // get functions to execute
+    return async.parallel([
+      write.assets.bind(null, params),
+      write.extraAssets.bind(null, params),
+      write.indices.bind(null, params),
+      write.extras.bind(null, params, extraFiles),
+      write.pages.bind(null, params),
+      write.redirects.bind(null, params)
+    ], function (err, tasks) {
+      if (err) {
+        return reject(err);
+      }
+
+      return executeTasks(
+        _.flatten(tasks).filter(_.identity),
+        log
+      );
+    });
+  });
+}
+
+function executeTasks(tasks, log) {
+  return new Promise(function (resolve, reject) {
+    async.each(tasks, function (o, cb) {
+      log('Starting task', o.task);
+
+      workers(o, function (err5) {
+        log('Finished task', o.task);
+
+        cb(err5);
+      });
+    }, function (err) {
+      log('Tasks finished');
+
+      workerFarm.end(workers);
+
+      if (err) {
+        return reject(err);
+      }
+
+      return resolve();
+    });
+  });
+}
