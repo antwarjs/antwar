@@ -16,6 +16,7 @@
     "finalhandler": "^0.3.3",
     "github": "^0.2.4",
     "lodash": "^3.5.0",
+    "node-fetch": "^1.6.1",
     "npm-registry-client": "^7.1.2",
     "promise-finally": "^2.0.1",
     "recast": "^0.10.9",
@@ -27,7 +28,6 @@
   },
   "devDependencies": {
     "babel-cli": "^6.14.0",
-    "node-fetch": "^1.6.1",
     "rimraf": "^2.5.4"
   },
   "peerDependencies": {
