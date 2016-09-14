@@ -1,21 +1,18 @@
-const Registry = require('npm-registry');
-
-const npm = new Registry({});
+const fetch = require('node-fetch');
 
 module.exports = function (config) {
   const console = config.console;
 
-  return new Promise(function (resolve, reject) {
-    npm.packages.keyword('antwar', function (err, data) {
-      if (err) {
-        return reject(err);
-      }
-
-      data.forEach(function (v) {
-        console.info('* ' + v.name + ' - ' + v.description);
+  return fetch('http://npmsearch.com/query?q=antwar&fields=keywords,description,name')
+    .then(function (res) {
+      return res.json();
+    })
+    .then(function (json) {
+      json.results.forEach(function (el) {
+        console.info('* ' + el.name + ' - ' + el.description);
       });
-
-      return resolve();
+    })
+    .catch(function (err) {
+      console.warn('Something went wrong:', err);
     });
-  });
 };

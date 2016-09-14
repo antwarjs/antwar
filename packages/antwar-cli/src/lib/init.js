@@ -1,9 +1,13 @@
 const GitHubApi = require('github');
 const shell = require('shelljs');
 const Download = require('download');
-const Registry = require('npm-registry');
+const Registry = require('npm-registry-client');
 
 const npm = new Registry({});
+const baseUri = 'https://registry.npmjs.org/';
+const params = {
+  timeout: 1000
+};
 const github = new GitHubApi({
   version: '3.0.0'
 });
@@ -20,29 +24,29 @@ module.exports = function (config) {
 
 function initLatest(config) {
   return new Promise(function (resolve, reject) {
-    npm.packages.get(config.boilerplate + '@latest', function (err, data) {
+    const uri = baseUri + config.boilerplate + '/latest';
+    npm.get(uri, params, function (err, data) {
       if (err) {
         return reject(err);
       }
-      const meta = data.length && data[0];
 
-      if (!meta) {
+      if (!data.repository || !data.repository.url) {
         return reject(new Error('Missing boilerplate metadata'));
       }
 
-      const gh = meta.github;
+      const gh = parseGitUri(data.repository.url);
 
       return github.repos.getArchiveLink({
         user: gh.user,
         repo: gh.repo,
         archive_format: 'tarball',
         ref: 'master'
-      }, function (err2, res) {
+      }, function (err2, res2) {
         if (err2) {
           return reject(err2);
         }
 
-        return resolve(res.meta.location);
+        return resolve(res2.meta.location);
       });
     });
   });
@@ -50,17 +54,17 @@ function initLatest(config) {
 
 function initFromNpm(config) {
   return new Promise(function (resolve, reject) {
-    npm.packages.get(config.boilerplate + '@latest', function (err, data) {
+    const uri = baseUri + config.boilerplate + '/latest';
+    npm.get(uri, params, function (err, data) {
       if (err) {
         return reject(err);
       }
-      const meta = data.length && data[0];
 
-      if (!meta) {
+      if (!data.dist || !data.dist.tarball) {
         return reject(new Error('Missing boilerplate metadata'));
       }
 
-      return resolve(meta.dist.tarball);
+      return resolve(data.dist.tarball);
     });
   });
 }
@@ -90,4 +94,13 @@ function processTarball(console, config, tarballUrl) {
       return resolve();
     });
   });
+}
+
+function parseGitUri(uri) {
+  const parts = uri.replace('.git', '').split('/');
+
+  return {
+    repo: parts[parts.length - 1],
+    user: parts[parts.length - 2]
+  };
 }
