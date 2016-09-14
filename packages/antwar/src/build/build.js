@@ -25,9 +25,9 @@ module.exports = function (config) {
 
     return webpackConfig(config)
       .then(runWebpack)
-      .then(generateParameters(config))
+      .then(generateParameters(config.antwar))
       .then(removeDirectory(log))
-      .then(writeExtras(config))
+      .then(writeExtras(config.antwar))
       .then(executeTasks(log))
       .catch(reject);
   });
@@ -55,7 +55,6 @@ function generateParameters(config) {
     // here and inject them to template context. In addition the CSS files
     // need to be copied to project root based on existsAt path.
 
-    const output = config.antwar.output;
     const cwd = process.cwd();
     const parameters = {
       cwd,
@@ -65,13 +64,13 @@ function generateParameters(config) {
       allPaths: require(
         _path.join(cwd, './.antwar/build/paths.js')
       )(),
-      output: _path.join(cwd, output),
-      config: config.antwar,
+      output: _path.join(cwd, config.output),
+      config,
       template: {
-        ...config.antwar.template,
+        ...config.template,
         // XXX: sync operation
         file: _fs.readFileSync(
-          (config.antwar.template && config.antwar.template.file) ||
+          (config.template && config.template.file) ||
           _path.join(__dirname, '../../template.ejs'),
           {
             encoding: 'utf8'
@@ -101,9 +100,9 @@ function removeDirectory(log) {
 function writeExtras(config) {
   return parameters => new Promise(function (resolve, reject) {
     // Extras
-    const pluginExtras = _.map(config.antwar.plugins, 'extra').filter(_.identity);
+    const pluginExtras = _.map(config.plugins, 'extra').filter(_.identity);
     const extraFiles = _.map(pluginExtras, function (plugin) {
-      return plugin(parameters.allPaths, config.antwar);
+      return plugin(parameters.allPaths, config);
     });
 
     // get functions to execute
