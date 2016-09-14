@@ -24,7 +24,7 @@ module.exports = function (config) {
     }
 
     return webpackConfig(config)
-      .then(runWebpack)
+      .then(runWebpack())
       .then(generateParameters(config.antwar))
       .then(removeDirectory(log))
       .then(writeExtras(config.antwar))
@@ -33,8 +33,8 @@ module.exports = function (config) {
   });
 };
 
-function runWebpack(config) {
-  return () => new Promise(function (resolve, reject) {
+function runWebpack() {
+  return config => new Promise(function (resolve, reject) {
     webpack(config, function (err, stats) {
       if (err) {
         return reject(err);
@@ -44,16 +44,22 @@ function runWebpack(config) {
         return reject(stats.toString('errors-only'));
       }
 
-      return resolve();
+      return resolve(stats);
     });
   });
 }
 
 function generateParameters(config) {
-  return () => new Promise(function (resolve) {
-    // XXXXX: Capture files ending with .css from stats.compilation.assets
-    // here and inject them to template context. In addition the CSS files
-    // need to be copied to project root based on existsAt path.
+  return stats => new Promise(function (resolve) {
+    const assets = stats.compilation.assets;
+    const cssFiles = Object.keys(assets).map(asset => {
+      if (_path.extname(asset) === '.css') {
+        return assets[asset].existsAt;
+      }
+
+      return null;
+    }).filter(a => a);
+
 
     const cwd = process.cwd();
     const parameters = {
@@ -66,6 +72,7 @@ function generateParameters(config) {
       )(),
       output: _path.join(cwd, config.output),
       config,
+      cssFiles,
       template: {
         ...config.template,
         // XXX: sync operation
@@ -75,7 +82,8 @@ function generateParameters(config) {
           {
             encoding: 'utf8'
           }
-        )
+        ),
+        cssFiles: cssFiles.map(file => _path.basename(file))
       }
     };
 
@@ -104,6 +112,8 @@ function writeExtras(config) {
     const extraFiles = _.map(pluginExtras, function (plugin) {
       return plugin(parameters.allPaths, config);
     });
+
+    // TODO: set up a process to copy cssFiles to the right place
 
     // get functions to execute
     return async.parallel([
