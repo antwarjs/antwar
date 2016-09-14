@@ -27,7 +27,7 @@ module.exports = function (config) {
       .then(runWebpack())
       .then(generateParameters(config.antwar))
       .then(removeDirectory(log))
-      .then(writeExtras(config.antwar))
+      .then(writeExtras())
       .then(executeTasks(log))
       .catch(reject);
   });
@@ -83,7 +83,7 @@ function generateParameters(config) {
             encoding: 'utf8'
           }
         ),
-        cssFiles: cssFiles.map(file => _path.basename(file))
+        cssFiles: cssFiles.map(cssFile => '/' + _path.basename(cssFile))
       }
     };
 
@@ -105,20 +105,30 @@ function removeDirectory(log) {
   });
 }
 
-function writeExtras(config) {
+function writeExtras() {
   return parameters => new Promise(function (resolve, reject) {
+    const config = parameters.config;
+    const assets = config && config.assets ? config.assets : [];
+
     // Extras
     const pluginExtras = _.map(config.plugins, 'extra').filter(_.identity);
     const extraFiles = _.map(pluginExtras, function (plugin) {
       return plugin(parameters.allPaths, config);
     });
 
-    // TODO: set up a process to copy cssFiles to the right place
+    if (parameters.cssFiles) {
+      parameters.cssFiles.forEach(cssFile => {
+        assets.push({
+          from: cssFile,
+          to: './' + _path.basename(cssFile)
+        });
+      });
+    }
 
     // get functions to execute
     return async.parallel([
       write.assets(parameters),
-      write.extraAssets(parameters),
+      write.copyExtraAssets(parameters.output, assets),
       write.extras(parameters, extraFiles),
       write.pages(parameters),
       write.redirects(parameters)

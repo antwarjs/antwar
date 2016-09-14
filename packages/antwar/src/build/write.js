@@ -30,11 +30,11 @@ exports.assets = o => cb => {
   });
 };
 
-exports.extraAssets = o => cb => {
+exports.copyExtraAssets = (output, assets) => cb => {
   cb(null, [
     {
       task: 'copy_extra_assets',
-      params: [o.output, o.config && o.config.assets]
+      params: [output, assets]
     }
   ]);
 };
