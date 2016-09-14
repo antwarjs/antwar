@@ -3,7 +3,6 @@ const _path = require('path');
 
 const _ = require('lodash');
 const async = require('async');
-const mkdirp = require('mkdirp');
 const rimraf = require('rimraf');
 const webpack = require('webpack');
 const workerFarm = require('worker-farm');
@@ -64,15 +63,9 @@ module.exports = function (config) {
 
         log('Removing old output directory');
 
-        return rimraf(params.output, function (err2) {
-          if (err2) {
-            return reject(err2);
-          }
-
-          log('Creating new output directory');
-
-          return writeExtras(config, params, log);
-        });
+        return removeDirectory(params.output)
+          .then(writeExtras.bind(null, config, params))
+          .then(executeTasks.bind(null, log));
       });
     }).catch(function (err) {
       reject(err);
@@ -80,7 +73,19 @@ module.exports = function (config) {
   });
 };
 
-function writeExtras(config, params, log) {
+function removeDirectory(directory) {
+  return new Promise(function (resolve, reject) {
+    rimraf(directory, function (err) {
+      if (err) {
+        return reject(err);
+      }
+
+      return resolve();
+    });
+  });
+}
+
+function writeExtras(config, params) {
   return new Promise(function (resolve, reject) {
     // Extras
     const pluginExtras = _.map(config.antwar.plugins, 'extra').filter(_.identity);
@@ -100,15 +105,12 @@ function writeExtras(config, params, log) {
         return reject(err);
       }
 
-      return executeTasks(
-        _.flatten(tasks).filter(_.identity),
-        log
-      );
+      return resolve(_.flatten(tasks).filter(_.identity));
     });
   });
 }
 
-function executeTasks(tasks, log) {
+function executeTasks(log, tasks) {
   return new Promise(function (resolve, reject) {
     async.each(tasks, function (o, cb) {
       log('Starting task', o.task);
