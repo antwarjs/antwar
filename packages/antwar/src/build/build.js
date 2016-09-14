@@ -71,7 +71,7 @@ module.exports = function (config) {
 
           log('Creating new output directory');
 
-          return writeOutput(config, params, log);
+          return writeExtras(config, params, log);
         });
       });
     }).catch(function (err) {
@@ -79,18 +79,6 @@ module.exports = function (config) {
     });
   });
 };
-
-function writeOutput(config, params, log) {
-  return new Promise(function (resolve, reject) {
-    mkdirp(params.output, function (err) {
-      if (err) {
-        return reject(err);
-      }
-
-      return writeExtras(config, params, log);
-    });
-  });
-}
 
 function writeExtras(config, params, log) {
   return new Promise(function (resolve, reject) {
