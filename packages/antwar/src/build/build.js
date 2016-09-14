@@ -107,11 +107,11 @@ function writeExtras(config) {
 
     // get functions to execute
     return async.parallel([
-      write.assets.bind(null, parameters),
-      write.extraAssets.bind(null, parameters),
-      write.extras.bind(null, parameters, extraFiles),
-      write.pages.bind(null, parameters),
-      write.redirects.bind(null, parameters)
+      write.assets(parameters),
+      write.extraAssets(parameters),
+      write.extras(parameters, extraFiles),
+      write.pages(parameters),
+      write.redirects(parameters)
     ], function (err, tasks) {
       if (err) {
         return reject(err);

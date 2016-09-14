@@ -7,7 +7,7 @@ const mkdirp = require('mkdirp');
 
 const utils = require('./utils');
 
-exports.assets = function (o, cb) {
+exports.assets = o => cb => {
   const assetsDir = _path.join(o.output, 'assets');
   const log = o.config.console.log;
   const info = o.config.console.info;
@@ -30,7 +30,7 @@ exports.assets = function (o, cb) {
   });
 };
 
-exports.extraAssets = function (o, cb) {
+exports.extraAssets = o => cb => {
   cb(null, [
     {
       task: 'copy_extra_assets',
@@ -39,7 +39,7 @@ exports.extraAssets = function (o, cb) {
   ]);
 };
 
-exports.extras = function (o, files, cb) {
+exports.extras = (o, files) => cb => {
   if (!files || !files.length) {
     return cb();
   }
@@ -57,7 +57,7 @@ exports.extras = function (o, files, cb) {
   })));
 };
 
-exports.pages = function (o, finalCb) {
+exports.pages = o => finalCb => {
   const data = Object.keys(o.allPaths).map(function (page) {
     const p = _path.join(o.output, page);
 
@@ -92,7 +92,7 @@ exports.pages = function (o, finalCb) {
   });
 };
 
-exports.redirects = function (o, cb) {
+exports.redirects = o => cb => {
   cb(null, {
     task: 'write_redirects',
     params: {
