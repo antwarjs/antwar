@@ -25,16 +25,16 @@ module.exports = function (config) {
 
     return webpackConfig(config)
       .then(runWebpack)
-      .then(generateParameters.bind(null, config))
-      .then(removeDirectory.bind(null, log))
-      .then(writeExtras.bind(null, config))
-      .then(executeTasks.bind(null, log))
+      .then(generateParameters(config))
+      .then(removeDirectory(log))
+      .then(writeExtras(config))
+      .then(executeTasks(log))
       .catch(reject);
   });
 };
 
 function runWebpack(config) {
-  return new Promise(function (resolve, reject) {
+  return () => new Promise(function (resolve, reject) {
     webpack(config, function (err, stats) {
       if (err) {
         return reject(err);
@@ -50,7 +50,7 @@ function runWebpack(config) {
 }
 
 function generateParameters(config) {
-  return new Promise(function (resolve) {
+  return () => new Promise(function (resolve) {
     // XXXXX: Capture files ending with .css from stats.compilation.assets
     // here and inject them to template context. In addition the CSS files
     // need to be copied to project root based on existsAt path.
@@ -84,8 +84,8 @@ function generateParameters(config) {
   });
 }
 
-function removeDirectory(log, parameters) {
-  return new Promise(function (resolve, reject) {
+function removeDirectory(log) {
+  return parameters => new Promise(function (resolve, reject) {
     log('Removing old output directory');
 
     rimraf(parameters.output, function (err) {
@@ -98,8 +98,8 @@ function removeDirectory(log, parameters) {
   });
 }
 
-function writeExtras(config, parameters) {
-  return new Promise(function (resolve, reject) {
+function writeExtras(config) {
+  return parameters => new Promise(function (resolve, reject) {
     // Extras
     const pluginExtras = _.map(config.antwar.plugins, 'extra').filter(_.identity);
     const extraFiles = _.map(pluginExtras, function (plugin) {
@@ -123,8 +123,8 @@ function writeExtras(config, parameters) {
   });
 }
 
-function executeTasks(log, tasks) {
-  return new Promise(function (resolve, reject) {
+function executeTasks(log) {
+  return tasks => new Promise(function (resolve, reject) {
     async.each(tasks, function (o, cb) {
       log('Starting task', o.task);
 
