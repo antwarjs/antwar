@@ -90,6 +90,10 @@ function resolveUrls(baseUrl, section, content) {
 }
 
 function escapeHTML(input) {
+  if (!input) {
+    return '';
+  }
+
   return input.replace(/&/g, '&amp;')
    .replace(/</g, '&lt;')
    .replace(/>/g, '&gt;')
