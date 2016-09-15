@@ -34,21 +34,30 @@ function getSection(page, pathname, allPages) {
 }
 
 function renderSection(page, props, section) {
+  let content;
+
   // index doesn't have layouts
   if (!section.layouts) {
-    return renderPage(page, props);
+    content = renderPage(page, props);
+  } else if (_.isEmpty(page)) {
+    // sections don't have page metadata
+    content = React.createFactory(section.layouts.index())(props);
+  } else {
+    // ok, got a page now. render it using a page template
+    content = React.createFactory(section.layouts.page())(
+      props,
+      renderPage(page, props)
+    );
   }
 
-  // sections don't have page metadata
-  if (_.isEmpty(page)) {
-    return React.createFactory(section.layouts.index())(props);
+  if (config.layout) {
+    return React.createFactory(config.layout())(
+      {},
+      content
+    );
   }
 
-  // ok, got a page now. render it using a page template
-  return React.createFactory(section.layouts.page())(
-    props,
-    renderPage(page, props)
-  );
+  return content;
 }
 
 function renderPage(page, props) {

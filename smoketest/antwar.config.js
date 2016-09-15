@@ -6,7 +6,7 @@ module.exports = {
   },
   output: 'build',
   layout() {
-    return require('./layouts/Body');
+    return require('./layouts/Body').default;
   },
   paths: {
     '/': {
