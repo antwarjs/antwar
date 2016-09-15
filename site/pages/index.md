@@ -1,3 +1,6 @@
+---
+title: Antwar
+---
 ## What?
 
 Antwar is a blog aware static site engine built with React and Webpack. It's fast, extensible and friendly.

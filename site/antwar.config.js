@@ -1,4 +1,5 @@
-const _ = require('lodash');
+// const _ = require('lodash');
+const marked = require('marked');
 
 /*
 const rssPlugin = require('antwar-rss-plugin');
@@ -27,14 +28,24 @@ module.exports = {
   */
   paths: {
     '/': {
+      title: 'Antwar',
       path() {
         return require.context(
           'json!yaml-frontmatter!./pages',
           false,
           /^\.\/.*\.md$/
         );
+      },
+      processPage: {
+        url(o) {
+          return o.sectionName + '/' + o.fileName.split('.')[0];
+        },
+        content(o) {
+          return marked(o.file.__content);
+        }
       }
-    },
+    }
+    /*
     blog: {
       title: 'Blog posts',
       path() {
@@ -93,6 +104,6 @@ module.exports = {
           return require('./layouts/DocsPage');
         }
       }
-    }
+    }*/
   }
 };
