@@ -21,7 +21,7 @@ test('entries generate xml', function (t) {
 
   const expected = '<entry>' +
     '<title>' + pages.demo.title + '</title>' +
-    '<id>ademotitle2016-02-01t00:00:00+02:00</id>' +
+    '<id>ademotitle' + moment(pages.demo.date, 'YYYY-MM-DD').format().toLowerCase() + '</id>' +
     '<link href="' + baseUrl + 'demo"></link>' +
     '<updated>' + moment(pages.demo.date, 'YYYY-MM-DD').format() + '</updated>' +
     '<content type="html">' + pages.demo.content + '</content>' +
@@ -75,7 +75,7 @@ test('entries resolve relative urls against base', function (t) {
 
   const expected = '<entry>' +
     '<title>' + pages.demo.title + '</title>' +
-    '<id>ademotitle2016-02-01t00:00:00+02:00</id>' +
+    '<id>ademotitle' + moment(pages.demo.date, 'YYYY-MM-DD').format().toLowerCase() + '</id>' +
     '<link href="' + baseUrl + 'demo"></link>' +
     '<updated>' + moment(pages.demo.date, 'YYYY-MM-DD').format() + '</updated>' +
     '<content type="html">&lt;p&gt;#test\n&lt;a href=&quot;http://demo.com/blog/demo-interview&quot;&gt;check out&lt;/a&gt;&lt;/p&gt;\n</content>' +
@@ -102,7 +102,7 @@ test('entries resolve absolute urls against base', function (t) {
 
   const expected = '<entry>' +
     '<title>' + pages.demo.title + '</title>' +
-    '<id>ademotitle2016-02-01t00:00:00+02:00</id>' +
+    '<id>ademotitle' + moment(pages.demo.date, 'YYYY-MM-DD').format().toLowerCase() + '</id>' +
     '<link href="' + baseUrl + 'demo"></link>' +
     '<updated>' + moment(pages.demo.date, 'YYYY-MM-DD').format() + '</updated>' +
     '<content type="html">&lt;p&gt;#test\n&lt;a href=&quot;http://demo.com/blog/demo-interview&quot;&gt;check out&lt;/a&gt;&lt;/p&gt;\n</content>' +
@@ -129,7 +129,7 @@ test('entries resolve relative urls against base', function (t) {
 
   const expected = '<entry>' +
     '<title>' + pages.demo.title + '</title>' +
-    '<id>ademotitle2016-02-01t00:00:00+02:00</id>' +
+    '<id>ademotitle' + moment(pages.demo.date, 'YYYY-MM-DD').format().toLowerCase() + '</id>' +
     '<link href="' + baseUrl + 'demo"></link>' +
     '<updated>' + moment(pages.demo.date, 'YYYY-MM-DD').format() + '</updated>' +
     '<content type="html">&lt;p&gt;#test\n&lt;a href=&quot;http://demo.com/blog/demo-interview&quot;&gt;check out&lt;/a&gt;&lt;/p&gt;\n</content>' +
