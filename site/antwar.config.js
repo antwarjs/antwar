@@ -9,12 +9,16 @@ const highlightPlugin = require('antwar-highlight-plugin');
 
 module.exports = {
   template: {
-    title: 'Antwar'
+    title: 'Antwar',
+    rss: {
+      title: 'Antwar',
+      href: '/atom.xml'
+    }
   },
   output: 'build',
   author: 'Antwar',
   layout() {
-    return require('./layouts/Body');
+    return require('./layouts/Body').default;
   },
   /*
   plugins: [

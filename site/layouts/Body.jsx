@@ -1,16 +1,9 @@
-const React = require('react');
-const helpers = require('antwar-helpers');
+import React from 'react';
+import { GoogleAnalytics, Navigation } from 'antwar-helpers';
 
-const Body = helpers.layouts.Body;
-const GoogleAnalytics = helpers.components.GoogleAnalytics;
-const Navigation = helpers.components.Navigation;
-const RSS = helpers.components.RSS;
-
-const SiteBody = ({ children, ...props }) => (
-  <Body head={<RSS />} {...props}>
-    {children}
+const SiteBody = ({ children }) => (
+  <div>
     <Navigation
-      {...props}
       pages={[
         { title: 'Home', url: '/' },
         { title: 'Documentation', url: '/docs' },
@@ -18,8 +11,10 @@ const SiteBody = ({ children, ...props }) => (
       ]}
     />
 
+    {children}
+
     <GoogleAnalytics analyticsId="UA-60511795-1" />
-  </Body>
+  </div>
 );
 SiteBody.propTypes = {
   children: React.PropTypes.any
