@@ -5,7 +5,20 @@ module.exports = function (o = {}) {
     bodyContent: o.bodyContent || null,
     // since urls can get modified by other hooks, we need to
     // process after that
-    postProcessPages: generatePrevNext
+    postProcessPages: function generatePrevNext(items) {
+      const len = items.length;
+
+      return items.map(function (item, i) {
+        const prevItem = i > 0 ? items[i - 1] : {};
+        const nextItem = i < len - 1 ? items[i + 1] : {};
+        const ret = _.cloneDeep(item);
+
+        ret.prev = prevItem.section === item.section ? prevItem : undefined;
+        ret.next = nextItem.section === item.section ? nextItem : undefined;
+
+        return ret;
+      });
+    }
   };
 };
 
@@ -67,21 +80,6 @@ function bodyContent(generalOptions, options) {
 
     return null;
   };
-}
-
-function generatePrevNext(items) {
-  const len = items.length;
-
-  return items.map(function (item, i) {
-    const prevItem = i > 0 ? items[i - 1] : {};
-    const nextItem = i < len - 1 ? items[i + 1] : {};
-    const ret = _.cloneDeep(item);
-
-    ret.prev = prevItem.section === item.section ? prevItem : undefined;
-    ret.next = nextItem.section === item.section ? nextItem : undefined;
-
-    return ret;
-  });
 }
 
 function id(a) { return a; }
