@@ -40,6 +40,11 @@ module.exports = {
           /^\.\/.*\.md$/
         );
       },
+      layouts: {
+        page() {
+          return require('./layouts/Index').default;
+        }
+      },
       processPage: {
         url(o) {
           return o.sectionName + '/' + o.fileName.split('.')[0];
