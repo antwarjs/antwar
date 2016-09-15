@@ -1,8 +1,10 @@
 const _ = require('lodash');
 
+/*
 const rssPlugin = require('antwar-rss-plugin');
 const prevnextPlugin = require('antwar-prevnext-plugin');
 const highlightPlugin = require('antwar-highlight-plugin');
+*/
 
 module.exports = {
   template: {
@@ -13,6 +15,7 @@ module.exports = {
   layout() {
     return require('./layouts/Body');
   },
+  /*
   plugins: [
     rssPlugin({
       baseUrl: 'https://antwarjs.github.io/',
@@ -21,6 +24,7 @@ module.exports = {
     prevnextPlugin(),
     highlightPlugin()
   ],
+  */
   paths: {
     '/': {
       path() {
