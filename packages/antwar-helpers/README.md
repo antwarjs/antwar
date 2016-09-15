@@ -1,6 +1,6 @@
 # Antwar Helpers
 
-Use these helpers (layouts, components) to compose your site.
+Use these helper components to compose your site.
 
 ## License
 
