@@ -48,7 +48,10 @@ function developmentConfig(stylePaths) {
       loaders: [
         {
           test: /\.css$/,
-          loaders: ['style-loader', 'css-loader'],
+          loaders: [
+            'style-loader',
+            'css-loader'
+          ],
           include: stylePaths
         }
       ]
@@ -71,7 +74,9 @@ function buildConfig(stylePaths) {
       ]
     },
     plugins: [
-      new ExtractTextPlugin('[name].[chunkhash].css')
+      new ExtractTextPlugin('[name].[chunkhash].css', {
+        allChunks: true
+      })
     ]
   };
 }
