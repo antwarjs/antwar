@@ -9,7 +9,8 @@ const PATHS = {
   ],
   style: [
     path.join(process.cwd(), 'styles', 'prism.css')
-  ]
+  ],
+  packages: path.join(__dirname, '..', 'packages')
 };
 
 const commonConfig = {
@@ -17,7 +18,13 @@ const commonConfig = {
     style: PATHS.style
   },
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    extensions: [
+      '', '.js', '.jsx'
+    ],
+    // Patch webpack module resolution so that the site works with `packages`
+    modulesDirectories: [
+      PATHS.packages
+    ]
   },
   module: {
     loaders: [
