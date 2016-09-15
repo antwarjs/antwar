@@ -18,6 +18,7 @@ module.exports = {
     "func-names": 0,
     "import/no-extraneous-dependencies": 0,
     "import/no-unresolved": [1, { ignore: ['^reactabular'] }],
+    "no-console": 0,
     "no-underscore-dangle": 0,
     "no-unused-expressions": 0,
     "no-use-before-define": 0,
