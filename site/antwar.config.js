@@ -1,19 +1,17 @@
 const _ = require('lodash');
 
-const antwar = require('antwar');
 const rssPlugin = require('antwar-rss-plugin');
 const prevnextPlugin = require('antwar-prevnext-plugin');
 const highlightPlugin = require('antwar-highlight-plugin');
 
-const configuration = {
+module.exports = {
+  template: {
+    title: 'Antwar'
+  },
   output: 'build',
-  title: 'Antwar',
   author: 'Antwar',
   layout() {
     return require('./layouts/Body');
-  },
-  style() {
-    require('./styles/prism.css');
   },
   plugins: [
     rssPlugin({
@@ -94,11 +92,3 @@ const configuration = {
     }
   }
 };
-
-antwar({
-  configuration,
-  environment: process.env.npm_lifecycle_event || 'develop',
-  webpack: require('./webpack.config')
-}).catch(function (err) {
-  console.error(err); // eslint-disable-line no-console
-});

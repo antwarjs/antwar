@@ -52,17 +52,22 @@
     "eslint-plugin-jsx-a11y": "^2.1.0",
     "eslint-plugin-react": "^6.1.1",
     "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.9.0",
     "git-prepush-hook": "^1.0.1",
     "json-loader": "^0.5.4",
     "lerna": "2.0.0-beta.26",
+    "marked": "^0.3.6",
     "npm-watch": "^0.1.6",
+    "raw-loader": "^0.5.1",
     "react": "^15.3.1",
     "react-dom": "^15.3.1",
     "style-loader": "^0.13.1",
     "tape": "^4.6.0",
+    "url-loader": "^0.5.7",
     "webpack": "^1.13.2",
     "webpack-dev-server": "^1.15.1",
-    "webpack-merge": "^0.14.1"
+    "webpack-merge": "^0.14.1",
+    "yaml-frontmatter-loader": "0.0.3"
   },
   "pre-push": [
     "test:lint",

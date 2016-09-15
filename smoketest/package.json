@@ -8,11 +8,6 @@
     "start": "NODE_PATH=$NODE_PATH:../packages node ./bootstrap.js",
     "build": "NODE_PATH=$NODE_PATH:../packages node ./bootstrap.js"
   },
-  "devDependencies": {
-    "marked": "^0.3.6",
-    "webpack": "^1.13.2",
-    "yaml-frontmatter-loader": "0.0.3"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/antwarjs/antwar.git"
@@ -26,6 +21,7 @@
     "test"
   ],
   "license": "MIT",
+  "devDependencies": {},
   "dependencies": {
     "react": "^15.3.1",
     "react-router": "^2.7.0"
