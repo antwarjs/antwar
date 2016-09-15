@@ -23,9 +23,6 @@
     "antwar.js.org"
   ],
   "license": "MIT",
-  "devDependencies": {},
-  "dependencies": {
-    "react": "^15.3.1",
-    "react-router": "^2.7.0"
-  }
+  "dependencies": {},
+  "devDependencies": {}
 }

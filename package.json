@@ -61,6 +61,7 @@
     "raw-loader": "^0.5.1",
     "react": "^15.3.1",
     "react-dom": "^15.3.1",
+    "react-router": "^2.8.1",
     "style-loader": "^0.13.1",
     "tape": "^4.6.0",
     "url-loader": "^0.5.7",
