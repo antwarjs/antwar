@@ -4,8 +4,6 @@ import _ from 'lodash';
 import paths from '../libs/paths';
 
 const BodyContent = ({ location }) => {
-  config.style && config.style();
-
   const allPages = paths.allPages();
   const page = paths.pageForPath(location.pathname, allPages);
   const section = getSection(page, location.pathname, allPages);
