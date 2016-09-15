@@ -49,8 +49,7 @@ module.exports = {
           return marked(o.file.__content);
         }
       }
-    }
-    /*
+    },
     blog: {
       title: 'Blog posts',
       path() {
@@ -60,6 +59,9 @@ module.exports = {
           /^\.\/.*\.md$/
         );
       },
+      // XXX: handle drafts in some other way.
+      // it's better to provide a control mechanism for
+      // filtering content based on metadata
       draft() {
         return require.context(
           'json!yaml-frontmatter!./drafts',
@@ -76,17 +78,21 @@ module.exports = {
           const page = o.fileName.split('.')[0].split('-').slice(1).join('-');
 
           return `${o.sectionName}/${page}`;
+        },
+        content(o) {
+          return marked(o.file.__content);
         }
       },
       layouts: {
         index() {
-          return require('./layouts/SectionIndex');
+          return require('./layouts/SectionIndex').default;
         },
         page() {
-          return require('./layouts/BlogPage');
+          return require('./layouts/BlogPage').default;
         }
       }
-    },
+    }
+    /*
     docs: {
       title: 'Documentation',
       path() {
@@ -103,10 +109,10 @@ module.exports = {
       },
       layouts: {
         index() {
-          return require('./layouts/SectionIndex');
+          return require('./layouts/SectionIndex').default;
         },
         page() {
-          return require('./layouts/DocsPage');
+          return require('./layouts/DocsPage').default;
         }
       }
     }*/

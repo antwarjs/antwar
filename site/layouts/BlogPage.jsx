@@ -1,7 +1,5 @@
 import React from 'react';
-import { components } from 'antwar-helpers';
-
-const { Moment, PrevNext } = components;
+import { Moment, PrevNext } from 'antwar-helpers';
 
 const BlogPage = ({ page }) => (
   <div>
