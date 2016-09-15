@@ -1,10 +1,10 @@
 import React from 'react';
 
-const Markdown = ({ file }) => (
-  <div dangerouslySetInnerHTML={{ __html: file.content }} />
+const Markdown = ({ page }) => (
+  <div dangerouslySetInnerHTML={{ __html: page.content }} />
 );
 Markdown.propTypes = {
-  file: React.PropTypes.object.isRequired
+  page: React.PropTypes.object.isRequired
 };
 
 export default Markdown;
