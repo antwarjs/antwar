@@ -35,7 +35,7 @@ module.exports = function () {
           }
 
           if (!languages[language]) {
-            console.warn('Failed to find language definition', language); // eslint-disable-line no-console, max-len
+            console.warn('Failed to find language definition', language);
 
             return $('<code>' + he.encode(text) + '</code>');
           }
@@ -43,7 +43,7 @@ module.exports = function () {
           try {
             result = highlight(text, languages[language]);
           } catch (err) {
-            console.warn('Failed to highlight, defaulting to', defaultLanguage); // eslint-disable-line no-console, max-len
+            console.warn('Failed to highlight, defaulting to', defaultLanguage);
 
             try {
               result = highlight(text, languages[defaultLanguage]);

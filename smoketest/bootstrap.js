@@ -10,5 +10,5 @@ antwar({
   environment: process.env.npm_lifecycle_event,
   webpack
 }).catch(function (err) {
-  console.error(err); // eslint-disable-line no-console
+  console.error(err);
 });

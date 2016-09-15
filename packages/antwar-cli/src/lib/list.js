@@ -12,7 +12,7 @@ module.exports = function (config) {
       }
 
       data.forEach(function (v) {
-        console.info('* ' + v.name + ' - ' + v.description); // eslint-disable-line no-console, max-len
+        console.info('* ' + v.name + ' - ' + v.description);
       });
 
       return resolve();

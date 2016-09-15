@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 const GitHubApi = require('github');
 const shell = require('shelljs');
 const Download = require('download');

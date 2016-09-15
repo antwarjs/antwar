@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 const path = require('path');
 const _ = require('lodash');
 const rimraf = require('rimraf');

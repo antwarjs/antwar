@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 const ghpages = require('gh-pages');
 
 module.exports = function (config) {

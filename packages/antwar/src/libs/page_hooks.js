@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 const _ = require('lodash');
 const config = require('config');
 

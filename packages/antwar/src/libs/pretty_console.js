@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 const simpleTimestamp = require('simple-timestamp');
 const chalk = require('chalk');
 
