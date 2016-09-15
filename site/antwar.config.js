@@ -1,4 +1,4 @@
-// const _ = require('lodash');
+const _ = require('lodash');
 const marked = require('marked');
 
 const rssPlugin = require('antwar-rss-plugin');
@@ -91,8 +91,7 @@ module.exports = {
           return require('./layouts/BlogPage').default;
         }
       }
-    }
-    /*
+    },
     docs: {
       title: 'Documentation',
       path() {
@@ -107,6 +106,11 @@ module.exports = {
           return page.file.sort;
         });
       },
+      processPage: {
+        content(o) {
+          return marked(o.file.__content);
+        }
+      },
       layouts: {
         index() {
           return require('./layouts/SectionIndex').default;
@@ -115,6 +119,6 @@ module.exports = {
           return require('./layouts/DocsPage').default;
         }
       }
-    }*/
+    }
   }
 };
