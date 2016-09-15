@@ -1,10 +1,11 @@
 import React from 'react';
+import { Markdown } from 'antwar-helpers';
 
 const Index = ({ page }) => (
   <div>
     <h1>{page.title}</h1>
 
-    <div dangerouslySetInnerHTML={{ __html: page.content }} />
+    <Markdown page={page} />
   </div>
 );
 
