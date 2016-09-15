@@ -13,7 +13,6 @@ module.exports = {
             loader: ExtractTextPlugin.extract(
               'style-loader',
               'css-loader?minimize!' +
-              'autoprefixer-loader?{browsers:["last 2 version", "ie 10", "Android 4"]}!' +
               'sass-loader'
             )
           }
@@ -28,7 +27,6 @@ module.exports = {
             loaders: [
               'style-loader',
               'css-loader',
-              'autoprefixer-loader?{browsers:["last 2 version", "ie 10", "Android 4"]}',
               'sass-loader'
             ]
           }

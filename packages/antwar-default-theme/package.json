@@ -21,7 +21,6 @@
   },
   "homepage": "https://github.com/antwarjs/antwar",
   "dependencies": {
-    "autoprefixer-loader": "^3.1.0",
     "extract-text-webpack-plugin": "^1.0.1",
     "lodash": ">= 3.6.0 < 4.0",
     "moment": ">= 2.9.0 < 3.0",
