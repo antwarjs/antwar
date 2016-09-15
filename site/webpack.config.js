@@ -18,9 +18,6 @@ const commonConfig = {
     style: PATHS.style
   },
   resolve: {
-    extensions: [
-      '', '.js', '.jsx'
-    ],
     // Patch webpack module resolution so that the site works with `packages`
     modulesDirectories: [
       PATHS.packages
