@@ -5,7 +5,8 @@ const merge = require('webpack-merge');
 const PATHS = {
   style: [
     path.join(__dirname, 'style', 'main.css')
-  ]
+  ],
+  packages: path.join(__dirname, '..', 'packages')
 };
 
 const commonConfig = {
@@ -22,6 +23,12 @@ const commonConfig = {
           path.join(__dirname, 'pages')
         ]
       }
+    ]
+  },
+  resolve: {
+    // Patch webpack module resolution so that the site works with `packages`
+    modulesDirectories: [
+      PATHS.packages
     ]
   }
 };
