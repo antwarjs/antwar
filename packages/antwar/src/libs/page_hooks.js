@@ -2,12 +2,12 @@ const _ = require('lodash');
 const config = require('config');
 
 module.exports = {
-  preProcessPages: process.bind(null, 'preProcess'),
-  postProcessPages: process.bind(null, 'postProcess')
+  preProcessPages: process('preProcess'),
+  postProcessPages: process('postProcess')
 };
 
-function process(prefix, pages) {
-  return applyHooks(pages, getFunctions(prefix + 'Pages'));
+function process(prefix) {
+  return pages => applyHooks(pages, getFunctions(prefix + 'Pages'));
 }
 
 function applyHooks(pages, functionArray) {
@@ -17,7 +17,7 @@ function applyHooks(pages, functionArray) {
     return pages;
   }
 
-  functionArray.forEach(function (callback) {
+  functionArray.forEach(callback => {
     ret = callback(pages);
   });
 
@@ -28,12 +28,13 @@ function getFunctions(hookName) {
   const functions = [];
 
   if (config.plugins) {
-    _.each(config.plugins, function (plugin) {
+    _.each(config.plugins, plugin => {
       if (plugin[hookName]) {
         functions.push(plugin[hookName]);
       }
     });
   }
+
   if (config.functions && config.functions[hookName]) {
     functions.push(config.functions[hookName]);
   }
