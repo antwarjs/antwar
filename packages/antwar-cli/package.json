@@ -14,7 +14,6 @@
     "elapsed": "0.0.3",
     "es6-promise": "^2.0.1",
     "finalhandler": "^0.3.3",
-    "gh-pages": "^0.2.0",
     "github": "^0.2.4",
     "lodash": "^3.5.0",
     "npm-registry": "^0.1.13",

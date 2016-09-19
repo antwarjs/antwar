@@ -40,9 +40,6 @@ function main() {
     port: 3000,
     output: 'build',
     boilerplate: 'antwar-boilerplate',
-    deploy: {
-      branch: 'gh-pages'
-    },
     console: prettyConsole
   };
 
@@ -56,8 +53,6 @@ function main() {
     .option('-l --list', 'List Antwar related packages')
     .option('-s, --serve [port]', 'Serve site. Port (defaults to ' +
         defaultConfig.port + ')', parseInt)
-    .option('-D --deploy', 'Deploy to branch (defaults to ' +
-        defaultConfig.deploy.branch + ')')
     .option('-d, --develop', 'Open a browser in development mode');
 
   program.parse(process.argv);
