@@ -36,10 +36,6 @@ function defaultConfiguration() {
   return {
     port: 3000,
     output: 'build',
-    boilerplate: 'antwar-boilerplate',
-    deploy: {
-      branch: 'gh-pages'
-    },
     console: prettyConsole
   };
 }
