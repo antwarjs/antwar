@@ -15,9 +15,9 @@ function getSectionPages(sectionName, allPaths) {
     ));
   }
 
-  return _.filter(pages, page => {
-    return page.section === sectionName;
-  });
+  return _.filter(pages, page => (
+    !_.endsWith(page.url, '/index') && page.section === sectionName
+  ));
 }
 exports.getSectionPages = getSectionPages;
 
