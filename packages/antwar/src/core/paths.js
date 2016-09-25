@@ -32,6 +32,7 @@ function allPages() {
         paths = parseModules(sectionName, section, section.path());
       }
 
+      // XXXXX: drop this portion once it's clear how to compose contexts
       let draftPaths = [];
       if (__DEV__ && section.draft) {
         draftPaths = parseModules(
