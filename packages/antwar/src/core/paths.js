@@ -9,15 +9,13 @@ function getSectionPages(sectionName, allPaths) {
 
   if (sectionName === '/') {
     return _.uniq(config.paths['/'].path().keys().map(
-      function (k) {
-        return {
-          url: _.trim(k.split('.')[1], '/')
-        };
-      }
+      k => ({
+        url: _.trim(k.split('.')[1], '/')
+      })
     ));
   }
 
-  return _.filter(pages, function (page) {
+  return _.filter(pages, page => {
     return page.section === sectionName;
   });
 }
@@ -26,7 +24,7 @@ exports.getSectionPages = getSectionPages;
 function allPages() {
   let pages = [].concat // eslint-disable-line prefer-spread
     .apply([], _.keys(config.paths)
-    .map(function (sectionName) {
+    .map(sectionName => {
       const section = config.paths[sectionName];
       let paths = [];
 
@@ -52,7 +50,7 @@ function allPages() {
   );
 
   pages = pageHooks.preProcessPages(pages);
-  pages = _.map(pages, function (o) {
+  pages = _.map(pages, o => {
     return processPage(o.file, o.url, o.name, o.sectionName, o.section);
   });
   pages = pageHooks.postProcessPages(pages);
@@ -60,11 +58,11 @@ function allPages() {
   const ret = {};
 
   if (__DEV__) {
-    _.each(pages, function (o) {
+    _.each(pages, o => {
       ret[o.url] = o;
     });
   } else {
-    _.each(pages, function (o) {
+    _.each(pages, o => {
       if (!o.isDraft) {
         ret[o.url] = o;
       }
@@ -80,14 +78,12 @@ function defaultSort(files) {
 }
 
 function parseModules(sectionName, section, modules) {
-  return _.map(modules.keys(), function (name) {
-    return {
-      name: name.slice(2),
-      file: modules(name),
-      section,
-      sectionName: sectionName === '/' ? '' : sectionName
-    };
-  });
+  return _.map(modules.keys(), name => ({
+    name: name.slice(2),
+    file: modules(name),
+    section,
+    sectionName: sectionName === '/' ? '' : sectionName
+  }));
 }
 
 function pageForPath(path, allPaths) {
@@ -149,7 +145,7 @@ function processPage(file, url, fileName, sectionName, section) {
     }
   }, siteFunctions, sectionFunctions);
 
-  _.forEach(functions, function (fn, name) {
+  _.forEach(functions, (fn, name) => {
     file[name] = fn({ // eslint-disable-line no-param-reassign
       file,
       fileName,
