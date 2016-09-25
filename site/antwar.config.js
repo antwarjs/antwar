@@ -53,21 +53,32 @@ module.exports = {
     blog: {
       title: 'Blog posts',
       path() {
-        return require.context(
+        const posts = require.context(
           'json!yaml-frontmatter!./posts',
           false,
           /^\.\/.*\.md$/
         );
-      },
-      // XXX: handle drafts in some other way.
-      // it's better to provide a control mechanism for
-      // filtering content based on metadata
-      draft() {
-        return require.context(
-          'json!yaml-frontmatter!./drafts',
-          false,
-          /^\.\/.*\.md$/
-        );
+
+        if (__DEV__) {
+          const drafts = require.context(
+            'json!yaml-frontmatter!./drafts',
+            false,
+            /^\.\/.*\.md$/
+          );
+
+          const ret = req => {
+            try {
+              return posts(req);
+            } catch (err) {
+              return drafts(req);
+            }
+          };
+          ret.keys = () => posts.keys().concat(drafts.keys());
+
+          return ret;
+        }
+
+        return posts;
       },
       processPage: {
         url(o) {

@@ -32,20 +32,8 @@ function allPages() {
         paths = parseModules(sectionName, section, section.path());
       }
 
-      // XXXXX: drop this portion once it's clear how to compose contexts
-      let draftPaths = [];
-      if (__DEV__ && section.draft) {
-        draftPaths = parseModules(
-          sectionName, section, section.draft()
-        ).map(function (module) {
-          module.file.isDraft = true; // eslint-disable-line no-param-reassign
-
-          return module;
-        });
-      }
-
       return (section.inject || _.identity)(
-        (section.sort || defaultSort)(paths.concat(draftPaths))
+        (section.sort || defaultSort)(paths)
       );
     })
   );
@@ -56,17 +44,9 @@ function allPages() {
 
   const ret = {};
 
-  if (__DEV__) {
-    _.each(pages, o => {
-      ret[o.url] = o;
-    });
-  } else {
-    _.each(pages, o => {
-      if (!o.isDraft) {
-        ret[o.url] = o;
-      }
-    });
-  }
+  _.each(pages, o => {
+    ret[o.url] = o;
+  });
 
   return ret;
 }
@@ -103,9 +83,6 @@ function processPage(file, url, fileName, sectionName, section) {
   const sectionFunctions = section.processPage || {};
 
   const functions = _.assign({
-    isDraft(o) {
-      return o.file.isDraft || o.isDraft;
-    },
     date(o) {
       return o.file.date || null;
     },

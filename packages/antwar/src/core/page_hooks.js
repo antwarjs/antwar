@@ -1,6 +1,6 @@
 const _ = require('lodash');
 
-module.exports = function(config) {
+module.exports = function (config) {
   return {
     preProcessPages: process('preProcess'),
     postProcessPages: process('postProcess')

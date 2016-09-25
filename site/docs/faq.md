@@ -27,20 +27,42 @@ paths: {
 
 ## How Can I Create Drafts?
 
-Antwar allows you to mark section items as drafts. This means they will be visible only during development mode and won't be included in the production build. Drafting is useful if you want to set up some content and publish it at a later time.
-
-By default Antwar detects drafts through `isDraft` flag. You can set this at item metadata (ie. YAML headmatter or custom). Alternatively you can tell Antwar to look for drafts in a specific directory. This can be configured as follows.
+You can achieve this using webpack context:
 
 ```javascript
 paths: {
   blog: {
-    draft: function() {
-      // search recursively for Markdown drafts
-      return require.context('./drafts', true, /^\.\/.*\.md$/);
-    },
-```
+    path() {
+      const posts = require.context(
+        'json!yaml-frontmatter!./posts',
+        false,
+        /^\.\/.*\.md$/
+      );
 
-In this case publishing flow would be simple. You would just move drafts to directory set up in analogous `path` configuration.
+      if (__DEV__) {
+        const drafts = require.context(
+          'json!yaml-frontmatter!./drafts',
+          false,
+          /^\.\/.*\.md$/
+        );
+
+        const ret = req => {
+          try {
+            return posts(req);
+          } catch (err) {
+            return drafts(req);
+          }
+        };
+        ret.keys = () => posts.keys().concat(drafts.keys());
+
+        return ret;
+      }
+
+      return posts;
+    }
+  }
+}
+```
 
 ## How Can I Attach Custom Metadata to Items?
 
