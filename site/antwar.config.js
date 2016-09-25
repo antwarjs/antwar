@@ -102,9 +102,7 @@ module.exports = {
         );
       },
       sort(pages) {
-        return _.sortBy(pages, function (page) {
-          return page.file.sort;
-        });
+        return _.sortBy(pages, page => page.file.sort);
       },
       processPage: {
         content(o) {

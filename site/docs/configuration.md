@@ -1,6 +1,6 @@
 ---
 title: "Configuration"
-sort: 3
+sort: 1
 preview: "Understand configuration, understand Antwar"
 ---
 
