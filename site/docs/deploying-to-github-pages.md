@@ -4,16 +4,19 @@ sort: 3
 preview: 'How to deploy to GitHub Pages.'
 ---
 
-Antwar works very well with [GitHub Pages](https://pages.github.com/). Hosting your site there is simple. Follow the steps below:
+Antwar works very well with [GitHub Pages](https://pages.github.com/). An easy way to deploy there is to use a package known as [gh-pages](https://www.npmjs.com/package/gh-pages). You can set up a npm script like this:
 
-1. `git init` at your project directory
-2. `git add *`, `git add .gitignore`, `git commit -am "Initial commit"`
-3. [Create a repository at GitHub and push the repo there](https://help.github.com/articles/create-a-repo/)
-4. `antwar --build` (or `-b` for short)
-5. `antwar --deploy` (or `-D` for short)
-6. Surf to `<user>.github.io/<project>` and you should see your site there
+```json
+{
+  "scripts": {
+    "gh-pages:deploy": "gh-pages -d build",
+    ...
+  },
+  ...
+}
+```
 
-You can also preview the site locally by going to your `build` directory and serving the content through a static server. `serve` works well. Just hit `npm i serve -g` and `serve`. The site will be available through port 3000 by default.
+You can preview the site locally by going to your `build` directory and serving the content through a static server. `serve` works well. Just hit `npm i serve -g` and `serve`. The site will be available through port 3000 by default.
 
 ## Automating Deployment
 
