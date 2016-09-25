@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 import _ from 'lodash';
 
 const DocsPage = ({ section, page }) => (
@@ -14,9 +15,9 @@ const DocsPage = ({ section, page }) => (
           <span key={`navPage-${i}`} className="docs-nav__link docs-nav__link--current">
             {navPage.title}
           </span> :
-          <a key={`navPage-${i}`} className="docs-nav__link" href={'/' + navPage.url}>
+          <Link key={`navPage-${i}`} className="docs-nav__link" to={'/' + navPage.url}>
             {navPage.title}
-          </a>
+          </Link>
       ))}</div>
     </div>
 
