@@ -1,6 +1,6 @@
 const _ = require('lodash');
-const pageHooks = require('./page_hooks');
 const config = require('config');
+const pageHooks = require('./page_hooks')(config);
 
 const siteFunctions = config.functions || {};
 

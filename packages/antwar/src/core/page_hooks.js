@@ -1,43 +1,44 @@
 const _ = require('lodash');
-const config = require('config');
 
-module.exports = {
-  preProcessPages: process('preProcess'),
-  postProcessPages: process('postProcess')
-};
+module.exports = function(config) {
+  return {
+    preProcessPages: process('preProcess'),
+    postProcessPages: process('postProcess')
+  };
 
-function process(prefix) {
-  return pages => applyHooks(pages, getFunctions(prefix + 'Pages'));
-}
-
-function applyHooks(pages, functionArray) {
-  let ret = [];
-
-  if (!functionArray.length) {
-    return pages;
+  function process(prefix) {
+    return pages => applyHooks(pages, getFunctions(prefix + 'Pages'));
   }
 
-  functionArray.forEach(callback => {
-    ret = callback(pages);
-  });
+  function applyHooks(pages, functionArray) {
+    let ret = [];
 
-  return ret;
-}
+    if (!functionArray.length) {
+      return pages;
+    }
 
-function getFunctions(hookName) {
-  const functions = [];
-
-  if (config.plugins) {
-    _.each(config.plugins, plugin => {
-      if (plugin[hookName]) {
-        functions.push(plugin[hookName]);
-      }
+    functionArray.forEach(callback => {
+      ret = callback(pages);
     });
+
+    return ret;
   }
 
-  if (config.functions && config.functions[hookName]) {
-    functions.push(config.functions[hookName]);
-  }
+  function getFunctions(hookName) {
+    const functions = [];
 
-  return functions;
-}
+    if (config.plugins) {
+      _.each(config.plugins, plugin => {
+        if (plugin[hookName]) {
+          functions.push(plugin[hookName]);
+        }
+      });
+    }
+
+    if (config.functions && config.functions[hookName]) {
+      functions.push(config.functions[hookName]);
+    }
+
+    return functions;
+  }
+};
