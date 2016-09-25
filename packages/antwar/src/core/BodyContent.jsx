@@ -1,7 +1,7 @@
 import React from 'react';
 import config from 'config';
 import _ from 'lodash';
-import paths from '../libs/paths';
+import paths from './paths';
 
 const BodyContent = ({ location }) => {
   const allPages = paths.allPages();

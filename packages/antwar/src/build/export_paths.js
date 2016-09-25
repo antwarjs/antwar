@@ -1,1 +1,1 @@
-module.exports = require('../libs/paths').allPages;
+module.exports = require('../core/paths').allPages;

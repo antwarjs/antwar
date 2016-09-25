@@ -3,7 +3,7 @@ import React from 'react';
 import { Route } from 'react-router';
 import config from 'config';
 import BodyContent from './BodyContent';
-import paths from '../libs/paths';
+import paths from './paths';
 
 module.exports = (
   <Route>
