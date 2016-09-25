@@ -50,9 +50,7 @@ function allPages() {
   );
 
   pages = pageHooks.preProcessPages(pages);
-  pages = _.map(pages, o => {
-    return processPage(o.file, o.url, o.name, o.sectionName, o.section);
-  });
+  pages = _.map(pages, o => processPage(o.file, o.url, o.name, o.sectionName, o.section));
   pages = pageHooks.postProcessPages(pages);
 
   const ret = {};
