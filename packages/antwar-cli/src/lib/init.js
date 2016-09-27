@@ -12,7 +12,12 @@ const github = new GitHubApi({
   version: '3.0.0'
 });
 
-module.exports = function (config) {
+module.exports = {
+  execute,
+  executeForTest
+}
+
+function execute(config) {
   const console = config.console;
 
   console.info('Fetching boilerplate metadata');
@@ -20,7 +25,13 @@ module.exports = function (config) {
   const op = config.latest ? initLatest : initFromNpm;
 
   return op(config).then(processTarball.bind(null, console, config));
-};
+}
+
+function executeForTest(config) {
+  const console = config.console;
+  const op = config.latest ? initLatest : initFromNpm;
+  return op(config);
+}
 
 function initLatest(config) {
   return new Promise(function (resolve, reject) {
@@ -56,14 +67,18 @@ function initFromNpm(config) {
   return new Promise(function (resolve, reject) {
     const uri = baseUri + config.boilerplate + '/latest';
     npm.get(uri, params, function (err, data) {
+      //console.log("Checking 1");
       if (err) {
         return reject(err);
+        console.log(err);
       }
-
+      //console.log("Checking 2");
       if (!data.dist || !data.dist.tarball) {
         return reject(new Error('Missing boilerplate metadata'));
+        console.log("Missing boilerplate metadata");
       }
-
+      //console.log("Checking 3");
+      //console.log(data.dist.tarball);
       return resolve(data.dist.tarball);
     });
   });

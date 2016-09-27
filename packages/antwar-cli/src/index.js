@@ -87,7 +87,7 @@ function main() {
   } else if (program.plugin) {
     config.boilerplate = 'antwar-plugin-boilerplate';
 
-    execute(config.console, now, 'plugin initialization', lib.init, config);
+    execute(config.console, now, 'plugin initialization', lib.init.execute, config);
   } else if (program.build) {
     execute(config.console, now, 'building', antwar.build, config);
   } else if (program.serve) {
