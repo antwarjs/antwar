@@ -5,9 +5,13 @@ const recast = require('recast');
 const shell = require('shelljs');
 const Registry = require('npm-registry-client');
 
-const baseUri = 'https://registry.npmjs.org/';
 const _ast = require('./ast');
+
+const baseUri = 'https://registry.npmjs.org/';
 const npm = new Registry({});
+const params = {
+  timeout: 1000
+};
 
 module.exports = function (config) {
   const console = config.console;
@@ -17,7 +21,7 @@ module.exports = function (config) {
 
   return new Promise(function (resolve, reject) {
     const uri = baseUri + theme + '/latest';
-    npm.get(uri, params, function (err, data) {
+    npm.get(uri, params, function (err) {
       if (err) {
         return reject(err);
       }

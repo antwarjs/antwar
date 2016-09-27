@@ -1,7 +1,8 @@
 const tape = require('tape');
-const _test = require('tape-promise')
-const test = _test(tape);
+const _test = require('tape-promise');
 const lib = require('../src/lib');
+
+const test = _test(tape);
 
 test('test npm registry uri', function (t) {
   t.plan(1);
@@ -15,7 +16,7 @@ test('test npm registry uri', function (t) {
     boilerplate: 'antwar-boilerplate'
   };
 
-  return lib.init.executeForTest(defaultConfig).then(function(r) {
+  return lib.init.executeForTest(defaultConfig).then(function (r) {
     t.equal(r, 'http://registry.npmjs.org/antwar-boilerplate/-/antwar-boilerplate-0.7.1.tgz');
   });
 });
@@ -33,7 +34,7 @@ test('test github uri', function (t) {
     boilerplate: 'antwar-boilerplate'
   };
 
-  return lib.init.executeForTest(defaultConfig).then(function(r) {
+  return lib.init.executeForTest(defaultConfig).then(function (r) {
     t.equal(r, 'https://codeload.github.com/antwarjs/boilerplate/legacy.tar.gz/master');
   });
 });
