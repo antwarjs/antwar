@@ -31,7 +31,7 @@ test('generates dummy xml', function (t) {
     '<author><name>' + config.author + '</name><email></email></author>' +
     '<entry>' +
     '<title>' + pages.demo.title + '</title>' +
-    '<id>ademotitle2016-02-01t00:00:00+02:00</id>' +
+    '<id>ademotitle' + moment(pages.demo.date, 'YYYY-MM-DD').format().toLowerCase() + '</id>' +
     '<link href="' + baseUrl + 'demo"></link>' +
     '<updated>' + moment(pages.demo.date, 'YYYY-MM-DD').format() + '</updated>' +
     '<content type="html">' + pages.demo.content + '</content>' +
