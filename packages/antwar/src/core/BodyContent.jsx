@@ -27,7 +27,10 @@ function getSection(page, pathname, allPages) {
 
   // allow access to all or just part if needed
   section.pages = function (name) {
-    return paths.getSectionPages(name || sectionName, allPages);
+    return _.filter(
+      paths.getSectionPages(name || sectionName, allPages),
+      p => !_.endsWith(p.url, '/index')
+    );
   };
 
   return section;
