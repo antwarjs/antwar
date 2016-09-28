@@ -3,11 +3,15 @@ const path = require('path');
 
 const recast = require('recast');
 const shell = require('shelljs');
-const Registry = require('npm-registry');
+const Registry = require('npm-registry-client');
 
 const _ast = require('./ast');
 
+const baseUri = 'https://registry.npmjs.org/';
 const npm = new Registry({});
+const params = {
+  timeout: 1000
+};
 
 module.exports = function (config) {
   const console = config.console;
@@ -16,7 +20,8 @@ module.exports = function (config) {
   console.info('Fetching theme');
 
   return new Promise(function (resolve, reject) {
-    npm.packages.get(theme, function (err) {
+    const uri = baseUri + theme + '/latest';
+    npm.get(uri, params, function (err) {
       if (err) {
         return reject(err);
       }
