@@ -1,0 +1,33 @@
+{
+  "name": "antwar-interactive",
+  "description": "Interactive extension for Antwar",
+  "author": "Juho Vepsalainen <bebraw@gmail.com>",
+  "version": "0.0.0",
+  "scripts": {
+    "build": "rimraf ./dist && babel ./src --out-dir ./dist",
+    "prepublish": "npm run build"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "babel-cli": "^6.14.0"
+  },
+  "peerDependencies": {
+    "react": ">=0.13.* <16.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/antwarjs/antwar.git"
+  },
+  "homepage": "https://github.com/antwarjs/antwar",
+  "bugs": {
+    "url": "https://github.com/antwarjs/antwar/issues"
+  },
+  "main": "dist",
+  "module": "dist",
+  "jsnext:main": "dist",
+  "keywords": [
+    "antwar",
+    "interactive"
+  ],
+  "license": "MIT"
+}
