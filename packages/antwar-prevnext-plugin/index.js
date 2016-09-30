@@ -1,6 +1,8 @@
 const _ = require('lodash');
 
-module.exports = function (o = {}) {
+module.exports = function (o) {
+  o = o || {}; // eslint-disable-line no-param-reassign
+
   return {
     bodyContent: o.bodyContent || null,
     // since urls can get modified by other hooks, we need to
