@@ -2,14 +2,15 @@ import * as path from 'path';
 import _ from 'lodash';
 import rimraf from 'rimraf';
 
-require('es6-promise').polyfill();
-require('promise.prototype.finally');
+import 'promise.prototype.finally';
 
 import prettyConsole from './libs/pretty_console';
 import build from './build';
 import dev from './dev';
 
-export default function (options) {
+require('es6-promise').polyfill();
+
+function index(options) {
   const environment = options.environment;
   const environments = {
     develop,
@@ -30,7 +31,7 @@ export default function (options) {
     antwar: _.merge(defaultConfiguration(), options.configuration),
     webpack: options.webpack(environment)
   });
-};
+}
 
 function defaultConfiguration() {
   return {
@@ -57,3 +58,5 @@ function develop(configurations) {
     });
   });
 }
+
+export default index;
