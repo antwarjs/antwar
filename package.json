@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "description": "A static site engine built with React and Webpack",
   "scripts": {
+    "build": "lerna run build",
     "init": "npm install && lerna bootstrap",
     "test": "tape packages/*/test/*.js",
     "test:lint": "eslint . --ext .js --ext .jsx --cache",
@@ -76,7 +77,17 @@
     "test"
   ],
   "watch": {
-    "test": "packages/**/*.js",
-    "test:lint": "{packages,site}/**/*.{js,jsx}"
+    "build": {
+      "patterns": ["packages/**/*.js"],
+      "ignore": "packages/*/dist/*.js"
+    },
+    "test": {
+      "patterns": ["packages/**/*.js"],
+      "ignore": "packages/*/dist/*.js"
+    },
+    "test:lint": {
+      "patterns": ["{packages,site}/**/*.{js,jsx}"],
+      "ignore": "packages/*/dist/*.js"
+    }
   }
 }
