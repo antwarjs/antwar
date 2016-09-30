@@ -1,15 +1,15 @@
-const path = require('path');
-const _ = require('lodash');
-const rimraf = require('rimraf');
+import * as path from 'path';
+import _ from 'lodash';
+import rimraf from 'rimraf';
 
 require('es6-promise').polyfill();
 require('promise.prototype.finally');
 
-const prettyConsole = require('./libs/pretty_console');
-const build = require('./build');
-const dev = require('./dev');
+import prettyConsole from './libs/pretty_console';
+import build from './build';
+import dev from './dev';
 
-module.exports = function (options) {
+export default function (options) {
   const environment = options.environment;
   const environments = {
     develop,
