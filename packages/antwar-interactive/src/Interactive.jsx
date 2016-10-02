@@ -5,7 +5,7 @@ const Interactive = ({ id, component }) => {
     return <div>{React.createElement(component)}</div>;
   }
 
-  return <div id={id} />;
+  return <div className="interactive" id={id} />;
 };
 Interactive.propTypes = {
   id: React.PropTypes.string.isRequired,
