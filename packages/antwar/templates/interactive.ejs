@@ -2,12 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 <% for (var component in components) { %>
-  import <%= component.name %> from '<%= component.file %>';
+import <%= components[component].name %> from '<%= components[component].path %>';
 <% } %>
 
 <% for (var component in components) { %>
-  ReactDOM.render(
-    React.createElement(<%= component.name %>),
-    document.getElementById('<%= component.id %>')
-  );
+ReactDOM.render(
+  React.createElement(<%= components[component].name %>),
+  document.getElementById('<%= components[component].id %>')
+);
 <% } %>

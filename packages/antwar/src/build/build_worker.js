@@ -63,14 +63,20 @@ function writePage({
       };
     }).get();
 
-    components.forEach((o) => {
-      if (!_fs.existsSync(o.path)) {
-        prettyConsole.log('Failed to find', o.path);
-      }
-    });
+    if (components.length) {
+      components.forEach(component => {
+        if (!_fs.existsSync(component.path)) {
+          prettyConsole.log('Failed to find', component.path);
+        }
+      });
 
-    // TODO: resolve full paths for bundling
-    console.log('interactive sections', components);
+      const entry = ejs.compile(templates.interactive.file)({
+        components
+      });
+
+      // TODO: write entry to a tmp file
+      console.log('entry', entry);
+    }
 
     const data = ejs.compile(templates.page.file)({
       webpackConfig: { template: templates.page, html }
