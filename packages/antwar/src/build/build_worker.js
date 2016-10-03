@@ -27,40 +27,50 @@ module.exports = function (o, cb) {
 };
 
 function writePages(params, finalCb) {
+  async.each(params.pages, function (d, cb) {
+    const { page, path } = d;
+    prettyConsole.log('Starting to write page', page);
+
+    writePage({
+      page,
+      path,
+      template: params.template
+    }, cb);
+  }, finalCb);
+}
+
+function writePage({
+  page = '',
+  path = '',
+  template = ''
+}, cb) {
   const renderPage = require(_path.join(cwd, './.antwar/build/bundleStaticPage.js'));
 
-  async.each(params.pages, function (page, cb) {
-    prettyConsole.log('Starting to write page', page.page);
+  renderPage(page.page, function (err, html) {
+    if (err) {
+      return cb(err);
+    }
 
-    renderPage(page.page, function (err, html) {
-      if (err) {
-        return cb(err);
+    const data = ejs.compile(template.file)({
+      webpackConfig: { template, html }
+    });
+
+    return mkdirp(_path.dirname(path), function (err2) {
+      if (err2) {
+        return cb(err2);
       }
 
-      const data = ejs.compile(params.template.file)({
-        webpackConfig: {
-          template: params.template,
-          html
-        }
-      });
-
-      return mkdirp(_path.dirname(page.path), function (err2) {
-        if (err2) {
-          return cb(err2);
+      return write({ path, data }, function (err3) {
+        if (err3) {
+          return cb(err3);
         }
 
-        return write({ path: page.path, data }, function (err3) {
-          if (err3) {
-            return cb(err3);
-          }
+        prettyConsole.log('Finished writing page', page);
 
-          prettyConsole.log('Finished writing page', page.page);
-
-          return cb();
-        });
+        return cb();
       });
     });
-  }, finalCb);
+  });
 }
 
 function writeRedirects(params, finalCb) {
