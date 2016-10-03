@@ -2,6 +2,7 @@ const _fs = require('fs');
 const _path = require('path');
 
 const async = require('async');
+const cheerio = require('cheerio');
 const ejs = require('ejs');
 const mkdirp = require('mkdirp');
 
@@ -50,6 +51,20 @@ function writePage({
     if (err) {
       return cb(err);
     }
+
+    const $ = cheerio.load(html);
+    const interactiveSections = $('.interactive').map((i, el) => {
+      return _path.join(cwd, $(el).attr('id'));
+    }).get();
+
+    interactiveSections.forEach(s => {
+      if (!_fs.existsSync(s)) {
+        prettyConsole.log('Failed to find', s);
+      }
+    });
+
+    // TODO: resolve full paths for bundling
+    console.log('interactive sections', interactiveSections);
 
     const data = ejs.compile(template.file)({
       webpackConfig: { template, html }

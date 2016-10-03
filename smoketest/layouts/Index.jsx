@@ -7,7 +7,7 @@ const Index = ({ page }) => (
   <div>
     <h1>{page.title}</h1>
 
-    <Interactive id="./ClickMe.jsx" component={ClickMe} />
+    <Interactive id="./layouts/ClickMe.jsx" component={ClickMe} />
 
     <Markdown page={page} />
   </div>
