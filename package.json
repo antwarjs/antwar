@@ -78,7 +78,7 @@
   ],
   "watch": {
     "build": {
-      "patterns": ["packages/**/*.js", "packages/**/*.jsx"],
+      "patterns": ["packages/**/*.{js,jsx}"],
       "ignore": "packages/*/dist/*.js"
     },
     "test": {
