@@ -1,0 +1,13 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+<% for (var component in components) { %>
+  import <%= component.name %> from '<%= component.file %>';
+<% } %>
+
+<% for (var component in components) { %>
+  ReactDOM.render(
+    React.createElement(<%= component.name %>),
+    document.getElementById('<%= component.id %>')
+  );
+<% } %>

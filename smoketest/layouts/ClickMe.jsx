@@ -1,4 +1,4 @@
-/* eslint-ignore no-alert */
+/* eslint-disable no-alert */
 import React from 'react';
 
 const ClickMe = () => <div onClick={() => alert('clicked')}>Click me</div>;

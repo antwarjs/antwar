@@ -35,7 +35,7 @@ function writePages(params, finalCb) {
     writePage({
       page,
       path,
-      template: params.template
+      templates: params.templates
     }, cb);
   }, finalCb);
 }
@@ -43,7 +43,7 @@ function writePages(params, finalCb) {
 function writePage({
   page = '',
   path = '',
-  template = ''
+  templates = {} // page/interactive
 }, cb) {
   const renderPage = require(_path.join(cwd, './.antwar/build/bundleStaticPage.js'));
 
@@ -53,21 +53,27 @@ function writePage({
     }
 
     const $ = cheerio.load(html);
-    const interactiveSections = $('.interactive').map((i, el) => {
-      return _path.join(cwd, $(el).attr('id'));
+    const components = $('.interactive').map((i, el) => {
+      const id = $(el).attr('id');
+
+      return {
+        id,
+        name: `Interactive${i}`,
+        path: _path.join(cwd, id)
+      };
     }).get();
 
-    interactiveSections.forEach(s => {
-      if (!_fs.existsSync(s)) {
-        prettyConsole.log('Failed to find', s);
+    components.forEach((o) => {
+      if (!_fs.existsSync(o.path)) {
+        prettyConsole.log('Failed to find', o.path);
       }
     });
 
     // TODO: resolve full paths for bundling
-    console.log('interactive sections', interactiveSections);
+    console.log('interactive sections', components);
 
-    const data = ejs.compile(template.file)({
-      webpackConfig: { template, html }
+    const data = ejs.compile(templates.page.file)({
+      webpackConfig: { template: templates.page, html }
     });
 
     return mkdirp(_path.dirname(path), function (err2) {
