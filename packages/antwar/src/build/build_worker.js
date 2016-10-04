@@ -64,6 +64,7 @@ function writePage({
         path: _path.join(cwd, id)
       };
     }).get();
+    const jsFiles = [];
 
     if (components.length) {
       components.forEach(component => {
@@ -88,12 +89,24 @@ function writePage({
 
         _fs.writeFile(tmpFile.name, entry);
 
+        // Attach generated file to template
+        jsFiles.push(`./${filename}.js`);
+
         // TODO: Process the entry file through webpack
       }
     }
 
     const data = ejs.compile(templates.page.file)({
-      webpackConfig: { template: templates.page, html }
+      webpackConfig: {
+        template: {
+          ...templates.page,
+          jsFiles: [
+            ...templates.page.jsFiles,
+            ...jsFiles
+          ]
+        },
+        html
+      }
     });
 
     return mkdirp(_path.dirname(path), function (err2) {

@@ -59,7 +59,7 @@ function generateParameters(config) {
 
       return null;
     }).filter(a => a);
-
+    const jsFiles = [];
 
     const cwd = process.cwd();
     const parameters = {
@@ -73,6 +73,7 @@ function generateParameters(config) {
       output: _path.join(cwd, config.output),
       config,
       cssFiles,
+      jsFiles,
       templates: {
         page: {
           ...config.template,
@@ -84,7 +85,8 @@ function generateParameters(config) {
               encoding: 'utf8'
             }
           ),
-          cssFiles: cssFiles.map(cssFile => '/' + _path.basename(cssFile))
+          cssFiles: cssFiles.map(cssFile => '/' + _path.basename(cssFile)),
+          jsFiles
         },
         // TODO: expose to the user?
         interactive: {
