@@ -2,7 +2,7 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 
 <% for (var component of components) { %>
-var <%= component.name %> = require('<%= component.path %>');
+var <%= component.name %> = require('<%= component.id %>');
 <% } %>
 
 <% for (var component of components) { %>

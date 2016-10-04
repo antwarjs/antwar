@@ -5,6 +5,7 @@ const _path = require('path');
 const async = require('async');
 const cheerio = require('cheerio');
 const ejs = require('ejs');
+const merge = require('webpack-merge');
 const mkdirp = require('mkdirp');
 const tmp = require('tmp');
 const webpack = require('webpack');
@@ -97,9 +98,24 @@ function processPage({
         // XXX: should it be possible to tweak this? now we are picking
         // the file by convention
         const webpackConfigPath = _path.join(cwd, 'webpack.config.js');
-        const webpackConfig = require(webpackConfigPath)('interactive');
+        const webpackConfig = merge(
+          require(webpackConfigPath)('interactive'),
+          {
+            resolve: {
+              modulesDirectories: [
+                cwd
+              ],
+              alias: generateAliases(components)
+            },
+            resolveLoader: {
+              modulesDirectories: [
+                cwd
+              ]
+            }
+          }
+        );
 
-        // Tweak webpack configuration to process correctly
+        // Override webpack configuration to process correctly
         webpackConfig.entry = {
           [filename]: tmpFile.name
         };
@@ -146,6 +162,16 @@ function processPage({
 
     return writePage({ path, data, page }, cb);
   });
+}
+
+function generateAliases(components) {
+  const ret = {};
+
+  components.forEach(({ id, path }) => {
+    ret[id] = path;
+  });
+
+  return ret;
 }
 
 function writePage({

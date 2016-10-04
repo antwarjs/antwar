@@ -4,3 +4,6 @@ packages/*/node_modules
 packages/*/dist
 node-modules
 gh-pages
+smoketest/build
+site/build
+

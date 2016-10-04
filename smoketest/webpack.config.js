@@ -6,6 +6,7 @@ const PATHS = {
   style: [
     path.join(__dirname, 'style', 'main.css')
   ],
+  parentModules: path.join(__dirname, '..', 'node_modules'),
   packages: path.join(__dirname, '..', 'packages')
 };
 
@@ -28,7 +29,15 @@ const commonConfig = {
   resolve: {
     // Patch webpack module resolution so that the site works with `packages`
     modulesDirectories: [
-      PATHS.packages
+      PATHS.packages,
+      // Include parent so that interactive lookup works against preact etc.
+      PATHS.parentModules
+    ]
+  },
+  resolveLoader: {
+    modulesDirectories: [
+      // Include parent so that interactive lookup works against preact etc.
+      PATHS.parentModules
     ]
   }
 };
