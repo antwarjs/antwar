@@ -56,7 +56,7 @@ module.exports = function (env) {
         {
           resolve: {
             alias: {
-              'react': 'preact-compat',
+              react: 'preact-compat',
               'react-dom': 'preact-compat'
             }
           }
