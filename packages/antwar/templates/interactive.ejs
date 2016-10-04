@@ -1,13 +1,13 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+var React = require('react');
+var ReactDOM = require('react-dom');
 
-<% for (var component in components) { %>
-import <%= components[component].name %> from '<%= components[component].path %>';
+<% for (var component of components) { %>
+var <%= component.name %> = require('<%= component.path %>');
 <% } %>
 
-<% for (var component in components) { %>
+<% for (var component of components) { %>
 ReactDOM.render(
-  React.createElement(<%= components[component].name %>),
-  document.getElementById('<%= components[component].id %>')
+  React.createElement(<%= component.name %>),
+  document.getElementById('<%= component.id %>')
 );
 <% } %>
