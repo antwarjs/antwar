@@ -1,3 +1,4 @@
+const _crypto = require('crypto');
 const _fs = require('fs');
 const _path = require('path');
 
@@ -5,6 +6,7 @@ const async = require('async');
 const cheerio = require('cheerio');
 const ejs = require('ejs');
 const mkdirp = require('mkdirp');
+const tmp = require('tmp');
 
 const utils = require('./utils');
 const prettyConsole = require('../libs/pretty_console');
@@ -70,12 +72,24 @@ function writePage({
         }
       });
 
-      const entry = ejs.compile(templates.interactive.file)({
-        components
-      });
+      // Calculate hash (filename) so we can check whether to generate
+      // a bundle at all
+      const filename = calculateMd5(components.map(c => c.id).join(''));
+      const interactivePath = _path.join(_path.dirname(path), `${filename}.js`);
 
-      // TODO: write entry to a tmp file
-      console.log('entry', entry);
+      // If the bundle exists already, skip generating
+      if (!_fs.existsSync(interactivePath)) {
+        const entry = ejs.compile(templates.interactive.file)({
+          components
+        });
+
+        // Write to a temporary file so we can point webpack to that
+        const tmpFile = tmp.fileSync();
+
+        _fs.writeFile(tmpFile.name, entry);
+
+        // TODO: Process the entry file through webpack
+      }
     }
 
     const data = ejs.compile(templates.page.file)({
@@ -119,6 +133,10 @@ function writeRedirects(params, finalCb) {
       }, cb);
     });
   }, finalCb);
+}
+
+function calculateMd5(input) {
+  return _crypto.createHash('md5').update(input).digest('hex');
 }
 
 function write(params, cb) {
