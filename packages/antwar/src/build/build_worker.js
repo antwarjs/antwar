@@ -7,6 +7,7 @@ const cheerio = require('cheerio');
 const ejs = require('ejs');
 const mkdirp = require('mkdirp');
 const tmp = require('tmp');
+const webpack = require('webpack');
 
 const utils = require('./utils');
 const prettyConsole = require('../libs/pretty_console');
@@ -34,7 +35,7 @@ function writePages(params, finalCb) {
     const { page, path } = d;
     prettyConsole.log('Starting to write page', page);
 
-    writePage({
+    processPage({
       page,
       path,
       templates: params.templates
@@ -42,7 +43,7 @@ function writePages(params, finalCb) {
   }, finalCb);
 }
 
-function writePage({
+function processPage({
   page = '',
   path = '',
   templates = {} // page/interactive
@@ -75,8 +76,9 @@ function writePage({
 
       // Calculate hash (filename) so we can check whether to generate
       // a bundle at all
+      const dirname = _path.dirname(path);
       const filename = calculateMd5(components.map(c => c.id).join(''));
-      const interactivePath = _path.join(_path.dirname(path), `${filename}.js`);
+      const interactivePath = _path.join(dirname, `${filename}.js`);
 
       // If the bundle exists already, skip generating
       if (!_fs.existsSync(interactivePath)) {
@@ -92,37 +94,78 @@ function writePage({
         // Attach generated file to template
         jsFiles.push(`./${filename}.js`);
 
-        // TODO: Process the entry file through webpack
+        // XXX: should it be possible to tweak this? now we are picking
+        // the file by convention
+        const webpackConfigPath = _path.join(cwd, 'webpack.config.js');
+        const webpackConfig = require(webpackConfigPath)('interactive');
+
+        // Tweak webpack configuration to process correctly
+        webpackConfig.entry = {
+          [filename]: tmpFile.name
+        };
+        webpackConfig.output = {
+          filename: '[name].js',
+          path: dirname
+        };
+
+        return webpack(webpackConfig, (err2, stats) => {
+          if (err2) {
+            return cb(err2);
+          }
+
+          if (stats.hasErrors()) {
+            return cb(stats.toString('errors-only'));
+          }
+
+          // Wrote a bundle, compile through ejs now
+          const data = ejs.compile(templates.page.file)({
+            webpackConfig: {
+              template: {
+                ...templates.page,
+                jsFiles: [
+                  ...templates.page.jsFiles,
+                  ...jsFiles
+                ]
+              },
+              html
+            }
+          });
+
+          return writePage({ path, data, page }, cb);
+        });
       }
     }
 
+    // No need to go through webpack so go only through ejs
     const data = ejs.compile(templates.page.file)({
       webpackConfig: {
-        template: {
-          ...templates.page,
-          jsFiles: [
-            ...templates.page.jsFiles,
-            ...jsFiles
-          ]
-        },
+        template: templates.page,
         html
       }
     });
 
-    return mkdirp(_path.dirname(path), function (err2) {
+    return writePage({ path, data, page }, cb);
+  });
+}
+
+function writePage({
+  path,
+  data,
+  page
+}, cb) {
+  mkdirp(_path.dirname(path), function (err) {
+    if (err) {
+      return cb(err);
+    }
+
+    return write({ path, data }, function (err2) {
       if (err2) {
         return cb(err2);
       }
 
-      return write({ path, data }, function (err3) {
-        if (err3) {
-          return cb(err3);
-        }
+      prettyConsole.log('Finished writing page', page);
 
-        prettyConsole.log('Finished writing page', page);
-
-        return cb();
-      });
+      return cb();
     });
   });
 }
