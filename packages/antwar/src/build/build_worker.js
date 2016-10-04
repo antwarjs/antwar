@@ -1,9 +1,14 @@
+const _crypto = require('crypto');
 const _fs = require('fs');
 const _path = require('path');
 
 const async = require('async');
+const cheerio = require('cheerio');
 const ejs = require('ejs');
+const merge = require('webpack-merge');
 const mkdirp = require('mkdirp');
+const tmp = require('tmp');
+const webpack = require('webpack');
 
 const utils = require('./utils');
 const prettyConsole = require('../libs/pretty_console');
@@ -27,40 +32,168 @@ module.exports = function (o, cb) {
 };
 
 function writePages(params, finalCb) {
+  async.each(params.pages, function (d, cb) {
+    const { page, path } = d;
+    prettyConsole.log('Starting to write page', page);
+
+    processPage({
+      page,
+      path,
+      templates: params.templates
+    }, cb);
+  }, finalCb);
+}
+
+function processPage({
+  page = '',
+  path = '',
+  templates = {} // page/interactive
+}, cb) {
   const renderPage = require(_path.join(cwd, './.antwar/build/bundleStaticPage.js'));
 
-  async.each(params.pages, function (page, cb) {
-    prettyConsole.log('Starting to write page', page.page);
+  renderPage(page.page, function (err, html) {
+    if (err) {
+      return cb(err);
+    }
 
-    renderPage(page.page, function (err, html) {
-      if (err) {
-        return cb(err);
-      }
+    const $ = cheerio.load(html);
+    const components = $('.interactive').map((i, el) => {
+      const id = $(el).attr('id');
 
-      const data = ejs.compile(params.template.file)({
-        webpackConfig: {
-          template: params.template,
-          html
+      return {
+        id,
+        name: `Interactive${i}`,
+        path: _path.join(cwd, id)
+      };
+    }).get();
+    const jsFiles = [];
+
+    if (components.length) {
+      components.forEach(component => {
+        if (!_fs.existsSync(component.path)) {
+          prettyConsole.log('Failed to find', component.path);
         }
       });
 
-      return mkdirp(_path.dirname(page.path), function (err2) {
-        if (err2) {
-          return cb(err2);
-        }
+      // Calculate hash (filename) so we can check whether to generate
+      // a bundle at all
+      const dirname = _path.dirname(path);
+      const filename = calculateMd5(components.map(c => c.id).join(''));
+      const interactivePath = _path.join(dirname, `${filename}.js`);
 
-        return write({ path: page.path, data }, function (err3) {
-          if (err3) {
-            return cb(err3);
+      // If the bundle exists already, skip generating
+      if (!_fs.existsSync(interactivePath)) {
+        const entry = ejs.compile(templates.interactive.file)({
+          components
+        });
+
+        // Write to a temporary file so we can point webpack to that
+        const tmpFile = tmp.fileSync();
+
+        _fs.writeFile(tmpFile.name, entry);
+
+        // Attach generated file to template
+        jsFiles.push(`./${filename}.js`);
+
+        // XXX: should it be possible to tweak this? now we are picking
+        // the file by convention
+        const webpackConfigPath = _path.join(cwd, 'webpack.config.js');
+        const webpackConfig = merge(
+          require(webpackConfigPath)('interactive'),
+          {
+            resolve: {
+              modulesDirectories: [
+                cwd
+              ],
+              alias: generateAliases(components)
+            },
+            resolveLoader: {
+              modulesDirectories: [
+                cwd
+              ]
+            }
+          }
+        );
+
+        // Override webpack configuration to process correctly
+        webpackConfig.entry = {
+          [filename]: tmpFile.name
+        };
+        webpackConfig.output = {
+          filename: '[name].js',
+          path: dirname
+        };
+
+        return webpack(webpackConfig, (err2, stats) => {
+          if (err2) {
+            return cb(err2);
           }
 
-          prettyConsole.log('Finished writing page', page.page);
+          if (stats.hasErrors()) {
+            return cb(stats.toString('errors-only'));
+          }
 
-          return cb();
+          // Wrote a bundle, compile through ejs now
+          const data = ejs.compile(templates.page.file)({
+            webpackConfig: {
+              template: {
+                ...templates.page,
+                jsFiles: [
+                  ...templates.page.jsFiles,
+                  ...jsFiles
+                ]
+              },
+              html
+            }
+          });
+
+          return writePage({ path, data, page }, cb);
         });
-      });
+      }
+    }
+
+    // No need to go through webpack so go only through ejs
+    const data = ejs.compile(templates.page.file)({
+      webpackConfig: {
+        template: templates.page,
+        html
+      }
     });
-  }, finalCb);
+
+    return writePage({ path, data, page }, cb);
+  });
+}
+
+function generateAliases(components) {
+  const ret = {};
+
+  components.forEach(({ id, path }) => {
+    ret[id] = path;
+  });
+
+  return ret;
+}
+
+function writePage({
+  path,
+  data,
+  page
+}, cb) {
+  mkdirp(_path.dirname(path), function (err) {
+    if (err) {
+      return cb(err);
+    }
+
+    return write({ path, data }, function (err2) {
+      if (err2) {
+        return cb(err2);
+      }
+
+      prettyConsole.log('Finished writing page', page);
+
+      return cb();
+    });
+  });
 }
 
 function writeRedirects(params, finalCb) {
@@ -82,6 +215,10 @@ function writeRedirects(params, finalCb) {
       }, cb);
     });
   }, finalCb);
+}
+
+function calculateMd5(input) {
+  return _crypto.createHash('md5').update(input).digest('hex');
 }
 
 function write(params, cb) {

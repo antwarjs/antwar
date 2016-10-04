@@ -1,4 +1,4 @@
-const antwar = require('antwar');
+const antwar = require('antwar').default;
 const webpack = require('./webpack.config');
 const configuration = require('./antwar.config');
 

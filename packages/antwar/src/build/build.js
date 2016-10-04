@@ -59,7 +59,7 @@ function generateParameters(config) {
 
       return null;
     }).filter(a => a);
-
+    const jsFiles = [];
 
     const cwd = process.cwd();
     const parameters = {
@@ -73,17 +73,30 @@ function generateParameters(config) {
       output: _path.join(cwd, config.output),
       config,
       cssFiles,
-      template: {
-        ...config.template,
-        // XXX: sync operation
-        file: _fs.readFileSync(
-          (config.template && config.template.file) ||
-          _path.join(__dirname, '../../template.ejs'),
-          {
-            encoding: 'utf8'
-          }
-        ),
-        cssFiles: cssFiles.map(cssFile => '/' + _path.basename(cssFile))
+      jsFiles,
+      templates: {
+        page: {
+          ...config.template,
+          // XXX: sync operation
+          file: _fs.readFileSync(
+            (config.template && config.template.file) ||
+            _path.join(__dirname, '../../templates/page.ejs'),
+            {
+              encoding: 'utf8'
+            }
+          ),
+          cssFiles: cssFiles.map(cssFile => '/' + _path.basename(cssFile)),
+          jsFiles
+        },
+        // TODO: expose to the user?
+        interactive: {
+          file: _fs.readFileSync(
+            _path.join(__dirname, '../../templates/interactive.ejs'),
+            {
+              encoding: 'utf8'
+            }
+          )
+        }
       }
     };
 

@@ -1,0 +1,18 @@
+var React = require('react');
+var ReactDOM = require('react-dom');
+
+<% for (var component of components) { %>
+var <%= component.name %> = require('<%= component.id %>');
+
+// ES6 module fix
+if (<%= component.name %>.default) {
+  <%= component.name %> = <%= component.name %>.default;
+}
+<% } %>
+
+<% for (var component of components) { %>
+ReactDOM.render(
+  React.createElement(<%= component.name %>),
+  document.getElementById('<%= component.id %>')
+);
+<% } %>

@@ -23,7 +23,7 @@ module.exports = function (config) {
       plugins: [
         new HtmlWebpackPlugin({
           template: (config.antwar.template && config.antwar.template.file) ||
-            path.join(__dirname, '../../template.ejs')
+            path.join(__dirname, '../../templates/page.ejs')
         })
       ],
       // Copy template configuration to webpack side so HtmlWebpackPlugin picks it up

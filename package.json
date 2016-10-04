@@ -60,6 +60,8 @@
     "lodash": "^4.15.0",
     "marked": "^0.3.6",
     "npm-watch": "^0.1.6",
+    "preact": "^6.2.1",
+    "preact-compat": "^3.5.0",
     "raw-loader": "^0.5.1",
     "react": "^15.3.1",
     "react-dom": "^15.3.1",
@@ -78,15 +80,21 @@
   ],
   "watch": {
     "build": {
-      "patterns": ["packages/**/*.js"],
+      "patterns": [
+        "packages/**/*.{js,jsx}"
+      ],
       "ignore": "packages/*/dist/*.js"
     },
     "test": {
-      "patterns": ["packages/**/*.js"],
+      "patterns": [
+        "packages/**/*.js"
+      ],
       "ignore": "packages/*/dist/*.js"
     },
     "test:lint": {
-      "patterns": ["{packages,site}/**/*.{js,jsx}"],
+      "patterns": [
+        "{packages,site}/**/*.{js,jsx}"
+      ],
       "ignore": "packages/*/dist/*.js"
     }
   }
