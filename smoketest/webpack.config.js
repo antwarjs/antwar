@@ -36,10 +36,22 @@ const commonConfig = {
 module.exports = function (env) {
   switch (env) {
     case 'build':
-    case 'interactive':
       return merge(
         commonConfig,
         buildConfig(PATHS.style)
+      );
+    case 'interactive':
+      return merge(
+        commonConfig,
+        buildConfig(PATHS.style),
+        {
+          resolve: {
+            alias: {
+              'react': 'preact-compat',
+              'react-dom': 'preact-compat'
+            }
+          }
+        }
       );
     case 'start':
     default:
