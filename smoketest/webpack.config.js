@@ -11,73 +11,79 @@ const PATHS = {
   packages: path.join(__dirname, '..', 'packages')
 };
 
-const commonConfig = {
-  entry: {
-    style: PATHS.style
-  },
-  module: {
-    loaders: [
-      {
-        test: /\.jsx?$/,
-        loader: 'babel-loader',
-        include: [
-          path.join(__dirname, 'layouts'),
-          path.join(__dirname, 'pages')
-        ]
-      }
-    ]
-  },
-  resolve: {
-    // Patch webpack module resolution so that the site works with `packages`
-    modulesDirectories: [
-      PATHS.packages,
-      // Include parent so that interactive lookup works against preact etc.
-      PATHS.parentModules
-    ]
-  },
-  resolveLoader: {
-    modulesDirectories: [
-      // Include parent so that interactive lookup works against preact etc.
-      PATHS.parentModules
-    ]
-  }
-};
-
 module.exports = function (env) {
   switch (env) {
     case 'build':
       return merge(
-        commonConfig,
+        commonConfig(),
         buildConfig(PATHS.style)
       );
     case 'interactive':
       return merge(
-        commonConfig,
+        commonConfig(),
         buildConfig(PATHS.style),
-        {
-          resolve: {
-            alias: {
-              react: 'preact-compat',
-              'react-dom': 'preact-compat'
-            }
-          },
-          plugins: [
-            new webpack.optimize.UglifyJsPlugin({
-              compress: {
-                warnings: false
-              }
-            })
-          ]
-        }
+        interactiveConfig()
       );
     case 'start':
     default:
       return merge(
-        commonConfig,
+        commonConfig(),
         developmentConfig(PATHS.style)
       );
   }
 };
+
+function commonConfig() {
+  return {
+    entry: {
+      style: PATHS.style
+    },
+    module: {
+      loaders: [
+        {
+          test: /\.jsx?$/,
+          loader: 'babel-loader',
+          include: [
+            path.join(__dirname, 'layouts'),
+            path.join(__dirname, 'pages')
+          ]
+        }
+      ]
+    },
+    resolve: {
+      // Patch webpack module resolution so that the site works with `packages`
+      modulesDirectories: [
+        PATHS.packages,
+        // Include parent so that interactive lookup works against preact etc.
+        PATHS.parentModules
+      ]
+    },
+    resolveLoader: {
+      modulesDirectories: [
+        // Include parent so that interactive lookup works against preact etc.
+        PATHS.parentModules
+      ]
+    }
+  };
+}
+
+function interactiveConfig() {
+  return {
+    resolve: {
+      alias: {
+        react: 'preact-compat',
+        'react-dom': 'preact-compat'
+      }
+    },
+    plugins: [
+      new webpack.optimize.UglifyJsPlugin({
+        compress: {
+          warnings: false
+        }
+      })
+    ]
+  };
+}
 
 function developmentConfig(stylePaths) {
   return {
