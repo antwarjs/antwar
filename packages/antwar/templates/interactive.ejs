@@ -12,7 +12,7 @@ if (<%= component.name %>.default) {
 
 <% for (var component of components) { %>
 ReactDOM.render(
-  React.createElement(<%= component.name %>),
+  React.createElement(<%= component.name %>, <%- component.props %>),
   document.getElementById('<%= component.id %>')
 );
 <% } %>

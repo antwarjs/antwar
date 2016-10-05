@@ -1,6 +1,9 @@
-/* eslint-disable no-alert */
 import React from 'react';
 
-const ClickMe = () => <div onClick={() => alert('clicked')}>Click me</div>;
+const ClickMe = ({ pages }) => (
+  <div onClick={() => console.log('clicked', pages)}>
+    Click me and see the console
+  </div>
+);
 
 export default ClickMe;

@@ -58,12 +58,15 @@ function processPage({
 
     const $ = cheerio.load(html);
     const components = $('.interactive').map((i, el) => {
-      const id = $(el).attr('id');
+      const $el = $(el);
+      const id = $el.attr('id');
+      const props = $el.data('props');
 
       return {
         id,
         name: `Interactive${i}`,
-        path: _path.join(cwd, id)
+        path: _path.join(cwd, id),
+        props: convertToJS(props)
       };
     }).get();
     const jsFiles = [];
@@ -162,6 +165,18 @@ function processPage({
 
     return writePage({ path, data, page }, cb);
   });
+}
+
+function convertToJS(props) {
+  let ret = '';
+
+  Object.keys(props).forEach(prop => {
+    const v = props[prop];
+
+    ret += `${prop}: ${JSON.stringify(v)},`;
+  });
+
+  return `{${ret}}`;
 }
 
 function generateAliases(components) {
