@@ -59,4 +59,4 @@ function develop(configurations) {
   });
 }
 
-export default index;
+module.exports = index;
