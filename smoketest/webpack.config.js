@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const merge = require('webpack-merge');
 
@@ -59,7 +60,14 @@ module.exports = function (env) {
               react: 'preact-compat',
               'react-dom': 'preact-compat'
             }
-          }
+          },
+          plugins: [
+            new webpack.optimize.UglifyJsPlugin({
+              compress: {
+                warnings: false
+              }
+            })
+          ]
         }
       );
     case 'start':
