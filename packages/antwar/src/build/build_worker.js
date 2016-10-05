@@ -110,15 +110,22 @@ function processPage({
           {
             resolve: {
               modulesDirectories: [
-                cwd
+                cwd,
+                _path.join(cwd, 'node_modules')
               ],
               alias: generateAliases(components)
             },
             resolveLoader: {
               modulesDirectories: [
-                cwd
+                cwd,
+                _path.join(cwd, 'node_modules')
               ]
-            }
+            },
+            plugins: [
+              new webpack.DefinePlugin({
+                __DEV__: false
+              })
+            ]
           }
         );
 
