@@ -85,6 +85,9 @@ function processPage({
       const filename = calculateMd5(components.map(c => c.id).join(''));
       const interactivePath = _path.join(outputPath, `${filename}.js`);
 
+      // Attach generated file to template
+      jsFiles.push(`/${filename}.js`);
+
       // If the bundle exists already, skip generating
       if (!_fs.existsSync(interactivePath)) {
         const entry = ejs.compile(templates.interactive.file)({
@@ -98,9 +101,6 @@ function processPage({
         const tmpFile = tmp.fileSync();
 
         _fs.writeFile(tmpFile.name, entry);
-
-        // Attach generated file to template
-        jsFiles.push(`/${filename}.js`);
 
         // XXX: should it be possible to tweak this? now we are picking
         // the file by convention
@@ -162,7 +162,13 @@ function processPage({
     // No need to go through webpack so go only through ejs
     const data = ejs.compile(templates.page.file)({
       webpackConfig: {
-        template: templates.page,
+        template: {
+          ...templates.page,
+          jsFiles: [
+            ...templates.page.jsFiles,
+            ...jsFiles
+          ]
+        },
         html
       }
     });
