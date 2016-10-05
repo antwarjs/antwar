@@ -51,7 +51,7 @@ function processPage({
 }, cb) {
   const renderPage = require(_path.join(cwd, './.antwar/build/bundleStaticPage.js'));
 
-  renderPage(page.page, function (err, html) {
+  renderPage(page, function (err, html) {
     if (err) {
       return cb(err);
     }
