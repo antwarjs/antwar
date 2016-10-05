@@ -27,7 +27,11 @@ module.exports = function (config) {
         })
       ],
       // Copy template configuration to webpack side so HtmlWebpackPlugin picks it up
-      template: config.antwar.template
+      template: {
+        cssFiles: [],
+        jsFiles: [],
+        ...config.antwar.template
+      }
     };
 
     return merge(commonConfig, devConfig, config.webpack);
