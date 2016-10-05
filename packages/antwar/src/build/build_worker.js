@@ -80,9 +80,11 @@ function processPage({
         }
       });
 
-      // Calculate hash (filename) so we can check whether to generate
-      // a bundle at all
-      const filename = calculateMd5(components.map(c => c.id).join(''));
+      // Calculate hash based on filename and section so we can check whether
+      // to generate a bundle at all
+      const filename = calculateMd5(
+        page.split('/').filter(a => a).slice(0, -1).join('/') + components.map(c => c.id).join('')
+      );
       const interactivePath = _path.join(outputPath, `${filename}.js`);
 
       // Attach generated file to template

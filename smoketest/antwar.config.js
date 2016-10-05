@@ -11,7 +11,7 @@ module.exports = {
   paths: {
     '/': section(
       'Smoke test',
-      function() {
+      function () {
         return require.context(
           'json!yaml-frontmatter!./pages',
           false,
@@ -21,7 +21,7 @@ module.exports = {
     ),
     api: section(
       'Smoke test',
-      function() {
+      function () {
         return require.context(
           'json!yaml-frontmatter!./pages/api',
           false,
@@ -31,7 +31,7 @@ module.exports = {
     ),
     configuration: section(
       'Smoke test',
-      function() {
+      function () {
         return require.context(
           'json!yaml-frontmatter!./pages/configuration',
           false,
@@ -45,7 +45,7 @@ module.exports = {
 function section(title, contentCb) {
   return {
     title: 'Smoke test',
-    path: function() {
+    path() {
       return contentCb();
     },
     layouts: {
