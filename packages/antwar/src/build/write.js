@@ -84,6 +84,7 @@ exports.pages = o => finalCb => {
       return {
         task: 'write_pages',
         params: {
+          output: o.output,
           pages: partition,
           templates: o.templates
         }

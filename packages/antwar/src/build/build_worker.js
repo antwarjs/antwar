@@ -34,11 +34,11 @@ module.exports = function (o, cb) {
 function writePages(params, finalCb) {
   async.each(params.pages, function (d, cb) {
     const { page, path } = d;
-    prettyConsole.log('Starting to write page', page);
 
     processPage({
       page,
       path,
+      outputPath: params.output,
       templates: params.templates
     }, cb);
   }, finalCb);
@@ -46,6 +46,7 @@ function writePages(params, finalCb) {
 
 function processPage({
   page = '',
+  outputPath = '',
   path = '',
   templates = {} // page/interactive
 }, cb) {
@@ -80,9 +81,8 @@ function processPage({
 
       // Calculate hash (filename) so we can check whether to generate
       // a bundle at all
-      const dirname = _path.dirname(path);
       const filename = calculateMd5(components.map(c => c.id).join(''));
-      const interactivePath = _path.join(dirname, `${filename}.js`);
+      const interactivePath = _path.join(outputPath, `${filename}.js`);
 
       // If the bundle exists already, skip generating
       if (!_fs.existsSync(interactivePath)) {
@@ -96,7 +96,7 @@ function processPage({
         _fs.writeFile(tmpFile.name, entry);
 
         // Attach generated file to template
-        jsFiles.push(`./${filename}.js`);
+        jsFiles.push(`/${filename}.js`);
 
         // XXX: should it be possible to tweak this? now we are picking
         // the file by convention
@@ -124,7 +124,7 @@ function processPage({
         };
         webpackConfig.output = {
           filename: '[name].js',
-          path: dirname
+          path: outputPath
         };
 
         return webpack(webpackConfig, (err2, stats) => {
