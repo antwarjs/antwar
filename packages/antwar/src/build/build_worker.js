@@ -8,6 +8,7 @@ const ejs = require('ejs');
 const merge = require('webpack-merge');
 const mkdirp = require('mkdirp');
 const tmp = require('tmp');
+const touch = require('touch');
 const webpack = require('webpack');
 
 const utils = require('./utils');
@@ -89,6 +90,9 @@ function processPage({
         const entry = ejs.compile(templates.interactive.file)({
           components
         });
+
+        // Touch output so that other processes get a clue
+        touch.sync(interactivePath);
 
         // Write to a temporary file so we can point webpack to that
         const tmpFile = tmp.fileSync();
