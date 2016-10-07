@@ -5,7 +5,7 @@
   "description": "A static site engine built with React and Webpack",
   "scripts": {
     "build": "lerna run build",
-    "init": "npm install && lerna bootstrap",
+    "init": "npm install && lerna bootstrap && npm run build",
     "test": "tape packages/*/test/*.js",
     "test:lint": "eslint . --ext .js --ext .jsx --cache",
     "watch": "npm-watch",
