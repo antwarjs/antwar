@@ -11,7 +11,9 @@ lang: bash
 ---
 npm run init
 npm start
-open http://localhost:8080
+open http://localhost:3000
 ```
+
+This process will run `smoketest`. You can also do `npm run site`.
 
 There's also a TDD mode for testing. Run it through `npm run watch` and develop while it's running.
