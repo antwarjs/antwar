@@ -107,8 +107,9 @@ function processPage({
         // XXX: should it be possible to tweak this? now we are picking
         // the file by convention
         const webpackConfigPath = _path.join(cwd, 'webpack.config.js');
+        const interactiveConfig = require(webpackConfigPath)('interactive');
         const webpackConfig = merge(
-          require(webpackConfigPath)('interactive'),
+          interactiveConfig,
           {
             resolve: {
               modulesDirectories: [
@@ -135,10 +136,15 @@ function processPage({
         webpackConfig.entry = {
           [filename]: tmpFile.name
         };
-        webpackConfig.output = {
-          filename: '[name].js',
-          path: outputPath
-        };
+
+        // Merge output to avoid overriding publicPath
+        webpackConfig.output = merge(
+          interactiveConfig.output,
+          {
+            filename: '[name].js',
+            path: outputPath
+          }
+        );
 
         return webpack(webpackConfig, (err2, stats) => {
           if (err2) {
