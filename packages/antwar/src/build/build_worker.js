@@ -167,10 +167,10 @@ function processPage({
             return cb(stats.toString('errors-only'));
           }
 
-          const interactiveIndexPath = _path.join(outputPath, interactiveIndexEntryName) + '.js';
+          const interactiveIndexPath = _path.join(outputPath, interactiveIndexEntryName);
           const interactiveComponents = require(interactiveIndexPath);
 
-          rimraf.sync(interactiveIndexPath);
+          rimraf.sync(interactiveIndexPath + '.*');
 
           // Render initial HTML for each component
           $('.interactive').each((i, el) => {
