@@ -191,7 +191,7 @@ function processPage({
           });
 
           if (renderErrors.length) {
-            return cb(renderErrors);
+            return cb(renderErrors[0]);
           }
 
           rimraf.sync(interactiveIndexPath + '.*');
