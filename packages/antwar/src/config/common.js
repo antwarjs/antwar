@@ -1,16 +1,16 @@
-const path = require('path');
-const webpack = require('webpack');
-const SystemBellPlugin = require('system-bell-webpack-plugin');
+import * as path from 'path';
+import webpack from 'webpack';
+import SystemBellPlugin from 'system-bell-webpack-plugin';
 
 module.exports = function (config) {
   return new Promise(function (resolve) {
     const cwd = process.cwd();
     const parent = path.join(__dirname, '..');
     const paths = {
-      assets: path.join(cwd, 'assets'),
       // XXX: not correct if the user changes the default
-      config: path.join(cwd, 'antwar.config.js'),
-      parent: path.join(__dirname, '..')
+      antwarConfig: path.join(cwd, 'antwar.config.js'),
+      config: path.join(__dirname, 'config_entry.js'),
+      parent
     };
 
     resolve({
@@ -18,8 +18,7 @@ module.exports = function (config) {
       resolve: {
         root: cwd,
         alias: {
-          underscore: 'lodash',
-          assets: paths.assets,
+          antwarConfig: paths.antwarConfig,
           config: paths.config
         },
         extensions: [
@@ -42,6 +41,7 @@ module.exports = function (config) {
       plugins: [
         new webpack.DefinePlugin({
           __DEV__: JSON.stringify(JSON.parse(config.buildDev)),
+          __ENV__: JSON.stringify(config.environment),
           'process.env': {
             NODE_ENV: JSON.stringify('dev')
           }

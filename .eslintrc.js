@@ -10,7 +10,8 @@ module.exports = {
     "react"
   ],
   "globals": {
-    "__DEV__": true
+    "__DEV__": true,
+    "__ENV__": true
   },
   "rules": {
     "comma-dangle": ["error", "never"],

@@ -28,7 +28,13 @@ function index(options) {
   }
 
   return environments[environment]({
-    antwar: _.merge(defaultConfiguration(), options.configuration),
+    environment,
+    antwar: _.merge(
+      defaultConfiguration(),
+      _.isFunction(options.configuration) ?
+        options.configuration(environment) :
+        options.configuration
+    ),
     webpack: options.webpack(environment)
   });
 }
