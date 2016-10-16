@@ -169,23 +169,32 @@ function processPage({
 
           const interactiveIndexPath = _path.join(outputPath, interactiveIndexEntryName);
           const interactiveComponents = require(interactiveIndexPath);
-
-          rimraf.sync(interactiveIndexPath + '.*');
+          const renderErrors = [];
 
           // Render initial HTML for each component
           $('.interactive').each((i, el) => {
             const $el = $(el);
             const props = $el.data('props');
 
-            $el.html(
-              ReactDOMServer.renderToStaticMarkup(
-                React.createElement(
-                  interactiveComponents[`Interactive${i}`],
-                  props
+            try {
+              $el.html(
+                ReactDOMServer.renderToStaticMarkup(
+                  React.createElement(
+                    interactiveComponents[`Interactive${i}`],
+                    props
+                  )
                 )
-              )
-            );
+              );
+            } catch (renderErr) {
+              renderErrors.push(renderErr);
+            }
           });
+
+          if (renderErrors.length) {
+            return cb(renderErrors);
+          }
+
+          rimraf.sync(interactiveIndexPath + '.*');
 
           // Wrote a bundle, compile through ejs now
           const data = ejs.compile(templates.page.file)({
