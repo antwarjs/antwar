@@ -96,6 +96,14 @@ function generateParameters(config) {
               encoding: 'utf8'
             }
           )
+        },
+        interactiveIndex: {
+          file: _fs.readFileSync(
+            _path.join(__dirname, '../../templates/interactive_index.ejs'),
+            {
+              encoding: 'utf8'
+            }
+          )
         }
       }
     };

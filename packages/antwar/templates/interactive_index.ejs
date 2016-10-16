@@ -1,0 +1,10 @@
+<% for (var component of components) { %>
+var <%= component.name %> = require('<%= component.id %>');
+
+// ES6 module fix
+if (<%= component.name %>.default) {
+  <%= component.name %> = <%= component.name %>.default;
+}
+
+exports.<%= component.name %> = <%= component.name %>;
+<% } %>

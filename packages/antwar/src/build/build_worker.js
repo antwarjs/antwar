@@ -9,6 +9,9 @@ const merge = require('webpack-merge');
 const mkdirp = require('mkdirp');
 const tmp = require('tmp');
 const touch = require('touch');
+const rimraf = require('rimraf');
+const React = require('react');
+const ReactDOMServer = require('react-dom/server');
 const webpack = require('webpack');
 
 const utils = require('./utils');
@@ -49,7 +52,7 @@ function processPage({
   page = '',
   outputPath = '',
   path = '',
-  templates = {} // page/interactive
+  templates = {} // page/interactive/interactiveIndex
 }, cb) {
   const renderPage = require(_path.join(cwd, './.antwar/build/bundleStaticPage.js'));
 
@@ -92,6 +95,9 @@ function processPage({
 
       // If the bundle exists already, skip generating
       if (!_fs.existsSync(interactivePath)) {
+        const interactiveIndexEntry = ejs.compile(templates.interactiveIndex.file)({
+          components
+        });
         const entry = ejs.compile(templates.interactive.file)({
           components
         });
@@ -99,10 +105,12 @@ function processPage({
         // Touch output so that other processes get a clue
         touch.sync(interactivePath);
 
-        // Write to a temporary file so we can point webpack to that
-        const tmpFile = tmp.fileSync();
+        // Write to a temporary files so we can point webpack to that
+        const interactiveEntryTmpFile = tmp.fileSync();
+        const entryTmpFile = tmp.fileSync();
 
-        _fs.writeFile(tmpFile.name, entry);
+        _fs.writeFile(interactiveEntryTmpFile.name, interactiveIndexEntry);
+        _fs.writeFile(entryTmpFile.name, entry);
 
         // XXX: should it be possible to tweak this? now we are picking
         // the file by convention
@@ -132,9 +140,12 @@ function processPage({
           }
         );
 
+        const interactiveIndexEntryName = `${filename}-interactive-entry`;
+
         // Override webpack configuration to process correctly
         webpackConfig.entry = {
-          [filename]: tmpFile.name
+          [interactiveIndexEntryName]: interactiveEntryTmpFile.name,
+          [filename]: entryTmpFile.name
         };
 
         // Merge output to avoid overriding publicPath
@@ -142,7 +153,8 @@ function processPage({
           interactiveConfig.output,
           {
             filename: '[name].js',
-            path: outputPath
+            path: outputPath,
+            libraryTarget: 'umd' // Needed for interactive index exports to work
           }
         );
 
@@ -155,6 +167,26 @@ function processPage({
             return cb(stats.toString('errors-only'));
           }
 
+          const interactiveIndexPath = _path.join(outputPath, interactiveIndexEntryName) + '.js';
+          const interactiveComponents = require(interactiveIndexPath);
+
+          rimraf.sync(interactiveIndexPath);
+
+          // Render initial HTML for each component
+          $('.interactive').each((i, el) => {
+            const $el = $(el);
+            const props = $el.data('props');
+
+            $el.html(
+              ReactDOMServer.renderToStaticMarkup(
+                React.createElement(
+                  interactiveComponents[`Interactive${i}`],
+                  props
+                )
+              )
+            );
+          });
+
           // Wrote a bundle, compile through ejs now
           const data = ejs.compile(templates.page.file)({
             webpackConfig: {
@@ -165,7 +197,7 @@ function processPage({
                   ...jsFiles
                 ]
               },
-              html
+              html: $.html()
             }
           });
 
