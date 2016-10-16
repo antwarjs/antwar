@@ -25,15 +25,28 @@ function getSection(page, pathname, allPages) {
   section.title = section.title || sectionName;
   section.name = sectionName;
 
-  // allow access to all or just part if needed
-  section.pages = function (name) {
-    return _.filter(
-      paths.getSectionPages(name || sectionName, allPages),
-      p => !_.endsWith(p.url, '/index')
-    );
-  };
+  // Get all pages of all sections
+  section.all = () => getAllSectionPages(allPages);
+
+  // Get pages of the current section or the named one
+  section.pages = (name) => getSectionPages(name || sectionName, allPages);
 
   return section;
+}
+
+function getAllSectionPages(allPages) {
+  return _.map(config.paths, (({ title }, name) => ({
+    url: name,
+    title,
+    pages: getSectionPages(name, allPages)
+  })));
+}
+
+function getSectionPages(name, allPages) {
+  return _.filter(
+    paths.getSectionPages(name, allPages),
+    p => !_.endsWith(p.url, '/index')
+  );
 }
 
 function renderSection(page, props, section) {

@@ -10,6 +10,7 @@ const Index = ({ page, section }) => (
     <Interactive
       id="layouts/ClickMe.jsx"
       component={ClickMe}
+      sections={section.all()}
       pages={section.pages()}
     />
 

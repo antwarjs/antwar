@@ -44,27 +44,27 @@ module.exports = function (env) {
       )
     }
   };
-};
 
-function section(title, contentCb) {
-  return {
-    title: 'Smoke test',
-    path() {
-      return contentCb();
-    },
-    layouts: {
-      page() {
-        return require('./layouts/Index').default;
-      }
-    },
-    processPage: {
-      url(o) {
-        return o.sectionName + '/' + o.fileName.split('.')[0];
+  function section(title, contentCb) {
+    return {
+      title: 'Smoke test',
+      path() {
+        return contentCb();
       },
-      content(o) {
-        return marked(o.file.__content);
-      }
-    },
-    redirects: {}
-  };
-}
+      layouts: {
+        page() {
+          return require('./layouts/Index').default;
+        }
+      },
+      processPage: {
+        url(o) {
+          return o.sectionName + '/' + o.fileName.split('.')[0];
+        },
+        content(o) {
+          return marked(o.file.__content);
+        }
+      },
+      redirects: {}
+    };
+  }
+};
