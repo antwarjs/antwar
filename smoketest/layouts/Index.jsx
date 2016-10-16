@@ -12,6 +12,7 @@ const Index = ({ page, section }) => (
       component={ClickMe}
       sections={section.all()}
       pages={section.pages()}
+      containerProps={{ className: 'interactive-demo' }}
     />
 
     <Markdown page={page} />
