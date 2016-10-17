@@ -10,32 +10,18 @@ import dev from './dev';
 
 require('es6-promise').polyfill();
 
-function index(options) {
-  const environment = options.environment;
-  const environments = {
-    develop,
-    start: develop, // Convenience alias for npm
-    build
-  };
+exports.develop = execute(develop);
+exports.start = execute(develop); // convenience alias
+exports.build = execute(build);
 
-  if (!(environment in environments)) {
-    return new Promise(function (resolve, reject) {
-      reject(new Error(
-        'No matching environment in ' + Object.keys(environments).join(', ') +
-        ' for ' + environment
-      ));
-    });
-  }
-
-  return environments[environment]({
+function execute(target) {
+  return ({ antwar, webpack, environment }) => target({
     environment,
     antwar: _.merge(
       defaultConfiguration(),
-      _.isFunction(options.configuration) ?
-        options.configuration(environment) :
-        options.configuration
+      _.isFunction(antwar) ? antwar(environment) : antwar
     ),
-    webpack: options.webpack(environment)
+    webpack: webpack(environment)
   });
 }
 
@@ -64,5 +50,3 @@ function develop(configurations) {
     });
   });
 }
-
-module.exports = index;
