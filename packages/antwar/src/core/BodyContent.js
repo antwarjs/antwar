@@ -55,7 +55,7 @@ function renderSection(page, props, section) {
   // index doesn't have layouts
   if (!section.layouts) {
     content = renderPage(page, props);
-  } else if (_.isEmpty(page)) {
+  } else if (_.isEmpty(page) || page.url === '/index') {
     // sections don't have page metadata
     content = React.createFactory(section.layouts.index())(props);
   } else {

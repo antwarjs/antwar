@@ -1,19 +1,9 @@
 import React from 'react';
 import { Markdown } from 'antwar-helpers';
-import Interactive from 'antwar-interactive';
-import ClickMe from './ClickMe';
 
-const Index = ({ page, section }) => (
+const Index = ({ page }) => (
   <div>
-    <h1>{page.title}</h1>
-
-    <Interactive
-      id="layouts/ClickMe.jsx"
-      component={ClickMe}
-      sections={section.all()}
-      pages={section.pages()}
-      containerProps={{ className: 'interactive-demo' }}
-    />
+    <h1>Index layout - {page.title}</h1>
 
     <Markdown page={page} />
   </div>

@@ -52,8 +52,11 @@ module.exports = function (env) {
         return contentCb();
       },
       layouts: {
-        page() {
+        index() {
           return require('./layouts/Index').default;
+        },
+        page() {
+          return require('./layouts/Page').default;
         }
       },
       processPage: {
