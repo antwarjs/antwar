@@ -1,6 +1,9 @@
 import React from 'react';
 import { GoogleAnalytics, Navigation } from 'antwar-helpers';
 
+import '../styles/custom.css';
+import '../styles/prism.css';
+
 const SiteBody = ({ children }) => (
   <div>
     <Navigation

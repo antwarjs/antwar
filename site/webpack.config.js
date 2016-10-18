@@ -8,15 +8,13 @@ const PATHS = {
     path.join(__dirname, 'pages')
   ],
   style: [
+    path.join(process.cwd(), 'styles', 'custom.css'),
     path.join(process.cwd(), 'styles', 'prism.css')
   ],
   packages: path.join(__dirname, '..', 'packages')
 };
 
 const commonConfig = {
-  entry: {
-    style: PATHS.style
-  },
   resolve: {
     // Patch webpack module resolution so that the site works with `packages`
     modulesDirectories: [
