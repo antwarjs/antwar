@@ -37,7 +37,7 @@ module.exports = {
         );
       },
       layouts: {
-        page() {
+        index() {
           return require('./layouts/Index').default;
         }
       },
