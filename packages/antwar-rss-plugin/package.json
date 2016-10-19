@@ -2,14 +2,14 @@
   "name": "antwar-rss-plugin",
   "version": "0.3.1",
   "description": "RSS plugin for antwar",
-  "main": "src",
-  "scripts": {
-    "test": "tape test/*.js",
-    "test:watch": "npm-watch"
-  },
+  "main": "dist",
   "repository": {
     "type": "git",
     "url": "https://github.com/antwarjs/antwar.git"
+  },
+  "scripts": {
+    "build": "rimraf ./dist && babel ./src --out-dir ./dist",
+    "prepublish": "npm run build"
   },
   "keywords": [
     "antwar",
@@ -21,6 +21,8 @@
     "url": "https://github.com/antwarjs/antwar/issues"
   },
   "homepage": "https://github.com/antwarjs/antwar",
+  "module": "dist",
+  "jsnext:main": "dist",
   "dependencies": {
     "absolutify": "0.0.2",
     "lodash": "^4.15.0",
@@ -28,11 +30,8 @@
     "url-join": "^1.1.0"
   },
   "devDependencies": {
+    "babel-cli": "^6.16.0",
     "marked": "^0.3.6",
-    "npm-watch": "^0.1.6",
-    "tape": "^4.6.0"
-  },
-  "watch": {
-    "test": "{src,test}/*.js"
+    "rimraf": "^2.5.4"
   }
 }
