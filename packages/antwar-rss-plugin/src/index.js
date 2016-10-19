@@ -4,7 +4,7 @@ const moment = require('moment');
 // Antwar wrapper
 module.exports = function (o) {
   return {
-    extra: function (pages, config) { // eslint-disable-line object-shorthand
+    extra(pages, config) {
       return {
         'atom.xml': generate(
           o.baseUrl,
