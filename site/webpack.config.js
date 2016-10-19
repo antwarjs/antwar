@@ -1,5 +1,6 @@
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const merge = require('webpack-merge');
 
 const PATHS = {
@@ -108,9 +109,10 @@ function buildConfig(stylePaths) {
       ]
     },
     plugins: [
-      new ExtractTextPlugin('[name].[chunkhash].css', {
+      new ExtractTextPlugin('[chunkhash].css', {
         allChunks: true
-      })
+      }),
+      new CleanWebpackPlugin(['build'])
     ]
   };
 }

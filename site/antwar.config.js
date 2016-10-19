@@ -13,6 +13,12 @@ module.exports = {
       href: '/atom.xml'
     }
   },
+  assets: [
+    {
+      from: './CNAME',
+      to: './'
+    }
+  ],
   output: 'build',
   author: 'Antwar',
   layout() {

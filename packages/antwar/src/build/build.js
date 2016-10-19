@@ -3,7 +3,6 @@ const _path = require('path');
 
 const _ = require('lodash');
 const async = require('async');
-const rimraf = require('rimraf');
 const webpack = require('webpack');
 const workerFarm = require('worker-farm');
 
@@ -26,7 +25,6 @@ module.exports = function (config) {
     return webpackConfig(config)
       .then(runWebpack())
       .then(generateParameters(config.antwar))
-      .then(removeDirectory(log))
       .then(writeExtras())
       .then(executeTasks(log))
       .catch(reject);
@@ -109,20 +107,6 @@ function generateParameters(config) {
     };
 
     resolve(parameters);
-  });
-}
-
-function removeDirectory(log) {
-  return parameters => new Promise(function (resolve, reject) {
-    log('Removing old output directory');
-
-    rimraf(parameters.output, function (err) {
-      if (err) {
-        return reject(err);
-      }
-
-      return resolve(parameters);
-    });
   });
 }
 
