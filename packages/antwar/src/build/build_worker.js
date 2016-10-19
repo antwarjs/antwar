@@ -197,6 +197,7 @@ function processPage({
 
           rimraf.sync(interactiveIndexPath + '.*');
 
+          // TODO: pass page specific data here (i.e., title)
           // Wrote a bundle, compile through ejs now
           const data = ejs.compile(templates.page.file)({
             webpackConfig: {
@@ -216,6 +217,7 @@ function processPage({
       }
     }
 
+    // TODO: pass page specific data here (i.e., title)
     // No need to go through webpack so go only through ejs
     const data = ejs.compile(templates.page.file)({
       webpackConfig: {
