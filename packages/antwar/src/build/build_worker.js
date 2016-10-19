@@ -77,6 +77,7 @@ function processPage({
     const jsFiles = [];
 
     if (components.length) {
+      // XXX: Should this bail early?
       components.forEach(component => {
         if (!_fs.existsSync(component.path)) {
           prettyConsole.log('Failed to find', component.path);
