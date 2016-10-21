@@ -1,9 +1,8 @@
 const _ = require('lodash');
-const marked = require('marked');
-
 const rssPlugin = require('antwar-rss-plugin');
 const prevnextPlugin = require('antwar-prevnext-plugin');
-const highlightPlugin = require('antwar-highlight-plugin');
+const markdown = require('./utils/markdown');
+const highlight = require('./utils/highlight');
 
 module.exports = {
   template: {
@@ -29,8 +28,7 @@ module.exports = {
       baseUrl: 'https://antwarjs.github.io/',
       sections: ['blog']
     }),
-    prevnextPlugin(),
-    highlightPlugin()
+    prevnextPlugin()
   ],
   paths: {
     '/': {
@@ -52,7 +50,7 @@ module.exports = {
           return o.sectionName + '/' + o.fileName.split('.')[0];
         },
         content(o) {
-          return marked(o.file.__content);
+          return markdown().process(o.file.__content);
         }
       }
     },
@@ -97,7 +95,7 @@ module.exports = {
           return `${o.sectionName}/${page}`;
         },
         content(o) {
-          return marked(o.file.__content);
+          return markdown().process(o.file.__content);
         }
       },
       layouts: {
@@ -123,7 +121,7 @@ module.exports = {
       },
       processPage: {
         content(o) {
-          return marked(o.file.__content);
+          return markdown().process(o.file.__content, highlight);
         }
       },
       layouts: {

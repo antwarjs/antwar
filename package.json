@@ -65,6 +65,8 @@
     "npm-watch": "^0.1.6",
     "preact": "^6.2.1",
     "preact-compat": "^3.5.0",
+    "prism-languages": "^0.3.2",
+    "prismjs": "^1.5.1",
     "raw-loader": "^0.5.1",
     "react": "^15.3.1",
     "react-dom": "^15.3.1",
