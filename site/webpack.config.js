@@ -2,16 +2,14 @@ const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const merge = require('webpack-merge');
+const autoprefixer = require('autoprefixer');
 
 const PATHS = {
   site: [
     path.join(__dirname, 'layouts'),
     path.join(__dirname, 'pages')
   ],
-  style: [
-    path.join(process.cwd(), 'styles', 'custom.css'),
-    path.join(process.cwd(), 'styles', 'prism.css')
-  ],
+  style: path.join(process.cwd(), 'styles'),
   packages: path.join(__dirname, '..', 'packages')
 };
 
@@ -58,7 +56,10 @@ const commonConfig = {
         loaders: ['json']
       }
     ]
-  }
+  },
+  postcss: [
+    autoprefixer({ browsers: ['last 2 versions'] })
+  ]
 };
 
 module.exports = function (env) {
@@ -88,6 +89,16 @@ function developmentConfig(stylePaths) {
             'css-loader'
           ],
           include: stylePaths
+        },
+        {
+          test: /\.scss$/,
+          loaders: [
+            'style-loader',
+            'css-loader',
+            'postcss-loader',
+            'sass-loader'
+          ],
+          include: stylePaths
         }
       ]
     }
@@ -103,6 +114,14 @@ function buildConfig(stylePaths) {
           loader: ExtractTextPlugin.extract(
             'style-loader',
             'css-loader'
+          ),
+          include: stylePaths
+        },
+        {
+          test: /\.scss$/,
+          loader: ExtractTextPlugin.extract(
+            'style-loader',
+            'css-loader!postcss-loader!sass-loader'
           ),
           include: stylePaths
         }
