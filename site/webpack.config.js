@@ -128,7 +128,7 @@ function buildConfig(stylePaths) {
       ]
     },
     plugins: [
-      new ExtractTextPlugin('[chunkhash].css', {
+      new ExtractTextPlugin('[name].css', {
         allChunks: true
       }),
       new CleanWebpackPlugin(['build'])
