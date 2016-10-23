@@ -16,8 +16,7 @@ module.exports = function (config) {
       name: 'server',
       target: 'node',
       entry: {
-        bundleStaticPage: path.join(__dirname, '../build/render_page.js'),
-        paths: path.join(__dirname, '../build/export_paths.js')
+        site: path.join(__dirname, '../build/site.js')
       },
       output: {
         path: path.join(cwd, './.antwar/build'),

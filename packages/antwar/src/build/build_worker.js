@@ -54,7 +54,7 @@ function processPage({
   path = '',
   templates = {} // page/interactive/interactiveIndex
 }, cb) {
-  const renderPage = require(_path.join(cwd, './.antwar/build/bundleStaticPage.js'));
+  const renderPage = require(_path.join(cwd, './.antwar/build/site.js')).renderPage;
 
   renderPage(page, function (err, html) {
     if (err) {

@@ -60,14 +60,11 @@ function generateParameters(config) {
     const jsFiles = [];
 
     const cwd = process.cwd();
+    const site = require(_path.join(cwd, './.antwar/build/site.js'));
     const parameters = {
       cwd,
-      renderPage: require(
-        _path.join(cwd, './.antwar/build/bundleStaticPage.js')
-      ),
-      allPaths: require(
-        _path.join(cwd, './.antwar/build/paths.js')
-      )(),
+      renderPage: site.renderPage,
+      allPaths: site.allPaths,
       output: _path.join(cwd, config.output),
       config,
       cssFiles,
