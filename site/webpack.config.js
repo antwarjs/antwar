@@ -10,7 +10,10 @@ const PATHS = {
     path.join(__dirname, 'layouts'),
     path.join(__dirname, 'pages')
   ],
-  style: path.join(process.cwd(), 'styles'),
+  style: [
+    path.join(process.cwd(), 'layouts'),
+    path.join(process.cwd(), 'styles'),
+  ],
   packages: path.join(__dirname, '..', 'packages')
 };
 
@@ -100,7 +103,7 @@ function developmentConfig(stylePaths) {
           test: /\.scss$/,
           use: [
             'style-loader',
-            'css-loader',
+            'css-loader?modules&localIdentName=[local]--[hash:base64:5]',
             {
               loader: 'postcss-loader',
               options: {
