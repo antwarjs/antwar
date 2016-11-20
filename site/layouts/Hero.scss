@@ -1,0 +1,25 @@
+@import '../styles/config.scss';
+
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $off-white;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #01001C;
+  background-image: radial-gradient(40rem, #007EA1 0%, #01001C 70%);
+  svg {
+    width: 100%;
+    max-width: 50rem;
+    height: auto;
+    max-height: 100%;
+  }
+}
+
+.title {
+  fill: #3F9BB8;
+  font-size: $ms7;
+  font-family: $title-font;
+  text-anchor: middle;
+}
