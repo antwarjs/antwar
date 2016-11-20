@@ -1,0 +1,26 @@
+@import '../styles/config.scss';
+
+:global {
+  .nav__wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 1rem;
+    a[href] { color: #96bed4; }
+  }
+
+  .nav {
+    display: flex;
+    flex-direction: row;
+    & > *+* { margin-left: .5rem; }
+  }
+
+  .nav__toggle {
+    display: none;
+  }
+}
+
+.body {
+  position: relative;
+}

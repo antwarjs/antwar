@@ -1,8 +1,11 @@
 import React from 'react';
 import { GoogleAnalytics, Navigation } from 'antwar-helpers';
 
-import '../styles/custom.scss';
 import '../styles/prism.css';
+import '../styles/reset.scss';
+import '../styles/global.scss';
+
+import './Body.scss';
 
 const SiteBody = ({ children }) => (
   <div>
@@ -19,6 +22,8 @@ const SiteBody = ({ children }) => (
     <GoogleAnalytics analyticsId="UA-60511795-1" />
   </div>
 );
+
+
 SiteBody.propTypes = {
   children: React.PropTypes.any
 };
