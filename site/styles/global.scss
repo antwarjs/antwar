@@ -1,0 +1,25 @@
+@import 'config.scss';
+@import 'contained-layout.scss';
+
+*, *::before, *::after {
+  flex-flow: column nowrap;
+  flex: 0 0 auto;
+  min-height: min-content;
+  min-width: min-content;
+}
+
+:root {
+  font-family: $body-font;
+  background-color: $white;
+  color: $deep-blue;
+}
+
+h1 { font-size: $ms6 }
+h2 { font-size: $ms5 }
+h3 { font-size: $ms4 }
+h4 { font-size: $ms3 }
+h5 { font-size: $ms2 }
+h6 { font-size: $ms1; }
+
+a[href] { color: $cyan;
+}
