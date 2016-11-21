@@ -1,8 +1,16 @@
-$white: #fcffff;
-$off-white: #ecf7f7;
-$green: #ccd283;
-$cyan: #1d8582;
-$deep-blue: #0d1621;
+$blue1: #060F25;
+$blue2: #21436F;
+$blue3: #467B9D;
+$blue4: #96C7DB;
+$blue5: #F4FAFF;
+$blue: $blue3;
+
+$yellow: #F5E6BA;
+$peach: #F2C2B9;
+
+$off-white: $blue5;
+$white: #fcfff;
+$black: $blue1;
 
 $title-font: "Helvetica Neue", Helvetica, Arial, sans-serif;
 $body-font: "Helvetica Neue", Helvetica, Arial, sans-serif;
