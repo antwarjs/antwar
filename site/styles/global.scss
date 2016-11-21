@@ -4,8 +4,6 @@
 *, *::before, *::after {
   flex-flow: column nowrap;
   flex: 0 0 auto;
-  min-height: min-content;
-  min-width: min-content;
 }
 
 :root {
