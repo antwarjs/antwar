@@ -87,7 +87,7 @@ function processPage({
       // Calculate hash based on filename and section so we can check whether
       // to generate a bundle at all
       const filename = calculateMd5(
-        page.split('/').filter(a => a).slice(0, -1).join('/') + components.map(c => c.id).join('')
+        page.split('/').filter(a => a).slice(0, -1).join('/') + components.map(c => c.id + "=" + c.props).join('')
       );
       const interactivePath = _path.join(outputPath, `${filename}.js`);
 
