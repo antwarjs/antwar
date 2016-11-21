@@ -1,3 +1,12 @@
+@import 'config.scss';
+
 html, body {
   margin: 0;
+}
+
+pre {
+  background-color: $off-white;
+  padding: .75rem;
+  max-width: 100%;
+  overflow-y: auto;
 }

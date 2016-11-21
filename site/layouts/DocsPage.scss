@@ -1,0 +1,40 @@
+@import '../styles/config';
+
+.postContent {
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.nav {
+  display: flex;
+  flex-flow: row;
+  background-color: $off-white;
+  padding: 1rem;
+}
+
+.navLink {
+  text-decoration: none;
+  & + & {
+    margin-left: .5rem;
+  }
+}
+
+.draftText {
+  font-size: $ms4;
+  margin: 0 1rem;
+  padding: .5rem;
+  border-radius: 1rem;
+  color: transparentize($cyan, .5);
+  font-style: italic;
+}
+
+.navLink_active {
+  composes: navLink;
+  font-weight: bold;
+}
+
+.postHeading {
+  display: inline-block;
+  border-bottom: .25rem dotted $green
+}
