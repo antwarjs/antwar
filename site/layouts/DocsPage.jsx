@@ -15,9 +15,9 @@ const DocsPage = ({ section, page }) => (
           <span key={`navPage-${i}`} className="docs-nav__link docs-nav__link--current">
             {navPage.title}
           </span> :
-            <Link key={`navPage-${i}`} className="docs-nav__link" to={'/' + navPage.url}>
-              {navPage.title}
-            </Link>
+          <Link key={`navPage-${i}`} className="docs-nav__link" to={'/' + navPage.url}>
+            {navPage.title}
+          </Link>
       ))}</div>
     </div>
 
