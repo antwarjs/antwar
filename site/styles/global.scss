@@ -9,7 +9,7 @@
 :root {
   font-family: $body-font;
   background-color: $white;
-  color: $deep-blue;
+  color: $black;
   line-height: 1.4;
 }
 
@@ -20,5 +20,5 @@ h4 { font-size: $ms3 }
 h5 { font-size: $ms2 }
 h6 { font-size: $ms1; }
 
-a[href] { color: $cyan;
+a[href] { color: $blue;
 }

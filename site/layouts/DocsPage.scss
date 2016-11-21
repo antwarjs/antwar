@@ -9,7 +9,7 @@
 .nav {
   display: flex;
   flex-flow: row;
-  background-color: $off-white;
+  background-color: $blue5;
   padding: 1rem;
 }
 
@@ -25,7 +25,7 @@
   margin: 0 1rem;
   padding: .5rem;
   border-radius: 1rem;
-  color: transparentize($cyan, .5);
+  color: $blue4;
   font-style: italic;
 }
 
@@ -36,5 +36,5 @@
 
 .postHeading {
   display: inline-block;
-  border-bottom: .25rem dotted $green
+  border-bottom: .25rem dotted $blue;
 }
