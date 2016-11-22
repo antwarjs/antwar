@@ -18,8 +18,16 @@
 }
 
 .title {
-  fill: #3F9BB8;
-  font-size: $ms7;
-  font-family: $title-font;
+  fill: $blue3;
+  font-family: $display-font;
+  font-size: 10rem;
+  font-weight: 600;
+  text-anchor: middle;
+}
+.subtitle {
+  fill: $blue3;
+  font-family: $caption-font;
+  font-size: 3rem;
+  font-weight: 200;
   text-anchor: middle;
 }
