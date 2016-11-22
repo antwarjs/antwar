@@ -12,7 +12,7 @@ const PATHS = {
   ],
   style: [
     path.join(process.cwd(), 'layouts'),
-    path.join(process.cwd(), 'styles'),
+    path.join(process.cwd(), 'styles')
   ],
   packages: path.join(__dirname, '..', 'packages')
 };

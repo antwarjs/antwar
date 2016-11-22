@@ -10,7 +10,7 @@ export default function ({ page }) {
     <div className={classes.hero}>
       <svg x={width / 2} y={height / 2} viewBox={`${-width / 2} ${-height / 2} ${width} ${height}`}>
         <TV width={600} border={10} />
-        <circle cx={0} cy={0} r={2} fill="red" />
+        {/* <circle cx={0} cy={0} r={2} fill="red" /> */}
       </svg>
     </div>
   );
@@ -37,24 +37,20 @@ function TV({ width, border = 20, widescreen }) {
         </filter>
       </defs>
       <RoundedRect width={width} height={height} fill="url(#tv-gradient)" />
-      <Screen width={sw} height={sh} dark={false} bkg="white">
-        {/*
-        <rect x={-sw/2} y={-sh/2} width={sw} height={sh} fill="#121132"/>
-        <rect x={-sw/2} y={-sh/2} width={sw} height={sh} fill="white" filter="url(#static)"/>
-        */}
+      <Screen width={sw} height={sh}>
         <text className={classes.title} fontSize="160" y="30">Antwar</text>
         <text className={classes.subtitle} fontSize="63" y="85">the static site generator</text>
+        {/* <Static width={sw} height={sh} /> */}
       </Screen>
     </g>
   );
 }
 
 /* TODO
- * inner screen glow
- * default black background when no children are present?
+ * display static when no children are present
  */
 
-function Screen({ children, width, height, bkg = '#121132' }) {
+function Screen({ children, width, height }) {
   const isw = width - 25;
   const ish = height - 25;
   const isd = Math.sqrt(Math.pow(isw, 2) + Math.pow(ish, 2));
@@ -94,7 +90,7 @@ function Screen({ children, width, height, bkg = '#121132' }) {
         </linearGradient>
       </defs>
       <RoundedRect width={isw} height={ish} fill={'white'} filter="url(#glow)" />
-      <rect x="-500" y={-isd / 2} width={1000} height={isd} opacity={children ? 1 : 0.5} fill="url(#glare-gradient)" transform="rotate(45)" />
+      <rect x="-500" y={-isd / 2} width={1000} height={isd} opacity={screenIsDark ? 0.5 :1} fill="url(#glare-gradient)" transform="rotate(45)" />
       <g clipPath="url(#screen)">
         {children}
         <rect x={-width / 2} y={-height / 2} width={width} height={height} fill="url(#scanlines)" opacity={0.05} />
@@ -110,7 +106,7 @@ function Static({ width, height }) {
     <g>
       <defs>
         <filter id="static">
-          <feTurbulence type="fractalNoise" baseFrequency="0.4" numOctaves="2" seed="8" stitchTiles="stitch" result="static"/>
+          <feTurbulence type="fractalNoise" baseFrequency="0.4" numOctaves="2" seed="8" stitchTiles="stitch" result="static" />
           <feComposite in2="green" in="static" mode="multiply" />
         </filter>
       </defs>
