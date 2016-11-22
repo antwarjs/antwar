@@ -13,6 +13,10 @@
   line-height: 1.4;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  font-family: $display-font;
+}
+
 h1 { font-size: $ms6 }
 h2 { font-size: $ms5 }
 h3 { font-size: $ms4 }
