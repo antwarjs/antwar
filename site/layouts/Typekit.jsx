@@ -6,8 +6,9 @@ export default class Typekit extends React.Component {
     script.src = 'https://use.typekit.net/qqv0pwh.js';
     script.async = true;
     script.onload = function () {
-      try{window.Typekit.load({ async: true })} catch(e){}
-    }
+      /* eslint no-empty: 1 */
+      try { window.Typekit.load({ async: true }); } catch (e) {}
+    };
     document.body.appendChild(script);
   }
 

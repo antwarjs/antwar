@@ -1,7 +1,8 @@
 import React from 'react';
 import { GoogleAnalytics, Navigation } from 'antwar-helpers';
-import Typekit from './Typekit';
 import { withRouter } from 'react-router';
+
+import Typekit from './Typekit';
 
 import '../styles/prism.css';
 import '../styles/reset.scss';
@@ -10,7 +11,7 @@ import '../styles/global.scss';
 import classes from './Body.scss';
 
 const SiteBody = ({ children, router }) => (
-  <div className={router.isActive('/') ? classes.home : '' }>
+  <div className={router.isActive('/') ? classes.home : ''}>
     <Navigation
       pages={[
         { title: 'Home', url: '/' },

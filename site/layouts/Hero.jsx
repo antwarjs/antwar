@@ -2,7 +2,7 @@ import React from 'react';
 
 import classes from './Hero.scss';
 
-export default function ({ page }) {
+export default function () {
   const width = 1000;
   const height = 1000;
 
@@ -39,8 +39,7 @@ function TV({ width, border = 20, widescreen }) {
       <RoundedRect width={width} height={height} fill="url(#tv-gradient)" />
       <Screen width={sw} height={sh}>
         <text className={classes.title} fontSize="160" y="30">Antwar</text>
-        <text className={classes.subtitle} fontSize="63" y="85">the static site generator</text>
-        {/* <Static width={sw} height={sh} /> */}
+        <text className={classes.subtitle} fontSize="52" y="85">the static site generator</text>
       </Screen>
     </g>
   );
@@ -55,6 +54,33 @@ function Screen({ children, width, height }) {
   const ish = height - 25;
   const isd = Math.sqrt(Math.pow(isw, 2) + Math.pow(ish, 2));
   const screenIsDark = !children;
+
+  const screenGlareProps = {
+    opacity: screenIsDark ? 0.5 : 1,
+    x: -500,
+    y: -isd / 2,
+    width: 1000,
+    height: isd,
+    transform: 'rotate(45)',
+    fill: 'url(#glare-gradient)'
+  };
+
+  const scanlinesProps = {
+    x: -width / 2,
+    y: -height / 2,
+    width,
+    height,
+    fill: 'url(#scanlines)',
+    opacity: 0.05
+  };
+
+  const innerScreenGlowProps = {
+    x: -width,
+    y: -height,
+    width: width * 2,
+    height: height * 2,
+    fill: 'url(#inner-screen-glow)'
+  };
 
   return (
     <g>
@@ -90,27 +116,47 @@ function Screen({ children, width, height }) {
         </linearGradient>
       </defs>
       <RoundedRect width={isw} height={ish} fill={'white'} filter="url(#glow)" />
-      <rect x="-500" y={-isd / 2} width={1000} height={isd} opacity={screenIsDark ? 0.5 :1} fill="url(#glare-gradient)" transform="rotate(45)" />
+      <rect {...screenGlareProps} />
       <g clipPath="url(#screen)">
         {children}
-        <rect x={-width / 2} y={-height / 2} width={width} height={height} fill="url(#scanlines)" opacity={0.05} />
-        <rect x={-width} y={-height} width={width * 2} height={height * 2} fill="url(#inner-screen-glow)" />
+        <rect {...scanlinesProps} />
+        <rect {...innerScreenGlowProps} />
       </g>
     </g>
   );
 }
 
+/* eslint no-unused-vars: 1 */
 function Static({ width, height }) {
-  // TODO: figure out how to use something like "add" or "multiply" blend effect
+  // TODO: figure how to maybe generate a "static-like" pattern instead?
+
+  const rectProps = {
+    x: -width / 2,
+    y: -height / 2,
+    width,
+    height,
+    fill: 'black',
+    filter: 'url(#static)'
+  };
+
+  const turbulenceProps = {
+    type: 'fractalNoise',
+    baseFrequency: '0.4',
+    numOctaves: '2',
+    seed: '8',
+    stitchTiles: 'stitch',
+    result: 'static'
+  };
+
   return (
     <g>
       <defs>
         <filter id="static">
-          <feTurbulence type="fractalNoise" baseFrequency="0.4" numOctaves="2" seed="8" stitchTiles="stitch" result="static" />
+          <feTurbulence {...turbulenceProps} />
           <feComposite in2="green" in="static" mode="multiply" />
         </filter>
       </defs>
-      <rect x={-width / 2} y={-height / 2} width={width} height={height} fill="black" filter="url(#static)" />
+      <rect {...rectProps} />
     </g>
   );
 }

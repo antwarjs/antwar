@@ -19,8 +19,10 @@ const DocsPage = ({ section, page }) => (
     </div>
 
     {page.headerImage ?
-      <div className={classes.headerImage} style={{ backgroundImage: `url(${page.headerImage})` }} /> :
-      null
+      <div
+        className={classes.headerImage}
+        style={{ backgroundImage: `url(${page.headerImage})` }}
+      /> : null
     }
 
     <div className={classes.postContent}>
