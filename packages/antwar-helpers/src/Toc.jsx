@@ -12,9 +12,9 @@ const Toc = ({ sectionPages, page }) => (
             <span className={`toc-nav__link toc-nav__link--current ${type}`}>
               {navPage.title}
             </span> :
-            <Link to={navPage.url} className={`toc-nav__link ${type}`}>
-              {navPage.title}
-            </Link>
+              <Link to={navPage.url} className={`toc-nav__link ${type}`}>
+                {navPage.title}
+              </Link>
           }
         </li>
       );
