@@ -38,11 +38,12 @@ function TV({ width, border = 20, widescreen }) {
       </defs>
       <RoundedRect width={width} height={height} fill="url(#tv-gradient)" />
       <Screen width={sw} height={sh} dark={false} bkg="white">
-        <text className={classes.title} y="22">Antwar</text>
         {/*
         <rect x={-sw/2} y={-sh/2} width={sw} height={sh} fill="#121132"/>
         <rect x={-sw/2} y={-sh/2} width={sw} height={sh} fill="white" filter="url(#static)"/>
         */}
+        <text className={classes.title} fontSize="160" y="30">Antwar</text>
+        <text className={classes.subtitle} fontSize="63" y="85">the static site generator</text>
       </Screen>
     </g>
   );
