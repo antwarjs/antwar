@@ -1,5 +1,6 @@
 import React from 'react';
 import { GoogleAnalytics, Navigation } from 'antwar-helpers';
+import Typekit from './Typekit';
 
 import '../styles/prism.css';
 import '../styles/reset.scss';
@@ -19,6 +20,7 @@ const SiteBody = ({ children }) => (
 
     {children}
 
+    <Typekit />
     <GoogleAnalytics analyticsId="UA-60511795-1" />
   </div>
 );
