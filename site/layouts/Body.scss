@@ -6,13 +6,24 @@
     left: 0;
     right: 0;
     padding: 1rem;
-    a[href] { color: $blue; }
+    background-color: $blue2;
+    a[href] {
+      color: $blue5;
+      font-family: $caption-font;
+      font-weight: 500;
+      font-size: $ms2;
+      text-decoration: none;
+      &:hover {
+        border-bottom: .15rem solid currentColor;
+      }
+    }
   }
 
   .nav {
     display: flex;
     flex-direction: row;
-    & > *+* { margin-left: .5rem; }
+    justify-content: flex-end;
+    & > *+* { margin-left: .75rem; }
   }
 
   .nav__toggle {
@@ -20,6 +31,12 @@
   }
 }
 
-.body {
-  position: relative;
+.home {
+  :global .nav__wrapper {
+    position: absolute;
+    background-color: transparent;
+    a[href] {
+      color: $blue4;
+    }
+  }
 }

@@ -5,13 +5,13 @@
   align-items: center;
   justify-content: center;
   color: $off-white;
-  height: 100vh;
+  height: 95vh;
   overflow: hidden;
-  background-color: #01001C;
-  background-image: radial-gradient(40rem, #007EA1 0%, #01001C 70%);
+  background-color: $blue1;
+  background-image: radial-gradient(40rem, $blue 0%, $blue1 70%);
   svg {
     width: 100%;
-    max-width: 50rem;
+    max-width: 35rem;
     height: auto;
     max-height: 100%;
   }
@@ -20,8 +20,8 @@
 .title {
   fill: $blue3;
   font-family: $display-font;
-  font-size: 10rem;
-  font-weight: 600;
+  font-size: 9.5rem;
+  font-weight: 500;
   text-anchor: middle;
 }
 .subtitle {
