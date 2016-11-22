@@ -9,6 +9,7 @@
 .nav {
   display: flex;
   flex-flow: row;
+  justify-content: flex-end;
   background-color: $blue5;
   padding: 1rem;
 }
