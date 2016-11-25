@@ -9,3 +9,4 @@ Antwar is based on the fantastic work of [Brad Denver](https://github.com/BradDe
 
 * [Nadav Spiegelman](https://github.com/nadavspi) - Fixed README `getting started` url.
 * [Anders Østhus](https://github.com/andersosthus) - Updated `antwar-cli` to use `npm-registry-client`.
+* [Fernando Montoya](https://github.com/montogeek) - Fix page titles so that they get passed to templates.
