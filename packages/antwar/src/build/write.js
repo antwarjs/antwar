@@ -64,7 +64,7 @@ exports.pages = o => finalCb => {
     return {
       path: p,
       page,
-      title: o.allPaths[page]['title']
+      title: o.allPaths[page].title
     };
   });
 
