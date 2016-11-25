@@ -63,7 +63,8 @@ exports.pages = o => finalCb => {
 
     return {
       path: p,
-      page
+      page,
+      title: o.allPaths[page].title
     };
   });
 
@@ -73,7 +74,8 @@ exports.pages = o => finalCb => {
       path: d.path.split('/').slice(-1)[0] === 'index' ?
         _path.join(d.path, '..', 'index.html') :
         _path.join(d.path, 'index.html'),
-      page: d.page
+      page: d.page,
+      title: d.title
     });
   }, function (err, d) {
     if (err) {
