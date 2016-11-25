@@ -8,6 +8,10 @@ A static site generator using [React](https://github.com/facebook/react).
 
 Read the [getting started section on our site](http://antwarjs.github.io/docs/getting-started/)
 
+## Contributing
+
+Read **CONTRIBUTING.md** carefully before getting started!
+
 ## License
 
 MIT.
