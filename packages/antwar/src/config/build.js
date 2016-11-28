@@ -19,9 +19,9 @@ module.exports = function (config) {
         site: path.join(__dirname, '../build/site.js')
       },
       output: {
-        path: path.join(cwd, './.antwar/build'),
+        path: path.join(cwd, './build'),
         filename: '[name].js',
-        publicPath: path.join(cwd, './.antwar/build'),
+        publicPath: path.join(cwd, './build'),
         libraryTarget: 'commonjs2'
       }
     };

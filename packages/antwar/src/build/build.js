@@ -60,7 +60,7 @@ function generateParameters(config) {
     const jsFiles = [];
 
     const cwd = process.cwd();
-    const site = require(_path.join(cwd, './.antwar/build/site.js'));
+    const site = require(_path.join(cwd, './build/site.js'));
     const parameters = {
       cwd,
       renderPage: site.renderPage,
@@ -129,8 +129,6 @@ function writeExtras() {
 
     // get functions to execute
     return async.parallel([
-      write.assets(parameters),
-      write.copyExtraAssets(parameters.output, assets),
       write.extras(parameters, extraFiles),
       write.pages(parameters),
       write.redirects(parameters)

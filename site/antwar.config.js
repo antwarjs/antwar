@@ -12,6 +12,7 @@ module.exports = {
       href: '/atom.xml'
     }
   },
+  // XXXXX: This should go through copy plugin - fix docs too
   assets: [
     {
       from: './CNAME',

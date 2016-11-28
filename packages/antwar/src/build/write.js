@@ -3,41 +3,8 @@ const _os = require('os');
 
 const _ = require('lodash');
 const async = require('async');
-const mkdirp = require('mkdirp');
 
 const utils = require('./utils');
-
-exports.assets = o => cb => {
-  const assetsDir = _path.join(o.output, 'assets');
-  const log = o.config.console.log;
-  const info = o.config.console.info;
-
-  log('Creating asset directory');
-
-  mkdirp(assetsDir, function (err) {
-    if (err) {
-      return cb(err);
-    }
-
-    info('Wrote asset directory');
-
-    return cb(null, [
-      {
-        task: 'copy_assets',
-        params: [_path.join(o.cwd, 'assets'), assetsDir]
-      }
-    ]);
-  });
-};
-
-exports.copyExtraAssets = (output, assets) => cb => {
-  cb(null, [
-    {
-      task: 'copy_extra_assets',
-      params: [output, assets]
-    }
-  ]);
-};
 
 exports.extras = (o, files) => cb => {
   if (!files || !files.length) {
