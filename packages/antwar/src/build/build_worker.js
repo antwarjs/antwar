@@ -51,7 +51,7 @@ function processPage({
   title = '',
   templates = {} // page/interactive/interactiveIndex
 }, cb) {
-  const renderPage = require(_path.join(cwd, './build/site.js')).renderPage;
+  const renderPage = require(_path.join(outputPath, 'site.js')).renderPage;
 
   renderPage(page, function (err, html) {
     if (err) {

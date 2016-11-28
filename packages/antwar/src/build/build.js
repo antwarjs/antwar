@@ -60,7 +60,7 @@ function generateParameters(config) {
     const jsFiles = [];
 
     const cwd = process.cwd();
-    const site = require(_path.join(cwd, './build/site.js'));
+    const site = require(_path.join(cwd, config.output, 'site.js'));
     const parameters = {
       cwd,
       renderPage: site.renderPage,
