@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import _ from 'lodash';
 
-import classes from './DocsPage.scss';
+import classes from './Docs.scss';
 
 const DocsPage = ({ section, page }) => (
   <div className={classes.post}>
