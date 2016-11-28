@@ -14,17 +14,12 @@ const React = require('react');
 const ReactDOMServer = require('react-dom/server');
 const webpack = require('webpack');
 
-const utils = require('./utils');
 const prettyConsole = require('../libs/pretty_console');
 
 const cwd = process.cwd();
 
 module.exports = function (o, cb) {
-  if (o.task === 'copy_assets') {
-    utils.copyIfExists.apply(null, o.params.concat([cb]));
-  } else if (o.task === 'copy_extra_assets') {
-    utils.copyExtraAssets.apply(null, o.params.concat([cb]));
-  } else if (o.task === 'write') {
+  if (o.task === 'write') {
     write(o.params, cb);
   } else if (o.task === 'write_pages') {
     writePages(o.params, cb);
@@ -56,7 +51,7 @@ function processPage({
   title = '',
   templates = {} // page/interactive/interactiveIndex
 }, cb) {
-  const renderPage = require(_path.join(cwd, './.antwar/build/site.js')).renderPage;
+  const renderPage = require(_path.join(cwd, './build/site.js')).renderPage;
 
   renderPage(page, function (err, html) {
     if (err) {
