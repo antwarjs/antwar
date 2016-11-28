@@ -8,7 +8,7 @@ import '../styles/prism.css';
 import '../styles/reset.scss';
 import '../styles/global.scss';
 
-import classes from './Body.scss';
+import classes from './SiteBody.scss';
 
 const SiteBody = ({ children, router }) => (
   <div className={router.isActive('/') ? classes.home : ''}>

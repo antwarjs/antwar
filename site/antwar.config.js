@@ -15,7 +15,7 @@ module.exports = {
   output: 'build',
   author: 'Antwar',
   layout() {
-    return require('./layouts/Body').default;
+    return require('./layouts/SiteBody').default;
   },
   plugins: [
     rssPlugin({
@@ -36,7 +36,7 @@ module.exports = {
       },
       layouts: {
         index() {
-          return require('./layouts/Index').default;
+          return require('./layouts/SiteIndex').default;
         }
       },
       processPage: {
