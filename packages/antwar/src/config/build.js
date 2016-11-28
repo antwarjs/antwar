@@ -4,7 +4,7 @@ const merge = require('webpack-merge');
 module.exports = function (config) {
   const getCommon = require('./common');
 
-  const cwd = process.cwd();
+  const buildPath = path.join(process.cwd(), config.antwar.output);
 
   config.buildDev = config.buildDev || 0; // eslint-disable-line no-param-reassign
 
@@ -19,9 +19,9 @@ module.exports = function (config) {
         site: path.join(__dirname, '../build/site.js')
       },
       output: {
-        path: path.join(cwd, './build'),
+        path: buildPath,
         filename: '[name].js',
-        publicPath: path.join(cwd, './build'),
+        publicPath: buildPath,
         libraryTarget: 'commonjs2'
       }
     };
