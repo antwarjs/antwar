@@ -3,6 +3,7 @@ const _path = require('path');
 
 const _ = require('lodash');
 const async = require('async');
+const rimraf = require('rimraf');
 const webpack = require('webpack');
 const workerFarm = require('worker-farm');
 
@@ -27,6 +28,7 @@ module.exports = function (config) {
       .then(generateParameters(config.antwar))
       .then(writeExtras())
       .then(executeTasks(log))
+      .then(removeSiteBundle(config.antwar.output))
       .catch(reject);
   });
 };
@@ -163,5 +165,20 @@ function executeTasks(log) {
 
       return resolve();
     });
+  });
+}
+
+function removeSiteBundle(outputDirectory) {
+  return () => new Promise(function (resolve, reject) {
+    rimraf(
+      _path.join(process.cwd(), outputDirectory, 'site.js'),
+      function (err) {
+        if (err) {
+          return reject(err);
+        }
+
+        return resolve();
+      }
+    );
   });
 }
