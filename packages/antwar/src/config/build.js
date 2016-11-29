@@ -21,7 +21,6 @@ module.exports = function (config) {
       output: {
         path: buildPath,
         filename: '[name].js',
-        publicPath: buildPath,
         libraryTarget: 'commonjs2'
       }
     };
