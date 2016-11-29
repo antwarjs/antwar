@@ -15,8 +15,8 @@ module.exports = function (config) {
       },
       output: {
         path: path.join(cwd, './.antwar/build/'),
+        filename: '[name].js',
         publicPath: '/',
-        filename: '[name]-bundle.js',
         chunkFilename: '[chunkhash].js'
       },
       locals: {},
