@@ -1,5 +1,5 @@
 const webpack = require('webpack');
-const webpackConfig = require('../config/build');
+const webpackConfig = require('../config/dev_index');
 
 module.exports = function (config) {
   config.buildDev = 1; // eslint-disable-line no-param-reassign
