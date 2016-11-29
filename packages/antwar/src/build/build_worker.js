@@ -153,6 +153,7 @@ function processPage({
           {
             filename: '[name].js',
             path: outputPath,
+            publicPath: '/',
             libraryTarget: 'umd' // Needed for interactive index exports to work
           }
         );
