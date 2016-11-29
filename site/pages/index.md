@@ -7,7 +7,11 @@ Antwar is a blog aware static site engine built with React and Webpack. It's fas
 
 ## Why?
 
-The world needed a site engine that was easy to extend and a pleasure to work with.
+The world needed a site engine that was easy to extend and a pleasure to work with. One of the special features of Antwar is the fact that you can integrate React code to your markup and have it run. See the example below:
+
+```interactive
+<div>demo</div>
+```
 
 ## Sounds cool. Can I try it?
 

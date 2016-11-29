@@ -9,6 +9,21 @@ module.exports = function (siteSection) {
 
   const renderer = new marked.Renderer();
 
+  renderer.code = function (code, language, escaped) { // eslint-disable-line no-unused-vars
+    // marked.Renderer.prototype.code.call(this, code, language, escaped);
+    // TODO: if language is interactive, do something different here
+    // TODO: figure out a proper way to extend the old code (escaped etc.)
+    // TODO: this should render through react to get the initial markup
+    // TODO: figure out how to handle development mode (write separate js file)
+    // TODO: figure out how to handle production mode (write separate js file)
+    /* console.log(code, language);
+    return (
+      '<pre class="language-' + language +
+      '"><code class="language-' + language +
+      '">' + code + '</code></pre>'
+    );*/
+  };
+
   renderer.image = function (href, title, text) {
     return '<img src="' + section + href + '" alt="' + text + '">';
   };
