@@ -27,7 +27,7 @@
   "devDependencies": {
     "autoprefixer": "^6.5.1",
     "copy-webpack-plugin": "^4.0.1",
-    "node-sass": "^3.10.1",
+    "node-sass": "^3.13.0",
     "postcss-loader": "^1.0.0",
     "sass-loader": "^4.0.2"
   }
