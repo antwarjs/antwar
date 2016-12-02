@@ -49,7 +49,7 @@ module.exports = {
       }
     },
     blog: {
-      title: 'Blog posts',
+      title: 'Developer Blog',
       path() {
         const posts = require.context(
           'json!yaml-frontmatter!./posts',

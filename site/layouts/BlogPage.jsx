@@ -1,10 +1,11 @@
 import React from 'react';
 import { Moment, PrevNext } from 'antwar-helpers';
 
+import classes from './BlogPage.scss';
 import articleClasses from './Article.scss';
 
 const BlogPage = ({ page }) => (
-  <div>
+  <div className={classes.blogPost}>
     <div className={articleClasses.article}>
       {page.headerImage ?
         <div
@@ -40,7 +41,9 @@ const BlogPage = ({ page }) => (
         null
       }
       <div dangerouslySetInnerHTML={{ __html: page.content }} />
-      <PrevNext page={page} previousText="Previous post" nextText="Next post" />
+      <footer className={classes.footer}>
+        <PrevNext page={page} previousText="Previous post" nextText="Next post" />
+      </footer>
     </div>
   </div>
 );

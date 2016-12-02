@@ -1,0 +1,42 @@
+@import '../styles/config';
+
+.sectionIndex {
+  padding: 2rem;
+  margin: 0 auto;
+  h1 { margin-top: 0; text-align: center; }
+}
+
+ul.list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.item {
+  & + & { border-top: .2rem solid $blue; }
+}
+
+.item > a[href] {
+  display: block;
+  color: $black;
+  padding: 2rem 1rem;
+  &:hover, &:active, &:focus { background-color: $off-white; }
+  text-decoration: none;
+}
+
+.header {
+  color: $blue;
+  font-size: $ms6;
+  font-family: $display-font;
+  font-weight: 300;
+  margin: 0;
+}
+
+.date {
+  opacity: .3;
+}
+
+
+.preview {
+  margin: 1rem 0 0;
+  font-size: $ms2;
+}
