@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import _ from 'lodash';
 
-import classes from './Docs.scss';
+import classes from './DocsPage.scss';
 import articleClasses from './Article.scss';
 
 const DocsPage = ({ section, page }) => (
