@@ -1,14 +1,22 @@
 @import '../styles/config';
 
-.postContent {
-  max-width: 40rem;
-  margin: 0 auto;
-  padding: 2rem;
+.post {
+  display: flex;
+  flex-flow: column nowrap;
+  flex-grow: 1;
+  flex-shrink: 1;
+  max-height: 100%;
+  //h2 { color: $blue2 }
+  h3 {
+    font-weight: 300;
+    margin-top: 1.5rem;
+    //font-size: $ms5
+  }
 }
 
 .nav {
   display: flex;
-  flex-flow: row;
+  flex-flow: row wrap;
   justify-content: flex-end;
   background-color: $blue5;
   padding: 1rem;
@@ -19,12 +27,54 @@
   & + & {
     margin-left: .5rem;
   }
+  border-bottom: .15rem solid transparent;
+  &:hover { border-bottom-color: currentColor; }
 }
 
+@media (min-width: 60rem) {
+  .post {
+    flex-direction: row;
+    min-width: 100%;
+  }
+  .nav {
+    flex-flow: column nowrap;
+    height: auto;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-basis: 10rem;
+    flex-grow: 0;
+    padding: 2.5rem 2rem 2rem;
+    font-size: $ms2;
+  }
+  .navLink {
+    &+& {
+      margin-left: 0;
+      margin-top: .25rem;
+    }
+  }
+  .postContentScrollBox {
+    flex-grow: 1;
+    flex-shrink: 1;
+    max-height: 100%;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+
+.postContent {
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: 2rem 3rem;
+}
+
+
 .draftText {
+  font-family: $display-font;
   font-size: $ms4;
   margin: 0 1rem;
   padding: .5rem;
+  font-weight: 300;
   border-radius: 1rem;
   color: $blue4;
   font-style: italic;
@@ -33,9 +83,27 @@
 .navLink_active {
   composes: navLink;
   font-weight: bold;
+  color: $blue2;
 }
 
 .postHeading {
-  display: inline-block;
-  border-bottom: .25rem dotted $blue;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  h1 { margin: 0; }
+  &::after {
+    display: block;
+    content: '';
+    height: .35rem;
+    width: 100%;
+    background-image: repeating-linear-gradient(
+      45deg,
+      $blue,
+      $blue .25rem,
+      transparent .25rem,
+      transparent .5rem
+    );
+  }
 }

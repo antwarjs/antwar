@@ -4,9 +4,30 @@ html, body {
   margin: 0;
 }
 
+p { margin: 1rem 0 }
+
 pre {
   background-color: $off-white;
   padding: .75rem;
   max-width: 100%;
   overflow-y: auto;
+  max-height: 35rem;
 }
+
+code {
+  display: inline-block;
+  padding: 0 .5rem;
+  background-color: $off-white;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $display-font;
+  margin: 2.5rem 0 1rem;
+}
+
+h1 { font-size: $ms6 }
+h2 { font-size: $ms5 }
+h3 { font-size: $ms4 }
+h4 { font-size: $ms3 }
+h5 { font-size: $ms2 }
+h6 { font-size: $ms1; }

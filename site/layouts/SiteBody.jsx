@@ -10,22 +10,27 @@ import '../styles/global.scss';
 
 import classes from './SiteBody.scss';
 
-const SiteBody = ({ children, router }) => (
-  <div className={router.isActive('/') ? classes.home : ''}>
-    <Navigation
-      pages={[
-        { title: 'Home', url: '/' },
-        { title: 'Documentation', url: '/docs' },
-        { title: 'Blog', url: '/blog' }
-      ]}
-    />
+const SiteBody = ({ children, router }) => {
+  const classNames = [classes.body];
+  if (router.isActive('/')) classNames.push(classes.home);
 
-    {children}
+  return (
+    <div className={classNames.join(' ')}>
+      <Navigation
+        pages={[
+          { title: 'Home', url: '/' },
+          { title: 'Documentation', url: '/docs' },
+          { title: 'Blog', url: '/blog' }
+        ]}
+      />
 
-    <Typekit />
-    <GoogleAnalytics analyticsId="UA-60511795-1" />
-  </div>
-);
+      {children}
+
+      <Typekit />
+      <GoogleAnalytics analyticsId="UA-60511795-1" />
+    </div>
+  );
+};
 
 
 SiteBody.propTypes = {
