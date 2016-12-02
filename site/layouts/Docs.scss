@@ -1,17 +1,11 @@
 @import '../styles/config';
 
-.post {
+.documentation {
   display: flex;
   flex-flow: column nowrap;
   flex-grow: 1;
   flex-shrink: 1;
   max-height: 100%;
-  //h2 { color: $blue2 }
-  h3 {
-    font-weight: 300;
-    margin-top: 1.5rem;
-    //font-size: $ms5
-  }
 }
 
 .nav {
@@ -32,7 +26,7 @@
 }
 
 @media (min-width: 60rem) {
-  .post {
+  .documentation {
     flex-direction: row;
     min-width: 100%;
   }
@@ -52,7 +46,8 @@
       margin-top: .25rem;
     }
   }
-  .postContentScrollBox {
+
+  .contentScrollBox {
     flex-grow: 1;
     flex-shrink: 1;
     max-height: 100%;
@@ -61,49 +56,8 @@
   }
 }
 
-
-.postContent {
-  max-width: 40rem;
-  margin: 0 auto;
-  padding: 2rem 3rem;
-}
-
-
-.draftText {
-  font-family: $display-font;
-  font-size: $ms4;
-  margin: 0 1rem;
-  padding: .5rem;
-  font-weight: 300;
-  border-radius: 1rem;
-  color: $blue4;
-  font-style: italic;
-}
-
 .navLink_active {
   composes: navLink;
   font-weight: bold;
   color: $blue2;
-}
-
-.postHeading {
-  display: flex;
-  flex-flow: row wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  margin-bottom: 2rem;
-  h1 { margin: 0; }
-  &::after {
-    display: block;
-    content: '';
-    height: .35rem;
-    width: 100%;
-    background-image: repeating-linear-gradient(
-      45deg,
-      $blue,
-      $blue .25rem,
-      transparent .25rem,
-      transparent .5rem
-    );
-  }
 }

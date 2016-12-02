@@ -1,0 +1,57 @@
+@import '../styles/config';
+
+@mixin diagnal-border () {
+  &::after {
+    display: block;
+    content: '';
+    margin-top: .35rem;
+    height: .3rem;
+    width: 100%;
+    background-image: repeating-linear-gradient(
+      45deg,
+      $blue,
+      $blue .25rem,
+      transparent .25rem,
+      transparent .5rem
+    );
+  }
+}
+
+.article {
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: 2rem 3rem;
+  h3 {
+    font-weight: 300;
+    margin-top: 1.5rem;
+  }
+}
+
+.headerImage { /* TODO */ }
+
+.draftText {
+  font-family: $display-font;
+  font-size: $ms4;
+  margin: 0 .5rem;
+  font-weight: 300;
+  border-radius: 1rem;
+  color: $blue4;
+  font-style: italic;
+  margin-right: auto;
+}
+
+.author, .date { opacity: .3 }
+
+.author + .date::before { content: '–'; margin: 0 .5rem; }
+
+.header {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: baseline;
+  margin-bottom: 2rem;
+  h1 {
+    margin: 0 0 .5rem;;
+    width: 100%;
+    @include diagnal-border;
+  }
+}

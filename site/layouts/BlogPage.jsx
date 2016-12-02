@@ -1,28 +1,37 @@
 import React from 'react';
 import { Moment, PrevNext } from 'antwar-helpers';
 
+import articleClasses from './Article.scss';
+
 const BlogPage = ({ page }) => (
   <div>
-    <div className="post">
+    <div className={articleClasses.article}>
       {page.headerImage ?
         <div
-          className="header-image"
+          className={articleClasses.headerImage}
           style={{
             backgroundImage: `url(${page.headerImage})`
           }}
         /> :
         null
       }
-      <h1 className="post__heading">
-        {page.title}
-        {page.isDraft ?
-          <span className="draft-text">Draft</span> :
+      <header className={articleClasses.header}>
+        <h1>
+          {page.title}
+          {page.isDraft ?
+            <span className={articleClasses.draftText}>Draft</span> :
+            null
+          }
+        </h1>
+        {page.author ?
+          <div className={articleClasses.author}>{`Authored by ${page.author}`}</div> :
           null
         }
-      </h1>
-      <div className="post__content">
-        <div dangerouslySetInnerHTML={{ __html: page.content }} />
-      </div>
+        {page.date ?
+          <Moment className={articleClasses.date} datetime={page.date} /> :
+          null
+        }
+      </header>
       {page.headerExtra ?
         <div
           className="header-extra"
@@ -30,15 +39,7 @@ const BlogPage = ({ page }) => (
         /> :
         null
       }
-      {page.date ?
-        <Moment className="post__moment" datetime={page.date} /> :
-        null
-      }
-      {page.author ?
-        <div className="post__author">{`Authored by ${page.author}`}</div> :
-        null
-      }
-
+      <div dangerouslySetInnerHTML={{ __html: page.content }} />
       <PrevNext page={page} previousText="Previous post" nextText="Next post" />
     </div>
   </div>

@@ -3,9 +3,10 @@ import { Link } from 'react-router';
 import _ from 'lodash';
 
 import classes from './Docs.scss';
+import articleClasses from './Article.scss';
 
 const DocsPage = ({ section, page }) => (
-  <div className={classes.post}>
+  <div className={classes.documentation}>
     <div className={classes.nav}>{_.map(section.pages(), (navPage, i) => (
       navPage.title === page.title ?
         <span key={`navPage-${i}`} className={classes.navLink_active}>
@@ -15,24 +16,24 @@ const DocsPage = ({ section, page }) => (
             {navPage.title}
           </Link>
     ))}</div>
-
-    {page.headerImage ?
-      <div
-        className={classes.headerImage}
-        style={{ backgroundImage: `url(${page.headerImage})` }}
-      /> : null
-    }
-
-    <div className={classes.postContentScrollBox}>
-      <div className={classes.postContent}>
-        <header className={classes.postHeading}>
-          <h1>{page.title}</h1>
-          {page.isDraft ?
-            <span className={classes.draftText}>draft</span> :
-            null
-          }
+    <div className={classes.contentScrollBox}>
+      <div className={articleClasses.article}>
+        {page.headerImage ?
+          <div
+            className={articleClasses.headerImage}
+            style={{ backgroundImage: `url(${page.headerImage})` }}
+          /> : null
+        }
+        <header className={articleClasses.header}>
+          <h1>
+            {page.title}
+            {page.isDraft ?
+              <span className={articleClasses.draftText}>draft</span> :
+              null
+            }
+          </h1>
           {page.author ?
-            <div className={classes.postAuthor}>{`Authored by ${page.author}`}</div> :
+            <div className={articleClasses.author}>{`Authored by ${page.author}`}</div> :
             null
           }
         </header>
