@@ -13,12 +13,14 @@ const BlogPage = ({ page }) => (
         /> :
         null
       }
-      <h1 className="post__heading">{page.title}</h1>
-      <div className="post__content">
+      <h1 className="post__heading">
+        {page.title}
         {page.isDraft ?
           <span className="draft-text">Draft</span> :
           null
         }
+      </h1>
+      <div className="post__content">
         <div dangerouslySetInnerHTML={{ __html: page.content }} />
       </div>
       {page.headerExtra ?

@@ -6,17 +6,15 @@ import classes from './Docs.scss';
 
 const DocsPage = ({ section, page }) => (
   <div className={classes.post}>
-    <div className={classes.navWrapper} >
-      <div className={classes.nav}>{_.map(section.pages(), (navPage, i) => (
-        navPage.title === page.title ?
-          <span key={`navPage-${i}`} className={classes.navLink_active}>
+    <div className={classes.nav}>{_.map(section.pages(), (navPage, i) => (
+      navPage.title === page.title ?
+        <span key={`navPage-${i}`} className={classes.navLink_active}>
+          {navPage.title}
+        </span> :
+          <Link key={`navPage-${i}`} className={classes.navLink} to={'/' + navPage.url}>
             {navPage.title}
-          </span> :
-            <Link key={`navPage-${i}`} className={classes.navLink} to={'/' + navPage.url}>
-              {navPage.title}
-            </Link>
-      ))}</div>
-    </div>
+          </Link>
+    ))}</div>
 
     {page.headerImage ?
       <div
@@ -25,19 +23,22 @@ const DocsPage = ({ section, page }) => (
       /> : null
     }
 
-    <div className={classes.postContent}>
-      <h1 className={classes.postHeading}>{page.title}</h1>
-      {page.isDraft ?
-        <span className={classes.draftText}>Draft</span> :
-        null
-      }
-      <div dangerouslySetInnerHTML={{ __html: page.content }} />
+    <div className={classes.postContentScrollBox}>
+      <div className={classes.postContent}>
+        <header className={classes.postHeading}>
+          <h1>{page.title}</h1>
+          {page.isDraft ?
+            <span className={classes.draftText}>draft</span> :
+            null
+          }
+          {page.author ?
+            <div className={classes.postAuthor}>{`Authored by ${page.author}`}</div> :
+            null
+          }
+        </header>
+        <div dangerouslySetInnerHTML={{ __html: page.content }} />
+      </div>
     </div>
-
-    {page.author ?
-      <div className={classes.postAuthor}>{`Authored by ${page.author}`}</div> :
-      null
-    }
   </div>
 );
 
