@@ -26,7 +26,6 @@
     "system-bell-webpack-plugin": "^1.0.0",
     "tmp": "0.0.29",
     "touch": "^1.0.0",
-    "webpack-merge": "^0.14.1",
     "worker-farm": "^1.3.1"
   },
   "devDependencies": {
@@ -34,7 +33,8 @@
   },
   "peerDependencies": {
     "webpack": ">= 1.0 < 2.0",
-    "webpack-dev-server": ">= 1.0 < 2.0"
+    "webpack-dev-server": ">= 1.0 < 2.0",
+    "webpack-merge": ">= 0.14.1 < 2.0"
   },
   "repository": {
     "type": "git",
