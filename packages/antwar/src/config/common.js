@@ -1,6 +1,5 @@
 import * as path from 'path';
 import webpack from 'webpack';
-import SystemBellPlugin from 'system-bell-webpack-plugin';
 
 module.exports = function (config) {
   return new Promise(function (resolve) {
@@ -47,8 +46,7 @@ module.exports = function (config) {
           }
         }),
         new webpack.optimize.OccurenceOrderPlugin(),
-        new webpack.optimize.DedupePlugin(),
-        new SystemBellPlugin()
+        new webpack.optimize.DedupePlugin()
       ]
     });
   });

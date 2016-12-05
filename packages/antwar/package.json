@@ -23,7 +23,6 @@
     "react-router": "^2.8.0",
     "rimraf": "^2.5.4",
     "simple-timestamp": "^1.0.0",
-    "system-bell-webpack-plugin": "^1.0.0",
     "tmp": "0.0.29",
     "touch": "^1.0.0",
     "worker-farm": "^1.3.1"
