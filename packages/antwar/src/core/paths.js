@@ -94,7 +94,7 @@ function processPage(file, url, fileName, sectionName, section) {
         return f.preview;
       }
 
-      return f.__content.slice(0, 100) + '…';
+      return f.__content && f.__content.slice(0, 100) + '…';
     },
     description(o) {
       const f = o.file;
