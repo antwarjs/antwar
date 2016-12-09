@@ -138,7 +138,7 @@ function processPage({
               }),
               new HardSourceWebpackPlugin({
                 cacheDirectory: _path.join(cwd, '.antwar', 'interactive-cache'),
-                recordsPath: path.join(cwd, '.antwar', 'interactive-cache', 'records.json'),
+                recordsPath: _path.join(cwd, '.antwar', 'interactive-cache', 'records.json'),
                 environmentHash: {
                   root: cwd,
                   directories: ['node_modules'],
