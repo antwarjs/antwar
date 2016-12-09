@@ -6,7 +6,7 @@ import getCommon from './common';
 
 module.exports = function (config) {
   const cwd = process.cwd();
-  const antwarPath = path.join(cwd, './.antwar');
+  const antwarPath = path.join(cwd, '.antwar');
 
   return getCommon(config).then(function (commonConfig) {
     const devConfig = {

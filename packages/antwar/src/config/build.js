@@ -7,7 +7,7 @@ module.exports = function (config) {
 
   const cwd = process.cwd();
   const buildPath = path.join(cwd, config.antwar.output);
-  const antwarPath = path.join(cwd, './.antwar');
+  const antwarPath = path.join(cwd, '.antwar');
 
   config.buildDev = config.buildDev || 0; // eslint-disable-line no-param-reassign
 

@@ -13,6 +13,7 @@ const rimraf = require('rimraf');
 const React = require('react');
 const ReactDOMServer = require('react-dom/server');
 const webpack = require('webpack');
+const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 
 const prettyConsole = require('../libs/pretty_console');
 
@@ -134,6 +135,15 @@ function processPage({
             plugins: [
               new webpack.DefinePlugin({
                 __DEV__: false
+              }),
+              new HardSourceWebpackPlugin({
+                cacheDirectory: _path.join(cwd, '.antwar', 'interactive-cache'),
+                recordsPath: path.join(cwd, '.antwar', 'interactive-cache', 'records.json'),
+                environmentHash: {
+                  root: cwd,
+                  directories: ['node_modules'],
+                  files: ['package.json']
+                }
               })
             ]
           }
