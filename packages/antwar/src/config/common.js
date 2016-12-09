@@ -1,5 +1,6 @@
 import * as path from 'path';
 import webpack from 'webpack';
+import HardSourceWebpackPlugin from 'hard-source-webpack-plugin';
 
 module.exports = function (config) {
   return new Promise(function (resolve) {
@@ -8,6 +9,7 @@ module.exports = function (config) {
     const paths = {
       // XXX: not correct if the user changes the default
       antwarConfig: path.join(cwd, 'antwar.config.js'),
+      cache: path.join(cwd, './.antwar/cache'),
       config: path.join(__dirname, 'config_entry.js'),
       parent
     };
@@ -43,6 +45,15 @@ module.exports = function (config) {
           __ENV__: JSON.stringify(config.environment),
           'process.env': {
             NODE_ENV: JSON.stringify('dev')
+          }
+        }),
+        new HardSourceWebpackPlugin({
+          cacheDirectory: paths.cache,
+          recordsPath: path.join(paths.cache, 'records.json'),
+          environmentHash: {
+            root: cwd,
+            directories: ['node_modules'],
+            files: ['package.json']
           }
         }),
         new webpack.optimize.OccurenceOrderPlugin(),
