@@ -37,6 +37,9 @@ module.exports = {
       layouts: {
         index() {
           return require('./layouts/SiteIndex').default;
+        },
+        page() {
+          return require('./layouts/SitePage').default;
         }
       },
       processPage: {
