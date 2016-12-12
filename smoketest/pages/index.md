@@ -8,3 +8,4 @@ Content should go here.
 * [API entry](/api/entry)
 * [Configuration entry](/configuration/entry)
 * [Configuration output](/configuration/output)
+* [Standalone](/standalone) - Just JSX

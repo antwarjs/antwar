@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 const _ = require('lodash');
 const config = require('config');
 const pageHooks = require('./page_hooks')(config);
@@ -8,11 +9,18 @@ function getSectionPages(sectionName, allPaths) {
   const pages = allPaths || allPages();
 
   if (sectionName === '/') {
-    return _.uniq(config.paths['/'].path().keys().map(
-      k => ({
-        url: _.trim(k.split('.')[1], '/')
-      })
-    ));
+    const paths = config.paths['/'].path();
+
+    if (paths.keys) {
+      return _.uniq(paths.keys().map(
+        k => ({
+          url: _.trim(k.split('.')[1], '/')
+        })
+      ));
+    }
+
+    // A custom page
+    return paths;
   }
 
   return _.filter(pages, page => page.section === sectionName);
@@ -20,21 +28,36 @@ function getSectionPages(sectionName, allPaths) {
 exports.getSectionPages = getSectionPages;
 
 function allPages() {
+  const sections = _.keys(config.paths);
   let pages = [].concat // eslint-disable-line prefer-spread
-    .apply([], _.keys(config.paths)
-    .map(sectionName => {
-      const section = config.paths[sectionName];
-      let paths = [];
+    .apply(
+      [],
+      sections.map(sectionName => {
+        const section = config.paths[sectionName];
 
-      if (_.isFunction(section.path)) {
-        paths = parseModules(sectionName, section, section.path());
-      }
+        if (_.isFunction(section.path)) {
+          const paths = section.path();
 
-      return (section.inject || _.identity)(
-        (section.sort || defaultSort)(paths)
-      );
-    })
-  );
+          if (paths.keys) {
+            return _.identity(
+              (section.sort || defaultSort)(
+                parseModules(sectionName, section, paths)
+              )
+            );
+          }
+
+          // Custom page
+          return {
+            name: sectionName,
+            sectionName
+          };
+        }
+
+        console.warn('Section path was not a function!', section.path);
+
+        return null;
+      })
+    );
 
   pages = pageHooks.preProcessPages(pages);
   pages = _.map(pages, o => processPage(o.file, o.url, o.name, o.sectionName, o.section));
@@ -77,33 +100,30 @@ function pageForPath(path, allPaths) {
 }
 exports.pageForPath = pageForPath;
 
-function processPage(file, url, fileName, sectionName, section) {
-  const sectionFunctions = section.processPage || {};
+function processPage(
+  file = {}, url, fileName, sectionName, section
+) {
+  const sectionFunctions = (section && section.processPage) || {};
 
   const functions = _.assign({
-    date(o) {
-      return o.file.date || null;
+    date({ file }) {
+      return file.date || null;
     },
-    content(o) {
-      return o.file.__content;
+    content({ file }) {
+      return file.__content;
     },
-    preview(o) {
-      const f = o.file;
-
-      if (f.preview) {
-        return f.preview;
+    preview({ file }) {
+      if (file.preview) {
+        return file.preview;
       }
 
-      return f.__content && f.__content.slice(0, 100) + '…';
+      return file.__content && file.__content.slice(0, 100) + '…';
     },
-    description(o) {
-      const f = o.file;
-
-      return f.description || f.preview || config.description;
+    description({ file }) {
+      return file.description || file.preview || config.description;
     },
-    keywords(o) {
-      const f = o.file;
-      const keywords = f.keywords || config.keywords || [];
+    keywords({ file }) {
+      const keywords = file.keywords || config.keywords || [];
 
       if (_.isString(keywords)) {
         return keywords.split(',');
@@ -111,26 +131,28 @@ function processPage(file, url, fileName, sectionName, section) {
 
       return keywords;
     },
-    title(o) {
-      return o.file.title;
+    title({ file }) {
+      return file.title;
     },
-    url(o) {
-      return o.sectionName + '/' + o.fileName.split('.')[0].toLowerCase();
+    url({ sectionName, fileName }) {
+      const name = fileName ? fileName.split('.')[0].toLowerCase() : '';
+
+      return `${sectionName || ''}/${name}`;
     }
   }, siteFunctions, sectionFunctions);
 
   _.forEach(functions, (fn, name) => {
     file[name] = fn({ // eslint-disable-line no-param-reassign
-      file,
+      file: file || {},
       fileName,
       sectionName
     });
   });
 
-  // allow custom extra properties to be set per section
+  // Allow custom extra properties to be set per section
   if (sectionFunctions.extra) {
     file = _.assign(file, sectionFunctions.extra({ // eslint-disable-line no-param-reassign
-      file,
+      file: file || {},
       fileName,
       sectionName
     }));

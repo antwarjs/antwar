@@ -41,7 +41,13 @@ module.exports = function (env) {
             /^\.\/.*\.md$/
           );
         }
-      )
+      ),
+      standalone: {
+        title: 'Standalone test',
+        path() {
+          return require('./layouts/Standalone').default;
+        }
+      }
     }
   };
 

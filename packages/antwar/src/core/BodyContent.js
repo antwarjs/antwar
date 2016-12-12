@@ -52,17 +52,20 @@ function getSectionPages(name, allPages) {
 function renderSection(page, props, section) {
   let content;
 
-  // index doesn't have layouts
-  if (!section.layouts) {
-    content = renderPage(page, props);
-  } else if (_.isEmpty(page) || page.url === '/index') {
+  if (_.isEmpty(page) || page.url.startsWith('/')) {
     // sections don't have page metadata
-    content = React.createFactory(section.layouts.index())(props);
+    content = React.createFactory(
+      section.layouts ?
+        section.layouts.index() :
+        section.path() // Custom page
+    )(props);
   } else {
-    // ok, got a page now. render it using a page template
-    content = React.createFactory(section.layouts.page())(
+    // Ok, got a page now. render it using a page template
+    content = React.createFactory(
+      section.layouts.page()
+    )(
       props,
-      renderPage(page, props)
+      React.createFactory(page, props)
     );
   }
 
@@ -74,10 +77,6 @@ function renderSection(page, props, section) {
   }
 
   return content;
-}
-
-function renderPage(page, props) {
-  return _.isPlainObject(page) ? 'div' : React.createFactory(page)(props);
 }
 
 export default BodyContent;
