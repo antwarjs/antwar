@@ -52,14 +52,14 @@ function getSectionPages(name, allPages) {
 function renderSection(page, props, section) {
   let content;
 
-  if (_.isEmpty(page) || _.startsWith(page.url, '/')) {
-    // sections don't have page metadata
+  if (page.type === 'index') {
+    // Sections don't have page metadata
     content = React.createFactory(
       section.layouts ?
         section.layouts.index() :
         section.path() // Custom page
     )(props);
-  } else {
+  } else if (page.type === 'page') {
     // Ok, got a page now. render it using a page template
     content = React.createFactory(
       section.layouts.page()
@@ -67,6 +67,8 @@ function renderSection(page, props, section) {
       props,
       React.createFactory(page, props)
     );
+  } else {
+    console.warn('Trying to render a page with an unknown type', page.type, page, props, section);
   }
 
   if (config.layout) {

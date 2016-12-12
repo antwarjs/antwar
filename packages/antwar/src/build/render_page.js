@@ -19,7 +19,11 @@ module.exports = function (url, cb) {
 
     if (!error && !redirectLocation && !renderProps) {
       return cb(
-        new Error('No route matching the current location was found!', url, location)
+        new Error(
+          `No route matching the current location was found!
+          Url: ${url},
+          Location: ${JSON.stringify(location, null, 2)}`
+        )
       );
     }
 
