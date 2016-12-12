@@ -39,17 +39,14 @@ function allPages() {
           const paths = section.path();
 
           if (paths.keys) {
-            return _.identity(
-              (section.sort || defaultSort)(
-                parseModules(sectionName, section, paths)
-              )
+            return (section.sort || defaultSort)(
+              parseModules(sectionName, section, paths)
             );
           }
 
           // Custom page
           return {
-            name: sectionName,
-            sectionName
+            fileName: sectionName
           };
         }
 
@@ -60,7 +57,7 @@ function allPages() {
     );
 
   pages = pageHooks.preProcessPages(pages);
-  pages = _.map(pages, o => processPage(o.file, o.url, o.name, o.sectionName, o.section));
+  pages = _.map(pages, processPage);
   pages = pageHooks.postProcessPages(pages);
 
   const ret = {};
@@ -78,12 +75,15 @@ function defaultSort(files) {
 }
 
 function parseModules(sectionName, section, modules) {
-  return _.map(modules.keys(), name => ({
-    name: name.slice(2),
-    file: modules(name),
-    section,
-    sectionName: sectionName === '/' ? '' : sectionName
-  }));
+  return _.map(
+    modules.keys(),
+    name => ({
+      fileName: name.slice(2),
+      file: modules(name),
+      section,
+      sectionName: sectionName === '/' ? '' : sectionName
+    })
+  );
 }
 
 function pageForPath(path, allPaths) {
@@ -100,9 +100,9 @@ function pageForPath(path, allPaths) {
 }
 exports.pageForPath = pageForPath;
 
-function processPage(
-  file = {}, url, fileName, sectionName, section
-) {
+function processPage({
+  file = {}, fileName, sectionName, section
+}) {
   const sectionFunctions = (section && section.processPage) || {};
 
   const functions = _.assign({

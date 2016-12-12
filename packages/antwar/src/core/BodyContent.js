@@ -52,7 +52,7 @@ function getSectionPages(name, allPages) {
 function renderSection(page, props, section) {
   let content;
 
-  if (_.isEmpty(page) || page.url.startsWith('/')) {
+  if (_.isEmpty(page) || _.startsWith(page.url, '/')) {
     // sections don't have page metadata
     content = React.createFactory(
       section.layouts ?
