@@ -21,7 +21,7 @@ function getSectionPages(sectionName, allPaths) {
     }
 
     // A custom page
-    return paths;
+    return [paths];
   }
 
   return _.filter(
