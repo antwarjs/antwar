@@ -45,7 +45,7 @@ function getAllSectionPages(allPages) {
 function getSectionPages(name, allPages) {
   return _.filter(
     paths.getSectionPages(name, allPages),
-    p => !_.endsWith(p.url, '/index')
+    p => p.type === 'page'
   );
 }
 
