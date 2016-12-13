@@ -49,16 +49,22 @@ function allPages() {
           }
 
           // Custom page
-          return {
-            fileName: sectionName
-          };
+          return [
+            {
+              type: 'custom',
+              fileName: sectionName
+            }
+          ];
         }
 
-        console.warn('Section path was not a function!', section.path);
+        // It is possible a section has only redirects. Better not to warn then.
+        if (!section.redirects) {
+          console.warn('Section path was not a function!', section.path);
+        }
 
         return null;
       })
-    );
+    ).filter(_.identity); // Filter out redirects
 
   pages = pageHooks.preProcessPages(pages);
   pages = _.map(pages, processPage);

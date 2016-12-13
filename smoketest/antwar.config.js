@@ -47,6 +47,11 @@ module.exports = function (env) {
         path() {
           return require('./layouts/Standalone').default;
         }
+      },
+      redirect: {
+        redirects: {
+          demo: '/standalone'
+        }
       }
     }
   };
