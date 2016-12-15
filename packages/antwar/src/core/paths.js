@@ -102,7 +102,7 @@ function parseModules(sectionName, section, modules) {
   );
 
   // If there's no index in a section, generate one
-  if (!_.find(ret, { fileName: 'index' })) {
+  if (!_.find(ret, { type: 'index' })) {
     ret.push({
       type: 'index',
       fileName: '',
