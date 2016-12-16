@@ -8,11 +8,13 @@ const autoprefixer = require('autoprefixer');
 const PATHS = {
   site: [
     path.join(__dirname, 'layouts'),
+    path.join(__dirname, 'components'),
     path.join(__dirname, 'pages')
   ],
   style: [
-    path.join(process.cwd(), 'layouts'),
-    path.join(process.cwd(), 'styles')
+    path.join(__dirname, 'layouts'),
+    path.join(__dirname, 'components'),
+    path.join(__dirname, 'styles')
   ],
   packages: path.join(__dirname, '..', 'packages')
 };

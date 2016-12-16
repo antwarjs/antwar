@@ -3,7 +3,7 @@ import { GoogleAnalytics, Navigation } from 'antwar-helpers';
 import { withRouter } from 'react-router';
 import GitHubCorner from 'react-github-corner';
 
-import Typekit from './Typekit';
+import Typekit from '../components/Typekit';
 
 import '../styles/prism.css';
 import '../styles/reset.scss';

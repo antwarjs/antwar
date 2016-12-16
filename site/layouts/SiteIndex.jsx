@@ -1,5 +1,5 @@
 import React from 'react';
-import Hero from './Hero';
+import Hero from '../components/Hero';
 
 import classes from './SiteIndex.scss';
 
