@@ -23,11 +23,24 @@
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
+    margin-right: 0;
     & > *+* { margin-left: .75rem; }
   }
 
   .nav__toggle {
     display: none;
+  }
+
+  // Having to do this because react-github-corner expects you to size the corner with static pixel
+  // values. Should probably just submit a pull-request. Only reason I CAN do this is because svg is
+  // fricken weird and prioritizes external CSS over inline attributes.
+
+  .github-corner svg {
+    width: auto;
+    height: 5rem;
+    z-index: 1;
+    .octo-banner { fill: $blue5; }
+    .octo-body, .octo-arm { fill: $blue; }
   }
 }
 
@@ -38,11 +51,16 @@
 }
 
 .home {
+  :global .github-corner svg {
+    .octo-banner { fill: $off-white; }
+    .octo-body, .octo-arm { fill: $blue1; }
+  }
+
   :global .nav__wrapper {
     position: absolute;
     background-color: transparent;
     a[href] {
-      color: $blue4;
+      color: $off-white;
     }
   }
 }

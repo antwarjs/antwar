@@ -12,19 +12,16 @@ import '../styles/global.scss';
 import classes from './SiteBody.scss';
 
 const SiteBody = ({ children, router }) => {
+  let isHomePage = router.isActive('/');
   const classNames = [classes.body];
-  if (router.isActive('/')) classNames.push(classes.home);
+  if (isHomePage) classNames.push(classes.home);
 
   return (
     <div className={classNames.join(' ')}>
-      <GitHubCorner
-        href="https://github.com/antwarjs/antwar"
-        bannerColor="#fff"
-        octoColor="#21436F"
-        width={80}
-        height={80}
-        direction="right"
-      />
+      { isHomePage ?
+        <GitHubCorner href="https://github.com/antwarjs/antwar" direction="left" /> :
+        null
+      }
       <Navigation
         pages={[
           { title: 'Home', url: '/' },

@@ -1,11 +1,13 @@
 import React from 'react';
 import { Moment, PrevNext } from 'antwar-helpers';
+import GitHubCorner from 'react-github-corner';
 
 import classes from './BlogPage.scss';
 import articleClasses from './Article.scss';
 
 const BlogPage = ({ page }) => (
-  <div className={classes.blogPost}>
+  <div className={[classes.blogPost, articleClasses.contentScrollBox].join(' ')}>
+    <GitHubCorner href="https://github.com/antwarjs/antwar" direction="right" />
     <div className={articleClasses.article}>
       {page.headerImage ?
         <div

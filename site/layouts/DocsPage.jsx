@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import _ from 'lodash';
+import GitHubCorner from 'react-github-corner';
 
 import classes from './DocsPage.scss';
 import articleClasses from './Article.scss';
@@ -16,8 +17,9 @@ const DocsPage = ({ section, page }) => (
             {navPage.title}
           </Link>
     ))}</div>
-    <div className={classes.contentScrollBox}>
-      <div className={articleClasses.article}>
+    <div className={articleClasses.contentScrollBox}>
+      <GitHubCorner href="https://github.com/antwarjs/antwar" direction="right" />
+      <article className={articleClasses.article}>
         {page.headerImage ?
           <div
             className={articleClasses.headerImage}
@@ -38,7 +40,7 @@ const DocsPage = ({ section, page }) => (
           }
         </header>
         <div dangerouslySetInnerHTML={{ __html: page.content }} />
-      </div>
+      </article>
     </div>
   </div>
 );
