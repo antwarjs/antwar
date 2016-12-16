@@ -1,6 +1,6 @@
 import React from 'react';
 import { GoogleAnalytics, Navigation } from 'antwar-helpers';
-import { withRouter } from 'react-router';
+import { withRouter, Link } from 'react-router';
 import GitHubCorner from 'react-github-corner';
 
 import Typekit from '../components/Typekit';
@@ -22,13 +22,14 @@ const SiteBody = ({ children, router }) => {
         <GitHubCorner href="https://github.com/antwarjs/antwar" direction="left" /> :
         null
       }
-      <Navigation
-        pages={[
-          { title: 'Home', url: '/' },
-          { title: 'Documentation', url: '/docs' },
-          { title: 'Blog', url: '/blog' }
-        ]}
-      />
+      <div className={classes.navWrapper}>
+        <nav className={classes.nav}>
+          <Link className={classes.navTitle} to='/'>Antwar</Link>
+          <Link activeClassName={classes.activeLink} to='/'>Home</Link>
+          <Link activeClassName={classes.activeLink} to='/docs'>Documentation</Link>
+          <Link activeClassName={classes.activeLink} to='/blog'>Blog</Link>
+        </nav>
+      </div>
 
       {children}
 

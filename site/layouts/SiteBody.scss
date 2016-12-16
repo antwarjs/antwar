@@ -1,36 +1,38 @@
 @import '../styles/config.scss';
 
-:global {
-  .nav__wrapper {
-    top: 0;
-    left: 0;
-    right: 0;
-    padding: 1rem;
-    background-color: $blue2;
-    a[href] {
-      color: $blue5;
-      font-family: $caption-font;
-      font-weight: 500;
-      font-size: $ms2;
-      text-decoration: none;
-      &:hover {
-        border-bottom: .15rem solid currentColor;
-      }
+.navWrapper {
+  top: 0; left: 0; right: 0;
+  padding: .5rem 1rem;
+  background-color: $blue2;
+  a[href] {
+    color: $blue5;
+    font-family: $caption-font;
+    font-weight: 500;
+    font-size: $ms2;
+    text-decoration: none;
+    border-bottom: .15rem solid transparent;
+    &.activeLink, &:hover {
+      border-color: currentColor;
     }
+    .activeLink { color: $blue; }
   }
+}
 
-  .nav {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    margin-right: 0;
-    & > *+* { margin-left: .75rem; }
-  }
+.nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  margin-right: 0;
+  & > *+* { margin-left: .75rem; }
+}
 
-  .nav__toggle {
-    display: none;
-  }
+a[href].navTitle {
+  font-size: $ms4;
+  margin-right: auto;
+}
 
+:global {
   // Having to do this because react-github-corner expects you to size the corner with static pixel
   // values. Should probably just submit a pull-request. Only reason I CAN do this is because svg is
   // fricken weird and prioritizes external CSS over inline attributes.
@@ -51,16 +53,18 @@
 }
 
 .home {
+ .navWrapper {
+   position: absolute;
+   background-color: transparent;
+   a[href] {
+     color: $off-white;
+     &.navTitle { visibility: hidden; }
+   }
+ }
+
+
   :global .github-corner svg {
     .octo-banner { fill: $off-white; }
     .octo-body, .octo-arm { fill: $blue1; }
-  }
-
-  :global .nav__wrapper {
-    position: absolute;
-    background-color: transparent;
-    a[href] {
-      color: $off-white;
-    }
   }
 }
