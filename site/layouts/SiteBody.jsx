@@ -1,5 +1,5 @@
 import React from 'react';
-import { GoogleAnalytics, Navigation } from 'antwar-helpers';
+import { GoogleAnalytics } from 'antwar-helpers';
 import { withRouter, Link } from 'react-router';
 import GitHubCorner from 'react-github-corner';
 
@@ -12,7 +12,7 @@ import '../styles/global.scss';
 import classes from './SiteBody.scss';
 
 const SiteBody = ({ children, router }) => {
-  let isHomePage = router.isActive('/');
+  const isHomePage = router.isActive('/');
   const classNames = [classes.body];
   if (isHomePage) classNames.push(classes.home);
 
@@ -24,10 +24,10 @@ const SiteBody = ({ children, router }) => {
       }
       <div className={classes.navWrapper}>
         <nav className={classes.nav}>
-          <Link className={classes.navTitle} to='/'>Antwar</Link>
-          <Link activeClassName={classes.activeLink} to='/'>Home</Link>
-          <Link activeClassName={classes.activeLink} to='/docs'>Documentation</Link>
-          <Link activeClassName={classes.activeLink} to='/blog'>Blog</Link>
+          <Link className={classes.navTitle} to="/">Antwar</Link>
+          <Link activeClassName={classes.activeLink} to="/">Home</Link>
+          <Link activeClassName={classes.activeLink} to="/docs">Documentation</Link>
+          <Link activeClassName={classes.activeLink} to="/blog">Blog</Link>
         </nav>
       </div>
 
