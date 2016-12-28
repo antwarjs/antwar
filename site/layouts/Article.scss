@@ -1,21 +1,5 @@
 @import '../styles/config';
-
-@mixin diagnal-border () {
-  &::after {
-    display: block;
-    content: '';
-    margin-top: .35rem;
-    height: .3rem;
-    width: 100%;
-    background-image: repeating-linear-gradient(
-      45deg,
-      $blue,
-      $blue .25rem,
-      transparent .25rem,
-      transparent .5rem
-    );
-  }
-}
+@import '../styles/mixins';
 
 .article {
   max-width: 40rem;

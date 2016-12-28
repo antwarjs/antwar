@@ -1,9 +1,11 @@
 @import '../styles/config';
+@import '../styles/mixins';
 
 .siteIndex { }
 
 .introduction {
-  padding-bottom: 2rem;
+  padding-bottom: 3rem;
+  border-bottom: 1rem solid $blue2;
   h2 { margin: 0 0 1rem; }
   p { margin: 0; }
 }
@@ -16,12 +18,15 @@
 
 .inform {
   display: flex;
-  margin: -1rem;
+  flex-flow: row wrap;
+  margin: 0 -1rem 1rem;
+
+  h2 { @include diagnal-border; }
 
   section {
     margin: 1rem;
     flex: 1 0 15rem;
-  } flex-flow: row wrap;
+  }
 }
 
 .callToAction {
@@ -45,5 +50,7 @@ a[href].button {
   font-weight: 600;
   font-family: $display-font;
   font-size: $ms2;
+  &:hover { background-color: lighten($blue2, 10%); }
+  &:active { background-color: darken($blue2, 5%); }
 }
 
