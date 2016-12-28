@@ -36,7 +36,7 @@
     border-right: .075rem solid $blue4;
     padding-left: 3rem;
     &::before {
-      left: 0;
+      left: 0; top: 0; bottom: 0;
       content: '❬';
     }
   }
@@ -47,7 +47,7 @@
     border-left: .075rem solid $blue4;
     padding-right: 3rem;
     &::after {
-      right: 0;
+      right: 0; top: 0; bottom: 0;
       content: '❭';
     }
   }
