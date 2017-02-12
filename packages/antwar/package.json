@@ -31,8 +31,8 @@
     "babel-cli": "^6.22.2"
   },
   "peerDependencies": {
-    "webpack": ">= 1.0 < 3.0",
-    "webpack-dev-server": ">= 1.0 < 3.0",
+    "webpack": ">= 2.0 < 3.0",
+    "webpack-dev-server": ">= 2.0 < 3.0",
     "webpack-merge": ">= 0.14.1 < 4.0"
   },
   "repository": {
