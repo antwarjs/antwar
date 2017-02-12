@@ -27,8 +27,15 @@ module.exports = {
     "react/sort-comp": 0,
     "react/no-multi-comp": 0,
     "react/prop-types": 0,
+    "react/require-default-props": 0,
+    "react/forbid-prop-types": 0,
+    "react/no-danger": 0,
+    "react/no-array-index-key": 0,
     "global-require": 0,
     "import/no-unresolved": 0,
-    "prefer-template": 0
+    "import/extensions": 0,
+    "import/no-dynamic-require": 0,
+    "prefer-template": 0,
+    "jsx-a11y/no-static-element-interactions": 0
   }
 };

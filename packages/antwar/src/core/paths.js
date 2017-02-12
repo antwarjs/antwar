@@ -36,7 +36,7 @@ function allPages() {
   let pages = [].concat // eslint-disable-line prefer-spread
     .apply(
       [],
-      sections.map(sectionName => {
+      sections.map((sectionName) => {
         const section = config.paths[sectionName];
 
         if (_.isFunction(section.path)) {
@@ -72,7 +72,7 @@ function allPages() {
 
   const ret = {};
 
-  _.each(pages, o => {
+  _.each(pages, (o) => {
     ret[o.url] = o;
   });
 
@@ -87,7 +87,7 @@ function defaultSort(files) {
 function parseModules(sectionName, section, modules) {
   const ret = _.map(
     modules.keys(),
-    name => {
+    (name) => {
       // Strip ./ and extension
       const fileName = path.basename(name, path.extname(name)) || '';
 

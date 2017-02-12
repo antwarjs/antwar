@@ -44,7 +44,7 @@ module.exports = function (config) {
           'process.env': {
             NODE_ENV: JSON.stringify('dev')
           }
-        }),
+        })
       ]
     });
   });

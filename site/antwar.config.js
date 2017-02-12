@@ -64,7 +64,7 @@ module.exports = {
             /^\.\/.*\.md$/
           );
 
-          const ret = req => {
+          const ret = (req) => {
             try {
               return posts(req);
             } catch (err) {

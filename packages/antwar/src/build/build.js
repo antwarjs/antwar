@@ -52,7 +52,7 @@ function runWebpack() {
 function generateParameters(config) {
   return stats => new Promise(function (resolve) {
     const assets = stats.compilation.assets;
-    const cssFiles = Object.keys(assets).map(asset => {
+    const cssFiles = Object.keys(assets).map((asset) => {
       if (_path.extname(asset) === '.css') {
         return assets[asset].existsAt;
       }
@@ -121,7 +121,7 @@ function writeExtras() {
     });
 
     if (parameters.cssFiles) {
-      parameters.cssFiles.forEach(cssFile => {
+      parameters.cssFiles.forEach((cssFile) => {
         assets.push({
           from: cssFile,
           to: './' + _path.basename(cssFile)

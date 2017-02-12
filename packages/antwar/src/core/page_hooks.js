@@ -17,7 +17,7 @@ module.exports = function (config) {
       return pages;
     }
 
-    functionArray.forEach(callback => {
+    functionArray.forEach((callback) => {
       ret = callback(pages);
     });
 
@@ -28,7 +28,7 @@ module.exports = function (config) {
     const functions = [];
 
     if (config.plugins) {
-      _.each(config.plugins, plugin => {
+      _.each(config.plugins, (plugin) => {
         if (plugin[hookName]) {
           functions.push(plugin[hookName]);
         }

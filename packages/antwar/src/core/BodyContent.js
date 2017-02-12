@@ -29,7 +29,7 @@ function getSection(page, pathname, allPages) {
   section.all = () => getAllSectionPages(allPages);
 
   // Get pages of the current section or the named one
-  section.pages = (name) => getSectionPages(name || sectionName, allPages);
+  section.pages = name => getSectionPages(name || sectionName, allPages);
 
   return section;
 }

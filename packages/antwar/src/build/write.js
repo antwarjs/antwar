@@ -6,7 +6,7 @@ const async = require('async');
 
 const utils = require('./utils');
 
-exports.extras = (o, files) => cb => {
+exports.extras = (o, files) => (cb) => {
   if (!files || !files.length) {
     return cb();
   }
@@ -24,7 +24,7 @@ exports.extras = (o, files) => cb => {
   })));
 };
 
-exports.pages = o => finalCb => {
+exports.pages = o => (finalCb) => {
   const data = Object.keys(o.allPaths).map(function (page) {
     const p = _path.join(o.output, page);
 
@@ -62,7 +62,7 @@ exports.pages = o => finalCb => {
   });
 };
 
-exports.redirects = o => cb => {
+exports.redirects = o => cb => (
   cb(null, {
     task: 'write_redirects',
     params: {
@@ -73,5 +73,5 @@ exports.redirects = o => cb => {
         };
       })
     }
-  });
-};
+  })
+);

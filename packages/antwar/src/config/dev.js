@@ -3,7 +3,7 @@ import merge from 'webpack-merge';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import getCommon from './common';
 
-module.exports = (config) => (
+module.exports = config => (
   getCommon(config).then(function (commonConfig) {
     const devConfig = {
       cache: true,

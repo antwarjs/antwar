@@ -75,7 +75,7 @@ function processPage({
 
     if (components.length) {
       // XXX: Should this bail early?
-      components.forEach(component => {
+      components.forEach((component) => {
         if (!_fs.existsSync(component.path)) {
           prettyConsole.log('Failed to find', component.path);
         }
@@ -240,7 +240,7 @@ function processPage({
 function convertToJS(props) {
   let ret = '';
 
-  Object.keys(props).forEach(prop => {
+  Object.keys(props).forEach((prop) => {
     const v = props[prop];
 
     ret += `${prop}: ${JSON.stringify(v)},`;
