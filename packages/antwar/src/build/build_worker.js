@@ -119,14 +119,14 @@ function processPage({
           interactiveConfig,
           {
             resolve: {
-              modulesDirectories: [
+              modules: [
                 cwd,
                 _path.join(cwd, 'node_modules')
               ],
               alias: generateAliases(components)
             },
             resolveLoader: {
-              modulesDirectories: [
+              modules: [
                 cwd,
                 _path.join(cwd, 'node_modules')
               ]
@@ -196,18 +196,21 @@ function processPage({
 
           rimraf.sync(interactiveIndexPath + '.*');
 
-          // TODO: pass page specific data here (i.e., title)
           // Wrote a bundle, compile through ejs now
           const data = ejs.compile(templates.page.file)({
+            htmlWebpackPlugin: {
+              options: {
+                context: {
+                  ...templates.page,
+                  jsFiles: [
+                    ...templates.page.jsFiles,
+                    ...jsFiles
+                  ],
+                  title
+                }
+              }
+            },
             webpackConfig: {
-              template: {
-                ...templates.page,
-                jsFiles: [
-                  ...templates.page.jsFiles,
-                  ...jsFiles
-                ],
-                title
-              },
               html: $.html()
             }
           });
@@ -217,18 +220,21 @@ function processPage({
       }
     }
 
-    // TODO: pass page specific data here (i.e., title)
     // No need to go through webpack so go only through ejs
     const data = ejs.compile(templates.page.file)({
+      htmlWebpackPlugin: {
+        options: {
+          context: {
+            ...templates.page,
+            jsFiles: [
+              ...templates.page.jsFiles,
+              ...jsFiles
+            ],
+            title
+          }
+        }
+      },
       webpackConfig: {
-        template: {
-          ...templates.page,
-          jsFiles: [
-            ...templates.page.jsFiles,
-            ...jsFiles
-          ],
-          title
-        },
         html
       }
     });

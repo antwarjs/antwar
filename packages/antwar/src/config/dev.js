@@ -17,19 +17,17 @@ module.exports = config => (
         publicPath: '/',
         chunkFilename: '[chunkhash].js'
       },
-      locals: {},
       plugins: [
         new HtmlWebpackPlugin({
           template: (config.antwar.template && config.antwar.template.file) ||
-            path.join(__dirname, '../../templates/page.ejs')
+            path.join(__dirname, '../../templates/page.ejs'),
+          context: {
+            cssFiles: [],
+            jsFiles: [],
+            ...config.template
+          }
         })
-      ],
-      // Copy template configuration to webpack side so HtmlWebpackPlugin picks it up
-      template: {
-        cssFiles: [],
-        jsFiles: [],
-        ...config.antwar.template
-      }
+      ]
     };
 
     return merge(commonConfig, devConfig, config.webpack);

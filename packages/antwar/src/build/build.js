@@ -61,6 +61,13 @@ function generateParameters(config) {
     }).filter(a => a);
     const jsFiles = [];
 
+    // Copy template configuration to webpack side so HtmlWebpackPlugin picks it up
+    const template = {
+      cssFiles: [],
+      jsFiles: [],
+      ...config.template
+    };
+
     const cwd = process.cwd();
     const site = require(_path.join(cwd, config.output, 'site.js'));
     const parameters = {
@@ -73,10 +80,10 @@ function generateParameters(config) {
       jsFiles,
       templates: {
         page: {
-          ...config.template,
+          ...template,
           // XXX: sync operation
           file: _fs.readFileSync(
-            (config.template && config.template.file) ||
+            (template && template.file) ||
             _path.join(__dirname, '../../templates/page.ejs'),
             {
               encoding: 'utf8'

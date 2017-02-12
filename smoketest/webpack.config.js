@@ -40,10 +40,10 @@ function commonConfig() {
       style: PATHS.style
     },
     module: {
-      loaders: [
+      rules: [
         {
           test: /\.jsx?$/,
-          loader: 'babel-loader',
+          use: 'babel-loader',
           include: [
             path.join(__dirname, 'layouts'),
             path.join(__dirname, 'pages')
@@ -53,14 +53,14 @@ function commonConfig() {
     },
     resolve: {
       // Patch webpack module resolution so that the site works with `packages`
-      modulesDirectories: [
+      modules: [
         PATHS.packages,
         // Include parent so that interactive lookup works against preact etc.
         PATHS.parentModules
       ]
     },
     resolveLoader: {
-      modulesDirectories: [
+      modules: [
         // Include parent so that interactive lookup works against preact etc.
         PATHS.parentModules
       ]
@@ -89,10 +89,10 @@ function interactiveConfig() {
 function developmentConfig(stylePaths) {
   return {
     module: {
-      loaders: [
+      rules: [
         {
           test: /\.css$/,
-          loaders: [
+          use: [
             'style-loader',
             'css-loader'
           ],
@@ -106,19 +106,20 @@ function developmentConfig(stylePaths) {
 function buildConfig(stylePaths) {
   return {
     module: {
-      loaders: [
+      rules: [
         {
           test: /\.css$/,
-          loader: ExtractTextPlugin.extract(
-            'style-loader',
-            'css-loader'
-          ),
+          use: ExtractTextPlugin.extract({
+            use: 'css-loader',
+            fallback: 'style-loader'
+          }),
           include: stylePaths
         }
       ]
     },
     plugins: [
-      new ExtractTextPlugin('[name].[chunkhash].css', {
+      new ExtractTextPlugin({
+        filename: '[name].[chunkhash].css',
         allChunks: true
       }),
       new CleanWebpackPlugin(['build'])

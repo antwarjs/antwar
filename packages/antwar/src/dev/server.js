@@ -16,12 +16,9 @@ module.exports = function (config) {
       ]
     },
     plugins: [
-      new webpack.HotModuleReplacementPlugin({
-        multiStep: true
-      })
+      new webpack.HotModuleReplacementPlugin()
     ],
-    devtool: 'eval',
-    debug: true
+    devtool: 'eval'
   };
 
   return devConfig(config).then(function (c) {

@@ -4,35 +4,28 @@ import * as webpack from 'webpack';
 module.exports = function (config) {
   return new Promise(function (resolve) {
     const cwd = process.cwd();
-    const parent = path.join(__dirname, '..');
     const paths = {
       // XXX: not correct if the user changes the default
       antwarConfig: path.join(cwd, 'antwar.config.js'),
       config: path.join(__dirname, 'config_entry.js'),
-      parent
+      parent: path.join(__dirname, '..')
     };
 
     resolve({
-      parent,
       resolve: {
-        root: cwd,
         alias: {
           antwarConfig: paths.antwarConfig,
           config: paths.config
         },
-        extensions: [
-          '',
-          '.js',
-          '.jsx',
-          '.json'
-        ],
-        modulesDirectories: [
+        extensions: ['.js', '.jsx', '.json'],
+        modules: [
           path.join(cwd, 'node_modules'),
           'node_modules'
         ]
       },
       resolveLoader: {
-        modulesDirectories: [
+        modules: [
+          cwd,
           path.join(paths.parent, 'node_modules'),
           'node_modules'
         ]

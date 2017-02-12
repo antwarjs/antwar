@@ -17,50 +17,47 @@ const PATHS = {
 const commonConfig = {
   resolve: {
     // Patch webpack module resolution so that the site works with `packages`
-    modulesDirectories: [
+    modules: [
       PATHS.packages
     ]
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.jsx?$/,
-        loader: 'babel',
+        use: 'babel-loader',
         include: PATHS.site
       },
       {
         test: /\.woff$/,
-        loaders: ['url?prefix=font/&limit=5000&mimetype=application/font-woff']
+        use: 'url-loader?prefix=font/&limit=5000&mimetype=application/font-woff'
       },
       {
         test: /\.ttf$|\.eot$/,
-        loaders: ['file?prefix=font/']
+        use: 'file-loader?prefix=font/'
       },
       {
         test: /\.jpg$/,
-        loaders: ['file']
+        use: 'file-loader'
       },
       {
         test: /\.png$/,
-        loaders: ['file']
+        use: 'file-loader'
       },
       {
         test: /\.svg$/,
-        loaders: ['raw']
+        use: 'raw-loader'
       },
       {
         test: /\.html$/,
-        loaders: ['raw']
+        use: 'raw-loader'
       },
       {
         test: /\.json$/,
-        loaders: ['json']
+        use: 'json-loader'
       }
     ]
   },
-  postcss: [
-    autoprefixer({ browsers: ['last 2 versions'] })
-  ],
   plugins: [
     new CopyWebpackPlugin([
       {
@@ -90,10 +87,10 @@ module.exports = function (env) {
 function developmentConfig(stylePaths) {
   return {
     module: {
-      loaders: [
+      rules: [
         {
           test: /\.css$/,
-          loaders: [
+          use: [
             'style-loader',
             'css-loader'
           ],
@@ -101,10 +98,17 @@ function developmentConfig(stylePaths) {
         },
         {
           test: /\.scss$/,
-          loaders: [
+          use: [
             'style-loader',
             'css-loader',
-            'postcss-loader',
+            {
+              loader: 'postcss-loader',
+              options: {
+                plugins: () => ([
+                  autoprefixer({ browsers: ['last 2 versions'] })
+                ])
+              }
+            },
             'sass-loader'
           ],
           include: stylePaths
@@ -117,27 +121,39 @@ function developmentConfig(stylePaths) {
 function buildConfig(stylePaths) {
   return {
     module: {
-      loaders: [
+      rules: [
         {
           test: /\.css$/,
-          loader: ExtractTextPlugin.extract(
-            'style-loader',
-            'css-loader'
-          ),
+          use: ExtractTextPlugin.extract({
+            fallback: 'style-loader',
+            use: 'css-loader'
+          }),
           include: stylePaths
         },
         {
           test: /\.scss$/,
-          loader: ExtractTextPlugin.extract(
-            'style-loader',
-            'css-loader!postcss-loader!sass-loader'
-          ),
+          loader: ExtractTextPlugin.extract({
+            fallback: 'style-loader',
+            use: [
+              'css-loader',
+              {
+                loader: 'postcss-loader',
+                options: {
+                  plugins: () => ([
+                    autoprefixer({ browsers: ['last 2 versions'] })
+                  ])
+                }
+              },
+              'sass-loader'
+            ]
+          }),
           include: stylePaths
         }
       ]
     },
     plugins: [
-      new ExtractTextPlugin('[name].css', {
+      new ExtractTextPlugin({
+        filename: '[name].css',
         allChunks: true
       }),
       new CleanWebpackPlugin(['build'])

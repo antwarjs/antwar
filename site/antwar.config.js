@@ -29,7 +29,7 @@ module.exports = {
       title: 'Antwar',
       path() {
         return require.context(
-          'json!yaml-frontmatter!./pages',
+          'json-loader!yaml-frontmatter-loader!./pages',
           false,
           /^\.\/.*\.md$/
         );
@@ -52,14 +52,14 @@ module.exports = {
       title: 'Blog posts',
       path() {
         const posts = require.context(
-          'json!yaml-frontmatter!./posts',
+          'json-loader!yaml-frontmatter-loader!./posts',
           false,
           /^\.\/.*\.md$/
         );
 
         if (__DEV__) {
           const drafts = require.context(
-            'json!yaml-frontmatter!./drafts',
+            'json-loader!yaml-frontmatter-loader!./drafts',
             false,
             /^\.\/.*\.md$/
           );
@@ -105,7 +105,7 @@ module.exports = {
       title: 'Documentation',
       path() {
         return require.context(
-          'json!yaml-frontmatter!./docs',
+          'json-loader!yaml-frontmatter-loader!./docs',
           true,
           /^\.\/.*\.md$/
         );

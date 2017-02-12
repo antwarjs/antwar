@@ -16,7 +16,7 @@ module.exports = function (env) {
         'Smoke test',
         function () {
           return require.context(
-            'json!yaml-frontmatter!./pages',
+            'json-loader!yaml-frontmatter-loader!./pages',
             false,
             /^\.\/.*\.md$/
           );
@@ -26,7 +26,7 @@ module.exports = function (env) {
         'Smoke test',
         function () {
           return require.context(
-            'json!yaml-frontmatter!./pages/api',
+            'json-loader!yaml-frontmatter-loader!./pages/api',
             false,
             /^\.\/.*\.md$/
           );
@@ -36,7 +36,7 @@ module.exports = function (env) {
         'Smoke test',
         function () {
           return require.context(
-            'json!yaml-frontmatter!./pages/configuration',
+            'json-loader!yaml-frontmatter-loader!./pages/configuration',
             false,
             /^\.\/.*\.md$/
           );
