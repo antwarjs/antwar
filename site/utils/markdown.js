@@ -1,6 +1,6 @@
 // Ported from webpack.js.org
-const marked = require('marked');
-const parse = require('./parse');
+var marked = require('marked'); // eslint-disable-line no-var
+var parse = require('./parse'); // eslint-disable-line no-var
 
 module.exports = function (siteSection) {
   // alter marked renderer to add slashes to beginning so images point at root

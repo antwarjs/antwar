@@ -1,8 +1,8 @@
 // Ported from webpack.js.org
-const Prism = require('prismjs');
-const languages = require('prism-languages');
+var Prism = require('prismjs'); // eslint-disable-line no-var
+var languages = require('prism-languages'); // eslint-disable-line no-var
 
-const highlight = Prism.highlight;
+var highlight = Prism.highlight; // eslint-disable-line no-var
 
 if (typeof document !== 'undefined') {
   // disable automatic highlight on content loaded
