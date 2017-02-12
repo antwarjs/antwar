@@ -1,4 +1,4 @@
-const marked = require('marked');
+var marked = require('marked'); // eslint-disable-line no-var
 
 module.exports = function (env) {
   console.log('env', env); // eslint-disable-line no-console
