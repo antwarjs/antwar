@@ -1,5 +1,5 @@
 import * as path from 'path';
-import webpack from 'webpack';
+import * as webpack from 'webpack';
 
 module.exports = function (config) {
   return new Promise(function (resolve) {
@@ -45,8 +45,6 @@ module.exports = function (config) {
             NODE_ENV: JSON.stringify('dev')
           }
         }),
-        new webpack.optimize.OccurenceOrderPlugin(),
-        new webpack.optimize.DedupePlugin()
       ]
     });
   });
