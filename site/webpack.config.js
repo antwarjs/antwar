@@ -140,7 +140,7 @@ function buildConfig(stylePaths) {
           loader: ExtractTextPlugin.extract({
             fallback: 'style-loader',
             use: [
-              'css-loader',
+              'css-loader?modules',
               {
                 loader: 'postcss-loader',
                 options: {
