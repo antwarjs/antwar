@@ -12,8 +12,8 @@ const SiteIndex = () => (
           <section>
             <h2>What?</h2>
             <p>
-              Antwar is a blog aware static site engine built with React and Webpack. It's fast,
-              extensible and friendly.
+              Antwar is a blog aware static site engine built with React and Webpack. It&apos;s
+              fast, extensible and friendly.
             </p>
           </section>
           <section>

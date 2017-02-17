@@ -52,7 +52,7 @@ function TV({ width, border = 20, widescreen }) {
 function Screen({ children, width, height }) {
   const isw = width - 25;
   const ish = height - 25;
-  const isd = Math.sqrt(Math.pow(isw, 2) + Math.pow(ish, 2));
+  const isd = Math.sqrt((isw ** 2) + (ish ** 2));
   const screenIsDark = !children;
 
   const screenGlareProps = {
@@ -122,41 +122,6 @@ function Screen({ children, width, height }) {
         <rect {...scanlinesProps} />
         <rect {...innerScreenGlowProps} />
       </g>
-    </g>
-  );
-}
-
-/* eslint no-unused-vars: 1 */
-function Static({ width, height }) {
-  // TODO: figure how to maybe generate a "static-like" pattern instead?
-
-  const rectProps = {
-    x: -width / 2,
-    y: -height / 2,
-    width,
-    height,
-    fill: 'black',
-    filter: 'url(#static)'
-  };
-
-  const turbulenceProps = {
-    type: 'fractalNoise',
-    baseFrequency: '0.4',
-    numOctaves: '2',
-    seed: '8',
-    stitchTiles: 'stitch',
-    result: 'static'
-  };
-
-  return (
-    <g>
-      <defs>
-        <filter id="static">
-          <feTurbulence {...turbulenceProps} />
-          <feComposite in2="green" in="static" mode="multiply" />
-        </filter>
-      </defs>
-      <rect {...rectProps} />
     </g>
   );
 }
