@@ -1,0 +1,77 @@
+/*==========================*\
+* Settings (Play with them!) *
+\*==========================*/
+
+$base-font-size: 0.875em; // 14px if the default is 16px
+$base-viewport-width: 43;
+$base-viewport-height: 48;
+$growth-scalar: 0.6;
+
+
+/*===================*\
+* The Important Stuff *
+\*===================*/
+
+$aspect-ratio: '#{$base-viewport-width}/#{$base-viewport-height}';
+$min-growth-width: $base-viewport-width * $base-font-size;
+$min-growth-height: $base-viewport-height * $base-font-size;
+
+:global {
+  :root {
+    font-size: $base-font-size;
+
+    @media(min-width: $min-growth-width) and (min-height: $min-growth-height) {
+      @media (max-aspect-ratio: $aspect-ratio) {
+        font-size: calc(#{$base-font-size} + (#{100vw/$base-viewport-width} - #{$base-font-size}) * #{$growth-scalar});
+      }
+      @media (min-aspect-ratio: $aspect-ratio) {
+        font-size: calc(#{$base-font-size} + (#{100vh/$base-viewport-height} - #{$base-font-size}) * #{$growth-scalar});
+      }
+    }
+  }
+}
+
+/*=========*\
+* Debugging *
+\*=========*/
+
+@mixin debug-contained-layout() {
+  :global {
+    :root::before,
+    :root::after {
+      display: block;
+      content: '';
+      border: .5rem solid transparent;
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    // The Purple box shows how the viewport is compared to the aspect-ratio of the "base-viewport"
+    :root::after {
+      border-color: transparentize(rebeccapurple, .3);
+      pointer-events: none;
+
+      @media (max-aspect-ratio: $aspect-ratio) {
+        width: 100vw;
+        height: 100vw * ($base-viewport-height / $base-viewport-width);
+      }
+
+      @media (min-aspect-ratio: $aspect-ratio) {
+        width: 100vh * ($base-viewport-width / $base-viewport-height);
+        height: 100vh;
+      }
+    }
+
+    // The Green box shows how the layout scales up from the "base-viewport" and how that scaling
+    // is affected by the $growth-scalar
+
+    :root::before {
+      border-color: transparentize(green, .3);
+      width: 1em * $base-viewport-width;
+      height: 1em * $base-viewport-height;
+    }
+  }
+}
+
+// @include debug-contained-layout()

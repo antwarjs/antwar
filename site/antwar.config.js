@@ -15,7 +15,7 @@ module.exports = {
   output: 'build',
   author: 'Antwar',
   layout() {
-    return require('./layouts/Body').default;
+    return require('./layouts/SiteBody').default;
   },
   plugins: [
     rssPlugin({
@@ -36,7 +36,10 @@ module.exports = {
       },
       layouts: {
         index() {
-          return require('./layouts/Index').default;
+          return require('./layouts/SiteIndex').default;
+        },
+        page() {
+          return require('./layouts/SitePage').default;
         }
       },
       processPage: {
@@ -49,7 +52,7 @@ module.exports = {
       }
     },
     blog: {
-      title: 'Blog posts',
+      title: 'Developer Blog',
       path() {
         const posts = require.context(
           'json-loader!yaml-frontmatter-loader!./posts',

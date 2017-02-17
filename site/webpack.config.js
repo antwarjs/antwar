@@ -8,9 +8,14 @@ const autoprefixer = require('autoprefixer');
 const PATHS = {
   site: [
     path.join(__dirname, 'layouts'),
+    path.join(__dirname, 'components'),
     path.join(__dirname, 'pages')
   ],
-  style: path.join(process.cwd(), 'styles'),
+  style: [
+    path.join(__dirname, 'layouts'),
+    path.join(__dirname, 'components'),
+    path.join(__dirname, 'styles')
+  ],
   packages: path.join(__dirname, '..', 'packages')
 };
 
@@ -100,7 +105,7 @@ function developmentConfig(stylePaths) {
           test: /\.scss$/,
           use: [
             'style-loader',
-            'css-loader',
+            'css-loader?modules&localIdentName=[local]--[hash:base64:5]',
             {
               loader: 'postcss-loader',
               options: {
@@ -135,7 +140,7 @@ function buildConfig(stylePaths) {
           loader: ExtractTextPlugin.extract({
             fallback: 'style-loader',
             use: [
-              'css-loader',
+              'css-loader?modules',
               {
                 loader: 'postcss-loader',
                 options: {

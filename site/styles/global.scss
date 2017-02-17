@@ -1,0 +1,29 @@
+@import 'config.scss';
+@import 'contained-layout.scss';
+
+*, *::before, *::after {
+  flex-flow: column nowrap;
+  flex: 0 0 auto;
+}
+
+:root {
+  font-family: $body-font;
+  background-color: $white;
+  color: $black;
+  line-height: 1.5;
+}
+
+blockquote {
+  margin: 2rem 0;
+  color: $blue2;
+  font-size: $ms2;
+  font-style: italic;
+  border-left: .25rem solid $blue2;
+  padding-left: 1.5rem;
+}
+
+a[href] { color: $blue; }
+
+nav {
+  margin-right: 5em;
+}

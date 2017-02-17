@@ -23,7 +23,9 @@
     "antwar.js.org"
   ],
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "react-github-corner": "^0.3.0"
+  },
   "devDependencies": {
     "autoprefixer": "^6.7.2",
     "copy-webpack-plugin": "^4.0.1",

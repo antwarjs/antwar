@@ -1,0 +1,56 @@
+@import '../styles/config';
+@import '../styles/mixins';
+
+.siteIndex { }
+
+.introduction {
+  padding-bottom: 3rem;
+  border-bottom: 1rem solid $blue2;
+  h2 { margin: 0 0 1rem; }
+  p { margin: 0; }
+}
+
+.container {
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: 3rem;
+}
+
+.inform {
+  display: flex;
+  flex-flow: row wrap;
+  margin: 0 -1rem 1rem;
+
+  h2 { @include diagnal-border; }
+
+  section {
+    margin: 1rem;
+    flex: 1 0 15rem;
+  }
+}
+
+.callToAction {
+  background-color: $blue5;
+}
+
+.actions {
+  margin-top: 2rem;
+  *+* { margin-left: 1rem; }
+}
+
+a[href].button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: .25rem 1.5rem;
+  border-radius: .25rem;
+  background-color: $blue2;
+  color: $white;
+  text-decoration: none;
+  font-weight: 600;
+  font-family: $display-font;
+  font-size: $ms2;
+  &:hover { background-color: lighten($blue2, 10%); }
+  &:active { background-color: darken($blue2, 5%); }
+}
+

@@ -1,0 +1,51 @@
+@import '../styles/config';
+@import '../styles/mixins';
+
+.article {
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: 2rem 3rem;
+  h3 {
+    font-weight: 300;
+    margin-top: 1.5rem;
+  }
+}
+
+.headerImage { /* TODO */ }
+
+.draftText {
+  font-family: $display-font;
+  font-size: $ms4;
+  margin: 0 .5rem;
+  font-weight: 300;
+  border-radius: 1rem;
+  color: $blue4;
+  font-style: italic;
+  margin-right: auto;
+}
+
+.author, .date { opacity: .3 }
+
+.author + .date::before { content: '–'; margin: 0 .5rem; }
+
+.header {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: baseline;
+  margin-bottom: 3rem;
+  h1 {
+    margin: 0 0 .5rem;;
+    width: 100%;
+    @include diagnal-border;
+  }
+}
+
+.contentScrollBox {
+  position: relative; // this is for the github corner
+  @media (min-width: 60rem) {
+    flex-grow: 1;
+    flex-shrink: 1;
+    overflow-y: scroll; // webkit smooth scrolling does not work without this.
+    -webkit-overflow-scrolling: touch;
+  }
+}

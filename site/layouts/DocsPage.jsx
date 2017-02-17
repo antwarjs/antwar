@@ -1,50 +1,47 @@
 import React from 'react';
 import { Link } from 'react-router';
 import _ from 'lodash';
+import GitHubCorner from 'react-github-corner';
+
+import classes from './DocsPage.scss';
+import articleClasses from './Article.scss';
 
 const DocsPage = ({ section, page }) => (
-  <div className="post">
-    <div
-      className={
-        'docs-nav__wrapper' + (page.headerImage ? ' docs-nav__wrapper--push-down' : '')
-      }
-    >
-      <h4 className="docs-nav--header">{page.title || 'Documentation'}</h4>
-      <div className="docs-nav">{_.map(section.pages(), (navPage, i) => (
-        navPage.title === page.title ?
-          <span key={`navPage-${i}`} className="docs-nav__link docs-nav__link--current">
-            {navPage.title}
-          </span> :
-          <Link key={`navPage-${i}`} className="docs-nav__link" to={'/' + navPage.url}>
-            {navPage.title}
-          </Link>
-      ))}</div>
+  <div className={classes.documentation}>
+    <div className={classes.nav}>{_.map(section.pages(), (navPage, i) => (
+      navPage.title === page.title ?
+        <span key={`navPage-${i}`} className={classes.navLink_active}>
+          {navPage.title}
+        </span> :
+        <Link key={`navPage-${i}`} className={classes.navLink} to={'/' + navPage.url}>
+          {navPage.title}
+        </Link>
+    ))}</div>
+    <div className={articleClasses.contentScrollBox}>
+      <GitHubCorner href="https://github.com/antwarjs/antwar" direction="right" />
+      <article className={articleClasses.article}>
+        {page.headerImage ?
+          <div
+            className={articleClasses.headerImage}
+            style={{ backgroundImage: `url(${page.headerImage})` }}
+          /> : null
+        }
+        <header className={articleClasses.header}>
+          <h1>
+            {page.title}
+            {page.isDraft ?
+              <span className={articleClasses.draftText}>draft</span> :
+              null
+            }
+          </h1>
+          {page.author ?
+            <div className={articleClasses.author}>{`Authored by ${page.author}`}</div> :
+            null
+          }
+        </header>
+        <div dangerouslySetInnerHTML={{ __html: page.content }} />
+      </article>
     </div>
-
-    {page.headerImage ?
-      <div
-        className="header-image"
-        style={{
-          backgroundImage: `url(${page.headerImage})`
-        }}
-      /> :
-      null
-    }
-
-    <h1 className="post__heading">{page.title}</h1>
-
-    <div className="post__content">
-      {page.isDraft ?
-        <span className="draft-text">Draft</span> :
-        null
-      }
-      <div dangerouslySetInnerHTML={{ __html: page.content }} />
-    </div>
-
-    {page.author ?
-      <div className="post__author">{`Authored by ${page.author}`}</div> :
-      null
-    }
   </div>
 );
 

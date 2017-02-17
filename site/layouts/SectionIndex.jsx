@@ -2,30 +2,37 @@ import React from 'react';
 import _ from 'lodash';
 import { Link } from 'react-router';
 import { Moment } from 'antwar-helpers';
+import GitHubCorner from 'react-github-corner';
+
+import classes from './SectionIndex.scss';
+import articleClasses from './Article.scss';
 
 const SectionIndex = ({ section }) => (
-  <div className="grid">
-    <h1>{section.title || 'Blog posts'}</h1>
+  <div className={[classes.sectionIndex, articleClasses.contentScrollBox].join(' ')}>
+    <GitHubCorner href="https://github.com/antwarjs/antwar" direction="right" />
+    <article className={articleClasses.article}>
+      <h1>{section.title || 'Blog posts'}</h1>
 
-    <ul className="post-list">{_.map(section.pages(), (page, i) => (
-      <li key={`post-list-item-${i}`}>
-        <h3 className="post-list__heading">
-          <Link to={'/' + page.url}>{page.title}</Link>
+      <ul className={classes.list}>{_.map(section.pages(), (page, i) => (
+        <li key={`post-list-item-${i}`} className={classes.item}>
+          <Link to={'/' + page.url}>
+            <h3 className={classes.header}>
+              {page.title}
+              {page.isDraft ?
+                <span className={classes.draftText}>Draft</span> :
+                null
+              }
+            </h3>
 
-          {page.isDraft ?
-            <span className="draft-text">Draft</span> :
-            null
-          }
-        </h3>
-
-        {page.date ?
-          <Moment className="post__moment" datetime={page.date} /> :
-          null
-        }
-
-        <p className="post-list__preview">{page.preview}</p>
-      </li>
-    ))}</ul>
+            {page.date ?
+              <Moment className={classes.date} datetime={page.date} /> :
+              null
+            }
+            <p className={classes.preview}>{page.preview}</p>
+          </Link>
+        </li>
+      ))}</ul>
+    </article>
   </div>
 );
 

@@ -1,0 +1,57 @@
+@import '../styles/config';
+
+.documentation {
+  display: flex;
+  flex-flow: column nowrap;
+  flex-grow: 1;
+  flex-shrink: 1;
+  min-height: 0;
+  max-height: 100%;
+}
+
+.nav {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-end;
+  background-color: $blue5;
+  padding: 1rem;
+}
+
+.navLink {
+  text-decoration: none;
+  & + & {
+    margin-left: .5rem;
+  }
+  border-bottom: .15rem solid transparent;
+  &:hover { border-bottom-color: currentColor; }
+}
+
+
+@media (min-width: 60rem) {
+  .documentation {
+    flex-direction: row;
+    min-width: 100%;
+  }
+  .nav {
+    flex-flow: column nowrap;
+    height: auto;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-basis: 10rem;
+    flex-grow: 0;
+    padding: 2.5rem 2rem 2rem;
+    font-size: $ms2;
+  }
+  .navLink {
+    &+& {
+      margin-left: 0;
+      margin-top: .25rem;
+    }
+  }
+}
+
+.navLink_active {
+  composes: navLink;
+  font-weight: bold;
+  color: $blue2;
+}

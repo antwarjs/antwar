@@ -1,0 +1,70 @@
+@import '../styles/config.scss';
+
+.navWrapper {
+  top: 0; left: 0; right: 0;
+  padding: .5rem 1rem;
+  background-color: $blue2;
+  a[href] {
+    color: $blue5;
+    font-family: $caption-font;
+    font-weight: 500;
+    font-size: $ms2;
+    text-decoration: none;
+    border-bottom: .15rem solid transparent;
+    &.activeLink, &:hover {
+      border-color: currentColor;
+    }
+    .activeLink { color: $blue; }
+  }
+}
+
+.nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  margin-right: 0;
+  & > *+* { margin-left: .75rem; }
+}
+
+a[href].navTitle {
+  font-size: $ms4;
+  margin-right: auto;
+}
+
+:global {
+  // Having to do this because react-github-corner expects you to size the corner with static pixel
+  // values. Should probably just submit a pull-request. Only reason I CAN do this is because svg is
+  // fricken weird and prioritizes external CSS over inline attributes.
+
+  .github-corner svg {
+    width: auto;
+    height: 5rem;
+    z-index: 1;
+    .octo-banner { fill: $blue5; }
+    .octo-body, .octo-arm { fill: $blue; }
+  }
+}
+
+.body {
+  display: flex;
+  flex-flow: column nowrap;
+  height: 100vh;
+}
+
+.home {
+ .navWrapper {
+   position: absolute;
+   background-color: transparent;
+   a[href] {
+     color: $off-white;
+     &.navTitle { visibility: hidden; }
+   }
+ }
+
+
+  :global .github-corner svg {
+    .octo-banner { fill: $off-white; }
+    .octo-body, .octo-arm { fill: $blue1; }
+  }
+}

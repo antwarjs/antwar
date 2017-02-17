@@ -1,0 +1,16 @@
+@mixin diagnal-border () {
+  &::after {
+    display: block;
+    content: '';
+    margin-top: .35rem;
+    height: .3rem;
+    width: 100%;
+    background-image: repeating-linear-gradient(
+        50deg,
+        transparent,
+        transparent .25rem,
+        $blue .25rem,
+        $blue .5rem
+    );
+  }
+}

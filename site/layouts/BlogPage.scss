@@ -1,0 +1,61 @@
+@import '../styles/config';
+
+.footer {
+  display: flex;
+}
+
+.blogPost :global {
+  .prevnext {
+    display: flex;
+    flex-flow: row nowrap;
+    margin-top: 3rem;
+    width: 100%;
+  }
+  .prevnext__prev, .prevnext__next {
+    position: relative;
+    flex: 0 1 20rem;
+    display: flex;
+    flex-flow: column wrap;
+    overflow: hidden;
+    justify-content: center;
+    padding: 1rem;
+    &:only-child { border-color: transparent; }
+  }
+
+  .prevnext__prev::before, .prevnext__next::after {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    color: $blue;
+    font-size: 5rem;
+  }
+
+  .prevnext__prev {
+    align-self: flex-start;
+    margin-right: auto;
+    border-right: .075rem solid $blue4;
+    padding-left: 3rem;
+    &::before {
+      left: 0; top: 0; bottom: 0;
+      content: '❬';
+    }
+  }
+
+  .prevnext__next {
+    text-align: right;
+    margin-left: auto;
+    border-left: .075rem solid $blue4;
+    padding-right: 3rem;
+    &::after {
+      right: 0; top: 0; bottom: 0;
+      content: '❭';
+    }
+  }
+
+  .prevnext__link { font-size: $ms2; }
+  .prevnext__bg { display: none; }
+  .prevnext__info {
+    font-size: $ms3;
+    font-family: $display-font;
+  }
+}
