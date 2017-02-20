@@ -16,40 +16,60 @@ export default function () {
   );
 }
 
-function TV({ width, border = 20, widescreen }) {
-  const sw = width - (border * 2);
-  const sh = widescreen ? sw * (9 / 16) : sw * (3 / 4);
-  const height = sh + (border * 2);
 
-  return (
-    <g className={classes.tv}>
-      <defs>
-        <radialGradient id="tv-gradient" r={1}>
-          <stop offset="0%" stopColor="#007EA1" />
-          <stop offset="55%" stopColor="#0B0A30" />
-        </radialGradient>
-        <filter id="text-glow">
-          <feGaussianBlur stdDeviation="2.5" result="coloredBlur" />
-          <feMerge>
-            <feMergeNode in="coloredBlur" />
-            <feMergeNode in="SourceGraphic" />
-          </feMerge>
-        </filter>
-      </defs>
-      <RoundedRect width={width} height={height} fill="url(#tv-gradient)" />
-      <Screen width={sw} height={sh}>
-        <text className={classes.title} fontSize="160" y="30">Antwar</text>
-        <text className={classes.subtitle} fontSize="52" y="85">the static site generator</text>
-      </Screen>
-    </g>
-  );
+class TV extends React.Component {
+
+  constructor() {
+    super();
+    this.state = { hasSignal: false };
+    this.timeoutId = null;
+    this.readjustAntenna = this.readjustAntenna.bind(this);
+  }
+
+  componentDidMount() {
+    this.timeoutId = window.setInterval(this.readjustAntenna, 3000);
+  }
+
+  readjustAntenna() {
+    this.setState({ hasSignal: !this.state.hasSignal });
+  }
+
+  componentWillUnmount() {
+    window.clearInterval(this.timeoutId);
+  }
+
+  render() {
+    const { width, border = 20, widescreen } = this.props;
+    const sw = width - (border * 2);
+    const sh = widescreen ? sw * (9 / 16) : sw * (3 / 4);
+    const height = sh + (border * 2);
+
+    return (
+      <g className={classes.tv}>
+        <defs>
+          <radialGradient id="tv-gradient" r={1}>
+            <stop offset="0%" stopColor="#007EA1" />
+            <stop offset="55%" stopColor="#0B0A30" />
+          </radialGradient>
+          <filter id="text-glow">
+            <feGaussianBlur stdDeviation="2.5" result="coloredBlur" />
+            <feMerge>
+              <feMergeNode in="coloredBlur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+        <RoundedRect width={width} height={height} fill="url(#tv-gradient)" />
+        <Screen width={sw} height={sh} hasSignal={this.state.hasSignal}>
+          <text className={classes.title} fontSize="160" y="30">Antwar</text>
+          <text className={classes.subtitle} fontSize="52" y="85">the static site generator</text>
+        </Screen>
+      </g>
+    );
+  }
 }
 
-/* TODO
- * display static when no children are present
- */
-
-function Screen({ children, width, height }) {
+function Screen({ children, width, height, hasSignal }) {
   const isw = width - 25;
   const ish = height - 25;
   const isd = Math.sqrt((isw ** 2) + (ish ** 2));
@@ -63,6 +83,15 @@ function Screen({ children, width, height }) {
     height: isd,
     transform: 'rotate(45)',
     fill: 'url(#glare-gradient)'
+  };
+
+  const whiteBackgroundProps = {
+    x: -width / 2,
+    y: -height / 2,
+    width,
+    height,
+    fill: 'white',
+    filter: 'url(#glow)'
   };
 
   const scanlinesProps = {
@@ -115,13 +144,74 @@ function Screen({ children, width, height }) {
           <stop offset="100%" stopOpacity={0} stopColor="#C730CF" />
         </linearGradient>
       </defs>
-      <RoundedRect width={isw} height={ish} fill={'white'} filter="url(#glow)" />
       <rect {...screenGlareProps} />
-      <g clipPath="url(#screen)">
-        {children}
+      <g clipPath="url(#screen)" className={hasSignal ? classes.screen : classes.screen_poorSignal}>
+        <StaticScreen width={width} height={height} />
+        <rect className={classes.brightScreen} {...whiteBackgroundProps} />
+        <g className={classes.screenContent}>{children}</g>
         <rect {...scanlinesProps} />
         <rect {...innerScreenGlowProps} />
       </g>
+    </g>
+  );
+}
+
+function NoisePattern({ id, width, height }) {
+  const minx = -width;
+  const miny = -height;
+  const maxx = width;
+  const maxy = height;
+  let x = minx;
+  let y = Math.round(miny);
+  const lines = [];
+
+  const lineProps = { fill: '#F4FAFF', height: 3 };
+
+  while (y < maxy) {
+    while (x <= maxx) {
+      let length = Math.round(Math.random() * 6);
+      const space = Math.round(Math.random() * 3);
+      length = (x + length > maxx) ? maxx - x : length;
+      const props = Object.assign({ x, y, length }, lineProps);
+      lines.push(<rect key={lines.length} {...props} />);
+      x = x + length + space;
+    }
+    x = minx;
+    y += 5;
+  }
+
+  return (
+    <pattern id={id} width={width} height={height} patternUnits="userSpaceOnUse">
+      {lines}
+    </pattern>
+  );
+}
+
+function StaticScreen({ width, height }) {
+  const blackDropProps = {
+    x: -width / 2,
+    y: -height / 2,
+    width,
+    height,
+    fill: '#01001C'
+  };
+
+  const staticProps = {
+    x: -width,
+    y: -height,
+    width: width * 2,
+    height: height * 2,
+    className: classes.staticShake,
+    fill: 'url(#noise-pattern)'
+  };
+
+  return (
+    <g>
+      <defs>
+        <NoisePattern id="noise-pattern" width={width / 2} height={100} />
+      </defs>
+      <rect {...blackDropProps} />
+      <rect {...staticProps} />
     </g>
   );
 }

@@ -32,3 +32,34 @@
   font-weight: 200;
   text-anchor: middle;
 }
+
+.screen {
+  transform: skew(0) scale(1, 1);
+  .screenContent { transition: transform 300ms ease-out, opacity 200ms steps(1, start); }
+  .brightScreen { transition: opacity 200ms steps(1, start); }
+}
+
+.screen_poorSignal {
+  composes: screen;
+  .screenContent {
+    transform: skew(30deg) scale(.7, 1.5);
+  }
+  .screenContent, .brightScreen { opacity: 0; }
+}
+
+.staticShake {
+  :global {
+    animation: 500ms shake steps(1) infinite;
+  }
+}
+
+@keyframes :global(shake) {
+  0% { transform: translate(0, 0) }
+  20% { transform: translate(10rem, 10rem) }
+  40% { transform: translate(15rem, -5rem) }
+  60% { transform: translate(-15rem, 10rem) }
+  80% { transform: translate(0, 5rem) }
+  100% { transform: translate(5rem, 15rem) }
+}
+
+
