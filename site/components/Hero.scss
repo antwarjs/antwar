@@ -20,7 +20,6 @@
 .title {
   fill: $blue3;
   font-family: $display-font;
-  //font-size: 9.5rem;
   font-weight: 500;
   text-anchor: middle;
 }
@@ -28,38 +27,52 @@
 .subtitle {
   fill: $blue3;
   font-family: $caption-font;
-  //font-size: 3rem;
   font-weight: 200;
   text-anchor: middle;
 }
 
 .screen {
-  transform: skew(0) scale(1, 1);
-  .screenContent { transition: transform 300ms ease-out, opacity 200ms steps(1, start); }
-  .brightScreen { transition: opacity 200ms steps(1, start); }
+  .screenContent, .brightScreen {
+    :global { animation: flicker-on 800ms ease-out forwards; }
+  }
 }
 
 .screen_poorSignal {
   composes: screen;
-  .screenContent {
-    transform: skew(30deg) scale(.7, 1.5);
+
+  .screenContent, .brightScreen {
+    :global { animation: flicker-off 1.5s ease-in forwards 750ms; }
   }
-  .screenContent, .brightScreen { opacity: 0; }
 }
 
 .staticShake {
-  :global {
-    animation: 500ms shake steps(1) infinite;
-  }
+  :global { animation: shake-noise 400ms steps(1) infinite; }
 }
 
-@keyframes :global(shake) {
+@keyframes :global(flicker-on) {
+  0% { transform: skew(-10deg) scale(1.1 .6); opacity: 0;  }
+  30% { opacity: .8;}
+  70% { opacity: .3; transform: skew(5deg) }
+  100% { transform: translate(0) skew(0) scale(1); opacity: 1; }
+}
+
+@keyframes :global(flicker-off) {
+  0% { opacity: 1; }
+  5% { opacity: .5; }
+  15% { opacity: 1; }
+  40% { transform: skew(0); }
+  60% { transform: skew(-5deg); }
+  85% { transform: translateY(2rem) skew(5deg) scaleY(.7) }
+  100% { transform: translateY(-20rem) skew(-5deg) scaleY(.4); opacity: 0; }
+}
+
+@keyframes :global(shake-noise) {
   0% { transform: translate(0, 0) }
-  20% { transform: translate(10rem, 10rem) }
-  40% { transform: translate(15rem, -5rem) }
-  60% { transform: translate(-15rem, 10rem) }
-  80% { transform: translate(0, 5rem) }
-  100% { transform: translate(5rem, 15rem) }
+  20% { transform: translate(7rem, 1rem); opacity: .9 }
+  40% { transform: translate(-7rem, -2rem) }
+  60% { transform: translate(-3rem, -6rem) }
+  80% { transform: translate(2rem, 4rem) }
+  100% { transform: translate(-7rem, 3rem); opacity: 1 }
 }
 
 

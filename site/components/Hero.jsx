@@ -22,12 +22,15 @@ class TV extends React.Component {
   constructor() {
     super();
     this.state = { hasSignal: false };
+    this.intervalId = null;
     this.timeoutId = null;
     this.readjustAntenna = this.readjustAntenna.bind(this);
   }
 
   componentDidMount() {
-    this.timeoutId = window.setInterval(this.readjustAntenna, 3000);
+    this.timeoutId = window.setTimeout(() => {
+      this.intervalId = window.setInterval(this.readjustAntenna, 3000)
+    }, 2000);
   }
 
   readjustAntenna() {
@@ -35,7 +38,8 @@ class TV extends React.Component {
   }
 
   componentWillUnmount() {
-    window.clearInterval(this.timeoutId);
+    window.clearInterval(this.intervalId);
+    window.clearTimeout(this.timeoutId);
   }
 
   render() {
@@ -125,8 +129,8 @@ function Screen({ children, width, height, hasSignal }) {
           </feMerge>
         </filter>
         <radialGradient id="inner-screen-glow">
-          <stop offset="20%" stopOpacity="0" stopColor="white" />
-          <stop offset="70%" stopOpacity=".15" stopColor="#00BCF5" />
+          <stop offset="10%" stopOpacity="0" stopColor="white" />
+          <stop offset="70%" stopOpacity=".2" stopColor="#00BCF5" />
         </radialGradient>
         <linearGradient id="scanlines" x1="0%" y1="0%" x2="0%" y2="3%" spreadMethod="repeat">
           <stop offset="25%" stopColor="#555" />
@@ -156,35 +160,39 @@ function Screen({ children, width, height, hasSignal }) {
   );
 }
 
-function NoisePattern({ id, width, height }) {
-  const minx = -width;
-  const miny = -height;
-  const maxx = width;
-  const maxy = height;
-  let x = minx;
-  let y = Math.round(miny);
-  const lines = [];
+class NoisePattern extends React.Component {
+  shouldComponentUpdate() { return false }
+  render () {
+    let { id, width, height } = this.props
+    const minx = -width;
+    const miny = -height;
+    const maxx = width;
+    const maxy = height - 1;
+    let x = minx;
+    let y = Math.round(miny);
+    const lines = [];
 
-  const lineProps = { fill: '#F4FAFF', height: 3 };
+    const lineProps = { fill: '#F4FAFF', height: 4 };
 
-  while (y < maxy) {
-    while (x <= maxx) {
-      let length = Math.round(Math.random() * 6);
-      const space = Math.round(Math.random() * 3);
-      length = (x + length > maxx) ? maxx - x : length;
-      const props = Object.assign({ x, y, length }, lineProps);
-      lines.push(<rect key={lines.length} {...props} />);
-      x = x + length + space;
+    while (y < maxy) {
+      while (x <= maxx) {
+        let length = 3 + Math.round(Math.random() * 13);
+        const space = 3 + Math.round(Math.random() * 7);
+        length = (x + length > maxx) ? maxx - x : length;
+        const props = Object.assign({ x, y, width: length }, lineProps);
+        lines.push(<rect key={lines.length} {...props} />);
+        x = x + length + space;
+      }
+      x = minx;
+      y += 7;
     }
-    x = minx;
-    y += 5;
-  }
 
-  return (
-    <pattern id={id} width={width} height={height} patternUnits="userSpaceOnUse">
-      {lines}
-    </pattern>
-  );
+    return (
+      <pattern id={id} width={width} height={height} patternUnits="userSpaceOnUse">
+        {lines}
+      </pattern>
+    );
+  }
 }
 
 function StaticScreen({ width, height }) {
@@ -196,11 +204,14 @@ function StaticScreen({ width, height }) {
     fill: '#01001C'
   };
 
+  const lwidth = width * 1.5;
+  const lheight = height * 1.5;
+
   const staticProps = {
-    x: -width,
-    y: -height,
-    width: width * 2,
-    height: height * 2,
+    x: -lwidth / 2,
+    y: -lheight / 2,
+    width: lwidth,
+    height: lheight,
     className: classes.staticShake,
     fill: 'url(#noise-pattern)'
   };
@@ -208,7 +219,7 @@ function StaticScreen({ width, height }) {
   return (
     <g>
       <defs>
-        <NoisePattern id="noise-pattern" width={width / 2} height={100} />
+        <NoisePattern id="noise-pattern" width={width / 2} height={200} />
       </defs>
       <rect {...blackDropProps} />
       <rect {...staticProps} />
