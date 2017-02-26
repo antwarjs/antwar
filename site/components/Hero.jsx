@@ -20,20 +20,20 @@ function TV({ width, border = 20, widescreen }) {
   const sh = widescreen ? sw * (9 / 16) : sw * (3 / 4);
   const height = sh + (border * 2);
 
-  let wallGlowProps = {
+  const wallGlowProps = {
     className: classes.wallGlow,
     x: -width * 2,
     y: -width * 2,
     width: width * 4,
     height: width * 4,
-    fill: "url(#wall-glow)",
+    fill: 'url(#wall-glow)'
   };
 
   return (
     <g className={classes.tv}>
       <defs>
-        <radialGradient id="wall-glow" r={.2}>
-          <stop offset="0%" stopOpacity={.4} stopColor="#F4FAFF" />
+        <radialGradient id="wall-glow" r={0.2}>
+          <stop offset="0%" stopOpacity={0.4} stopColor="#F4FAFF" />
           <stop offset="100%" stopOpacity={0} stopColor="#467B9D" />
         </radialGradient>
         <radialGradient id="tv-gradient" r={1}>
