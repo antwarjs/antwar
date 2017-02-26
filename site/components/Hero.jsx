@@ -10,7 +10,6 @@ export default function () {
     <div className={classes.hero}>
       <svg x={width / 2} y={height / 2} viewBox={`${-width / 2} ${-height / 2} ${width} ${height}`}>
         <TV width={600} border={10} />
-        {/* <circle cx={0} cy={0} r={2} fill="red" /> */}
       </svg>
     </div>
   );
@@ -48,9 +47,22 @@ class TV extends React.Component {
     const sh = widescreen ? sw * (9 / 16) : sw * (3 / 4);
     const height = sh + (border * 2);
 
+    let wallGlowProps = {
+      className: classes.wallGlow,
+      x: -width * 2,
+      y: -width * 2,
+      width: width * 4,
+      height: width * 4,
+      fill: "url(#wall-glow)",
+    };
+
     return (
-      <g className={classes.tv}>
+      <g className={this.state.hasSignal ? classes.tv : classes.tv_poorSignal}>
         <defs>
+          <radialGradient id="wall-glow" r={.2}>
+            <stop offset="0%" stopOpacity={.4} stopColor="#F4FAFF" />
+            <stop offset="100%" stopOpacity={0} stopColor="#467B9D" />
+          </radialGradient>
           <radialGradient id="tv-gradient" r={1}>
             <stop offset="0%" stopColor="#007EA1" />
             <stop offset="55%" stopColor="#0B0A30" />
@@ -63,8 +75,9 @@ class TV extends React.Component {
             </feMerge>
           </filter>
         </defs>
+        <rect {...wallGlowProps} />
         <RoundedRect width={width} height={height} fill="url(#tv-gradient)" />
-        <Screen width={sw} height={sh} hasSignal={this.state.hasSignal}>
+        <Screen width={sw} height={sh}>
           <text className={classes.title} fontSize="160" y="30">Antwar</text>
           <text className={classes.subtitle} fontSize="52" y="85">the static site generator</text>
         </Screen>
@@ -73,14 +86,13 @@ class TV extends React.Component {
   }
 }
 
-function Screen({ children, width, height, hasSignal }) {
+function Screen({ children, width, height }) {
   const isw = width - 25;
   const ish = height - 25;
   const isd = Math.sqrt((isw ** 2) + (ish ** 2));
-  const screenIsDark = !children;
 
   const screenGlareProps = {
-    opacity: screenIsDark ? 0.5 : 1,
+    className: classes.screenGlare,
     x: -500,
     y: -isd / 2,
     width: 1000,
@@ -143,13 +155,13 @@ function Screen({ children, width, height, hasSignal }) {
         <linearGradient id="glare-gradient">
           <stop offset="0%" stopOpacity={0} stopColor="#C730CF" />
           <stop offset="25%" stopOpacity={0.05} stopColor="#C730CF" />
-          <stop offset="50%" stopOpacity={0.1} stopColor="#00BCF5" />
+          <stop offset="50%" stopOpacity={0.15} stopColor="#00BCF5" />
           <stop offset="75%" stopOpacity={0.05} stopColor="#C730CF" />
           <stop offset="100%" stopOpacity={0} stopColor="#C730CF" />
         </linearGradient>
       </defs>
       <rect {...screenGlareProps} />
-      <g clipPath="url(#screen)" className={hasSignal ? classes.screen : classes.screen_poorSignal}>
+      <g clipPath="url(#screen)">
         <StaticScreen width={width} height={height} />
         <rect className={classes.brightScreen} {...whiteBackgroundProps} />
         <g className={classes.screenContent}>{children}</g>

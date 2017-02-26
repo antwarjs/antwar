@@ -5,14 +5,14 @@
   align-items: center;
   justify-content: center;
   color: $off-white;
-  height: 95vh;
+  height: 98vh;
   overflow: hidden;
   background-color: $blue1;
-  background-image: radial-gradient(40rem, $blue 0%, $blue1 70%);
+  background-image: radial-gradient(50rem, $blue2 0%, $blue1 70%);
   svg {
-    width: 100%;
-    max-width: 35rem;
+    width: 130%;
     height: auto;
+    max-width: 40rem;
     max-height: 100%;
   }
 }
@@ -31,19 +31,28 @@
   text-anchor: middle;
 }
 
-.screen {
+.tv {
+  max-width: 15rem;
   .screenContent, .brightScreen {
     :global { animation: flicker-on 800ms ease-out forwards; }
   }
+  .screenGlare, .wallGlow {
+    :global { animation: dim-in 800ms ease-out forwards; }
+  }
 }
 
-.screen_poorSignal {
-  composes: screen;
+.tv_poorSignal {
+  composes: tv;
 
   .screenContent, .brightScreen {
     :global { animation: flicker-off 1.5s ease-in forwards 750ms; }
   }
+  .screenGlare, .wallGlow {
+    :global { animation: dim-out 1.5s ease-in forwards 750ms; }
+  }
 }
+
+
 
 .staticShake {
   :global { animation: shake-noise 400ms steps(1) infinite; }
@@ -58,12 +67,26 @@
 
 @keyframes :global(flicker-off) {
   0% { opacity: 1; }
-  5% { opacity: .5; }
+  5% { opacity: .7; }
   15% { opacity: 1; }
   40% { transform: skew(0); }
   60% { transform: skew(-5deg); }
   85% { transform: translateY(2rem) skew(5deg) scaleY(.7) }
   100% { transform: translateY(-20rem) skew(-5deg) scaleY(.4); opacity: 0; }
+}
+
+@keyframes :global(dim-in) {
+  0% { opacity: .5 }
+  30% { opacity: .8; }
+  70% { opacity: .6; }
+  100% { opacity: 1; }
+}
+
+@keyframes :global(dim-out) {
+  0% { opacity: 1; }
+  5% { opacity: .8; }
+  15% { opacity: 1; }
+  100% { opacity: .5; }
 }
 
 @keyframes :global(shake-noise) {
@@ -74,5 +97,3 @@
   80% { transform: translate(2rem, 4rem) }
   100% { transform: translate(-7rem, 3rem); opacity: 1 }
 }
-
-
