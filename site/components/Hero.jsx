@@ -10,7 +10,6 @@ export default function () {
     <div className={classes.hero}>
       <svg x={width / 2} y={height / 2} viewBox={`${-width / 2} ${-height / 2} ${width} ${height}`}>
         <TV width={600} border={10} />
-        {/* <circle cx={0} cy={0} r={2} fill="red" /> */}
       </svg>
     </div>
   );
@@ -21,9 +20,22 @@ function TV({ width, border = 20, widescreen }) {
   const sh = widescreen ? sw * (9 / 16) : sw * (3 / 4);
   const height = sh + (border * 2);
 
+  const wallGlowProps = {
+    className: classes.wallGlow,
+    x: -width * 2,
+    y: -width * 2,
+    width: width * 4,
+    height: width * 4,
+    fill: 'url(#wall-glow)'
+  };
+
   return (
     <g className={classes.tv}>
       <defs>
+        <radialGradient id="wall-glow" r={0.2}>
+          <stop offset="0%" stopOpacity={0.4} stopColor="#F4FAFF" />
+          <stop offset="100%" stopOpacity={0} stopColor="#467B9D" />
+        </radialGradient>
         <radialGradient id="tv-gradient" r={1}>
           <stop offset="0%" stopColor="#007EA1" />
           <stop offset="55%" stopColor="#0B0A30" />
@@ -36,6 +48,7 @@ function TV({ width, border = 20, widescreen }) {
           </feMerge>
         </filter>
       </defs>
+      <rect {...wallGlowProps} />
       <RoundedRect width={width} height={height} fill="url(#tv-gradient)" />
       <Screen width={sw} height={sh}>
         <text className={classes.title} fontSize="160" y="30">Antwar</text>
@@ -45,24 +58,28 @@ function TV({ width, border = 20, widescreen }) {
   );
 }
 
-/* TODO
- * display static when no children are present
- */
-
 function Screen({ children, width, height }) {
   const isw = width - 25;
   const ish = height - 25;
   const isd = Math.sqrt((isw ** 2) + (ish ** 2));
-  const screenIsDark = !children;
 
   const screenGlareProps = {
-    opacity: screenIsDark ? 0.5 : 1,
+    className: classes.screenGlare,
     x: -500,
     y: -isd / 2,
     width: 1000,
     height: isd,
     transform: 'rotate(45)',
     fill: 'url(#glare-gradient)'
+  };
+
+  const whiteBackgroundProps = {
+    x: -width / 2,
+    y: -height / 2,
+    width,
+    height,
+    fill: 'white',
+    filter: 'url(#glow)'
   };
 
   const scanlinesProps = {
@@ -96,8 +113,8 @@ function Screen({ children, width, height }) {
           </feMerge>
         </filter>
         <radialGradient id="inner-screen-glow">
-          <stop offset="20%" stopOpacity="0" stopColor="white" />
-          <stop offset="70%" stopOpacity=".15" stopColor="#00BCF5" />
+          <stop offset="10%" stopOpacity="0" stopColor="white" />
+          <stop offset="70%" stopOpacity=".2" stopColor="#00BCF5" />
         </radialGradient>
         <linearGradient id="scanlines" x1="0%" y1="0%" x2="0%" y2="3%" spreadMethod="repeat">
           <stop offset="25%" stopColor="#555" />
@@ -110,18 +127,82 @@ function Screen({ children, width, height }) {
         <linearGradient id="glare-gradient">
           <stop offset="0%" stopOpacity={0} stopColor="#C730CF" />
           <stop offset="25%" stopOpacity={0.05} stopColor="#C730CF" />
-          <stop offset="50%" stopOpacity={0.1} stopColor="#00BCF5" />
+          <stop offset="50%" stopOpacity={0.15} stopColor="#00BCF5" />
           <stop offset="75%" stopOpacity={0.05} stopColor="#C730CF" />
           <stop offset="100%" stopOpacity={0} stopColor="#C730CF" />
         </linearGradient>
       </defs>
-      <RoundedRect width={isw} height={ish} fill={'white'} filter="url(#glow)" />
       <rect {...screenGlareProps} />
       <g clipPath="url(#screen)">
-        {children}
+        <StaticScreen width={width} height={height} />
+        <rect className={classes.brightScreen} {...whiteBackgroundProps} />
+        <g className={classes.screenContent}>{children}</g>
         <rect {...scanlinesProps} />
         <rect {...innerScreenGlowProps} />
       </g>
+    </g>
+  );
+}
+
+function NoisePattern({ id, width, height }) {
+  const minx = -width;
+  const miny = -height;
+  const maxx = width;
+  const maxy = height - 1;
+  let x = minx;
+  let y = Math.round(miny);
+  const lines = [];
+
+  const lineProps = { fill: '#F4FAFF', height: 4 };
+
+  while (y < maxy) {
+    while (x <= maxx) {
+      let length = 3 + Math.round(Math.random() * 13);
+      const space = 3 + Math.round(Math.random() * 7);
+      length = (x + length > maxx) ? maxx - x : length;
+      const props = Object.assign({ x, y, width: length }, lineProps);
+      lines.push(<rect key={lines.length} {...props} />);
+      x = x + length + space;
+    }
+    x = minx;
+    y += 7;
+  }
+
+  return (
+    <pattern id={id} width={width} height={height} patternUnits="userSpaceOnUse">
+      {lines}
+    </pattern>
+  );
+}
+
+function StaticScreen({ width, height }) {
+  const blackDropProps = {
+    x: -width / 2,
+    y: -height / 2,
+    width,
+    height,
+    fill: '#01001C'
+  };
+
+  const lwidth = width * 1.5;
+  const lheight = height * 1.5;
+
+  const staticProps = {
+    x: -lwidth / 2,
+    y: -lheight / 2,
+    width: lwidth,
+    height: lheight,
+    className: classes.staticShake,
+    fill: 'url(#noise-pattern)'
+  };
+
+  return (
+    <g>
+      <defs>
+        <NoisePattern id="noise-pattern" width={width / 2} height={200} />
+      </defs>
+      <rect {...blackDropProps} />
+      <rect {...staticProps} />
     </g>
   );
 }
