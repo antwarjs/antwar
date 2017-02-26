@@ -32,61 +32,46 @@
 }
 
 .tv {
-  max-width: 15rem;
   .screenContent, .brightScreen {
-    :global { animation: flicker-on 800ms ease-out forwards; }
+    :global { animation: flicker 6s ease-out infinite 2s; }
   }
   .screenGlare, .wallGlow {
-    :global { animation: dim-in 800ms ease-out forwards; }
+    :global { animation: dim 6s ease-out infinite 2s; }
   }
 }
-
-.tv_poorSignal {
-  composes: tv;
-
-  .screenContent, .brightScreen {
-    :global { animation: flicker-off 1.5s ease-in forwards 750ms; }
-  }
-  .screenGlare, .wallGlow {
-    :global { animation: dim-out 1.5s ease-in forwards 750ms; }
-  }
-}
-
-
 
 .staticShake {
   :global { animation: shake-noise 400ms steps(1) infinite; }
 }
 
-@keyframes :global(flicker-on) {
-  0% { transform: skew(-10deg) scale(1.1 .6); opacity: 0;  }
-  30% { opacity: .8;}
-  70% { opacity: .3; transform: skew(5deg) }
-  100% { transform: translate(0) skew(0) scale(1); opacity: 1; }
-}
-
-@keyframes :global(flicker-off) {
+@keyframes :global(flicker) {
   0% { opacity: 1; }
-  5% { opacity: .7; }
-  15% { opacity: 1; }
-  40% { transform: skew(0); }
-  60% { transform: skew(-5deg); }
-  85% { transform: translateY(2rem) skew(5deg) scaleY(.7) }
-  100% { transform: translateY(-20rem) skew(-5deg) scaleY(.4); opacity: 0; }
+  5% { opacity: .6; }
+  13% { opacity: 1; }
+
+  20% { opacity: 1; transform: none; }
+  25% { transform: skew(-5deg); }
+  30% { opacity: .3; transform: translateY(3rem) skew(5deg) scaleY(.7) }
+  35% { opacity: 0; transform: translateY(-20rem) skew(-5deg) scaleY(.4); }
+
+  60% { opacity: 0; transform: translate(0) skew(-5deg); }
+  63% { opacity: .7;}
+  66% { opacity: .4; transform: skew(5deg) }
+  70% { opacity: 1; transform: none; }
 }
 
-@keyframes :global(dim-in) {
-  0% { opacity: .5 }
-  30% { opacity: .8; }
-  70% { opacity: .6; }
-  100% { opacity: 1; }
-}
-
-@keyframes :global(dim-out) {
+@keyframes :global(dim) {
   0% { opacity: 1; }
   5% { opacity: .8; }
-  15% { opacity: 1; }
-  100% { opacity: .5; }
+  13% { opacity: 1; }
+
+  20% { opacity: 1; }
+  35% { opacity: .4; }
+
+  60% { opacity: .4; }
+  63% { opacity: .7;}
+  66% { opacity: .6; }
+  70% { opacity: 1; }
 }
 
 @keyframes :global(shake-noise) {

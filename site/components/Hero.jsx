@@ -15,75 +15,47 @@ export default function () {
   );
 }
 
+function TV({ width, border = 20, widescreen }) {
+  const sw = width - (border * 2);
+  const sh = widescreen ? sw * (9 / 16) : sw * (3 / 4);
+  const height = sh + (border * 2);
 
-class TV extends React.Component {
+  let wallGlowProps = {
+    className: classes.wallGlow,
+    x: -width * 2,
+    y: -width * 2,
+    width: width * 4,
+    height: width * 4,
+    fill: "url(#wall-glow)",
+  };
 
-  constructor() {
-    super();
-    this.state = { hasSignal: false };
-    this.intervalId = null;
-    this.timeoutId = null;
-    this.readjustAntenna = this.readjustAntenna.bind(this);
-  }
-
-  componentDidMount() {
-    this.timeoutId = window.setTimeout(() => {
-      this.intervalId = window.setInterval(this.readjustAntenna, 3000)
-    }, 2000);
-  }
-
-  readjustAntenna() {
-    this.setState({ hasSignal: !this.state.hasSignal });
-  }
-
-  componentWillUnmount() {
-    window.clearInterval(this.intervalId);
-    window.clearTimeout(this.timeoutId);
-  }
-
-  render() {
-    const { width, border = 20, widescreen } = this.props;
-    const sw = width - (border * 2);
-    const sh = widescreen ? sw * (9 / 16) : sw * (3 / 4);
-    const height = sh + (border * 2);
-
-    let wallGlowProps = {
-      className: classes.wallGlow,
-      x: -width * 2,
-      y: -width * 2,
-      width: width * 4,
-      height: width * 4,
-      fill: "url(#wall-glow)",
-    };
-
-    return (
-      <g className={this.state.hasSignal ? classes.tv : classes.tv_poorSignal}>
-        <defs>
-          <radialGradient id="wall-glow" r={.2}>
-            <stop offset="0%" stopOpacity={.4} stopColor="#F4FAFF" />
-            <stop offset="100%" stopOpacity={0} stopColor="#467B9D" />
-          </radialGradient>
-          <radialGradient id="tv-gradient" r={1}>
-            <stop offset="0%" stopColor="#007EA1" />
-            <stop offset="55%" stopColor="#0B0A30" />
-          </radialGradient>
-          <filter id="text-glow">
-            <feGaussianBlur stdDeviation="2.5" result="coloredBlur" />
-            <feMerge>
-              <feMergeNode in="coloredBlur" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
-        </defs>
-        <rect {...wallGlowProps} />
-        <RoundedRect width={width} height={height} fill="url(#tv-gradient)" />
-        <Screen width={sw} height={sh}>
-          <text className={classes.title} fontSize="160" y="30">Antwar</text>
-          <text className={classes.subtitle} fontSize="52" y="85">the static site generator</text>
-        </Screen>
-      </g>
-    );
-  }
+  return (
+    <g className={classes.tv}>
+      <defs>
+        <radialGradient id="wall-glow" r={.2}>
+          <stop offset="0%" stopOpacity={.4} stopColor="#F4FAFF" />
+          <stop offset="100%" stopOpacity={0} stopColor="#467B9D" />
+        </radialGradient>
+        <radialGradient id="tv-gradient" r={1}>
+          <stop offset="0%" stopColor="#007EA1" />
+          <stop offset="55%" stopColor="#0B0A30" />
+        </radialGradient>
+        <filter id="text-glow">
+          <feGaussianBlur stdDeviation="2.5" result="coloredBlur" />
+          <feMerge>
+            <feMergeNode in="coloredBlur" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+      </defs>
+      <rect {...wallGlowProps} />
+      <RoundedRect width={width} height={height} fill="url(#tv-gradient)" />
+      <Screen width={sw} height={sh}>
+        <text className={classes.title} fontSize="160" y="30">Antwar</text>
+        <text className={classes.subtitle} fontSize="52" y="85">the static site generator</text>
+      </Screen>
+    </g>
+  );
 }
 
 function Screen({ children, width, height }) {
@@ -172,39 +144,35 @@ function Screen({ children, width, height }) {
   );
 }
 
-class NoisePattern extends React.Component {
-  shouldComponentUpdate() { return false }
-  render () {
-    let { id, width, height } = this.props
-    const minx = -width;
-    const miny = -height;
-    const maxx = width;
-    const maxy = height - 1;
-    let x = minx;
-    let y = Math.round(miny);
-    const lines = [];
+function NoisePattern({ id, width, height }) {
+  const minx = -width;
+  const miny = -height;
+  const maxx = width;
+  const maxy = height - 1;
+  let x = minx;
+  let y = Math.round(miny);
+  const lines = [];
 
-    const lineProps = { fill: '#F4FAFF', height: 4 };
+  const lineProps = { fill: '#F4FAFF', height: 4 };
 
-    while (y < maxy) {
-      while (x <= maxx) {
-        let length = 3 + Math.round(Math.random() * 13);
-        const space = 3 + Math.round(Math.random() * 7);
-        length = (x + length > maxx) ? maxx - x : length;
-        const props = Object.assign({ x, y, width: length }, lineProps);
-        lines.push(<rect key={lines.length} {...props} />);
-        x = x + length + space;
-      }
-      x = minx;
-      y += 7;
+  while (y < maxy) {
+    while (x <= maxx) {
+      let length = 3 + Math.round(Math.random() * 13);
+      const space = 3 + Math.round(Math.random() * 7);
+      length = (x + length > maxx) ? maxx - x : length;
+      const props = Object.assign({ x, y, width: length }, lineProps);
+      lines.push(<rect key={lines.length} {...props} />);
+      x = x + length + space;
     }
-
-    return (
-      <pattern id={id} width={width} height={height} patternUnits="userSpaceOnUse">
-        {lines}
-      </pattern>
-    );
+    x = minx;
+    y += 7;
   }
+
+  return (
+    <pattern id={id} width={width} height={height} patternUnits="userSpaceOnUse">
+      {lines}
+    </pattern>
+  );
 }
 
 function StaticScreen({ width, height }) {
