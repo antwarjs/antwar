@@ -22,7 +22,6 @@ module.exports = function (env) {
     case 'interactive':
       return merge(
         commonConfig(),
-        buildConfig(PATHS.style),
         interactiveConfig()
       );
     case 'start':
