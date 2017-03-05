@@ -61,7 +61,7 @@ function TV({ width, border = 20, widescreen }) {
 function Screen({ children, width, height }) {
   const isw = width - 25;
   const ish = height - 25;
-  const isd = Math.sqrt((isw ** 2) + (ish ** 2));
+  const isd = Math.sqrt((isw * isw) + (ish * ish));
 
   const screenGlareProps = {
     className: classes.screenGlare,
