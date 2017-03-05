@@ -168,7 +168,7 @@ function processPage({
       return keywords;
     },
     title({ file }) {
-      return file.title;
+      return file.attributes && file.attributes.title;
     },
     url({ sectionName = '', fileName = '' }) {
       return `${sectionName}/${fileName}`;
