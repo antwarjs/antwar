@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 
-const Interactive = ({ id, component, containerProps, ...props }) => {
+const Interactive = ({ id, component, containerProps = {}, ...props }) => {
   const { className, ...remainingContainerProps } = containerProps;
   const mergedClassName = classnames('interactive', className);
 
