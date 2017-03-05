@@ -34,14 +34,14 @@ paths: {
   blog: {
     path() {
       const posts = require.context(
-        'json!yaml-frontmatter!./posts',
+        'json-loader!yaml-frontmatter-loader!./posts',
         false,
         /^\.\/.*\.md$/
       );
 
       if (__DEV__) {
         const drafts = require.context(
-          'json!yaml-frontmatter!./drafts',
+          'json-loader!yaml-frontmatter-loader!./drafts',
           false,
           /^\.\/.*\.md$/
         );

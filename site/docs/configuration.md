@@ -46,7 +46,7 @@ module.exports = {
       title: 'Antwar',
       path() {
         return require.context(
-          'json!yaml-frontmatter!./pages',
+          'json-loader!yaml-frontmatter-loader!./pages',
           false,
           /^\.\/.*\.md$/
         );
@@ -69,7 +69,7 @@ module.exports = {
       title: 'Blog posts',
       path() {
         return require.context(
-          'json!yaml-frontmatter!./posts',
+          'json-loader!yaml-frontmatter-loader!./posts',
           false,
           /^\.\/.*\.md$/
         );
@@ -79,7 +79,7 @@ module.exports = {
       // filtering content based on metadata
       draft() {
         return require.context(
-          'json!yaml-frontmatter!./drafts',
+          'json-loader!yaml-frontmatter-loader!./drafts',
           false,
           /^\.\/.*\.md$/
         );
@@ -111,7 +111,7 @@ module.exports = {
       title: 'Documentation',
       path() {
         return require.context(
-          'json!yaml-frontmatter!./docs',
+          'json-loader!yaml-frontmatter-loader!./docs',
           true,
           /^\.\/.*\.md$/
         );
