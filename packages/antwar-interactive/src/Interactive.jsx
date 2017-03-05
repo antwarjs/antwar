@@ -1,9 +1,13 @@
 import React from 'react';
+import classnames from 'classnames';
 
 const Interactive = ({ id, component, containerProps, ...props }) => {
+  const { className, ...remainingContainerProps } = containerProps;
+  const mergedClassName = classnames('interactive', className);
+
   if (__DEV__) {
     return (
-      <div className="interactive" {...containerProps}>
+      <div className={mergedClassName} {...remainingContainerProps}>
         {React.createElement(component, props)}
       </div>
     );
@@ -11,9 +15,9 @@ const Interactive = ({ id, component, containerProps, ...props }) => {
 
   return (
     <div
-      className="interactive"
+      className={mergedClassName}
       id={id}
-      {...containerProps}
+      {...remainingContainerProps}
       data-props={JSON.stringify(props)}
     />
   );
