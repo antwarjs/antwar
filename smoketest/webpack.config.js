@@ -71,8 +71,8 @@ function interactiveConfig() {
   return {
     resolve: {
       alias: {
-        react: 'preact-compat',
-        'react-dom': 'preact-compat'
+        react: 'preact-compat/dist/preact-compat.min.js',
+        'react-dom': 'preact-compat/dist/preact-compat.min.js'
       }
     },
     plugins: [
