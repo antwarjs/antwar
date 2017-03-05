@@ -146,14 +146,14 @@ function processPage({
       return file.date || null;
     },
     content({ file }) {
-      return file.__content;
+      return file.body;
     },
     preview({ file }) {
       if (file.preview) {
         return file.preview;
       }
 
-      return file.__content && file.__content.slice(0, 100) + '…';
+      return file.body && file.body.slice(0, 100) + '…';
     },
     description({ file }) {
       return file.description || file.preview || config.description;
@@ -178,7 +178,7 @@ function processPage({
   // If there is no content, no need to run content hook
   const contentHook = functions.content;
   functions.content = ({ file }) => {
-    if (file.__content) {
+    if (file.body) {
       return contentHook({ file });
     }
 

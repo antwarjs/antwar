@@ -75,7 +75,7 @@ module.exports = function (env) {
           return o.sectionName + '/' + o.fileName.split('.')[0];
         },
         content(o) {
-          return marked(o.file.__content);
+          return marked(o.file.body);
         }
       },
       redirects: {}

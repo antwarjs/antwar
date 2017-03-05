@@ -47,7 +47,7 @@ module.exports = {
           return o.sectionName + '/' + o.fileName.split('.')[0];
         },
         content(o) {
-          return markdown().process(o.file.__content);
+          return markdown().process(o.file.body);
         }
       }
     },
@@ -92,7 +92,7 @@ module.exports = {
           return `${o.sectionName}/${page}`;
         },
         content(o) {
-          return markdown().process(o.file.__content);
+          return markdown().process(o.file.body);
         }
       },
       layouts: {
@@ -118,7 +118,7 @@ module.exports = {
       },
       processPage: {
         content(o) {
-          return markdown().process(o.file.__content, highlight);
+          return markdown().process(o.file.body, highlight);
         }
       },
       layouts: {
