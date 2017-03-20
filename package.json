@@ -13,6 +13,7 @@
     "gh-pages:build": "webpack",
     "gh-pages:deploy": "gh-pages -d gh-pages",
     "gh-pages:stats": "webpack --json --profile > stats.json",
+    "publish": "lerna publish",
     "start": "cd smoketest && npm start",
     "site": "cd site && npm start"
   },
