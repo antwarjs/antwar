@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Antwar 0.5.0 - Halfway Towards Awesomeness</title>
+    
+    <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Antwar">
+    
+
+    
+      <link href="/site.css" rel="stylesheet">
+    
+  </head>
+  <body>
+    <div class="_2Gxg9_yWrySXyBQDWtNI8w"><div class="YNmKX9cKsFiAq-LJ6jE2s"><nav class="YtpwQVVdphfKtCnB-sWZd"><a class="_1uJxfhViT8S5yna9ssAn2E" href="/">Antwar</a><a href="/">Home</a><a href="/docs">Documentation</a><a href="/blog">Blog</a></nav></div><div class="_2NlguPAtd181Xd0uxWm7i6 _1pYwETq1FZEFujDOymWZ0q"><a href="https://github.com/antwarjs/antwar" class="github-corner"><svg width="80" height="80" viewBox="0 0 250 250" style="position:absolute;top:0;fill:#fff;right:0;"><path class="octo-banner" d="M0 0l115 115h15l12 27 108 108V0z" fill="#151513"></path><path class="octo-arm" d="M128 109c-15-9-9-19-9-19 3-7 2-11 2-11-1-7 3-2 3-2 4 5 2 11 2 11-3 10 5 15 9 16" style="-webkit-transform-origin:130px 106px;transform-origin:130px 106px;"></path><path class="octo-body" d="M115 115s4 2 5 0l14-14c3-2 6-3 8-3-8-11-15-24 2-41 5-5 10-7 16-7 1-2 3-7 12-11 0 0 5 3 7 16 4 2 8 5 12 9s7 8 9 12c14 3 17 7 17 7-4 8-9 11-11 11 0 6-2 11-7 16-16 16-30 10-41 2 0 3-1 7-5 11l-12 11c-1 1 1 5 1 5z"></path></svg></a><div class="_2vLGoMKjPIsz98fNsfoZNa"><header class="_2wEjvqPvFr3U7JbERu8j52"><h1>Antwar 0.5.0 - Halfway Towards Awesomeness</h1></header><div><p>Antwar is one of those projects that was born to fill a need. I wanted to port my <a href="http://nixtu.info/">Blogspot blog</a> to some platform that&#39;s more fun to work with. Initially I looked into <a href="https://ghost.org/">Ghost</a>. The fact that it&#39;s not static was a big turn off. I wanted my blog over Git.</p>
+<blockquote>
+<p>During my dabblings with Ghost I did write a migration path in form of <a href="https://github.com/bebraw/blogger2ghost">blogger2ghost</a>, though. Eventually I came upon <a href="https://github.com/antwarjs/antwar">Antwar</a> and here I am.</p>
+</blockquote>
+<p>Initially Antwar started as a fork of <a href="https://github.com/BradDenver/react-static-site">Brad Denver react-static-site</a>. Early on I wrote a <a href="https://github.com/antwarjs/antwar/wiki/Design">design document</a> to guide development. Since then the project has mutated a lot and gained a life of its own. I doubt Antwar would exist without Brad&#39;s pioneering work.</p>
+<p>Andreas was the first to port <a href="http://eldh.co/">his blog</a> over at Antwar. My requirements are more complex than that and there are still issues like pagination to solve. As a result I have to develop Antwar further till it meets my needs. Incidentally I managed to find a smaller case that allowed me to work towards this larger goal.</p>
+<h2 class="header"><a class="anchor" href="#survivejs-webpack-and-react" id="survivejs-webpack-and-react"></a><span class="text">SurviveJS - Webpack and React</span><a class="icon-link" href="#survivejs-webpack-and-react"></a></h2>
+<p><img src="/assets/img/survivejs.jpg" class="inline-img" alt="SurviveJS site"></p>
+<p><a href="http://survivejs.com/">SurviveJS - Webpack and React</a> is a little book I have been working on lately. No book is complete without a little site to accompany it. In this case I wanted to offer people an easy way to consume the content online and optionally buy an electronic copy (<strong>wink wink, nudge nudge</strong>).</p>
+<p>I realized Antwar could allow me to reach this goal with a bit of work. As I like the design work Andreas has done on the default theme of Antwar that allowed me to focus on getting things to work adequately and focus on software design.</p>
+<p>Earlier Antwar was designed based on a static directory structure. Primarily it relied on <code>pages</code>, <code>drafts</code> and <code>posts</code> directories and Markdown (with YAML headmatter) format. My book, however, uses another kind of structure, chapters are missing headmatter and ordering of chapters is defined by an external file.</p>
+<p>This meant that Antwar had to change. And change it did.</p>
+<h2 class="header"><a class="anchor" href="#antwar-0-5-0-expanded-configuration" id="antwar-0-5-0-expanded-configuration"></a><span class="text">Antwar 0.5.0 - Expanded Configuration</span><a class="icon-link" href="#antwar-0-5-0-expanded-configuration"></a></h2>
+<p>Antwar, just like Webpack, is based on top of the idea of a project based configuration. We call that <code>antwar.config.js</code>. The idea is that you define how your content maps as a site there. To make Antwar work for my purposes I needed to generalize the configuration quite a bit. There are a couple of important additions related to asset handling, plugins, theming and paths.</p>
+<blockquote>
+<p>You can find the exact configuration in its entirety at <a href="https://github.com/survivejs/webpack_react">survivejs/webpack_react</a> repository.</p>
+</blockquote>
+<h3 class="header"><a class="anchor" href="#assets" id="assets"></a><span class="text">Assets</span><a class="icon-link" href="#assets"></a></h3>
+<p>Asset configuration allows you to copy arbitrary assets within your build. In my case I needed to copy <code>images</code> directory and <code>CNAME</code> file. Latter is used by GitHub to deal with domain mapping. If CNAME is set to point at your domain and you have configured your DNS to point at GitHub static hosting, your site will show up there.</p>
+<pre><code class="lang-javascript">module.exports = {
+  assets: [
+    {
+      from: &#39;manuscript/images&#39;,
+      to: &#39;images&#39;,
+    },
+    {
+      from: &#39;./CNAME&#39;,
+      to: &#39;./&#39;,
+    }
+  ],
+  ...
+};
+</code></pre>
+<h3 class="header"><a class="anchor" href="#plugins" id="plugins"></a><span class="text">Plugins</span><a class="icon-link" href="#plugins"></a></h3>
+<p>We decided to standardize on plugin format. Now each plugin should return a function which takes possible options. In this case I&#39;m setting up highlighting and previous/next links for all sections of the site. Later on we intend to allow more specific configuration per site section.</p>
+<p>Plugins can inject new metadata and even markup to pages making this a powerful extension mechanism. Besides highlight and prevnext we have set up RSS plugin and there are plans for a few others including various commenting plugins.</p>
+<pre><code class="lang-javascript">var highlightPlugin = require(&#39;antwar-highlight-plugin&#39;);
+var prevnextPlugin = require(&#39;antwar-prevnext-plugin&#39;);
+
+module.exports = {
+  plugins: [
+    highlightPlugin({
+      style: function() {
+        require(&#39;highlight.js/styles/github.css&#39;);
+      },
+      languages: [&#39;bash&#39;, &#39;javascript&#39;, &#39;json&#39;, &#39;html&#39;],
+    }),
+    prevnextPlugin({
+      ...
+    }),
+  ],
+  ...
+};
+</code></pre>
+<h3 class="header"><a class="anchor" href="#theming" id="theming"></a><span class="text">Theming</span><a class="icon-link" href="#theming"></a></h3>
+<p>In this iteration we didn&#39;t spend much thought on theming. Themes gained some minor addition but I consider this portion of Antwar underdeveloped. We have a nice looking default theme thanks to Andreas but I feel there&#39;s room for improvement here. For completeness sake consider the example below:</p>
+<pre><code class="lang-javascript">module.exports = {
+  theme: {
+    customStyles: &#39;custom.scss&#39;,
+    name: &#39;antwar-default-theme&#39;,
+    navigation: [
+      {
+        title: &#39;Home&#39;,
+        url: &#39;/&#39;
+      },
+      {
+        title: &#39;Table of Contents&#39;,
+        url: &#39;/webpack_react&#39;
+      },
+    ],
+  },
+  ...
+};
+</code></pre>
+<p>I think we&#39;ll push navigation to a plugin eventually. Now it just renders a navigation like that for each page. This is handy but not as good as it can be.</p>
+<h3 class="header"><a class="anchor" href="#paths" id="paths"></a><span class="text">Paths</span><a class="icon-link" href="#paths"></a></h3>
+<p>The greatest innovation of Antwar 0.5.0 is the path configuration. Paths allow you to map content to your site. We let Webpack do the heavy lifting for us as you can see below. The system allows you to perform heavy transformations over data, sort it and so on.</p>
+<pre><code class="lang-javascript">module.exports = {
+  paths: {
+    &#39;/&#39;: {
+      path: function() {
+        return require.context(&#39;./pages&#39;);
+      },
+    },
+    webpack_react: {
+      title: &#39;Table of Contents&#39;,
+      path: function() {
+        return require.context(&#39;./manuscript&#39;, true, /^\.\/.*\.md$/);
+      },
+      processItem: {
+        title: function(o) {
+          return removeMd(o.file.__content.split(&#39;\n&#39;)[0]);
+        },
+        content: function(o) {
+          var content = o.file.__content.split(&#39;\n&#39;).slice(1).join(&#39;\n&#39;);
+
+          return mdWriter.render(mdReader.parse(content));
+        },
+        preview: function(o) {
+          ...
+        },
+      },
+      sort: function(files) {
+        var order = require(&#39;raw!./manuscript/Book.txt&#39;).split(&#39;\n&#39;).filter(id);
+        var ret = [];
+
+        ...
+
+        return ret;
+      },
+    }
+  }
+};
+</code></pre>
+<h2 class="header"><a class="anchor" href="#antwar-0-5-0-not-just-for-blogs" id="antwar-0-5-0-not-just-for-blogs"></a><span class="text">Antwar 0.5.0 - Not Just for Blogs</span><a class="icon-link" href="#antwar-0-5-0-not-just-for-blogs"></a></h2>
+<p>Even though that&#39;s a lot of configuration you can see logic in it quite fast. It&#39;s just a series of mappings. In this case I define sections for <code>/</code> and <code>webpack_react</code>. Those <code>/</code> pages map to site root. <code>webpack_react</code> will receive a section of its own. Antwar will generate a section index and a page per entry file it finds for that.</p>
+<p>The nice thing here is that we can leverage the power of Webpack to do all the heavy lifting. That&#39;s where all those <code>require.context</code> and <code>require</code> calls come from. It&#39;s true you&#39;ll have to understand Webpack a little bit to use our tool. On the plus side we take care of the configuration for you.</p>
+<p>This design allowed us to drop the earlier static structure we depended upon. As a nice bonus we can now serve any content Webpack supports and aren&#39;t bound on Markdown anymore. You can of course author your pages through React components if you need something truly custom. The components will be compiled into HTML. One day we might want to allow something more dynamic.</p>
+<p>We also moved from absolute links to relative ones. This means you can host Antwar below an arbitrary url structure without any problem. This is important in case you want host something below GitHub Pages (ie. not at root).</p>
+<p>I think with a bit of effort you could host image galleries and such on top of Antwar but these are ideas I have yet to explore. Ideally you would just point a directory of images to it and everything would just work.</p>
+<h2 class="header"><a class="anchor" href="#antwar-what-next-" id="antwar-what-next-"></a><span class="text">Antwar - What Next?</span><a class="icon-link" href="#antwar-what-next-"></a></h2>
+<p>Older features, such as interactive development mode (<code>antwar -d</code>) and easy GitHub deployment (<code>antwar -D</code>) still work of course and make Antwar pleasant to use. For me Antwar is starting to feel like a serious tool now. I can, for instance, add a blog to my book site with a bit of configuration. Particularly <code>paths</code> mappings feel powerful and allow me to develop on top of Antwar instead of in it.</p>
+<p>There is still design and work left to do on theming and plugin department. Even though it is easy to develop plugins to extend a site even right now I feel we&#39;ll need to take the approach further. In particular we&#39;ll want to make sure you can customize site per section adequately.</p>
+<p>In order to provide better sites for various libraries of mine, such as <a href="https://bebraw.github.io/reactabular/">reactabular</a>, I&#39;ll need to think carefully about integrating interactive React examples to the output. I believe with a bit of work Antwar could become a good basis for project sites.</p>
+<p>I believe Antwar 0.5.0 is an important step towards a refreshingly different static site generator. It is starting to show some promise already. If you are willing to tolerate a certain lack of features and possible little glitches, maybe you should give it a go. In any case keep an eye on the project as here we come!</p>
+</div><footer class="smZDwh3a586i8cpMQRqg8"><div class="prevnext"><div class="prevnext__prev"><div class="prevnext__bg" style="background-image:url(undefined);"></div><span class="prevnext__info">Previous post</span><a class="prevnext__link" href="/blog/"></a></div><div class="prevnext__next"><div class="prevnext__bg" style="background-image:url(undefined);"></div><span class="prevnext__info">Next post</span><a class="prevnext__link" href="/blog/second-post">The sequel</a></div></div></footer></div></div><noscript></noscript><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-60511795-1', 'auto');ga('send', 'pageview');</script></div>
+
+    
+  </body>
+</html>
