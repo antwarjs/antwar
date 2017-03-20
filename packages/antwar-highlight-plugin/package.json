@@ -1,6 +1,6 @@
 {
   "name": "antwar-highlight-plugin",
-  "version": "0.3.0",
+  "version": "0.9.0",
   "description": "Highlight plugin for antwar",
   "main": "index.js",
   "scripts": {
@@ -27,6 +27,5 @@
     "lodash": "^3.9.3",
     "prism-languages": "^0.1.2",
     "prismjs": "0.0.1"
-  },
-  "license": "MIT"
+  }
 }
