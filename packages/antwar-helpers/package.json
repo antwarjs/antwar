@@ -2,7 +2,7 @@
   "name": "antwar-helpers",
   "description": "Helpers (layouts/components) for Antwar projects",
   "author": "Juho Vepsalainen <bebraw@gmail.com>",
-  "version": "0.9.0",
+  "version": "0.10.0",
   "scripts": {
     "build": "rimraf ./dist && babel ./src --out-dir ./dist",
     "prepublish": "npm run build"

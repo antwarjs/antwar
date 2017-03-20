@@ -2,7 +2,7 @@
   "name": "antwar-ga-plugin",
   "description": "Google Analytics plugin for Antwar",
   "author": "Juho Vepsalainen <bebraw@gmail.com>",
-  "version": "0.9.0",
+  "version": "0.10.0",
   "dependencies": {},
   "devDependencies": {},
   "repository": {
