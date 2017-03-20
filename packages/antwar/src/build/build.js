@@ -25,7 +25,7 @@ module.exports = function (config) {
 
     return webpackConfig(config)
       .then(runWebpack())
-      .then(generateParameters(config.antwar))
+      .then(generateParameters(config.antwar, config.webpack))
       .then(writeExtras())
       .then(executeTasks(log))
       .then(removeSiteBundle(config.antwar.output))
@@ -49,7 +49,9 @@ function runWebpack() {
   });
 }
 
-function generateParameters(config) {
+function generateParameters(antwarConfig, webpackConfig) {
+  const publicPath = webpackConfig.output ? webpackConfig.output.publicPath : '';
+
   return stats => new Promise(function (resolve) {
     const assets = stats.compilation.assets;
     const cssFiles = Object.keys(assets).map((asset) => {
@@ -65,17 +67,17 @@ function generateParameters(config) {
     const template = {
       cssFiles: [],
       jsFiles: [],
-      ...config.template
+      ...antwarConfig.template
     };
 
     const cwd = process.cwd();
-    const site = require(_path.join(cwd, config.output, 'site.js'));
+    const site = require(_path.join(cwd, antwarConfig.output, 'site.js'));
     const parameters = {
       cwd,
       renderPage: site.renderPage,
       allPaths: site.allPaths,
-      output: _path.join(cwd, config.output),
-      config,
+      output: _path.join(cwd, antwarConfig.output),
+      config: antwarConfig,
       cssFiles,
       jsFiles,
       templates: {
@@ -89,7 +91,7 @@ function generateParameters(config) {
               encoding: 'utf8'
             }
           ),
-          cssFiles: cssFiles.map(cssFile => '/' + _path.basename(cssFile)),
+          cssFiles: cssFiles.map(cssFile => publicPath + '/' + _path.basename(cssFile)),
           jsFiles
         },
         // TODO: expose to the user?
