@@ -125,10 +125,6 @@ function developmentConfig(stylePaths) {
 
 function buildConfig(stylePaths) {
   return {
-    output: {
-      // XXX: patch paths - this can be removed once there's a root domain
-      publicPath: '//antwarjs.github.io/antwar'
-    },
     module: {
       rules: [
         {
