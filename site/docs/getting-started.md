@@ -8,15 +8,15 @@ headerImage: 'https://unsplash.imgix.net/photo-1422513391413-ddd4f2ce3340?q=75&f
 
 Follow these steps to create your antwar site.
 
-1. Set up a project (`mkdir demo && cd demo && npm init -y`)
+1\. Set up a project (`mkdir demo && cd demo && npm init -y`)
 
-2. Install Antwar core
+2\. Install Antwar core
 
 ```
 npm i antwar -D
 ```
 
-3. Create a bootstrap script
+3\. Create a bootstrap script
 
 **bootstrap.js**
 
@@ -39,7 +39,7 @@ antwar[environment]({
 });
 ```
 
-4. Set up scripts to run it
+4\. Set up scripts to run it
 
 **package.json**
 
@@ -53,6 +53,6 @@ antwar[environment]({
 }
 ```
 
-5. Set up Antwar and webpack configuration. See [Antwar repository](https://github.com/antwarjs/antwar) (`site/` directory) for reference.
+5\. Set up Antwar and webpack configuration. See [Antwar repository](https://github.com/antwarjs/antwar) (`site/` directory) for reference.
 
-6. Add initial content and start developing.
+6\. Add initial content and start developing.
