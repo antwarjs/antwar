@@ -8,20 +8,51 @@ headerImage: 'https://unsplash.imgix.net/photo-1422513391413-ddd4f2ce3340?q=75&f
 
 Follow these steps to create your antwar site.
 
-1. Download the command line tool.
+1. Set up a project (`mkdir demo && cd demo && npm init -y`)
+
+2. Install Antwar core
+
 ```
-npm i antwar-cli -g
+npm i antwar -D
 ```
 
-2. Create a boilerplate project
+2. Create a bootstrap script
+
+**bootstrap.js**
+
 ```
-antwar --init <directory name>
-cd <directory name>
+const antwar = require('antwar');
+
+const environment = process.env.npm_lifecycle_event;
+
+// Patch Babel env to make HMR switch work
+process.env.BABEL_ENV = environment;
+
+antwar[environment]({
+  environment,
+  antwar: require('./antwar.config'),
+  webpack: require('./webpack.config')
+}).catch(function (err) {
+  console.error(err);
+
+  process.exit(1);
+});
 ```
 
-3. Start the development environment
-```
-antwar --develop (or -d for short)
+3. Set up scripts to run it
+
+**package.json**
+
+```json
+{
+  "scripts": {
+    "start": "node ./bootstrap.js",
+    "build": "node ./bootstrap.js"
+  },
+  ...
+}
 ```
 
-4. Add your content. When you're ready, run  `antwar --build` to generate the static files.
+4. Set up Antwar and webpack configuration. See [Antwar repository](https://github.com/antwarjs/antwar) (`site/` directory) for reference.
+
+5. Add initial content and start developing.
