@@ -4,7 +4,7 @@ sort: 1
 preview: "Understand configuration, understand Antwar"
 ---
 
-Just like [Webpack](https://webpack.github.io/), the heart of Antwar, also Antwar has been built on the configuration. `antwar.config.js` describes all metadata related to your site. This includes basic information such as site title, author, sections and so on. It also defines which theme and which plugins you use.
+Just like [Webpack](https://webpack.js.org/), the heart of Antwar, also Antwar has been built on the configuration. `antwar.config.js` describes all metadata related to your site. This includes basic information such as site title, author, sections and so on. It also defines which theme and which plugins you use.
 
 ## Basic Example
 
