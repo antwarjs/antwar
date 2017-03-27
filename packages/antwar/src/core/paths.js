@@ -153,13 +153,25 @@ function processPage({
         return file.preview;
       }
 
+      if (file.attributes && file.attributes.preview) {
+        return file.attributes.preview;
+      }
+
       return file.body && file.body.slice(0, 100) + '…';
     },
     description({ file }) {
+      if (file.attributes) {
+        return file.attributes.description || file.attributes.preview || config.description;
+      }
+
       return file.description || file.preview || config.description;
     },
     keywords({ file }) {
-      const keywords = file.keywords || config.keywords || [];
+      let keywords = file.keywords || config.keywords || [];
+
+      if (file.attributes && file.attributes.keywords) {
+        keywords = file.attributes.keywords;
+      }
 
       if (_.isString(keywords)) {
         return keywords.split(',');
