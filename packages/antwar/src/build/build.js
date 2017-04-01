@@ -1,4 +1,5 @@
 const _fs = require('fs');
+const _os = require('os');
 const _path = require('path');
 
 const _ = require('lodash');
@@ -27,7 +28,7 @@ module.exports = function (config) {
       .then(runWebpack())
       .then(generateParameters(config.antwar, config.webpack))
       .then(writeExtras())
-      .then(executeTasks(log))
+      .then(executeTasks(log, config.antwar.maximumWorkers))
       .then(removeSiteBundle(config.antwar.output))
       .catch(reject);
   });
@@ -153,9 +154,9 @@ function writeExtras() {
   });
 }
 
-function executeTasks(log) {
+function executeTasks(log, maximumWorkers) {
   return tasks => new Promise(function (resolve, reject) {
-    async.each(tasks, function (o, cb) {
+    async.eachLimit(tasks, maximumWorkers || _os.cpus().length, function (o, cb) {
       log('Starting task', o.task);
 
       workers(o, function (err) {
