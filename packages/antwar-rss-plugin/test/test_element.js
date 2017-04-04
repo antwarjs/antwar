@@ -21,9 +21,9 @@ test('entries generate xml', function (t) {
 
   const expected = '<entry>' +
     '<title>' + pages.demo.title + '</title>' +
-    '<id>ademotitle' + moment(pages.demo.date, 'YYYY-MM-DD').format().toLowerCase() + '</id>' +
+    '<id>ademotitle' + moment(pages.demo.date, 'YYYY-MM-DD').utcOffset(0).format().toLowerCase() + '</id>' +
     '<link href="' + baseUrl + 'demo"></link>' +
-    '<updated>' + moment(pages.demo.date, 'YYYY-MM-DD').format() + '</updated>' +
+    '<updated>' + moment(pages.demo.date, 'YYYY-MM-DD').utcOffset(0).format() + '</updated>' +
     '<content type="html">' + pages.demo.content + '</content>' +
     '</entry>';
 
@@ -48,9 +48,9 @@ test('does not resolve full urls', function (t) {
 
   const expected = '<entry>' +
     '<title>' + pages.demo.title + '</title>' +
-    '<id>ademotitle' + moment(pages.demo.date, 'YYYY-MM-DD').format().toLowerCase() + '</id>' +
+    '<id>ademotitle' + moment(pages.demo.date, 'YYYY-MM-DD').utcOffset(0).format().toLowerCase() + '</id>' +
     '<link href="' + baseUrl + 'demo"></link>' +
-    '<updated>' + moment(pages.demo.date, 'YYYY-MM-DD').format() + '</updated>' +
+    '<updated>' + moment(pages.demo.date, 'YYYY-MM-DD').utcOffset(0).format() + '</updated>' +
     '<content type="html">&lt;p&gt;#test\n&lt;a href=&quot;http://google.com&quot;&gt;check out&lt;/a&gt;&lt;/p&gt;\n</content>' +
     '</entry>';
 
@@ -75,9 +75,9 @@ test('entries resolve relative urls against base', function (t) {
 
   const expected = '<entry>' +
     '<title>' + pages.demo.title + '</title>' +
-    '<id>ademotitle' + moment(pages.demo.date, 'YYYY-MM-DD').format().toLowerCase() + '</id>' +
+    '<id>ademotitle' + moment(pages.demo.date, 'YYYY-MM-DD').utcOffset(0).format().toLowerCase() + '</id>' +
     '<link href="' + baseUrl + 'demo"></link>' +
-    '<updated>' + moment(pages.demo.date, 'YYYY-MM-DD').format() + '</updated>' +
+    '<updated>' + moment(pages.demo.date, 'YYYY-MM-DD').utcOffset(0).format() + '</updated>' +
     '<content type="html">&lt;p&gt;#test\n&lt;a href=&quot;http://demo.com/blog/demo-interview&quot;&gt;check out&lt;/a&gt;&lt;/p&gt;\n</content>' +
     '</entry>';
 
@@ -102,9 +102,9 @@ test('entries resolve absolute urls against base', function (t) {
 
   const expected = '<entry>' +
     '<title>' + pages.demo.title + '</title>' +
-    '<id>ademotitle' + moment(pages.demo.date, 'YYYY-MM-DD').format().toLowerCase() + '</id>' +
+    '<id>ademotitle' + moment(pages.demo.date, 'YYYY-MM-DD').utcOffset(0).format().toLowerCase() + '</id>' +
     '<link href="' + baseUrl + 'demo"></link>' +
-    '<updated>' + moment(pages.demo.date, 'YYYY-MM-DD').format() + '</updated>' +
+    '<updated>' + moment(pages.demo.date, 'YYYY-MM-DD').utcOffset(0).format() + '</updated>' +
     '<content type="html">&lt;p&gt;#test\n&lt;a href=&quot;http://demo.com/blog/demo-interview&quot;&gt;check out&lt;/a&gt;&lt;/p&gt;\n</content>' +
     '</entry>';
 
@@ -129,9 +129,9 @@ test('entries resolve relative urls against base', function (t) {
 
   const expected = '<entry>' +
     '<title>' + pages.demo.title + '</title>' +
-    '<id>ademotitle' + moment(pages.demo.date, 'YYYY-MM-DD').format().toLowerCase() + '</id>' +
+    '<id>ademotitle' + moment(pages.demo.date, 'YYYY-MM-DD').utcOffset(0).format().toLowerCase() + '</id>' +
     '<link href="' + baseUrl + 'demo"></link>' +
-    '<updated>' + moment(pages.demo.date, 'YYYY-MM-DD').format() + '</updated>' +
+    '<updated>' + moment(pages.demo.date, 'YYYY-MM-DD').utcOffset(0).format() + '</updated>' +
     '<content type="html">&lt;p&gt;#test\n&lt;a href=&quot;http://demo.com/blog/demo-interview&quot;&gt;check out&lt;/a&gt;&lt;/p&gt;\n</content>' +
     '</entry>';
 

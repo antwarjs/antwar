@@ -43,13 +43,13 @@ exports.entries = function (baseUrl, sections, pages) {
         'id',
         {},
         'a' + _.camelCase(_.escape(_.deburr(page.title))).toLowerCase() +
-        moment(page.date, 'YYYY-MM-DD').format().toLowerCase()
+        moment(page.date, 'YYYY-MM-DD').utcOffset(0).format().toLowerCase()
       ),
       e('link', { href: _url.resolve(baseUrl, name) }, ''),
       e(
         'updated',
         {},
-        moment(page.date, 'YYYY-MM-DD').format()
+        moment(page.date, 'YYYY-MM-DD').utcOffset(0).format()
       ),
       e(
         'content',
