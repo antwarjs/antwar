@@ -8,28 +8,28 @@
     "prepublish": "npm run build"
   },
   "dependencies": {
-    "async": "^2.1.4",
+    "async": "^2.4.0",
     "chalk": "^1.1.3",
     "cheerio": "^0.22.0",
-    "ejs": "^2.5.5",
-    "es6-promise": "^4.0.5",
-    "history": "^2.0.0",
+    "ejs": "^2.5.6",
+    "es6-promise": "^4.1.0",
     "html-webpack-plugin": "^2.28.0",
     "lodash": "^4.17.4",
     "mkdirp": "^0.5.1",
     "promise.prototype.finally": "^2.0.1",
     "prop-types": "^15.5.8",
-    "react": "^15.4.2",
-    "react-dom": "^15.4.2",
-    "react-router": "^2.8.0",
-    "rimraf": "^2.5.4",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "react-router": "^4.1.1",
+    "react-router-dom": "^4.1.1",
+    "rimraf": "^2.6.1",
     "simple-timestamp": "^1.0.0",
     "tmp": "0.0.31",
     "touch": "^1.0.0",
     "worker-farm": "^1.3.1"
   },
   "devDependencies": {
-    "babel-cli": "^6.22.2"
+    "babel-cli": "^6.24.1"
   },
   "peerDependencies": {
     "webpack": ">= 2.0 < 3.0",

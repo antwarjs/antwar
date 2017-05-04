@@ -1,4 +1,5 @@
 import React from 'react';
+import { Route } from 'react-router';
 import config from 'config';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
@@ -88,4 +89,4 @@ function renderSection(page, props, section) {
   return content;
 }
 
-export default BodyContent;
+export default () => <Route component={BodyContent} />;

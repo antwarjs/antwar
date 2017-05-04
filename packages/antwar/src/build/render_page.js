@@ -1,37 +1,14 @@
-const React = require('react');
-const ReactDOMServer = require('react-dom/server');
-const Router = require('react-router');
-const History = require('history');
-const Routes = require('../core/Routes');
+import React from 'react';
+import ReactDOMServer from 'react-dom/server';
+import { StaticRouter } from 'react-router';
+import BodyContent from '../core/BodyContent';
 
-module.exports = function (url, cb) {
-  const history = History.createMemoryHistory();
-  const location = history.createLocation(url);
+// TODO: what if a route isn't found?
+module.exports = function renderPage(url, cb) {
+  const context = {};
+  const html = ReactDOMServer.renderToStaticMarkup(
+    <StaticRouter location={url} context={context}><BodyContent /></StaticRouter>
+  );
 
-  Router.match({
-    routes: Routes,
-    location
-  },
-  function (error, redirectLocation, renderProps) {
-    if (error) {
-      return cb(error);
-    }
-
-    if (!error && !redirectLocation && !renderProps) {
-      return cb(
-        new Error(
-          `No route matching the current location was found!
-          Url: ${url},
-          Location: ${JSON.stringify(location, null, 2)}`
-        )
-      );
-    }
-
-    return cb(
-      null,
-      ReactDOMServer.renderToStaticMarkup(
-        React.createElement(Router.RouterContext, renderProps)
-      )
-    );
-  });
+  cb(null, html);
 };

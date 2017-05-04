@@ -1,6 +1,7 @@
 import React from 'react';
 import { GoogleAnalytics } from 'antwar-helpers';
-import { withRouter, Link } from 'react-router';
+import { withRouter } from 'react-router';
+import { Link, NavLink } from 'react-router-dom';
 import GitHubCorner from 'react-github-corner';
 import PropTypes from 'prop-types';
 
@@ -12,10 +13,13 @@ import '../styles/global.scss';
 
 import classes from './SiteBody.scss';
 
-const SiteBody = ({ children, router }) => {
-  const isHomePage = router.isActive('/');
+const SiteBody = ({ children, location }) => {
+  const isHomePage = location.pathname === '/';
   const classNames = [classes.body];
-  if (isHomePage) classNames.push(classes.home);
+
+  if (isHomePage) {
+    classNames.push(classes.home);
+  }
 
   return (
     <div className={classNames.join(' ')}>
@@ -26,9 +30,9 @@ const SiteBody = ({ children, router }) => {
       <div className={classes.navWrapper}>
         <nav className={classes.nav}>
           <Link className={classes.navTitle} to="/">Antwar</Link>
-          <Link activeClassName={classes.activeLink} to="/">Home</Link>
-          <Link activeClassName={classes.activeLink} to="/docs">Documentation</Link>
-          <Link activeClassName={classes.activeLink} to="/blog">Blog</Link>
+          <NavLink activeClassName={classes.activeLink} to="/">Home</NavLink>
+          <NavLink activeClassName={classes.activeLink} to="/docs">Documentation</NavLink>
+          <NavLink activeClassName={classes.activeLink} to="/blog">Blog</NavLink>
         </nav>
       </div>
 

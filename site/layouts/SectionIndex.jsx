@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import { Moment } from 'antwar-helpers';
 import GitHubCorner from 'react-github-corner';
 
