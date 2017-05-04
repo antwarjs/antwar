@@ -7,7 +7,9 @@ import BodyContent from '../core/BodyContent';
 module.exports = function renderPage(url, cb) {
   const context = {};
   const html = ReactDOMServer.renderToStaticMarkup(
-    <StaticRouter location={url} context={context}><BodyContent /></StaticRouter>
+    <StaticRouter location={url} context={context}>
+      <BodyContent />
+    </StaticRouter>
   );
 
   cb(null, html);
