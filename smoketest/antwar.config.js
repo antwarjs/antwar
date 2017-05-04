@@ -55,7 +55,7 @@ module.exports = function (env) {
 
   function section(contentCb) {
     return {
-      title: 'Smoke test',
+      title: 'Section test',
       path() {
         return contentCb();
       },

@@ -52,7 +52,8 @@ function allPages() {
           return [
             {
               type: 'custom',
-              fileName: sectionName
+              fileName: sectionName,
+              section
             }
           ];
         }
@@ -187,7 +188,7 @@ function processPage({
       return keywords;
     },
     title({ file }) {
-      return file.attributes && file.attributes.title;
+      return (section && section.title) || (file.attributes && file.attributes.title);
     },
     url({ sectionName = '', fileName = '' }) {
       return `${sectionName}/${fileName}`;
