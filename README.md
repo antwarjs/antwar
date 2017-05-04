@@ -2,7 +2,7 @@
 
 # [Antwar](https://antwar.js.org/)
 
-A static site generator using [React](https://github.com/facebook/react).
+A static site generator using [React](https://github.com/facebook/react) and [webpack](https://webpack.js.org).
 
 ## Getting started
 
