@@ -2,7 +2,7 @@
   "private": true,
   "name": "antwar-monorepo",
   "version": "1.0.0",
-  "description": "A static site engine built with React and Webpack",
+  "description": "A static site engine built with React and webpack",
   "scripts": {
     "build": "lerna run build",
     "init": "npm install && lerna bootstrap && npm run build",
