@@ -1,5 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
+import PropTypes from 'prop-types';
 
 const Interactive = ({ id, component, containerProps = {}, ...props }) => {
   const { className, ...remainingContainerProps } = containerProps;
@@ -23,8 +24,8 @@ const Interactive = ({ id, component, containerProps = {}, ...props }) => {
   );
 };
 Interactive.propTypes = {
-  id: React.PropTypes.string.isRequired,
-  component: React.PropTypes.any.isRequired
+  id: PropTypes.string.isRequired,
+  component: PropTypes.any.isRequired
 };
 
 export default Interactive;

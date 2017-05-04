@@ -1,6 +1,7 @@
 import React from 'react';
 import config from 'config';
 import _ from 'lodash';
+import PropTypes from 'prop-types';
 import paths from './paths';
 
 const BodyContent = ({ location }) => {
@@ -15,7 +16,7 @@ const BodyContent = ({ location }) => {
   );
 };
 BodyContent.propTypes = {
-  location: React.PropTypes.object
+  location: PropTypes.object
 };
 
 function getSection(page, pathname, allPages) {

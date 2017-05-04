@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const SiteBody = ({ children }) => (
   <div>
@@ -8,7 +9,7 @@ const SiteBody = ({ children }) => (
   </div>
 );
 SiteBody.propTypes = {
-  children: React.PropTypes.any
+  children: PropTypes.any
 };
 
 export default SiteBody;

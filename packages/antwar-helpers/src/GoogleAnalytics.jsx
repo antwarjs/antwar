@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const GoogleAnalytics = ({ analyticsId }) => {
   if (__DEV__) {
@@ -14,7 +15,7 @@ const GoogleAnalytics = ({ analyticsId }) => {
   );
 };
 GoogleAnalytics.propTypes = {
-  analyticsId: React.PropTypes.string.isRequired
+  analyticsId: PropTypes.string.isRequired
 };
 
 export default GoogleAnalytics;

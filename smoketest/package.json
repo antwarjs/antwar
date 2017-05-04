@@ -21,6 +21,8 @@
     "test"
   ],
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "prop-types": "^15.5.8"
+  },
   "devDependencies": {}
 }

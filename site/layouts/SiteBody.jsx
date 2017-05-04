@@ -2,6 +2,7 @@ import React from 'react';
 import { GoogleAnalytics } from 'antwar-helpers';
 import { withRouter, Link } from 'react-router';
 import GitHubCorner from 'react-github-corner';
+import PropTypes from 'prop-types';
 
 import Typekit from '../components/Typekit';
 
@@ -39,9 +40,8 @@ const SiteBody = ({ children, router }) => {
   );
 };
 
-
 SiteBody.propTypes = {
-  children: React.PropTypes.any
+  children: PropTypes.any
 };
 
 export default withRouter(SiteBody);

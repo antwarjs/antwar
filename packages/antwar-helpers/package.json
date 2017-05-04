@@ -7,7 +7,9 @@
     "build": "rimraf ./dist && babel ./src --out-dir ./dist",
     "prepublish": "npm run build"
   },
-  "dependencies": {},
+  "dependencies": {
+    "prop-types": "^15.5.8"
+  },
   "devDependencies": {
     "babel-cli": "^6.14.0",
     "moment": "^2.17.1",
