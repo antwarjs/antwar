@@ -90,18 +90,6 @@
         "packages/**/*.{js,jsx}"
       ],
       "ignore": "packages/*/dist/*.js"
-    },
-    "test": {
-      "patterns": [
-        "packages/**/*.js"
-      ],
-      "ignore": "packages/*/dist/*.js"
-    },
-    "test:lint": {
-      "patterns": [
-        "{packages,site}/**/*.{js,jsx}"
-      ],
-      "ignore": "packages/*/dist/*.js"
     }
   }
 }
