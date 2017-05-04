@@ -118,13 +118,20 @@ function parseModules(sectionName, section, modules) {
 function pageForPath(path, allPaths) {
   const pages = allPaths || allPages();
 
+  // A path should end in /
+  if (path.slice(-1) !== '/') {
+    console.warn('pageForPath - No slash!', path, allPaths);
+
+    return {};
+  }
+
   if (path === '/') {
     return pages['/'] || {};
   }
 
   const ret = pages[_.trim(path, '/')] ||
-    pages[path] || // middle one is needed by root pages!
-    pages[_.trim(path, '/') + '/'];
+    pages[_.trim(path, '/') + '/'] || // Possible section page
+    pages['/' + _.trim(path, '/')]; // Possible root level pages
 
   if (!ret) {
     console.warn('pageForPath - No match!', path, allPaths);

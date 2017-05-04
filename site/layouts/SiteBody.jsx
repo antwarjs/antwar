@@ -31,8 +31,8 @@ const SiteBody = ({ children, location }) => {
         <nav className={classes.nav}>
           <Link className={classes.navTitle} to="/">Antwar</Link>
           <NavLink activeClassName={classes.activeLink} to="/">Home</NavLink>
-          <NavLink activeClassName={classes.activeLink} to="/docs">Documentation</NavLink>
-          <NavLink activeClassName={classes.activeLink} to="/blog">Blog</NavLink>
+          <NavLink activeClassName={classes.activeLink} to="/docs/">Documentation</NavLink>
+          <NavLink activeClassName={classes.activeLink} to="/blog/">Blog</NavLink>
         </nav>
       </div>
 

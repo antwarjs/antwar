@@ -13,7 +13,7 @@ const DocsPage = ({ section, page }) => (
         <span key={`navPage-${i}`} className={classes.navLink_active}>
           {navPage.title}
         </span> :
-        <Link key={`navPage-${i}`} className={classes.navLink} to={'/' + navPage.url}>
+        <Link key={`navPage-${i}`} className={classes.navLink} to={`/${navPage.url}/`}>
           {navPage.title}
         </Link>
     ))}</div>

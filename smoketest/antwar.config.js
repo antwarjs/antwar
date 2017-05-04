@@ -13,7 +13,6 @@ module.exports = function (env) {
     },
     paths: {
       '/': section(
-        'Smoke test',
         function () {
           return require.context(
             'json-loader!yaml-frontmatter-loader!./pages',
@@ -23,7 +22,6 @@ module.exports = function (env) {
         }
       ),
       api: section(
-        'Smoke test',
         function () {
           return require.context(
             'json-loader!yaml-frontmatter-loader!./pages/api',
@@ -33,7 +31,6 @@ module.exports = function (env) {
         }
       ),
       configuration: section(
-        'Smoke test',
         function () {
           return require.context(
             'json-loader!yaml-frontmatter-loader!./pages/configuration',
@@ -50,13 +47,13 @@ module.exports = function (env) {
       },
       redirect: {
         redirects: {
-          demo: '/standalone'
+          demo: '/standalone/'
         }
       }
     }
   };
 
-  function section(title, contentCb) {
+  function section(contentCb) {
     return {
       title: 'Smoke test',
       path() {
@@ -71,9 +68,6 @@ module.exports = function (env) {
         }
       },
       processPage: {
-        url(o) {
-          return o.sectionName + '/' + o.fileName.split('.')[0];
-        },
         content(o) {
           return marked(o.file.body);
         }

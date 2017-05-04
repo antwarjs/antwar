@@ -89,7 +89,7 @@ module.exports = {
 
           const page = o.fileName.split('.')[0].split('-').slice(1).join('-');
 
-          return `${o.sectionName}/${page}`;
+          return page ? `${o.sectionName}/${page}` : `${o.sectionName}`;
         },
         content(o) {
           return markdown().process(o.file.body);

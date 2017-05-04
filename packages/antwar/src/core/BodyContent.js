@@ -89,4 +89,6 @@ function renderSection(page, props, section) {
   return content;
 }
 
-export default () => <Route component={BodyContent} />;
+export default () => (
+  <Route component={BodyContent} />
+);

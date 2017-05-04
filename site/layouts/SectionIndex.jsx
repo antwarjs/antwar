@@ -15,7 +15,7 @@ const SectionIndex = ({ section }) => (
 
       <ul className={classes.list}>{_.map(section.pages(), (page, i) => (
         <li key={`post-list-item-${i}`} className={classes.item}>
-          <Link to={'/' + page.url}>
+          <Link to={`/${page.url}/`}>
             <h3 className={classes.header}>
               {page.title}
               {page.isDraft ?
