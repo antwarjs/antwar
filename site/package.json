@@ -24,7 +24,6 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "prop-types": "^15.5.8",
     "react-github-corner": "^0.3.0"
   },
   "devDependencies": {

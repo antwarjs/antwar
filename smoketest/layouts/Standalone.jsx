@@ -1,9 +1,8 @@
 import React from 'react';
-import { Markdown } from 'antwar-helpers';
 import Interactive from 'antwar-interactive';
 import ClickMe from './ClickMe';
 
-const Standalone = ({ page, section }) => (
+const Standalone = ({ section }) => (
   <div>
     <h1>Standalone demo</h1>
 
@@ -15,7 +14,7 @@ const Standalone = ({ page, section }) => (
       containerProps={{ className: 'interactive-demo' }}
     />
 
-    <Markdown page={page} />
+    <p>Standalone page</p>
   </div>
 );
 

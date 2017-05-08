@@ -1,11 +1,10 @@
 import React from 'react';
-import { Markdown } from 'antwar-helpers';
 import Interactive from 'antwar-interactive';
 import ClickMe from './ClickMe';
 
 const Page = ({ page, section }) => (
   <div>
-    <h1>Page layout - {page.title}</h1>
+    <h1>Page layout - {page.file.attributes.title}</h1>
 
     <Interactive
       id="layouts/ClickMe.jsx"
@@ -15,7 +14,7 @@ const Page = ({ page, section }) => (
       containerProps={{ className: 'interactive-demo' }}
     />
 
-    <Markdown page={page} />
+    <div dangerouslySetInnerHTML={{ __html: page.file.body }} />
   </div>
 );
 

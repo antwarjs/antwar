@@ -7,7 +7,7 @@ module.exports = function (o) {
     bodyContent: o.bodyContent || null,
     // since urls can get modified by other hooks, we need to
     // process after that
-    postProcessPages: function generatePrevNext(items) {
+    processPages: function generatePrevNext(items) {
       const len = items.length;
 
       return items.map(function (item, i) {

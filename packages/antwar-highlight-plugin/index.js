@@ -1,6 +1,6 @@
 module.exports = function () {
   return {
-    postProcessPages(items) {
+    processPages(items) {
       const Prism = require('prismjs');
       const languages = require('prism-languages');
 

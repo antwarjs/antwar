@@ -1,13 +1,13 @@
 import React from 'react';
 import { Route } from 'react-router';
-import config from 'config';
+import config from 'config'; // Aliased through webpack
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import paths from './paths';
 
 const BodyContent = ({ location }) => {
-  const allPages = paths.allPages();
-  const page = paths.pageForPath(location.pathname, allPages);
+  const allPages = paths.getAllPages(config);
+  const page = paths.getPageForPath(config, location.pathname, allPages);
   const section = getSection(page, location.pathname, allPages);
 
   return renderSection(
@@ -31,7 +31,7 @@ function getSection(page, pathname, allPages) {
   section.all = () => getAllSectionPages(allPages);
 
   // Get pages of the current section or the named one
-  section.pages = name => getSectionPages(name || sectionName, allPages);
+  section.pages = name => getSectionPages(config, name || sectionName, allPages);
 
   return section;
 }
@@ -44,9 +44,9 @@ function getAllSectionPages(allPages) {
   })));
 }
 
-function getSectionPages(name, allPages) {
+function getSectionPages(config, name, allPages) {
   return _.filter(
-    paths.getSectionPages(name, allPages),
+    paths.getSectionPages(config, name, allPages),
     p => p.type === 'page'
   );
 }
@@ -60,7 +60,7 @@ function renderSection(page, props, section) {
     content = React.createFactory(
       section.layouts ?
         section.layouts.index() :
-        section.path() // Custom page
+        section.content() // Custom page
     )(props);
   } else if (page.type === 'page') {
     // Ok, got a page now. render it using a page template
@@ -71,9 +71,9 @@ function renderSection(page, props, section) {
       React.createFactory(page, props)
     );
   } else if (page.type === 'custom') {
-    // Custom page should render through path
+    // Custom page should render through content
     content = React.createFactory(
-      section.path()
+      page.section.content()
     )(props);
   } else {
     console.warn('Trying to render a page with an unknown type', page.type, page, props, section);
@@ -90,5 +90,5 @@ function renderSection(page, props, section) {
 }
 
 export default () => (
-  <Route component={BodyContent} />
+  <Route exact strict component={BodyContent} />
 );
