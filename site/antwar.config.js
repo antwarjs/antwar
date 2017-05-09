@@ -1,3 +1,4 @@
+var _ = require('lodash'); // eslint-disable-line no-var
 var rssPlugin = require('antwar-rss-plugin'); // eslint-disable-line no-var
 var prevnextPlugin = require('antwar-prevnext-plugin'); // eslint-disable-line no-var
 
@@ -33,16 +34,20 @@ module.exports = {
         index: () => require('./layouts/SectionIndex').default,
         page: () => require('./layouts/Page').default
       },
-      custom() {
-        return require('./layouts/SiteIndex').default;
+      custom: () => require('./layouts/SiteIndex').default,
+      paths: {
+        blog: {
+          layouts: {
+            page: () => require('./layouts/BlogPage').default
+          }
+        },
+        docs: {
+          layouts: {
+            page: () => require('./layouts/DocsPage').default
+          },
+          sort: pages => _.sortBy(pages, page => page.file.sort)
+        }
       }
-      /*
-      TODO: custom sort for docs
-      sort(pages) {
-        return _.sortBy(pages, page => page.file.sort);
-      },
-      custom page for docs (DocsPage)
-       */
     }
   }
 };
