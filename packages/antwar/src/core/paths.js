@@ -82,7 +82,8 @@ function parseModules(sectionName, section, modules) {
         fileName,
         file: modules(name),
         section,
-        sectionName: sectionName + trimmedName,
+        // XXX: avoid trim?
+        sectionName: _.trimStart(sectionName + trimmedName, '/'),
         url: trimmedName ?
           sectionName + trimmedName + '/' + fileName + '/' :
           `/${fileName}/`
@@ -136,7 +137,7 @@ function getSectionPages(config, sectionName, allPages) {
 
   return _.filter(
     pages,
-    ({ section, type }) => section === sectionName && type === 'page'
+    o => o.sectionName === sectionName && o.type === 'page'
   );
 }
 exports.getSectionPages = getSectionPages;

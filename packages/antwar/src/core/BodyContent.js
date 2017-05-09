@@ -21,10 +21,9 @@ BodyContent.propTypes = {
 };
 
 function getSection(page, pathname, allPages) {
-  const sectionName = page.section ? page.section : _.trim(pathname, '/');
+  const sectionName = page.sectionName;
   const section = config.paths[sectionName || '/'] || config.paths['/'] || {};
 
-  section.title = section.title || sectionName;
   section.name = sectionName;
 
   // Get all pages of all sections
