@@ -13,17 +13,6 @@
 
 .headerImage { /* TODO */ }
 
-.draftText {
-  font-family: $display-font;
-  font-size: $ms4;
-  margin: 0 .5rem;
-  font-weight: 300;
-  border-radius: 1rem;
-  color: $blue4;
-  font-style: italic;
-  margin-right: auto;
-}
-
 .author, .date { opacity: .3 }
 
 .author + .date::before { content: '–'; margin: 0 .5rem; }

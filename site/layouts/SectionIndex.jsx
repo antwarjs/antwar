@@ -17,18 +17,14 @@ const SectionIndex = ({ section }) => (
         <li key={`post-list-item-${i}`} className={classes.item}>
           <Link to={`/${page.url}/`}>
             <h3 className={classes.header}>
-              {page.title}
-              {page.isDraft ?
-                <span className={classes.draftText}>Draft</span> :
-                null
-              }
+              {page.file.attributes.title}
             </h3>
 
-            {page.date ?
-              <Moment className={classes.date} datetime={page.date} /> :
+            {page.file.attributes.date ?
+              <Moment className={classes.date} datetime={page.file.attributes.date} /> :
               null
             }
-            <p className={classes.preview}>{page.preview}</p>
+            <p className={classes.preview}>{page.file.preview}</p>
           </Link>
         </li>
       ))}</ul>

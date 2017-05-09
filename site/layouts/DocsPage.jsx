@@ -29,10 +29,6 @@ const DocsPage = ({ section, page }) => (
         <header className={articleClasses.header}>
           <h1>
             {page.title}
-            {page.isDraft ?
-              <span className={articleClasses.draftText}>draft</span> :
-              null
-            }
           </h1>
           {page.author ?
             <div className={articleClasses.author}>{`Authored by ${page.author}`}</div> :

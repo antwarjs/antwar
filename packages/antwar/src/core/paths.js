@@ -18,8 +18,10 @@ function getAllPages(config) {
               parseModules(sectionName, section, paths)
             );
           }
+        }
 
-          // Custom page
+        // Custom page
+        if (_.isFunction(section.custom)) {
           return [
             {
               type: 'custom',
@@ -89,6 +91,7 @@ function parseModules(sectionName, section, modules) {
   );
 
   // If there's no index in a section, generate one
+  // XXX: Does this check make sense anymore?
   if (!_.find(ret, { type: 'index' })) {
     ret.push({
       type: 'index',
@@ -96,6 +99,17 @@ function parseModules(sectionName, section, modules) {
       file: {},
       section,
       sectionName: sectionName === '/' ? '' : sectionName
+    });
+  }
+
+  if (_.isFunction(section.custom)) {
+    ret.push({
+      type: 'custom',
+      fileName: '',
+      file: {},
+      section,
+      sectionName: '',
+      url: sectionName
     });
   }
 

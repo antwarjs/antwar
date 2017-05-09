@@ -71,9 +71,9 @@ function renderSection(page, props, section) {
       React.createFactory(page, props)
     );
   } else if (page.type === 'custom') {
-    // Custom page should render through content
+    // Custom page should render through custom
     content = React.createFactory(
-      page.section.content()
+      page.section.custom()
     )(props);
   } else {
     console.warn('Trying to render a page with an unknown type', page.type, page, props, section);

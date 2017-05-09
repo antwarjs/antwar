@@ -20,7 +20,7 @@ module.exports = () => ({
       redirects: {}
     },
     standalone: {
-      content() {
+      custom() {
         return require('./layouts/Standalone').default;
       }
     }
