@@ -1,8 +1,7 @@
 ---
-title: "Theming"
+title: Theming
 sort: 4
 ---
-
 The building blocks of Antwar themes are React components. They serve as templates for the pages on your site. The [default Antwar theme](https://github.com/antwarjs/default-theme) is a good place to look for inspiration.
 
 There are a few required file in an Antwar theme. Antwar handles js, jsx and coffeescript files.
