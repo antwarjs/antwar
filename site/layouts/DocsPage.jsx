@@ -30,16 +30,14 @@ const DocsPage = ({
     <div className={articleClasses.contentScrollBox}>
       <GitHubCorner href="https://github.com/antwarjs/antwar" direction="right" />
       <article className={articleClasses.article}>
-        {headerImage ?
+        {headerImage &&
           <div
             className={articleClasses.headerImage}
             style={{ backgroundImage: `url(${headerImage})` }}
-          /> : null
+          />
         }
         <header className={articleClasses.header}>
-          <h1>
-            {title}
-          </h1>
+          <h1>{title}</h1>
         </header>
         <div dangerouslySetInnerHTML={{ __html: body }} />
       </article>
