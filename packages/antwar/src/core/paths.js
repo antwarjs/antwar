@@ -96,8 +96,6 @@ function parseModules(sectionName, section, modules) {
   );
 
   if (_.isFunction(section.custom)) {
-    console.log(section.custom);
-
     ret.push({
       type: 'custom',
       fileName: '',
