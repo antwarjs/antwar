@@ -3,6 +3,10 @@ const _ = require('lodash');
 const processPages = require('./process-pages');
 
 function getAllPages(config) {
+  if (!config) {
+    return console.error('getAllPages - Missing configuration');
+  }
+
   const sections = _.keys(config.paths);
   const pages = [].concat // eslint-disable-line prefer-spread
     .apply(
@@ -17,7 +21,7 @@ function getAllPages(config) {
             return parseModules(sectionName, section, paths);
           }
 
-          console.warn('Section content did not return a require.context!', section);
+          console.warn('getAllPages - Section content did not return a require.context!', section);
         }
 
         if (_.isFunction(section.custom)) {
@@ -33,7 +37,7 @@ function getAllPages(config) {
 
         // It is possible a section has only redirects. Better not to warn then.
         if (!section.redirects) {
-          console.warn('Section content was not a function!', section.content);
+          console.warn('getAllPages - Section content was not a function!', section.content);
         }
 
         return null;
