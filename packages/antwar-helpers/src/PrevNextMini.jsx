@@ -1,24 +1,24 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const PrevNextMini = ({ page }) => (
+const PrevNextMini = ({ previous, next }) => (
   <div>
-    {renderNext(page.next)}
-    {renderPrev(page.prev)}
+    {renderNext(next)}
+    {renderPrevious(previous)}
   </div>
 );
 
 function renderNext(next) {
   return next ?
-    <Link className="next-page" to={`/${next.url}`} title={next.title}>
+    <Link className="next-page" to={next.url} title={next.title}>
       <i className="icon-right-open" />
     </Link> :
     null;
 }
 
-function renderPrev(prev) {
-  return prev ?
-    <Link className="previous-page" to={`/${prev.url}`} title={prev.title}>
+function renderPrevious(previous) {
+  return previous ?
+    <Link className="previous-page" to={previous.url} title={previous.title}>
       <i className="icon-left-open" />
     </Link> :
     null;

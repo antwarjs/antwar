@@ -6,36 +6,42 @@ import GitHubCorner from 'react-github-corner';
 import classes from './DocsPage.scss';
 import articleClasses from './Article.scss';
 
-const DocsPage = ({ section, page }) => (
+const DocsPage = ({
+  section,
+  page: {
+    file: {
+      attributes: {
+        headerImage, title
+      },
+      body
+    }
+  }
+}) => (
   <div className={classes.documentation}>
     <div className={classes.nav}>{_.map(section.pages(), (navPage, i) => (
-      navPage.title === page.title ?
+      navPage.file.attributes.title === title ?
         <span key={`navPage-${i}`} className={classes.navLink_active}>
-          {navPage.title}
+          {navPage.file.attributes.title}
         </span> :
-        <Link key={`navPage-${i}`} className={classes.navLink} to={`/${navPage.url}/`}>
-          {navPage.title}
+        <Link key={`navPage-${i}`} className={classes.navLink} to={navPage.url}>
+          {navPage.file.attributes.title}
         </Link>
     ))}</div>
     <div className={articleClasses.contentScrollBox}>
       <GitHubCorner href="https://github.com/antwarjs/antwar" direction="right" />
       <article className={articleClasses.article}>
-        {page.headerImage ?
+        {headerImage ?
           <div
             className={articleClasses.headerImage}
-            style={{ backgroundImage: `url(${page.headerImage})` }}
+            style={{ backgroundImage: `url(${headerImage})` }}
           /> : null
         }
         <header className={articleClasses.header}>
           <h1>
-            {page.title}
+            {title}
           </h1>
-          {page.author ?
-            <div className={articleClasses.author}>{`Authored by ${page.author}`}</div> :
-            null
-          }
         </header>
-        <div dangerouslySetInnerHTML={{ __html: page.content }} />
+        <div dangerouslySetInnerHTML={{ __html: body }} />
       </article>
     </div>
   </div>

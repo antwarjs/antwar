@@ -1,7 +1,9 @@
 import React from 'react';
 
-const PrevNext = ({ page, previousText, nextText }) => {
-  if (!(page.next || page.prev)) {
+const PrevNext = ({
+  next, nextText, previous, previousText
+}) => {
+  if (!(next || previous)) {
     return <div className="prevnext" />;
   }
 
@@ -9,35 +11,35 @@ const PrevNext = ({ page, previousText, nextText }) => {
   let style = {
     width: '100%'
   };
-  if (page.next && page.prev) {
+  if (next && previous) {
     style = {};
   }
 
   return (
     <div className="prevnext">
-      {page.prev ?
+      {previous ?
         <div className="prevnext__prev" style={style}>
           <div
             className="prevnext__bg"
             style={{
-              backgroundImage: `url(${page.prev.headerImage})`
+              backgroundImage: `url(${previous.headerImage})`
             }}
           />
           <span className="prevnext__info">{previousText}</span>
-          <a className="prevnext__link" href={`/${page.prev.url}`}>{page.prev.title}</a>
+          <a className="prevnext__link" href={previous.url}>{previous.title}</a>
         </div> :
         null
       }
-      {page.next ?
+      {next ?
         <div className="prevnext__next" style={style}>
           <div
             className="prevnext__bg"
             style={{
-              backgroundImage: `url(${page.next.headerImage})`
+              backgroundImage: `url(${next.headerImage})`
             }}
           />
           <span className="prevnext__info">{nextText}</span>
-          <a className="prevnext__link" href={`/${page.next.url}`}>{page.next.title}</a>
+          <a className="prevnext__link" href={next.url}>{next.title}</a>
         </div> :
         null
       }

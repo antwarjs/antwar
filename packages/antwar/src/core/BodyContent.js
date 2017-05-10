@@ -54,26 +54,14 @@ function renderSection(page, props, section) {
   let content;
 
   // TODO: It would be nice to handle redirects here during development
-  if (page.type === 'index') {
-    // Sections don't have page metadata
-    content = React.createFactory(
-      section.layouts ?
-        section.layouts.index() :
-        section.content() // Custom page
-    )(props);
-  } else if (page.type === 'page') {
+  if (page.type === 'page') {
     // Ok, got a page now. render it using a page template
-    content = React.createFactory(
-      section.layouts.page()
-    )(
+    content = React.createFactory(page.layout)(
       props,
       React.createFactory(page, props)
     );
-  } else if (page.type === 'custom') {
-    // Custom page should render through custom
-    content = React.createFactory(
-      page.section.custom()
-    )(props);
+  } else if (page.type === 'index' || page.type === 'custom') {
+    content = React.createFactory(page.layout)(props);
   } else {
     console.warn('Trying to render a page with an unknown type', page.type, page, props, section);
   }

@@ -39,7 +39,8 @@ module.exports = {
         blog: {
           layouts: {
             page: () => require('./layouts/BlogPage').default
-          }
+          },
+          sort: pages => _.sortBy(pages, 'date').reverse()
         },
         docs: {
           layouts: {

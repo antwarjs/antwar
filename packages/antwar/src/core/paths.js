@@ -14,13 +14,12 @@ function getAllPages(config) {
           const paths = section.content();
 
           if (paths.keys) {
-            return (section.sort || defaultSort)(
-              parseModules(sectionName, section, paths)
-            );
+            return parseModules(sectionName, section, paths);
           }
+
+          console.warn('Section content did not return a require.context!', section);
         }
 
-        // Custom page
         if (_.isFunction(section.custom)) {
           return [
             {
@@ -54,11 +53,8 @@ function getAllPages(config) {
 }
 exports.getAllPages = getAllPages;
 
-function defaultSort(files) {
-  return _.sortBy(files, 'date').reverse();
-}
-
 function parseModules(sectionName, section, modules) {
+  // TODO: handle custom sorting per each parsed section
   const ret = _.map(
     modules.keys(),
     (name) => {
@@ -71,6 +67,7 @@ function parseModules(sectionName, section, modules) {
           type: 'index',
           fileName,
           file: modules(name),
+          layout: parseLayout(section, trimmedName, 'index'),
           section,
           sectionName: trimmedName,
           url: trimmedName ? `/${trimmedName}/` : '/'
@@ -81,6 +78,7 @@ function parseModules(sectionName, section, modules) {
         type: 'page',
         fileName,
         file: modules(name),
+        layout: parseLayout(section, trimmedName, 'page'),
         section,
         // XXX: avoid trim?
         sectionName: _.trimStart(sectionName + trimmedName, '/'),
@@ -91,30 +89,26 @@ function parseModules(sectionName, section, modules) {
     }
   );
 
-  // If there's no index in a section, generate one
-  // XXX: Does this check make sense anymore?
-  if (!_.find(ret, { type: 'index' })) {
-    ret.push({
-      type: 'index',
-      fileName: '',
-      file: {},
-      section,
-      sectionName: sectionName === '/' ? '' : sectionName
-    });
-  }
-
   if (_.isFunction(section.custom)) {
     ret.push({
       type: 'custom',
       fileName: '',
       file: {},
+      layout: section.custom(),
       section,
       sectionName: '',
       url: sectionName
     });
   }
 
-  return ret;
+  return (section.sort || (pages => pages))(ret);
+}
+
+function parseLayout(section, sectionName, layoutName) {
+  return section.paths && section.paths[sectionName].layouts &&
+    section.paths[sectionName].layouts && section.paths[sectionName].layouts[layoutName] ?
+    section.paths[sectionName].layouts[layoutName]() :
+    section.layouts[layoutName]();
 }
 
 function getSectionPages(config, sectionName, allPages) {

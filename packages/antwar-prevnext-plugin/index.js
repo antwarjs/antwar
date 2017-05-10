@@ -11,11 +11,11 @@ module.exports = function (o) {
       const len = items.length;
 
       return items.map(function (item, i) {
-        const prevItem = i > 0 ? items[i - 1] : {};
+        const previousItem = i > 0 ? items[i - 1] : {};
         const nextItem = i < len - 1 ? items[i + 1] : {};
         const ret = _.cloneDeep(item);
 
-        ret.prev = prevItem.section === item.section ? prevItem : undefined;
+        ret.previous = previousItem.section === item.section ? previousItem : undefined;
         ret.next = nextItem.section === item.section ? nextItem : undefined;
 
         return ret;
@@ -47,19 +47,19 @@ function bodyContent(generalOptions, options) {
     return null;
   }
 
-  const previousPath = currentPath.prev;
-  const prev = previousPath && previousPath.url;
+  const previousPath = currentPath.previous;
+  const previous = previousPath && previousPath.url;
   const nextPath = currentPath.next;
   const next = nextPath && nextPath.url;
 
   return () => {
     const links = [];
 
-    if (prev) {
+    if (previous) {
       links.push(
         React.createElement('a', {
           key: 'previous-page',
-          href: generalOptions.previousUrl(prev),
+          href: generalOptions.previousUrl(previous),
           className: 'previous-page'
         }, generalOptions.previous(previousPath))
       );
