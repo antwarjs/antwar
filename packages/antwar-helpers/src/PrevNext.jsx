@@ -1,7 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const PrevNext = ({
-  next, nextText, previous, previousText
+  next, nextText,
+  previous, previousText,
+  getTitle = () => {}
 }) => {
   if (!(next || previous)) {
     return <div className="prevnext" />;
@@ -26,7 +29,7 @@ const PrevNext = ({
             }}
           />
           <span className="prevnext__info">{previousText}</span>
-          <a className="prevnext__link" href={previous.url}>{previous.title}</a>
+          <Link className="prevnext__link" to={previous.url}>{getTitle(previous)}</Link>
         </div> :
         null
       }
@@ -39,7 +42,7 @@ const PrevNext = ({
             }}
           />
           <span className="prevnext__info">{nextText}</span>
-          <a className="prevnext__link" href={next.url}>{next.title}</a>
+          <Link className="prevnext__link" to={next.url}>{getTitle(next)}</Link>
         </div> :
         null
       }

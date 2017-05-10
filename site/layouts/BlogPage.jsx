@@ -51,7 +51,13 @@ const BlogPage = ({
       }
       <div dangerouslySetInnerHTML={{ __html: body }} />
       <footer className={classes.footer}>
-        <PrevNext previous={previous} next={next} previousText="Previous post" nextText="Next post" />
+        <PrevNext
+          previous={previous}
+          next={next}
+          previousText="Previous post"
+          nextText="Next post"
+          getTitle={({ file }) => file.attributes.title}
+        />
       </footer>
     </div>
   </div>
