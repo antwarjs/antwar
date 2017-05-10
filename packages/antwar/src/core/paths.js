@@ -60,7 +60,6 @@ function getAllPages(config) {
 exports.getAllPages = getAllPages;
 
 function parseModules(sectionName, section, modules) {
-  // TODO: handle custom sorting per each parsed section
   const ret = _.map(
     modules.keys(),
     (name) => {
@@ -106,7 +105,7 @@ function parseModules(sectionName, section, modules) {
     });
   }
 
-  return (section.sort || (pages => pages))(ret);
+  return sortSections(section, ret);
 }
 
 function parseLayout(section, sectionName, layoutName) {
@@ -122,6 +121,19 @@ function parseUrl(section, sectionName, fileName) {
   }
 
   return sectionName ? `/${sectionName}/${fileName}/` : `/${fileName}/`;
+}
+
+function sortSections(section, pages) {
+  if (section.paths) {
+    return _.flatMap(
+      _.groupBy(pages, 'sectionName'),
+      (pages, sectionName) => (
+        (section.paths[sectionName] && section.paths[sectionName].sort) || (pages => pages)
+      )(pages)
+    );
+  }
+
+  return pages;
 }
 
 function getSectionPages(config, sectionName, allPages) {
