@@ -59,7 +59,7 @@ function render(props) {
   // XXX: Refactor config level layout out of the system?
   if (props.config.layout) {
     return React.createFactory(props.config.layout())(
-      {},
+      props,
       content
     );
   }

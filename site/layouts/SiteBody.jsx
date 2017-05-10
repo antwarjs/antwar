@@ -1,6 +1,5 @@
 import React from 'react';
 import { GoogleAnalytics } from 'antwar-helpers';
-import { withRouter } from 'react-router';
 import { Link, NavLink } from 'react-router-dom';
 import GitHubCorner from 'react-github-corner';
 import PropTypes from 'prop-types';
@@ -30,7 +29,7 @@ const SiteBody = ({ children, location }) => {
       <div className={classes.navWrapper}>
         <nav className={classes.nav}>
           <Link className={classes.navTitle} to="/">Antwar</Link>
-          <NavLink activeClassName={classes.activeLink} to="/">Home</NavLink>
+          <NavLink exact activeClassName={classes.activeLink} to="/">Home</NavLink>
           <NavLink activeClassName={classes.activeLink} to="/docs/">Documentation</NavLink>
           <NavLink activeClassName={classes.activeLink} to="/blog/">Blog</NavLink>
         </nav>
@@ -43,9 +42,8 @@ const SiteBody = ({ children, location }) => {
     </div>
   );
 };
-
 SiteBody.propTypes = {
   children: PropTypes.any
 };
 
-export default withRouter(SiteBody);
+export default SiteBody;
