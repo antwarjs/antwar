@@ -22,12 +22,12 @@ const PrevNext = ({
     <div className="prevnext">
       {previous ?
         <div className="prevnext__prev" style={style}>
-          <div
+          {previous.headerImage && <div
             className="prevnext__bg"
             style={{
               backgroundImage: `url(${previous.headerImage})`
             }}
-          />
+          />}
           <span className="prevnext__info">{previousText}</span>
           <Link className="prevnext__link" to={previous.url}>{getTitle(previous)}</Link>
         </div> :
@@ -35,12 +35,12 @@ const PrevNext = ({
       }
       {next ?
         <div className="prevnext__next" style={style}>
-          <div
+          {next.headerImage && <div
             className="prevnext__bg"
             style={{
               backgroundImage: `url(${next.headerImage})`
             }}
-          />
+          />}
           <span className="prevnext__info">{nextText}</span>
           <Link className="prevnext__link" to={next.url}>{getTitle(next)}</Link>
         </div> :
