@@ -146,7 +146,7 @@ function getPageForPath(config, path, allPages) {
   // XXXXX: Push this check to react-router definition
   // A path should end in /
   if (path.slice(-1) !== '/') {
-    console.warn('getPageForPath - No slash!', path, allPages);
+    console.warn('getPageForPath - No slash!', path, Object.keys(pages).join(', '));
 
     return {};
   }
@@ -158,7 +158,7 @@ function getPageForPath(config, path, allPages) {
   const ret = pages[path];
 
   if (!ret) {
-    console.warn('getPageForPath - No match!', path, allPages);
+    console.warn('getPageForPath - No match!', path, Object.keys(pages).join(', '));
 
     return {};
   }
