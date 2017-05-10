@@ -67,12 +67,13 @@ function parseModules(sectionName, section, modules) {
       // Strip ./ and extension
       const fileName = _path.basename(name, _path.extname(name)) || '';
       const trimmedName = _.trimStart(_path.dirname(name), './');
+      const file = modules(name);
 
       if (fileName === 'index') {
         return {
           type: 'index',
           fileName,
-          file: modules(name),
+          file,
           layout: parseLayout(section, trimmedName, 'index'),
           section,
           sectionName: trimmedName,
@@ -83,7 +84,7 @@ function parseModules(sectionName, section, modules) {
       return {
         type: 'page',
         fileName,
-        file: modules(name),
+        file,
         layout: parseLayout(section, trimmedName, 'page'),
         section,
         // XXX: avoid trim?
