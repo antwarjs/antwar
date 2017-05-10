@@ -3,7 +3,6 @@ module.exports = () => ({
     title: 'Smoke test'
   },
   output: 'build',
-  layout: () => require('./layouts/Body').default,
   paths: {
     '/': {
       content: () => (
