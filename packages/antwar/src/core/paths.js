@@ -29,6 +29,8 @@ function getAllPages(config) {
             {
               type: 'custom',
               fileName: sectionName,
+              file: {},
+              layout: section.custom(),
               section,
               url: `/${sectionName}/`
             }
@@ -94,6 +96,8 @@ function parseModules(sectionName, section, modules) {
   );
 
   if (_.isFunction(section.custom)) {
+    console.log(section.custom);
+
     ret.push({
       type: 'custom',
       fileName: '',

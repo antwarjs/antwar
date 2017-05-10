@@ -4,12 +4,11 @@ import { StaticRouter } from 'react-router';
 import BodyContent from '../core/BodyContent';
 
 // TODO: what if a route isn't found?
-module.exports = function renderPage(url, cb) {
+module.exports = function renderPage(location, cb) {
   const context = {};
 
-  // XXX: match dev behavior with trailing slash -> push elsewhere?
   const html = ReactDOMServer.renderToStaticMarkup(
-    <StaticRouter location={`${url}/`} context={context}>
+    <StaticRouter location={location} context={context}>
       <BodyContent />
     </StaticRouter>
   );

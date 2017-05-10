@@ -10,11 +10,7 @@ const BodyContent = ({ location }) => {
   const page = paths.getPageForPath(config, location.pathname, allPages);
   const section = getSection(page, location.pathname, allPages);
 
-  return renderSection(
-    page,
-    { config, section, page, location },
-    section
-  );
+  return render({ config, section, page, location });
 };
 BodyContent.propTypes = {
   location: PropTypes.object
@@ -50,24 +46,19 @@ function getSectionPages(config, name, allPages) {
   );
 }
 
-function renderSection(page, props) {
+function render(props) {
   let content;
 
   // TODO: It would be nice to handle redirects here during development
-  if (page.type === 'page') {
-    // Ok, got a page now. render it using a page template
-    content = React.createFactory(page.layout)(
-      props,
-      React.createFactory(page, props)
-    );
-  } else if (page.type === 'index' || page.type === 'custom') {
-    content = React.createFactory(page.layout)(props);
+  if (props.page.layout) {
+    content = React.createFactory(props.page.layout)(props);
   } else {
-    console.error('Trying to render a page with an unknown type', page.type, page);
+    console.error('Trying to render a page with an unknown type', props);
   }
 
-  if (config.layout) {
-    return React.createFactory(config.layout())(
+  // XXX: Refactor config level layout out of the system?
+  if (props.config.layout) {
+    return React.createFactory(props.config.layout())(
       {},
       content
     );
