@@ -63,7 +63,7 @@ function renderSection(page, props, section) {
   } else if (page.type === 'index' || page.type === 'custom') {
     content = React.createFactory(page.layout)(props);
   } else {
-    console.warn('Trying to render a page with an unknown type', page.type, page, props, section);
+    console.error('Trying to render a page with an unknown type', page.type, page, props, section);
   }
 
   if (config.layout) {
