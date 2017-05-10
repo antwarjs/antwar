@@ -76,7 +76,7 @@ function generateParameters(antwarConfig, webpackConfig) {
     const parameters = {
       cwd,
       renderPage: site.renderPage,
-      allPaths: site.allPaths,
+      allPages: site.allPages,
       output: _path.join(cwd, antwarConfig.output),
       config: antwarConfig,
       cssFiles,
@@ -127,7 +127,7 @@ function writeExtras() {
     // Extras
     const pluginExtras = _.map(config.plugins, 'extra').filter(_.identity);
     const extraFiles = _.map(pluginExtras, function (plugin) {
-      return plugin(parameters.allPaths, config);
+      return plugin(parameters.allPages, config);
     });
 
     if (parameters.cssFiles) {

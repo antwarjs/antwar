@@ -25,13 +25,13 @@ exports.extras = (o, files) => (cb) => {
 };
 
 exports.pages = o => (finalCb) => {
-  const data = Object.keys(o.allPaths).map(function (page) {
+  const data = Object.keys(o.allPages).map(function (page) {
     const p = _path.join(o.output, page);
 
     return {
       path: p,
       page,
-      title: o.allPaths[page].title
+      title: o.allPages[page].title
     };
   });
 
