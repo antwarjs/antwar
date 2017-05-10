@@ -89,9 +89,7 @@ function parseModules(sectionName, section, modules) {
         section,
         // XXX: avoid trim?
         sectionName: _.trimStart(sectionName + trimmedName, '/'),
-        url: trimmedName ?
-          sectionName + trimmedName + '/' + fileName + '/' :
-          `/${fileName}/`
+        url: parseUrl(section, trimmedName, fileName)
       };
     }
   );
@@ -116,6 +114,14 @@ function parseLayout(section, sectionName, layoutName) {
     section.paths[sectionName].layouts && section.paths[sectionName].layouts[layoutName] ?
     section.paths[sectionName].layouts[layoutName]() :
     section.layouts[layoutName]();
+}
+
+function parseUrl(section, sectionName, fileName) {
+  if (section.paths && section.paths[sectionName].url) {
+    return section.paths[sectionName].url({ sectionName, fileName });
+  }
+
+  return sectionName ? `/${sectionName}/${fileName}/` : `/${fileName}/`;
 }
 
 function getSectionPages(config, sectionName, allPages) {

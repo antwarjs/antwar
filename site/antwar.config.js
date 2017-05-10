@@ -40,7 +40,10 @@ module.exports = {
           layouts: {
             page: () => require('./layouts/BlogPage').default
           },
-          sort: pages => _.sortBy(pages, 'date').reverse()
+          sort: pages => _.sortBy(pages, 'date').reverse(),
+          url: ({ sectionName, fileName }) => (
+            `/${sectionName}/${_.trimStart(fileName, '0123456789-')}/`
+          )
         },
         docs: {
           layouts: {
