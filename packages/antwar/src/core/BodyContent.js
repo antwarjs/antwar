@@ -50,7 +50,7 @@ function getSectionPages(config, name, allPages) {
   );
 }
 
-function renderSection(page, props, section) {
+function renderSection(page, props) {
   let content;
 
   // TODO: It would be nice to handle redirects here during development
@@ -63,7 +63,7 @@ function renderSection(page, props, section) {
   } else if (page.type === 'index' || page.type === 'custom') {
     content = React.createFactory(page.layout)(props);
   } else {
-    console.error('Trying to render a page with an unknown type', page.type, page, props, section);
+    console.error('Trying to render a page with an unknown type', page.type, page);
   }
 
   if (config.layout) {
