@@ -1,12 +1,23 @@
 const _ = require('lodash');
 
-module.exports = function sortSections(section, pages) {
+module.exports = function sortSections(sectionName, section, pages) {
   if (section.paths) {
     return _.flatMap(
       _.groupBy(pages, 'sectionName'),
-      (pages, sectionName) => (
-        (section.paths[sectionName] && section.paths[sectionName].sort) || (pages => pages)
-      )(pages)
+      (pages, name) => {
+        // Sort section itself
+        if (sectionName === name && section.sort) {
+          return section.sort(pages);
+        }
+
+        // Use possible subsection sort
+        if (section.paths[name] && section.paths[name].sort) {
+          return section.paths[name].sort(pages);
+        }
+
+        // No sort, return original pages
+        return pages;
+      }
     );
   }
 

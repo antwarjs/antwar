@@ -20,6 +20,7 @@ module.exports = function getAllPages(config) {
 
           if (paths.keys) {
             return sortSections(
+              sectionName,
               section,
               parseSectionPages(sectionName, section, paths)
             );

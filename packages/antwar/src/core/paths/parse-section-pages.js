@@ -1,6 +1,7 @@
 const _path = require('path');
 const _ = require('lodash');
 const parseLayout = require('./parse-layout');
+const parseSectionName = require('./parse-section-name');
 const parseUrl = require('./parse-url');
 
 module.exports = function parseSectionPages(sectionName, section, modules) {
@@ -31,7 +32,7 @@ module.exports = function parseSectionPages(sectionName, section, modules) {
         layout: parseLayout(section, trimmedName, 'page'),
         section,
         // XXX: avoid trim?
-        sectionName: _.trimStart(sectionName + trimmedName, '/'),
+        sectionName: parseSectionName(sectionName, trimmedName),
         url: parseUrl(section, trimmedName, fileName)
       };
     }
@@ -44,7 +45,7 @@ module.exports = function parseSectionPages(sectionName, section, modules) {
       file: {},
       layout: section.custom(),
       section,
-      sectionName: '',
+      sectionName: parseSectionName(sectionName),
       url: sectionName
     });
   }

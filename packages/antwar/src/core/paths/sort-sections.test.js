@@ -4,6 +4,7 @@ const sortSections = require('./sort-sections');
 
 describe('Sort sections', () => {
   it('sorts a root section', () => {
+    const sectionName = '/';
     const section = {
       layouts: {
         page: () => {}
@@ -11,11 +12,12 @@ describe('Sort sections', () => {
       sort: pages => _.sortBy(pages, page => page.file.sort)
     };
     const parsedPages = parseSectionPages(
-      '/',
+      sectionName,
       section,
-      context(path => `./${path}`)
+      context(path => [`./${path}`])
     );
     const result = sortSections(
+      sectionName,
       section,
       parsedPages
     );
@@ -28,7 +30,7 @@ describe('Sort sections', () => {
         },
         layout: undefined,
         section,
-        sectionName: '',
+        sectionName: '/',
         url: '/first/'
       },
       {
@@ -39,7 +41,7 @@ describe('Sort sections', () => {
         },
         layout: undefined,
         section,
-        sectionName: '',
+        sectionName: '/',
         url: '/second/'
       },
       {
@@ -50,7 +52,7 @@ describe('Sort sections', () => {
         },
         layout: undefined,
         section,
-        sectionName: '',
+        sectionName: '/',
         url: '/third/'
       }
     ];
@@ -59,6 +61,7 @@ describe('Sort sections', () => {
   });
 
   it('sorts a child section', () => {
+    const sectionName = '/';
     const section = {
       paths: {
         docs: {
@@ -70,11 +73,12 @@ describe('Sort sections', () => {
       }
     };
     const parsedPages = parseSectionPages(
-      '/',
+      sectionName,
       section,
-      context(path => `./docs/${path}`)
+      context(path => [`./docs/${path}`])
     );
     const result = sortSections(
+      sectionName,
       section,
       parsedPages
     );
@@ -116,20 +120,128 @@ describe('Sort sections', () => {
 
     expect(result).toEqual(expected);
   });
+
+  it('sorts root and child section', () => {
+    const sectionName = '/';
+    const section = {
+      layouts: {
+        page: () => {}
+      },
+      sort: pages => _.sortBy(pages, page => page.file.sort),
+      paths: {
+        docs: {
+          layouts: {
+            page: () => {}
+          },
+          sort: pages => _.sortBy(pages, page => page.file.sort)
+        }
+      }
+    };
+    const parsedPages = parseSectionPages(
+      sectionName,
+      section,
+      context(path => [`./${path}`, `./docs/${path}`]),
+    );
+    const result = sortSections(
+      sectionName,
+      section,
+      parsedPages
+    );
+    const expected = [
+      {
+        type: 'page',
+        fileName: 'first',
+        file: {
+          sort: 0
+        },
+        layout: undefined,
+        section,
+        sectionName: '/',
+        url: '/first/'
+      },
+      {
+        type: 'page',
+        fileName: 'second',
+        file: {
+          sort: 1
+        },
+        layout: undefined,
+        section,
+        sectionName: '/',
+        url: '/second/'
+      },
+      {
+        type: 'page',
+        fileName: 'third',
+        file: {
+          sort: 10
+        },
+        layout: undefined,
+        section,
+        sectionName: '/',
+        url: '/third/'
+      },
+      {
+        type: 'page',
+        fileName: 'first',
+        file: {
+          sort: 0
+        },
+        layout: undefined,
+        section,
+        sectionName: 'docs',
+        url: '/docs/first/'
+      },
+      {
+        type: 'page',
+        fileName: 'second',
+        file: {
+          sort: 1
+        },
+        layout: undefined,
+        section,
+        sectionName: 'docs',
+        url: '/docs/second/'
+      },
+      {
+        type: 'page',
+        fileName: 'third',
+        file: {
+          sort: 10
+        },
+        layout: undefined,
+        section,
+        sectionName: 'docs',
+        url: '/docs/third/'
+      }
+    ];
+
+    expect(result).toEqual(expected);
+  });
 });
 
 function context(shapePath) {
-  const modules = {
-    [shapePath('first.md')]: {
+  const files = [
+    {
+      file: 'first.md',
       sort: 0
     },
-    [shapePath('third.md')]: {
+    {
+      file: 'third.md',
       sort: 10
     },
-    [shapePath('second.md')]: {
+    {
+      file: 'second.md',
       sort: 1
     }
-  };
+  ];
+
+  const modules = _.fromPairs(
+    _.flatMap(
+      files,
+      ({ file, sort }) => shapePath(file).map(name => ([name, { sort }]))
+    )
+  );
   const ret = name => modules[name];
   ret.keys = () => Object.keys(modules);
 
