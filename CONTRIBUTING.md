@@ -16,4 +16,4 @@ open http://localhost:3000
 
 This process will run `smoketest`. You can also do `npm run site`.
 
-There's also a TDD mode for testing and building the project while developing. Run it through `npm run watch`.
+To build the project automatically, use `npm run build:watch`. `npm run test:watch` does the same for tests.

@@ -5,10 +5,11 @@
   "description": "A static site engine built with React and webpack",
   "scripts": {
     "build": "lerna run build",
+    "build:watch": "npm-watch",
     "init": "npm install && lerna bootstrap && npm run build",
-    "test": "tape packages/*/test/*.js",
+    "test:watch": "jest --watch",
+    "test": "jest",
     "test:lint": "eslint . --ext .js --ext .jsx --cache",
-    "watch": "npm-watch",
     "gh-pages:build-and-deploy": "npm run gh-pages:build && npm run gh-pages:deploy",
     "gh-pages:build": "webpack",
     "gh-pages:deploy": "gh-pages -d gh-pages",
@@ -42,6 +43,7 @@
     "babel-cli": "^6.24.1",
     "babel-core": "^6.24.1",
     "babel-eslint": "^7.2.3",
+    "babel-jest": "^20.0.0",
     "babel-loader": "^7.0.0",
     "babel-plugin-syntax-object-rest-spread": "^6.13.0",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
@@ -60,6 +62,7 @@
     "file-loader": "^0.11.1",
     "front-matter": "^2.1.2",
     "git-prepush-hook": "^1.0.2",
+    "jest": "^20.0.0",
     "json-loader": "^0.5.4",
     "lerna": "2.0.0-rc.4",
     "lodash": "^4.17.4",
@@ -77,12 +80,14 @@
     "react-router-dom": "^4.1.1",
     "remove-markdown": "^0.1.0",
     "style-loader": "^0.17.0",
-    "tape": "^4.6.3",
     "url-loader": "^0.5.8",
     "webpack": "^2.4.1",
     "webpack-dev-server": "^2.4.5",
     "webpack-merge": "^4.1.0",
     "yaml-frontmatter-loader": "^0.1.0"
+  },
+  "jest": {
+    "testPathIgnorePatterns": ["/node_modules/", "/dist/"]
   },
   "pre-push": [
     "test:lint",
