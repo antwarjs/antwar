@@ -1,6 +1,7 @@
 const _ = require('lodash');
 const processPages = require('./process-pages');
-const parseModules = require('./parse-modules');
+const parseSectionPages = require('./parse-section-pages');
+const sortSections = require('./sort-sections');
 
 module.exports = function getAllPages(config) {
   if (!config) {
@@ -18,7 +19,10 @@ module.exports = function getAllPages(config) {
           const paths = section.content();
 
           if (paths.keys) {
-            return parseModules(sectionName, section, paths);
+            return sortSections(
+              section,
+              parseSectionPages(sectionName, section, paths)
+            );
           }
 
           console.warn('getAllPages - Section content did not return a require.context!', section);

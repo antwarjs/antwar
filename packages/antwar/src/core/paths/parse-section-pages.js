@@ -2,9 +2,8 @@ const _path = require('path');
 const _ = require('lodash');
 const parseLayout = require('./parse-layout');
 const parseUrl = require('./parse-url');
-const sortSections = require('./sort-sections');
 
-module.exports = function parseModules(sectionName, section, modules) {
+module.exports = function parseSectionPages(sectionName, section, modules) {
   const ret = _.map(
     modules.keys(),
     (name) => {
@@ -50,5 +49,5 @@ module.exports = function parseModules(sectionName, section, modules) {
     });
   }
 
-  return sortSections(section, ret);
+  return ret;
 };
