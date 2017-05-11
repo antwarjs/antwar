@@ -22,7 +22,6 @@ module.exports = {
   ],
   paths: {
     '/': {
-      title: 'Antwar',
       content: () => (
         require.context(
           './loaders/page-loader!./pages',
