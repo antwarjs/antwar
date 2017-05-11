@@ -31,7 +31,6 @@ module.exports = function parseSectionPages(sectionName, section, modules) {
         file,
         layout: parseLayout(section, trimmedName, 'page'),
         section,
-        // XXX: avoid trim?
         sectionName: parseSectionName(sectionName, trimmedName),
         url: parseUrl(section, trimmedName, fileName)
       };
