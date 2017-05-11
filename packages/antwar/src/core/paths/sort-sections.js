@@ -10,5 +10,9 @@ module.exports = function sortSections(section, pages) {
     );
   }
 
+  if (section.sort) {
+    return section.sort(pages);
+  }
+
   return pages;
 };

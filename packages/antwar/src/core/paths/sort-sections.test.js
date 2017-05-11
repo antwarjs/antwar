@@ -3,10 +3,60 @@ const parseSectionPages = require('./parse-section-pages');
 const sortSections = require('./sort-sections');
 
 describe('Sort sections', () => {
-  /*it('sorts a root section', () => {
+  it('sorts a root section', () => {
+    const section = {
+      layouts: {
+        page: () => {}
+      },
+      sort: pages => _.sortBy(pages, page => page.file.sort)
+    };
+    const parsedPages = parseSectionPages(
+      '/',
+      section,
+      context(path => `./${path}`)
+    );
+    const result = sortSections(
+      section,
+      parsedPages
+    );
+    const expected = [
+      {
+        type: 'page',
+        fileName: 'first',
+        file: {
+          sort: 0
+        },
+        layout: undefined,
+        section,
+        sectionName: '',
+        url: '/first/'
+      },
+      {
+        type: 'page',
+        fileName: 'second',
+        file: {
+          sort: 1
+        },
+        layout: undefined,
+        section,
+        sectionName: '',
+        url: '/second/'
+      },
+      {
+        type: 'page',
+        fileName: 'third',
+        file: {
+          sort: 10
+        },
+        layout: undefined,
+        section,
+        sectionName: '',
+        url: '/third/'
+      }
+    ];
 
     expect(result).toEqual(expected);
-  });*/
+  });
 
   it('sorts a child section', () => {
     const section = {
@@ -22,7 +72,7 @@ describe('Sort sections', () => {
     const parsedPages = parseSectionPages(
       '/',
       section,
-      context()
+      context(path => `./docs/${path}`)
     );
     const result = sortSections(
       section,
@@ -68,15 +118,15 @@ describe('Sort sections', () => {
   });
 });
 
-function context() {
+function context(shapePath) {
   const modules = {
-    './docs/first.md': {
+    [shapePath('first.md')]: {
       sort: 0
     },
-    './docs/third.md': {
+    [shapePath('third.md')]: {
       sort: 10
     },
-    './docs/second.md': {
+    [shapePath('second.md')]: {
       sort: 1
     }
   };
