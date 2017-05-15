@@ -33,7 +33,9 @@ exports.author = function (author) {
 
 exports.entries = function (baseUrl, sections, pages) {
   return _.map(pages, function (page, name) {
-    if (!_.includes(sections, page.section) || !page.title) {
+    const sectionName = page.sectionName;
+
+    if (!_.includes(sections, sectionName) || !page.title) {
       return null;
     }
 
@@ -54,7 +56,7 @@ exports.entries = function (baseUrl, sections, pages) {
       e(
         'content',
         { type: 'html' },
-        escapeHTML(resolveUrls(baseUrl, page.section, page.content))
+        escapeHTML(resolveUrls(baseUrl, sectionName, page.content))
       )
     ]);
   }).filter(_.identity).join('');

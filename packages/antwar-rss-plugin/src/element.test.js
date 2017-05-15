@@ -9,7 +9,7 @@ describe('Element', () => {
     const pages = {
       demo: {
         title: 'demo title',
-        section: 'demoSection',
+        sectionName: 'demoSection',
         date: '2016-02-01',
         content: 'demo'
       }
@@ -34,7 +34,7 @@ describe('Element', () => {
     const pages = {
       demo: {
         title: 'demo title',
-        section: 'demoSection',
+        sectionName: 'demoSection',
         date: '2016-02-01',
         content: marked('#test\n[check out](http://google.com)')
       }
@@ -59,7 +59,7 @@ describe('Element', () => {
     const pages = {
       demo: {
         title: 'demo title',
-        section: 'demoSection',
+        sectionName: 'demoSection',
         date: '2016-02-01',
         content: marked('#test\n[check out](../blog/demo-interview)')
       }
@@ -84,7 +84,7 @@ describe('Element', () => {
     const pages = {
       demo: {
         title: 'demo title',
-        section: 'demoSection',
+        sectionName: 'demoSection',
         date: '2016-02-01',
         content: marked('#test\n[check out](/blog/demo-interview)')
       }
@@ -109,7 +109,7 @@ describe('Element', () => {
     const pages = {
       demo: {
         title: 'demo title',
-        section: 'blog',
+        sectionName: 'blog',
         date: '2016-02-01',
         content: marked('#test\n[check out](./demo-interview)')
       }

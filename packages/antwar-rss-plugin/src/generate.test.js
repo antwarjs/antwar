@@ -8,7 +8,7 @@ describe('Generate', () => {
     const pages = {
       demo: {
         title: 'demo title',
-        section: 'demoSection',
+        sectionName: 'demoSection',
         date: '2016-02-01',
         content: 'demo'
       }
