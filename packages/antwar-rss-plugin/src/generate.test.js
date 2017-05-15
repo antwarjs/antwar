@@ -19,7 +19,9 @@ describe('Generate', () => {
     };
     const updated = moment().format();
 
-    const result = generate(baseUrl, sections, updated, pages, config);
+    const result = generate({
+      baseUrl, sections, updated, pages, config
+    });
     const expected = '<feed xmlns="http://www.w3.org/2005/Atom">' +
       '<title>' + config.title + '</title>' +
       '<link href="' + baseUrl + 'atom.xml" rel="self"></link>' +
