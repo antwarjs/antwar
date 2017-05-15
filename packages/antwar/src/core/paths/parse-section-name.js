@@ -1,6 +1,6 @@
 const _ = require('lodash');
 
-module.exports = function parseSectionName(sectionName, name) {
+module.exports = function parseSectionName(sectionName, name = '') {
   const ret = sectionName + name;
 
   // Root exception (/)
