@@ -3,7 +3,12 @@ const e = require('./element');
 
 // TODO: Push to another package or use a pre-existing one over this
 module.exports = function ({
-  baseUrl, sections = [], updated, pages, config
+  baseUrl,
+  sections = [],
+  updated,
+  pages,
+  config,
+  get
 }) {
   return e.feed([
     e.title(config.title),
@@ -12,6 +17,6 @@ module.exports = function ({
     e.updated(updated),
     e.id(baseUrl),
     e.author(config.author),
-    e.entries(baseUrl, sections, pages)
+    e.entries({ baseUrl, sections, pages, get })
   ]);
 };

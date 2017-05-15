@@ -1,4 +1,5 @@
 var _ = require('lodash'); // eslint-disable-line no-var
+var moment = require('moment'); // eslint-disable-line no-var
 var rssPlugin = require('antwar-rss-plugin'); // eslint-disable-line no-var
 var prevnextPlugin = require('antwar-prevnext-plugin'); // eslint-disable-line no-var
 
@@ -16,7 +17,12 @@ module.exports = {
   plugins: [
     rssPlugin({
       baseUrl: 'https://antwar.js.org/',
-      sections: ['blog']
+      sections: ['blog'],
+      get: {
+        content: page => page.file.body,
+        date: page => moment(page.file.attributes.date).utcOffset(0).format(),
+        title: page => page.file.attributes.title
+      }
     }),
     prevnextPlugin()
   ],

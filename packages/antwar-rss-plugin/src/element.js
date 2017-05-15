@@ -1,6 +1,5 @@
 const _url = require('url');
 const _ = require('lodash');
-const moment = require('moment');
 const absolutify = require('absolutify');
 const urljoin = require('url-join');
 
@@ -31,32 +30,40 @@ exports.author = function (author) {
   ]);
 };
 
-exports.entries = function (baseUrl, sections, pages) {
+exports.entries = function ({
+  baseUrl,
+  sections,
+  pages,
+  get
+}) {
   return _.map(pages, function (page, name) {
     const sectionName = page.sectionName;
 
-    if (!_.includes(sections, sectionName) || !page.title) {
+    if (!_.includes(sections, sectionName)) {
       return null;
     }
 
+    const pageTitle = get.title(page);
+    const pageContent = get.content(page);
+    const pageDate = get.date(page);
+
     return e('entry', {}, [
-      e('title', {}, escapeHTML(page.title)),
+      e('title', {}, escapeHTML(pageTitle)),
       e(
         'id',
         {},
-        'a' + _.camelCase(_.escape(_.deburr(page.title))).toLowerCase() +
-        moment(page.date, 'YYYY-MM-DD').utcOffset(0).format().toLowerCase()
+        'a' + _.camelCase(_.escape(_.deburr(pageTitle))).toLowerCase() + pageDate.toLowerCase()
       ),
       e('link', { href: _url.resolve(baseUrl, name) }, ''),
       e(
         'updated',
         {},
-        moment(page.date, 'YYYY-MM-DD').utcOffset(0).format()
+        pageDate
       ),
       e(
         'content',
         { type: 'html' },
-        escapeHTML(resolveUrls(baseUrl, sectionName, page.content))
+        escapeHTML(resolveUrls(baseUrl, sectionName, pageContent))
       )
     ]);
   }).filter(_.identity).join('');

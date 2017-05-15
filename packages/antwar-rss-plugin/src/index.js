@@ -1,17 +1,21 @@
 const generate = require('./generate');
-const moment = require('moment');
 
 // Antwar wrapper
-module.exports = function ({ baseUrl, sections }) {
+module.exports = function ({
+  baseUrl,
+  sections,
+  get
+}) {
   return {
     extra(pages, config) {
       return {
         'atom.xml': generate({
           baseUrl,
           sections,
-          updated: moment().format(),
+          updated: new Date().toString(),
           pages,
-          config
+          config,
+          get
         })
       };
     }
