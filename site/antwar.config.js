@@ -15,7 +15,7 @@ module.exports = {
   layout: () => require('./layouts/SiteBody').default,
   plugins: [
     rssPlugin({
-      baseUrl: 'https://antwarjs.github.io/',
+      baseUrl: 'https://antwar.js.org/',
       sections: ['blog']
     }),
     prevnextPlugin()
