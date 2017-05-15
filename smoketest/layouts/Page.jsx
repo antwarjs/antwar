@@ -2,9 +2,19 @@ import React from 'react';
 import Interactive from 'antwar-interactive';
 import ClickMe from './ClickMe';
 
-const Page = ({ page, section }) => (
+const Page = ({
+  page: {
+    file: {
+      attributes: {
+        title
+      },
+      body
+    }
+  },
+  section
+}) => (
   <div>
-    <h1>Page layout - {page.file.attributes.title}</h1>
+    <h1>Page layout - {title}</h1>
 
     <Interactive
       id="layouts/ClickMe.jsx"
@@ -14,7 +24,7 @@ const Page = ({ page, section }) => (
       containerProps={{ className: 'interactive-demo' }}
     />
 
-    <div dangerouslySetInnerHTML={{ __html: page.file.body }} />
+    <div dangerouslySetInnerHTML={{ __html: body }} />
   </div>
 );
 

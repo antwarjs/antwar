@@ -1,4 +1,5 @@
-# Entry
-
+---
+title: Entry
+---
 Demo configuration entry.
 

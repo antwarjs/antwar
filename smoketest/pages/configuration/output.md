@@ -1,4 +1,5 @@
-# Output
-
+---
+title: Output
+---
 Demo configuration output.
 

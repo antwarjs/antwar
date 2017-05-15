@@ -1,10 +1,19 @@
 import React from 'react';
 
-const Index = ({ page }) => (
+const Index = ({
+  page: {
+    file: {
+      attributes: {
+        title
+      },
+      body
+    }
+  }
+}) => (
   <div>
-    <h1>Index layout - {page.file.attributes.title}</h1>
+    <h1>Index layout - {title}</h1>
 
-    <div dangerouslySetInnerHTML={{ __html: page.file.body }} />
+    <div dangerouslySetInnerHTML={{ __html: body }} />
   </div>
 );
 
