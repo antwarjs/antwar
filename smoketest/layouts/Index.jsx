@@ -1,4 +1,5 @@
 import React from 'react';
+import marksy from 'marksy';
 
 const Index = ({
   page: {
@@ -13,7 +14,7 @@ const Index = ({
   <div>
     <h1>Index layout - {title}</h1>
 
-    <div dangerouslySetInnerHTML={{ __html: body }} />
+    {marksy()(body).tree}
   </div>
 );
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import Interactive from 'antwar-interactive';
+import marksy from 'marksy';
 import ClickMe from './ClickMe';
 
 const Page = ({
@@ -24,7 +25,7 @@ const Page = ({
       containerProps={{ className: 'interactive-demo' }}
     />
 
-    <div dangerouslySetInnerHTML={{ __html: body }} />
+    {marksy()(body).tree}
   </div>
 );
 

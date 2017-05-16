@@ -67,6 +67,7 @@
     "lerna": "2.0.0-rc.4",
     "lodash": "^4.17.4",
     "marked": "^0.3.6",
+    "marksy": "^0.4.1",
     "npm-watch": "^0.1.9",
     "preact": "^8.1.0",
     "preact-compat": "^3.16.0",
@@ -87,7 +88,10 @@
     "yaml-frontmatter-loader": "^0.1.0"
   },
   "jest": {
-    "testPathIgnorePatterns": ["/node_modules/", "/dist/"]
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/dist/"
+    ]
   },
   "pre-push": [
     "test:lint",
