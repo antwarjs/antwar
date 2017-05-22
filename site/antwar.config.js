@@ -1,7 +1,7 @@
-var _ = require('lodash'); // eslint-disable-line no-var
-var moment = require('moment'); // eslint-disable-line no-var
-var rssPlugin = require('antwar-rss-plugin'); // eslint-disable-line no-var
-var prevnextPlugin = require('antwar-prevnext-plugin'); // eslint-disable-line no-var
+const _ = require('lodash');
+const moment = require('moment');
+const rssPlugin = require('antwar-rss-plugin');
+const prevnextPlugin = require('antwar-prevnext-plugin');
 
 module.exports = {
   template: {
