@@ -1,5 +1,6 @@
 const _ = require('lodash');
 const frontmatter = require('front-matter');
+const loaderUtils = require('loader-utils');
 const markdown = require('../utils/markdown');
 const highlight = require('../utils/highlight');
 const removeMarkdown = require('remove-markdown');
@@ -8,16 +9,23 @@ module.exports = function (source) {
   const result = frontmatter(source);
 
   result.attributes = result.attributes || {};
-  result.preview = generatePreview(result); // Generate before processing to html
-  result.body = markdown().process(result.body, highlight);
+  result.preview = generatePreview(result, result.body);
   result.description = generateDescription(result);
   result.keywords = generateKeywords(result);
+  result.body = markdown().process(result.body, highlight);
 
-  return `module.exports = ${JSON.stringify(result)};`;
+  delete result.frontmatter;
+
+  // TODO: Figure out how to make resolve.alias to work
+  return `module.exports = ${JSON.stringify(result)};`.replace(
+    /__IMG_START__(.+)__IMG_END__/g, (match, href) => (
+      `" + require(${JSON.stringify((loaderUtils.urlToRequest(href)))}) + "`
+    )
+  );
 };
 
-function generatePreview(file) {
-  let ret = file.body;
+function generatePreview(file, body) {
+  let ret = body;
 
   if (file.attributes && file.attributes.preview) {
     ret = file.attributes.preview;

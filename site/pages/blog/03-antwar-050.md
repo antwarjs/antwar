@@ -14,7 +14,7 @@ Andreas was the first to port [his blog](http://eldh.co/) over at Antwar. My req
 
 ## SurviveJS - Webpack and React
 
-<img src="/assets/img/survivejs.jpg" class="inline-img" alt="SurviveJS site">
+![SurviveJS site](../../assets/img/survivejs.jpg)
 
 [SurviveJS - Webpack and React](http://survivejs.com/) is a little book I have been working on lately. No book is complete without a little site to accompany it. In this case I wanted to offer people an easy way to consume the content online and optionally buy an electronic copy (**wink wink, nudge nudge**).
 

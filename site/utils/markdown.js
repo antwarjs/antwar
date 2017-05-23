@@ -1,16 +1,12 @@
 // Ported from webpack.js.org
-var marked = require('marked'); // eslint-disable-line no-var
-var parse = require('./parse'); // eslint-disable-line no-var
+const marked = require('marked');
+const parse = require('./parse');
 
-module.exports = function (siteSection) {
-  // alter marked renderer to add slashes to beginning so images point at root
-  // leanpub expects images without slash...
-  const section = siteSection ? '/' + siteSection + '/' : '/';
-
+module.exports = function () {
   const renderer = new marked.Renderer();
 
   renderer.image = function (href, title, text) {
-    return '<img src="' + section + href + '" alt="' + text + '">';
+    return `<img src="__IMG_START__${href}__IMG_END__" alt="${text}" class="inline-img" />`;
   };
 
   // patch ids (this.options.headerPrefix can be undefined!)
