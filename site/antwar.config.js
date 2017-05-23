@@ -54,7 +54,7 @@ module.exports = {
           layouts: {
             page: () => require('./layouts/DocsPage').default
           },
-          sort: pages => _.sortBy(pages, page => page.file.sort)
+          sort: pages => _.sortBy(pages, page => page.file.attributes.sort)
         }
       }
     }
