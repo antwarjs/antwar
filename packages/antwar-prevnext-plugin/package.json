@@ -3,8 +3,15 @@
   "description": "prev/next metadata for Antwar items",
   "author": "Juho Vepsalainen <bebraw@gmail.com>",
   "version": "0.10.0",
+  "scripts": {
+    "build": "rimraf ./dist && babel ./src --out-dir ./dist",
+    "prepublish": "npm run build"
+  },
   "dependencies": {},
-  "devDependencies": {},
+  "devDependencies": {
+    "babel-cli": "^6.14.0",
+    "rimraf": "^2.5.4"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/antwarjs/antwar.git"
@@ -13,10 +20,12 @@
   "bugs": {
     "url": "https://github.com/antwarjs/antwar/issues"
   },
+  "main": "dist",
+  "module": "dist",
+  "jsnext:main": "dist",
   "keywords": [
     "antwar",
     "plugin"
   ],
-  "license": "MIT",
-  "scripts": {}
+  "license": "MIT"
 }
