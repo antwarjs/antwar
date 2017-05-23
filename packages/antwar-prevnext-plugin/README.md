@@ -1,53 +1,15 @@
 [![build status](https://secure.travis-ci.org/antwarjs/prevnext-plugin.png)](http://travis-ci.org/antwarjs/prevnext-plugin)
-# Google Analytics for Antwar
+# Prev/next metadata for Antwar
 
-Usage:
+**Usage:**
 
 ```javascript
 var prevnextPlugin = require('antwar-prevnext-plugin');
 
-// generate just metadata
+// Generate metadata per page (previous/next fields)
 plugins: [
   prevnextPlugin()
 ]
-
-// factory with custom previous/next (optional)
-plugins: [
-  prevnextPlugin({
-    bodyContent: prevnextPlugin.bodyContent({
-      previous: function(o) {
-        return o.title;
-      },
-      previousUrl: function(o) {
-        return '../' + o.split('/').slice(1).join('/');
-      },
-      next: function(o) {
-        return o.title;
-      },
-      nextUrl: function(o) {
-        return '../' + o.split('/').slice(1).join('/');
-      },
-    })
-  }),
-]
-```
-
-```css
-.previous-page {
-    left: 10px;
-}
-
-.next-page {
-    right: 10px;
-}
-
-.previous-page::after {
-    content: "\2190 Previous Chapter";
-}
-
-.next-page::after {
-    content: "Next Chapter \2192";
-}
 ```
 
 ## License
