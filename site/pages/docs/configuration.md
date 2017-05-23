@@ -4,134 +4,76 @@ sort: 1
 preview: "Understand configuration, understand Antwar"
 ---
 
-Just like [Webpack](https://webpack.js.org/), the heart of Antwar, also Antwar has been built on the configuration. `antwar.config.js` describes all metadata related to your site. This includes basic information such as site title, author, sections and so on. It also defines which theme and which plugins you use.
+Just like [webpack](https://webpack.js.org/), the heart of Antwar, also Antwar has been built on top of configuration.
 
-## Basic Example
+`antwar.config.js` describes how to map your content into a site. It ties layouts to the content and allows you to define custom pages where needed. It's also the place where you maintain possible redirects and attach plugins to the system.
 
-This is (more or less) the configuration for this site. If you are used to working with javascript, most of this should look familiar.
+## Example
+
+This is the configuration for this site. If you are used to working with JavaScript, most of this should look familiar.
 
 ```javascript
+const _ = require('lodash');
+const moment = require('moment');
 const rssPlugin = require('antwar-rss-plugin');
 const prevnextPlugin = require('antwar-prevnext-plugin');
-const highlightPlugin = require('antwar-highlight-plugin');
 
 module.exports = {
-  // Template settings (each page goes through this)
   template: {
     title: 'Antwar',
-    // RSS settings if you want to expose a RSS feed
     rss: {
       title: 'Antwar',
       href: '/atom.xml'
     }
   },
-
-  // Folder name for the output
   output: 'build',
-
-  // Name of the author
   author: 'Antwar',
-
+  layout: () => require('./layouts/SiteBody').default,
   plugins: [
-    rssPlugin(),
-    prevnextPlugin(),
-
-    // Remember to load Prism style in addition to enabling highlighting!
-    highlightPlugin()
+    rssPlugin({
+      baseUrl: 'https://antwar.js.org/',
+      sections: ['blog'],
+      get: {
+        content: page => page.file.body,
+        date: page => (
+          moment(page.file.attributes.date).utcOffset(0).format()
+        ),
+        title: page => page.file.attributes.title
+      }
+    }),
+    prevnextPlugin()
   ],
-
-  // Definitions for where the content is located
   paths: {
     '/': {
-      title: 'Antwar',
-      path() {
-        return require.context(
-          'json-loader!yaml-frontmatter-loader!./pages',
-          false,
-          /^\.\/.*\.md$/
-        );
-      },
-      layouts: {
-        page() {
-          return require('./layouts/Index').default;
-        }
-      },
-      processPage: {
-        url(o) {
-          return o.sectionName + '/' + o.fileName.split('.')[0];
-        },
-        content(o) {
-          return marked(o.file.__content);
-        }
-      }
-    },
-    blog: {
-      title: 'Blog posts',
-      path() {
-        return require.context(
-          'json-loader!yaml-frontmatter-loader!./posts',
-          false,
-          /^\.\/.*\.md$/
-        );
-      },
-      // XXX: handle drafts in some other way.
-      // it's better to provide a control mechanism for
-      // filtering content based on metadata
-      draft() {
-        return require.context(
-          'json-loader!yaml-frontmatter-loader!./drafts',
-          false,
-          /^\.\/.*\.md$/
-        );
-      },
-      processPage: {
-        url(o) {
-          if (o.file.url) {
-            return o.file.url;
-          }
-
-          const page = o.fileName.split('.')[0].split('-').slice(1).join('-');
-
-          return `${o.sectionName}/${page}`;
-        },
-        content(o) {
-          return marked(o.file.__content);
-        }
-      },
-      layouts: {
-        index() {
-          return require('./layouts/SectionIndex').default;
-        },
-        page() {
-          return require('./layouts/BlogPage').default;
-        }
-      }
-    },
-    docs: {
-      title: 'Documentation',
-      path() {
-        return require.context(
-          'json-loader!yaml-frontmatter-loader!./docs',
+      content: () => (
+        require.context(
+          './loaders/page-loader!./pages',
           true,
           /^\.\/.*\.md$/
-        );
-      },
-      sort(pages) {
-        return _.sortBy(pages, function (page) {
-          return page.file.sort;
-        });
-      },
-      processPage: {
-        content(o) {
-          return marked(o.file.__content);
-        }
-      },
+        )
+      ),
       layouts: {
-        index() {
-          return require('./layouts/SectionIndex').default;
+        index: () => require('./layouts/SectionIndex').default,
+        page: () => require('./layouts/Page').default
+      },
+      custom: () => require('./layouts/SiteIndex').default,
+      paths: {
+        blog: {
+          layouts: {
+            page: () => require('./layouts/BlogPage').default
+          },
+          sort: pages => _.sortBy(pages, 'date').reverse(),
+          url: ({ sectionName, fileName }) => (
+            `/${sectionName}/${_.trimStart(fileName, '0123456789-')}/`
+          )
         },
-        page() {
-          return require('./layouts/DocsPage').default;
+        docs: {
+          layouts: {
+            page: () => require('./layouts/DocsPage').default
+          },
+          sort: pages => (
+            _.sortBy(pages, page => page.file.attributes.sort)
+          )
         }
       }
     }
