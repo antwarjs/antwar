@@ -20,7 +20,9 @@ module.exports = {
       sections: ['blog'],
       get: {
         content: page => page.file.body,
-        date: page => moment(page.file.attributes.date).utcOffset(0).format(),
+        date: page => (
+          moment(page.file.attributes.date).utcOffset(0).format()
+        ),
         title: page => page.file.attributes.title
       }
     }),
@@ -54,7 +56,9 @@ module.exports = {
           layouts: {
             page: () => require('./layouts/DocsPage').default
           },
-          sort: pages => _.sortBy(pages, page => page.file.attributes.sort)
+          sort: pages => (
+            _.sortBy(pages, page => page.file.attributes.sort)
+          )
         }
       }
     }
