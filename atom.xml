@@ -1,11 +1,12 @@
-<feed xmlns="http://www.w3.org/2005/Atom"><title></title><link href="https://antwarjs.github.io/atom.xml" rel="self"></link><link href="https://antwarjs.github.io/" rel=""></link><updated>2017-03-27T17:04:10+03:00</updated><id>https://antwarjs.github.io/</id><author><name>Antwar</name><email></email></author><entry><title>Antwar 0.5.0 - Halfway Towards Awesomeness</title><id>aantwar050halfwaytowardsawesomenessinvalid date</id><link href="https://antwarjs.github.io/blog/antwar-050"></link><updated>Invalid date</updated><content type="html">&lt;p&gt;Antwar is one of those projects that was born to fill a need. I wanted to port my &lt;a href=&quot;http://nixtu.info/&quot;&gt;Blogspot blog&lt;/a&gt; to some platform that&amp;#39;s more fun to work with. Initially I looked into &lt;a href=&quot;https://ghost.org/&quot;&gt;Ghost&lt;/a&gt;. The fact that it&amp;#39;s not static was a big turn off. I wanted my blog over Git.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title></title><link href="https://antwar.js.org/atom.xml" rel="self"></link><link href="https://antwar.js.org/" rel=""></link><updated>Wed May 24 2017 19:08:29 GMT+0300 (EEST)</updated><id>https://antwar.js.org/</id><author><name>Antwar</name><email></email></author><entry><title>Blog</title><id>ablog2017-05-24t16:08:29z</id><link href="https://antwar.js.org/blog/"></link><updated>2017-05-24T16:08:29Z</updated><content type="html">&lt;p&gt;TODO&lt;/p&gt;
+</content></entry><entry><title>Antwar 0.5.0 - Halfway Towards Awesomeness</title><id>aantwar050halfwaytowardsawesomeness2015-06-04t00:00:00z</id><link href="https://antwar.js.org/blog/antwar-050/"></link><updated>2015-06-04T00:00:00Z</updated><content type="html">&lt;p&gt;Antwar is one of those projects that was born to fill a need. I wanted to port my &lt;a href=&quot;http://nixtu.info/&quot;&gt;Blogspot blog&lt;/a&gt; to some platform that&amp;#39;s more fun to work with. Initially I looked into &lt;a href=&quot;https://ghost.org/&quot;&gt;Ghost&lt;/a&gt;. The fact that it&amp;#39;s not static was a big turn off. I wanted my blog over Git.&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;During my dabblings with Ghost I did write a migration path in form of &lt;a href=&quot;https://github.com/bebraw/blogger2ghost&quot;&gt;blogger2ghost&lt;/a&gt;, though. Eventually I came upon &lt;a href=&quot;https://github.com/antwarjs/antwar&quot;&gt;Antwar&lt;/a&gt; and here I am.&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;Initially Antwar started as a fork of &lt;a href=&quot;https://github.com/BradDenver/react-static-site&quot;&gt;Brad Denver react-static-site&lt;/a&gt;. Early on I wrote a &lt;a href=&quot;https://github.com/antwarjs/antwar/wiki/Design&quot;&gt;design document&lt;/a&gt; to guide development. Since then the project has mutated a lot and gained a life of its own. I doubt Antwar would exist without Brad&amp;#39;s pioneering work.&lt;/p&gt;
 &lt;p&gt;Andreas was the first to port &lt;a href=&quot;http://eldh.co/&quot;&gt;his blog&lt;/a&gt; over at Antwar. My requirements are more complex than that and there are still issues like pagination to solve. As a result I have to develop Antwar further till it meets my needs. Incidentally I managed to find a smaller case that allowed me to work towards this larger goal.&lt;/p&gt;
 &lt;h2 class=&quot;header&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#survivejs-webpack-and-react&quot; id=&quot;survivejs-webpack-and-react&quot;&gt;&lt;/a&gt;&lt;span class=&quot;text&quot;&gt;SurviveJS - Webpack and React&lt;/span&gt;&lt;a class=&quot;icon-link&quot; href=&quot;#survivejs-webpack-and-react&quot;&gt;&lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;&lt;img src=&quot;/assets/img/survivejs.jpg&quot; class=&quot;inline-img&quot; alt=&quot;SurviveJS site&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/c08251621c664be4038463b082c2cd74.jpg&quot; alt=&quot;SurviveJS site&quot; class=&quot;inline-img&quot; /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;http://survivejs.com/&quot;&gt;SurviveJS - Webpack and React&lt;/a&gt; is a little book I have been working on lately. No book is complete without a little site to accompany it. In this case I wanted to offer people an easy way to consume the content online and optionally buy an electronic copy (&lt;strong&gt;wink wink, nudge nudge&lt;/strong&gt;).&lt;/p&gt;
 &lt;p&gt;I realized Antwar could allow me to reach this goal with a bit of work. As I like the design work Andreas has done on the default theme of Antwar that allowed me to focus on getting things to work adequately and focus on software design.&lt;/p&gt;
 &lt;p&gt;Earlier Antwar was designed based on a static directory structure. Primarily it relied on &lt;code&gt;pages&lt;/code&gt;, &lt;code&gt;drafts&lt;/code&gt; and &lt;code&gt;posts&lt;/code&gt; directories and Markdown (with YAML headmatter) format. My book, however, uses another kind of structure, chapters are missing headmatter and ordering of chapters is defined by an external file.&lt;/p&gt;
@@ -17,100 +18,100 @@
 &lt;/blockquote&gt;
 &lt;h3 class=&quot;header&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#assets&quot; id=&quot;assets&quot;&gt;&lt;/a&gt;&lt;span class=&quot;text&quot;&gt;Assets&lt;/span&gt;&lt;a class=&quot;icon-link&quot; href=&quot;#assets&quot;&gt;&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;Asset configuration allows you to copy arbitrary assets within your build. In my case I needed to copy &lt;code&gt;images&lt;/code&gt; directory and &lt;code&gt;CNAME&lt;/code&gt; file. Latter is used by GitHub to deal with domain mapping. If CNAME is set to point at your domain and you have configured your DNS to point at GitHub static hosting, your site will show up there.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;module.exports = {
-  assets: [
-    {
-      from: &amp;#39;manuscript/images&amp;#39;,
-      to: &amp;#39;images&amp;#39;,
-    },
-    {
-      from: &amp;#39;./CNAME&amp;#39;,
-      to: &amp;#39;./&amp;#39;,
-    }
-  ],
-  ...
-};
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;module&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;exports &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  assets&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;manuscript/images&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+      to&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;images&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;./CNAME&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+      to&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;./&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h3 class=&quot;header&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#plugins&quot; id=&quot;plugins&quot;&gt;&lt;/a&gt;&lt;span class=&quot;text&quot;&gt;Plugins&lt;/span&gt;&lt;a class=&quot;icon-link&quot; href=&quot;#plugins&quot;&gt;&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;We decided to standardize on plugin format. Now each plugin should return a function which takes possible options. In this case I&amp;#39;m setting up highlighting and previous/next links for all sections of the site. Later on we intend to allow more specific configuration per site section.&lt;/p&gt;
 &lt;p&gt;Plugins can inject new metadata and even markup to pages making this a powerful extension mechanism. Besides highlight and prevnext we have set up RSS plugin and there are plans for a few others including various commenting plugins.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;var highlightPlugin = require(&amp;#39;antwar-highlight-plugin&amp;#39;);
-var prevnextPlugin = require(&amp;#39;antwar-prevnext-plugin&amp;#39;);
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; highlightPlugin &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;antwar-highlight-plugin&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; prevnextPlugin &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;antwar-prevnext-plugin&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 
-module.exports = {
-  plugins: [
-    highlightPlugin({
-      style: function() {
-        require(&amp;#39;highlight.js/styles/github.css&amp;#39;);
-      },
-      languages: [&amp;#39;bash&amp;#39;, &amp;#39;javascript&amp;#39;, &amp;#39;json&amp;#39;, &amp;#39;html&amp;#39;],
-    }),
-    prevnextPlugin({
-      ...
-    }),
-  ],
-  ...
-};
+module&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;exports &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  plugins&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
+    &lt;span class=&quot;token function&quot;&gt;highlightPlugin&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+      style&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;token function&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;highlight.js/styles/github.css&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+      languages&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;bash&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;javascript&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;json&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;html&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token function&quot;&gt;prevnextPlugin&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h3 class=&quot;header&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#theming&quot; id=&quot;theming&quot;&gt;&lt;/a&gt;&lt;span class=&quot;text&quot;&gt;Theming&lt;/span&gt;&lt;a class=&quot;icon-link&quot; href=&quot;#theming&quot;&gt;&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;In this iteration we didn&amp;#39;t spend much thought on theming. Themes gained some minor addition but I consider this portion of Antwar underdeveloped. We have a nice looking default theme thanks to Andreas but I feel there&amp;#39;s room for improvement here. For completeness sake consider the example below:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;module.exports = {
-  theme: {
-    customStyles: &amp;#39;custom.scss&amp;#39;,
-    name: &amp;#39;antwar-default-theme&amp;#39;,
-    navigation: [
-      {
-        title: &amp;#39;Home&amp;#39;,
-        url: &amp;#39;/&amp;#39;
-      },
-      {
-        title: &amp;#39;Table of Contents&amp;#39;,
-        url: &amp;#39;/webpack_react&amp;#39;
-      },
-    ],
-  },
-  ...
-};
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;module&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;exports &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  theme&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    customStyles&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;custom.scss&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    name&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;antwar-default-theme&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    navigation&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        title&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;Home&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        url&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;/&apos;&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        title&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;Table of Contents&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        url&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;/webpack_react&apos;&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;I think we&amp;#39;ll push navigation to a plugin eventually. Now it just renders a navigation like that for each page. This is handy but not as good as it can be.&lt;/p&gt;
 &lt;h3 class=&quot;header&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#paths&quot; id=&quot;paths&quot;&gt;&lt;/a&gt;&lt;span class=&quot;text&quot;&gt;Paths&lt;/span&gt;&lt;a class=&quot;icon-link&quot; href=&quot;#paths&quot;&gt;&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;The greatest innovation of Antwar 0.5.0 is the path configuration. Paths allow you to map content to your site. We let Webpack do the heavy lifting for us as you can see below. The system allows you to perform heavy transformations over data, sort it and so on.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;module.exports = {
-  paths: {
-    &amp;#39;/&amp;#39;: {
-      path: function() {
-        return require.context(&amp;#39;./pages&amp;#39;);
-      },
-    },
-    webpack_react: {
-      title: &amp;#39;Table of Contents&amp;#39;,
-      path: function() {
-        return require.context(&amp;#39;./manuscript&amp;#39;, true, /^\.\/.*\.md$/);
-      },
-      processItem: {
-        title: function(o) {
-          return removeMd(o.file.__content.split(&amp;#39;\n&amp;#39;)[0]);
-        },
-        content: function(o) {
-          var content = o.file.__content.split(&amp;#39;\n&amp;#39;).slice(1).join(&amp;#39;\n&amp;#39;);
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;module&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;exports &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  paths&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token string&quot;&gt;&apos;/&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+      path&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; require&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;./pages&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    webpack_react&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+      title&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;Table of Contents&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+      path&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; require&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;./manuscript&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token regex&quot;&gt;/^\.\/.*\.md$/&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+      processItem&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        title&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;o&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+          &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;removeMd&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;o&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;file&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;__content&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;\n&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        content&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;o&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+          &lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; content &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; o&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;file&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;__content&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;\n&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;slice&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;\n&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 
-          return mdWriter.render(mdReader.parse(content));
-        },
-        preview: function(o) {
-          ...
-        },
-      },
-      sort: function(files) {
-        var order = require(&amp;#39;raw!./manuscript/Book.txt&amp;#39;).split(&amp;#39;\n&amp;#39;).filter(id);
-        var ret = [];
+          &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; mdWriter&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;render&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;mdReader&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;parse&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;content&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        preview&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;o&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+          &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+        &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+      sort&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;files&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; order &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;raw!./manuscript/Book.txt&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;\n&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;id&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt; ret &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 
-        ...
+        &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
 
-        return ret;
-      },
-    }
-  }
-};
+        &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; ret&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 class=&quot;header&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#antwar-0-5-0-not-just-for-blogs&quot; id=&quot;antwar-0-5-0-not-just-for-blogs&quot;&gt;&lt;/a&gt;&lt;span class=&quot;text&quot;&gt;Antwar 0.5.0 - Not Just for Blogs&lt;/span&gt;&lt;a class=&quot;icon-link&quot; href=&quot;#antwar-0-5-0-not-just-for-blogs&quot;&gt;&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Even though that&amp;#39;s a lot of configuration you can see logic in it quite fast. It&amp;#39;s just a series of mappings. In this case I define sections for &lt;code&gt;/&lt;/code&gt; and &lt;code&gt;webpack_react&lt;/code&gt;. Those &lt;code&gt;/&lt;/code&gt; pages map to site root. &lt;code&gt;webpack_react&lt;/code&gt; will receive a section of its own. Antwar will generate a section index and a page per entry file it finds for that.&lt;/p&gt;
@@ -123,7 +124,7 @@ module.exports = {
 &lt;p&gt;There is still design and work left to do on theming and plugin department. Even though it is easy to develop plugins to extend a site even right now I feel we&amp;#39;ll need to take the approach further. In particular we&amp;#39;ll want to make sure you can customize site per section adequately.&lt;/p&gt;
 &lt;p&gt;In order to provide better sites for various libraries of mine, such as &lt;a href=&quot;https://bebraw.github.io/reactabular/&quot;&gt;reactabular&lt;/a&gt;, I&amp;#39;ll need to think carefully about integrating interactive React examples to the output. I believe with a bit of work Antwar could become a good basis for project sites.&lt;/p&gt;
 &lt;p&gt;I believe Antwar 0.5.0 is an important step towards a refreshingly different static site generator. It is starting to show some promise already. If you are willing to tolerate a certain lack of features and possible little glitches, maybe you should give it a go. In any case keep an eye on the project as here we come!&lt;/p&gt;
-</content></entry><entry><title>The sequel</title><id>athesequelinvalid date</id><link href="https://antwarjs.github.io/blog/second-post"></link><updated>Invalid date</updated><content type="html">&lt;p&gt;Posts are written in Markdown. More specifically, the kind of Markdown that&amp;#39;s called &lt;a href=&quot;http://commonmark.org/&quot;&gt;Commonmark&lt;/a&gt;. We&amp;#39;re guessing that you are familiar with Markdown, but anyway. Here are some of the things you can do with it.&lt;/p&gt;
+</content></entry><entry><title>The sequel</title><id>athesequel2015-03-08t00:00:00z</id><link href="https://antwar.js.org/blog/second-post/"></link><updated>2015-03-08T00:00:00Z</updated><content type="html">&lt;p&gt;Posts are written in Markdown. More specifically, the kind of Markdown that&amp;#39;s called &lt;a href=&quot;http://commonmark.org/&quot;&gt;Commonmark&lt;/a&gt;. We&amp;#39;re guessing that you are familiar with Markdown, but anyway. Here are some of the things you can do with it.&lt;/p&gt;
 &lt;h2 class=&quot;header&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#headings-&quot; id=&quot;headings-&quot;&gt;&lt;/a&gt;&lt;span class=&quot;text&quot;&gt;Headings!&lt;/span&gt;&lt;a class=&quot;icon-link&quot; href=&quot;#headings-&quot;&gt;&lt;/a&gt;&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;Lists&lt;/li&gt;
@@ -132,15 +133,15 @@ module.exports = {
 &lt;/ul&gt;
 &lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=dQw4w9WgXcQ&quot;&gt;Links&lt;/a&gt; can take you to wonderful places.&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;Code can be written inline like this.&lt;/code&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;if(youWant) {
-  console.log(&amp;#39;You can write code in blocks.&amp;#39;);
-}
-else {
-  console.log(&amp;#39;Whatevs man.&amp;#39;);
-}
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;youWant&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  console&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;You can write code in blocks.&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  console&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;Whatevs man.&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;If you want to &lt;strong&gt;put emphasis&lt;/strong&gt; in certain things that&amp;#39;s also &lt;em&gt;pretty simple&lt;/em&gt;.&lt;/p&gt;
-</content></entry><entry><title>This is the beginning of a beautiful friendship</title><id>athisisthebeginningofabeautifulfriendshipinvalid date</id><link href="https://antwarjs.github.io/blog/a-beautiful-friendship"></link><updated>Invalid date</updated><content type="html">&lt;p&gt;This is the first post on the Antwar blog. The first post served by Antwar. I hope there will be many more. I hope that there are more people out there that want a simple and friendly blogging tool. Because that&amp;#39;s what we are trying to build.&lt;/p&gt;
+</content></entry><entry><title>This is the beginning of a beautiful friendship</title><id>athisisthebeginningofabeautifulfriendship2015-03-06t00:00:00z</id><link href="https://antwar.js.org/blog/a-beautiful-friendship/"></link><updated>2015-03-06T00:00:00Z</updated><content type="html">&lt;p&gt;This is the first post on the Antwar blog. The first post served by Antwar. I hope there will be many more. I hope that there are more people out there that want a simple and friendly blogging tool. Because that&amp;#39;s what we are trying to build.&lt;/p&gt;
 &lt;p&gt;The project started out as a fork of Brad Denver&amp;#39;s experiment &lt;a href=&quot;http://braddenver.com/blog/2015/react-static-site.html&quot;&gt;react-static-site&lt;/a&gt;. We have come quite a long way already and we want to keep improving Antwar.&lt;/p&gt;
 &lt;p&gt;We would be happy if you wanted to try Antwar and give some feedback.&lt;/p&gt;
 </content></entry></feed>

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width" />
-    <title>Configuration</title>
+    <title></title>
     
     <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Antwar">
     
@@ -13,130 +13,71 @@
     
   </head>
   <body>
-    <div class="_2Gxg9_yWrySXyBQDWtNI8w"><div class="YNmKX9cKsFiAq-LJ6jE2s"><nav class="YtpwQVVdphfKtCnB-sWZd"><a class="_1uJxfhViT8S5yna9ssAn2E" href="/">Antwar</a><a href="/">Home</a><a href="/docs">Documentation</a><a href="/blog">Blog</a></nav></div><div class="_2qT03q6ixF47PjvJjhy7fF"><div class="c8kkN1NcUPtEUjlpo-7DH"><span class="-xGYcsxAQlvsJFEpQqwbq _1-jk2piFTU1u_fqWA8Pj0C">Configuration</span><a class="_1-jk2piFTU1u_fqWA8Pj0C" href="/docs/faq">FAQ</a><a class="_1-jk2piFTU1u_fqWA8Pj0C" href="/docs/getting-started">Getting started</a><a class="_1-jk2piFTU1u_fqWA8Pj0C" href="/docs/plugins">Plugins</a><a class="_1-jk2piFTU1u_fqWA8Pj0C" href="/docs/themes">Theming</a></div><div class="_1pYwETq1FZEFujDOymWZ0q"><a href="https://github.com/antwarjs/antwar" class="github-corner"><svg width="80" height="80" viewBox="0 0 250 250" style="position:absolute;top:0;fill:#fff;right:0;"><path class="octo-banner" d="M0 0l115 115h15l12 27 108 108V0z" fill="#151513"></path><path class="octo-arm" d="M128 109c-15-9-9-19-9-19 3-7 2-11 2-11-1-7 3-2 3-2 4 5 2 11 2 11-3 10 5 15 9 16" style="-webkit-transform-origin:130px 106px;transform-origin:130px 106px;"></path><path class="octo-body" d="M115 115s4 2 5 0l14-14c3-2 6-3 8-3-8-11-15-24 2-41 5-5 10-7 16-7 1-2 3-7 12-11 0 0 5 3 7 16 4 2 8 5 12 9s7 8 9 12c14 3 17 7 17 7-4 8-9 11-11 11 0 6-2 11-7 16-16 16-30 10-41 2 0 3-1 7-5 11l-12 11c-1 1 1 5 1 5z"></path></svg></a><article class="_2vLGoMKjPIsz98fNsfoZNa"><header class="_2wEjvqPvFr3U7JbERu8j52"><h1>Configuration</h1></header><div><p>Just like <a href="https://webpack.js.org/">Webpack</a>, the heart of Antwar, also Antwar has been built on the configuration. <code>antwar.config.js</code> describes all metadata related to your site. This includes basic information such as site title, author, sections and so on. It also defines which theme and which plugins you use.</p>
-<h2 class="header"><a class="anchor" href="#basic-example" id="basic-example"></a><span class="text">Basic Example</span><a class="icon-link" href="#basic-example"></a></h2>
-<p>This is (more or less) the configuration for this site. If you are used to working with javascript, most of this should look familiar.</p>
-<pre><code class="lang-javascript"><span class="token keyword">const</span> rssPlugin <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'antwar-rss-plugin'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <div class="_2Gxg9_yWrySXyBQDWtNI8w"><div class="YNmKX9cKsFiAq-LJ6jE2s"><nav class="YtpwQVVdphfKtCnB-sWZd"><a class="_1uJxfhViT8S5yna9ssAn2E" href="/">Antwar</a><a href="/">Home</a><a class="_3uV80WfcOeh7fSMHQuOCPn" href="/docs/">Documentation</a><a href="/blog/">Blog</a></nav></div><div class="_2qT03q6ixF47PjvJjhy7fF"><div class="c8kkN1NcUPtEUjlpo-7DH"><a class="_1-jk2piFTU1u_fqWA8Pj0C" href="/docs/getting-started/">Getting started</a><span class="-xGYcsxAQlvsJFEpQqwbq _1-jk2piFTU1u_fqWA8Pj0C">Configuration</span><a class="_1-jk2piFTU1u_fqWA8Pj0C" href="/docs/faq/">FAQ</a><a class="_1-jk2piFTU1u_fqWA8Pj0C" href="/docs/plugins/">Plugins</a></div><div class="_1pYwETq1FZEFujDOymWZ0q"><a href="https://github.com/antwarjs/antwar" class="github-corner"><svg width="80" height="80" viewBox="0 0 250 250" style="position:absolute;top:0;fill:#fff;right:0;"><path class="octo-banner" d="M0 0l115 115h15l12 27 108 108V0z" fill="#151513"></path><path class="octo-arm" d="M128 109c-15-9-9-19-9-19 3-7 2-11 2-11-1-7 3-2 3-2 4 5 2 11 2 11-3 10 5 15 9 16" style="-webkit-transform-origin:130px 106px;transform-origin:130px 106px;"></path><path class="octo-body" d="M115 115s4 2 5 0l14-14c3-2 6-3 8-3-8-11-15-24 2-41 5-5 10-7 16-7 1-2 3-7 12-11 0 0 5 3 7 16 4 2 8 5 12 9s7 8 9 12c14 3 17 7 17 7-4 8-9 11-11 11 0 6-2 11-7 16-16 16-30 10-41 2 0 3-1 7-5 11l-12 11c-1 1 1 5 1 5z"></path></svg></a><article class="_2vLGoMKjPIsz98fNsfoZNa"><header class="_2wEjvqPvFr3U7JbERu8j52"><h1>Configuration</h1></header><div><p>Just like <a href="https://webpack.js.org/">webpack</a>, the heart of Antwar, also Antwar has been built on top of configuration.</p>
+<p><code>antwar.config.js</code> describes how to map your content into a site. It ties layouts to the content and allows you to define custom pages where needed. It&#39;s also the place where you maintain possible redirects and attach plugins to the system.</p>
+<h2 class="header"><a class="anchor" href="#example" id="example"></a><span class="text">Example</span><a class="icon-link" href="#example"></a></h2>
+<p>This is the configuration for this site. If you are used to working with JavaScript, most of this should look familiar.</p>
+<pre><code class="lang-javascript"><span class="token keyword">const</span> _ <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'lodash'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> moment <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'moment'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> rssPlugin <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'antwar-rss-plugin'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword">const</span> prevnextPlugin <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'antwar-prevnext-plugin'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">const</span> highlightPlugin <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'antwar-highlight-plugin'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
-  <span class="token comment" spellcheck="true">// Template settings (each page goes through this)</span>
   template<span class="token punctuation">:</span> <span class="token punctuation">{</span>
     title<span class="token punctuation">:</span> <span class="token string">'Antwar'</span><span class="token punctuation">,</span>
-    <span class="token comment" spellcheck="true">// RSS settings if you want to expose a RSS feed</span>
     rss<span class="token punctuation">:</span> <span class="token punctuation">{</span>
       title<span class="token punctuation">:</span> <span class="token string">'Antwar'</span><span class="token punctuation">,</span>
       href<span class="token punctuation">:</span> <span class="token string">'/atom.xml'</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span><span class="token punctuation">,</span>
-
-  <span class="token comment" spellcheck="true">// Folder name for the output</span>
   output<span class="token punctuation">:</span> <span class="token string">'build'</span><span class="token punctuation">,</span>
-
-  <span class="token comment" spellcheck="true">// Name of the author</span>
   author<span class="token punctuation">:</span> <span class="token string">'Antwar'</span><span class="token punctuation">,</span>
-
+  layout<span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'./layouts/SiteBody'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">default</span><span class="token punctuation">,</span>
   plugins<span class="token punctuation">:</span> <span class="token punctuation">[</span>
-    <span class="token function">rssPlugin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token function">prevnextPlugin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-
-    <span class="token comment" spellcheck="true">// Remember to load Prism style in addition to enabling highlighting!</span>
-    <span class="token function">highlightPlugin</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token function">rssPlugin</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      baseUrl<span class="token punctuation">:</span> <span class="token string">'https://antwar.js.org/'</span><span class="token punctuation">,</span>
+      sections<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'blog'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token keyword">get</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        content<span class="token punctuation">:</span> page <span class="token operator">=</span><span class="token operator">></span> page<span class="token punctuation">.</span>file<span class="token punctuation">.</span>body<span class="token punctuation">,</span>
+        date<span class="token punctuation">:</span> page <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">(</span>
+          <span class="token function">moment</span><span class="token punctuation">(</span>page<span class="token punctuation">.</span>file<span class="token punctuation">.</span>attributes<span class="token punctuation">.</span>date<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">utcOffset</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">)</span><span class="token punctuation">,</span>
+        title<span class="token punctuation">:</span> page <span class="token operator">=</span><span class="token operator">></span> page<span class="token punctuation">.</span>file<span class="token punctuation">.</span>attributes<span class="token punctuation">.</span>title
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token function">prevnextPlugin</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
   <span class="token punctuation">]</span><span class="token punctuation">,</span>
-
-  <span class="token comment" spellcheck="true">// Definitions for where the content is located</span>
   paths<span class="token punctuation">:</span> <span class="token punctuation">{</span>
     <span class="token string">'/'</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
-      title<span class="token punctuation">:</span> <span class="token string">'Antwar'</span><span class="token punctuation">,</span>
-      <span class="token function">path</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> require<span class="token punctuation">.</span><span class="token function">context</span><span class="token punctuation">(</span>
-          <span class="token string">'json-loader!yaml-frontmatter-loader!./pages'</span><span class="token punctuation">,</span>
-          <span class="token boolean">false</span><span class="token punctuation">,</span>
-          <span class="token regex">/^\.\/.*\.md$/</span>
-        <span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token punctuation">}</span><span class="token punctuation">,</span>
-      layouts<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-        <span class="token function">page</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-          <span class="token keyword">return</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'./layouts/Index'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">default</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-      <span class="token punctuation">}</span><span class="token punctuation">,</span>
-      processPage<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-        <span class="token function">url</span><span class="token punctuation">(</span>o<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-          <span class="token keyword">return</span> o<span class="token punctuation">.</span>sectionName <span class="token operator">+</span> <span class="token string">'/'</span> <span class="token operator">+</span> o<span class="token punctuation">.</span>fileName<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">'.'</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span><span class="token punctuation">,</span>
-        <span class="token function">content</span><span class="token punctuation">(</span>o<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-          <span class="token keyword">return</span> <span class="token function">marked</span><span class="token punctuation">(</span>o<span class="token punctuation">.</span>file<span class="token punctuation">.</span>__content<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-      <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    blog<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-      title<span class="token punctuation">:</span> <span class="token string">'Blog posts'</span><span class="token punctuation">,</span>
-      <span class="token function">path</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> require<span class="token punctuation">.</span><span class="token function">context</span><span class="token punctuation">(</span>
-          <span class="token string">'json-loader!yaml-frontmatter-loader!./posts'</span><span class="token punctuation">,</span>
-          <span class="token boolean">false</span><span class="token punctuation">,</span>
-          <span class="token regex">/^\.\/.*\.md$/</span>
-        <span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token punctuation">}</span><span class="token punctuation">,</span>
-      <span class="token comment" spellcheck="true">// XXX: handle drafts in some other way.</span>
-      <span class="token comment" spellcheck="true">// it's better to provide a control mechanism for</span>
-      <span class="token comment" spellcheck="true">// filtering content based on metadata</span>
-      <span class="token function">draft</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> require<span class="token punctuation">.</span><span class="token function">context</span><span class="token punctuation">(</span>
-          <span class="token string">'json-loader!yaml-frontmatter-loader!./drafts'</span><span class="token punctuation">,</span>
-          <span class="token boolean">false</span><span class="token punctuation">,</span>
-          <span class="token regex">/^\.\/.*\.md$/</span>
-        <span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token punctuation">}</span><span class="token punctuation">,</span>
-      processPage<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-        <span class="token function">url</span><span class="token punctuation">(</span>o<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-          <span class="token keyword">if</span> <span class="token punctuation">(</span>o<span class="token punctuation">.</span>file<span class="token punctuation">.</span>url<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> o<span class="token punctuation">.</span>file<span class="token punctuation">.</span>url<span class="token punctuation">;</span>
-          <span class="token punctuation">}</span>
-
-          <span class="token keyword">const</span> page <span class="token operator">=</span> o<span class="token punctuation">.</span>fileName<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">'.'</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">'-'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token string">'-'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-          <span class="token keyword">return</span> <span class="token template-string"><span class="token string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>o<span class="token punctuation">.</span>sectionName<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">/</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>page<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">`</span></span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span><span class="token punctuation">,</span>
-        <span class="token function">content</span><span class="token punctuation">(</span>o<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-          <span class="token keyword">return</span> <span class="token function">marked</span><span class="token punctuation">(</span>o<span class="token punctuation">.</span>file<span class="token punctuation">.</span>__content<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-      <span class="token punctuation">}</span><span class="token punctuation">,</span>
-      layouts<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-        <span class="token function">index</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-          <span class="token keyword">return</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'./layouts/SectionIndex'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">default</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span><span class="token punctuation">,</span>
-        <span class="token function">page</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-          <span class="token keyword">return</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'./layouts/BlogPage'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">default</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-      <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    docs<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-      title<span class="token punctuation">:</span> <span class="token string">'Documentation'</span><span class="token punctuation">,</span>
-      <span class="token function">path</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> require<span class="token punctuation">.</span><span class="token function">context</span><span class="token punctuation">(</span>
-          <span class="token string">'json-loader!yaml-frontmatter-loader!./docs'</span><span class="token punctuation">,</span>
+      content<span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">(</span>
+        require<span class="token punctuation">.</span><span class="token function">context</span><span class="token punctuation">(</span>
+          <span class="token string">'./loaders/page-loader!./pages'</span><span class="token punctuation">,</span>
           <span class="token boolean">true</span><span class="token punctuation">,</span>
           <span class="token regex">/^\.\/.*\.md$/</span>
-        <span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token punctuation">}</span><span class="token punctuation">,</span>
-      <span class="token function">sort</span><span class="token punctuation">(</span>pages<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> _<span class="token punctuation">.</span><span class="token function">sortBy</span><span class="token punctuation">(</span>pages<span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>page<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-          <span class="token keyword">return</span> page<span class="token punctuation">.</span>file<span class="token punctuation">.</span>sort<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token punctuation">}</span><span class="token punctuation">,</span>
-      processPage<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-        <span class="token function">content</span><span class="token punctuation">(</span>o<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-          <span class="token keyword">return</span> <span class="token function">marked</span><span class="token punctuation">(</span>o<span class="token punctuation">.</span>file<span class="token punctuation">.</span>__content<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">)</span>
+      <span class="token punctuation">)</span><span class="token punctuation">,</span>
       layouts<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-        <span class="token function">index</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-          <span class="token keyword">return</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'./layouts/SectionIndex'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">default</span><span class="token punctuation">;</span>
+        index<span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'./layouts/SectionIndex'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">default</span><span class="token punctuation">,</span>
+        page<span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'./layouts/Page'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">default</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      custom<span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'./layouts/SiteIndex'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">default</span><span class="token punctuation">,</span>
+      paths<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        blog<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+          layouts<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+            page<span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'./layouts/BlogPage'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">default</span>
+          <span class="token punctuation">}</span><span class="token punctuation">,</span>
+          sort<span class="token punctuation">:</span> pages <span class="token operator">=</span><span class="token operator">></span> _<span class="token punctuation">.</span><span class="token function">sortBy</span><span class="token punctuation">(</span>pages<span class="token punctuation">,</span> <span class="token string">'date'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">reverse</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+          url<span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">{</span> sectionName<span class="token punctuation">,</span> fileName <span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">(</span>
+            `<span class="token operator">/</span>$<span class="token punctuation">{</span>sectionName<span class="token punctuation">}</span><span class="token operator">/</span>$<span class="token punctuation">{</span>_<span class="token punctuation">.</span><span class="token function">trimStart</span><span class="token punctuation">(</span>fileName<span class="token punctuation">,</span> <span class="token string">'0123456789-'</span><span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token operator">/</span>`
+          <span class="token punctuation">)</span>
         <span class="token punctuation">}</span><span class="token punctuation">,</span>
-        <span class="token function">page</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-          <span class="token keyword">return</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'./layouts/DocsPage'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">default</span><span class="token punctuation">;</span>
+        docs<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+          layouts<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+            page<span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'./layouts/DocsPage'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">default</span>
+          <span class="token punctuation">}</span><span class="token punctuation">,</span>
+          sort<span class="token punctuation">:</span> pages <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">(</span>
+            _<span class="token punctuation">.</span><span class="token function">sortBy</span><span class="token punctuation">(</span>pages<span class="token punctuation">,</span> page <span class="token operator">=</span><span class="token operator">></span> page<span class="token punctuation">.</span>file<span class="token punctuation">.</span>attributes<span class="token punctuation">.</span>sort<span class="token punctuation">)</span>
+          <span class="token punctuation">)</span>
         <span class="token punctuation">}</span>
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
