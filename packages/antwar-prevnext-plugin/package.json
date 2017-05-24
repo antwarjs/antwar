@@ -2,7 +2,7 @@
   "name": "antwar-prevnext-plugin",
   "description": "prev/next metadata for Antwar items",
   "author": "Juho Vepsalainen <bebraw@gmail.com>",
-  "version": "0.10.0",
+  "version": "0.13.0",
   "scripts": {
     "build": "rimraf ./dist && babel ./src --out-dir ./dist",
     "prepublish": "npm run build"
