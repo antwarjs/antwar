@@ -2,7 +2,6 @@
 build/
 packages/**/dist/
 node_modules/
-.editorconfig
 .eslintcache
 .antwar
 
