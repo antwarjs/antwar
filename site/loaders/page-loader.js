@@ -16,6 +16,8 @@ module.exports = function (source) {
 
   delete result.frontmatter;
 
+  const context = this;
+
   // TODO: Figure out how to make resolve.alias to work
   return `module.exports = ${JSON.stringify(result)};`.replace(
     /__IMG_START__([^,\]]+)__IMG_END__/g, (match, src) => {
@@ -23,7 +25,7 @@ module.exports = function (source) {
         return src;
       }
 
-      return `" + require(${JSON.stringify((loaderUtils.urlToRequest(src)))}) + "`;
+      return `" + require(${loaderUtils.stringifyRequest(context, src)}) + "`;
     }
   );
 };
