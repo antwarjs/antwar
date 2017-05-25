@@ -18,7 +18,6 @@ module.exports = function (source) {
 
   const context = this;
 
-  // TODO: Figure out how to make resolve.alias to work
   return `module.exports = ${JSON.stringify(result)};`.replace(
     /__IMG_START__([^,\]]+)__IMG_END__/g, (match, src) => {
       if (_.startsWith(src, 'http')) {
