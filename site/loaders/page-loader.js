@@ -1,9 +1,9 @@
 const _ = require('lodash');
 const frontmatter = require('front-matter');
 const loaderUtils = require('loader-utils');
+const removeMarkdown = require('remove-markdown');
 const markdown = require('../utils/markdown');
 const highlight = require('../utils/highlight');
-const removeMarkdown = require('remove-markdown');
 
 module.exports = function (source) {
   const result = frontmatter(source);
@@ -18,9 +18,13 @@ module.exports = function (source) {
 
   // TODO: Figure out how to make resolve.alias to work
   return `module.exports = ${JSON.stringify(result)};`.replace(
-    /__IMG_START__(.+)__IMG_END__/g, (match, href) => (
-      `" + require(${JSON.stringify((loaderUtils.urlToRequest(href)))}) + "`
-    )
+    /__IMG_START__([^,\]]+)__IMG_END__/g, (match, src) => {
+      if (_.startsWith(src, 'http')) {
+        return src;
+      }
+
+      return `" + require(${JSON.stringify((loaderUtils.urlToRequest(src)))}) + "`;
+    }
   );
 };
 

@@ -41,7 +41,7 @@ function commonConfig() {
     module: {
       rules: [
         {
-          test: /\.jsx?$/,
+          test: /\.(js|jsx)$/,
           use: 'babel-loader',
           include: [
             path.join(__dirname, 'layouts'),
