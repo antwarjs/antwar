@@ -65,7 +65,8 @@ module.exports = {
           sort: pages => _.sortBy(pages, 'date').reverse(),
           url: ({ sectionName, fileName }) => (
             `/${sectionName}/${_.trimStart(fileName, '0123456789-')}/`
-          )
+          ),
+          custom: () => require('./layouts/SectionIndex').default
         },
         docs: {
           layouts: {

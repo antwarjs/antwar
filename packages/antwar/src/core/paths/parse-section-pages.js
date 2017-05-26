@@ -1,12 +1,14 @@
 const _path = require('path');
 const _ = require('lodash');
 const parseLayout = require('./parse-layout');
+const parseCustomPage = require('./parse-custom-page');
 const parseSectionName = require('./parse-section-name');
 const parseUrl = require('./parse-url');
 
 module.exports = function parseSectionPages(sectionName, section, modules) {
+  const moduleKeys = modules.keys();
   const ret = _.map(
-    modules.keys(),
+    moduleKeys,
     (name) => {
       // Strip ./ and extension
       const fileName = _path.basename(name, _path.extname(name)) || '';
@@ -37,6 +39,32 @@ module.exports = function parseSectionPages(sectionName, section, modules) {
     }
   );
 
+  // Check for custom functions within nested sections
+  const checkedSections = {};
+  const customPages = _.map(
+    moduleKeys,
+    (name) => {
+      const trimmedName = _.trimStart(_path.dirname(name), './');
+      const customPage = parseCustomPage(section, trimmedName);
+
+      if (!checkedSections[trimmedName] && customPage) {
+        checkedSections[trimmedName] = true;
+
+        return {
+          type: 'custom',
+          fileName: '',
+          file: {},
+          layout: customPage,
+          section,
+          sectionName: trimmedName,
+          url: `/${trimmedName}/`
+        };
+      }
+
+      return null;
+    }
+  ).filter(a => a) || [];
+
   if (_.isFunction(section.custom)) {
     ret.push({
       type: 'custom',
@@ -49,5 +77,5 @@ module.exports = function parseSectionPages(sectionName, section, modules) {
     });
   }
 
-  return ret;
+  return ret.concat(customPages);
 };
