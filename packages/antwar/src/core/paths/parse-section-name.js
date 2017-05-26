@@ -1,8 +1,13 @@
 const _ = require('lodash');
 
 module.exports = function parseSectionName(sectionName, name = '') {
-  const ret = sectionName + name;
+  // Root (/) exception
+  if (sectionName === '/' && !name) {
+    return sectionName;
+  }
 
-  // Root exception (/)
-  return ret.length > 1 ? _.trimStart(ret, '/') : ret;
+  const ret = sectionName + '/' + name;
+  const trimmed = _.trim(ret, '/');
+
+  return trimmed.length ? trimmed : ret;
 };
