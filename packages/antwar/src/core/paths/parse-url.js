@@ -3,5 +3,9 @@ module.exports = function parseUrl(section, sectionName, fileName) {
     return section.paths[sectionName].url({ sectionName, fileName });
   }
 
+  if (section.url) {
+    return section.url({ sectionName, fileName });
+  }
+
   return sectionName ? `/${sectionName}/${fileName}/` : `/${fileName}/`;
 };
