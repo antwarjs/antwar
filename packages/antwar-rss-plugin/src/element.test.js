@@ -17,6 +17,7 @@ describe('Element', () => {
     const body = 'demo';
     const pages = {
       demo: {
+        type: 'page',
         sectionName: 'demoSection',
         file: {
           attributes: {
@@ -54,6 +55,7 @@ describe('Element', () => {
     const body = marked('#test\n[check out](http://google.com)');
     const pages = {
       demo: {
+        type: 'page',
         sectionName: 'demoSection',
         file: {
           attributes: {
@@ -91,6 +93,7 @@ describe('Element', () => {
     const body = marked('#test\n[check out](../blog/demo-interview)');
     const pages = {
       demo: {
+        type: 'page',
         sectionName: 'demoSection',
         file: {
           attributes: {
@@ -128,6 +131,7 @@ describe('Element', () => {
     const body = marked('#test\n[check out](/blog/demo-interview)');
     const pages = {
       demo: {
+        type: 'page',
         sectionName: 'demoSection',
         file: {
           attributes: {
@@ -165,6 +169,7 @@ describe('Element', () => {
     const body = marked('#test\n[check out](./demo-interview)');
     const pages = {
       demo: {
+        type: 'page',
         sectionName: 'blog',
         file: {
           attributes: {

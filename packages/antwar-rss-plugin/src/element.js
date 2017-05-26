@@ -39,7 +39,7 @@ exports.entries = function ({
   return _.map(pages, function (page, name) {
     const sectionName = page.sectionName;
 
-    if (!_.includes(sections, sectionName)) {
+    if (!_.includes(sections, sectionName) || page.type !== 'page') {
       return null;
     }
 

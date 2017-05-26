@@ -10,6 +10,7 @@ describe('Generate', () => {
     const body = 'demo';
     const pages = {
       demo: {
+        type: 'page',
         sectionName: 'demoSection',
         file: {
           attributes: {
