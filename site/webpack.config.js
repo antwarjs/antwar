@@ -26,6 +26,12 @@ const commonConfig = {
       PATHS.packages
     ]
   },
+  resolveLoader: {
+    alias: {
+      'highlight-loader': path.resolve(__dirname, 'loaders/highlight-loader.js'),
+      'page-loader': path.resolve(__dirname, 'loaders/page-loader.js')
+    }
+  },
   module: {
     rules: [
       {

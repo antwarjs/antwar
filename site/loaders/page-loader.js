@@ -26,7 +26,8 @@ module.exports = function (source) {
 
       return `" + require(${loaderUtils.stringifyRequest(context, src)}) + "`;
     }
-  );
+  // Replacement for code embeds
+  ).replace(/<!-- EMBED([^,\]>]+)-->/, (match, code) => `" + ${code} + "`);
 };
 
 function generatePreview(file, body) {
