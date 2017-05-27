@@ -52,26 +52,20 @@ module.exports = {
           /^\.\/.*\.md$/
         )
       ),
-      layouts: {
-        index: () => require('./layouts/SectionIndex').default,
-        page: () => require('./layouts/Page').default
-      },
-      custom: () => require('./layouts/SiteIndex').default,
+      layout: () => require('./layouts/Page').default,
+      index: () => require('./layouts/SiteIndex').default,
       paths: {
         blog: {
-          layouts: {
-            page: () => require('./layouts/BlogPage').default
-          },
+          layout: () => require('./layouts/BlogPage').default,
+          index: () => require('./layouts/SectionIndex').default,
           sort: pages => _.sortBy(pages, 'date').reverse(),
           url: ({ sectionName, fileName }) => (
             `/${sectionName}/${_.trimStart(fileName, '0123456789-')}/`
-          ),
-          custom: () => require('./layouts/SectionIndex').default
+          )
         },
         docs: {
-          layouts: {
-            page: () => require('./layouts/DocsPage').default
-          },
+          layout: () => require('./layouts/DocsPage').default,
+          index: () => require('./layouts/SectionIndex').default,
           sort: pages => (
             _.sortBy(pages, page => page.file.attributes.sort)
           )

@@ -12,16 +12,11 @@ module.exports = () => ({
           /^\.\/.*\.md$/
         )
       ),
-      layouts: {
-        index: () => require('./layouts/Index').default,
-        page: () => require('./layouts/Page').default
-      },
+      layout: () => require('./layouts/Page').default,
       redirects: {}
     },
     standalone: {
-      custom() {
-        return require('./layouts/Standalone').default;
-      }
+      index: () => require('./layouts/Standalone').default
     }
   }
 });

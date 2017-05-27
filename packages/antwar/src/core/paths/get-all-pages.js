@@ -29,13 +29,13 @@ module.exports = function getAllPages(config) {
           console.warn('getAllPages - Section content did not return a require.context!', section);
         }
 
-        if (_.isFunction(section.custom)) {
+        if (_.isFunction(section.index)) {
           return [
             {
-              type: 'custom',
+              type: 'index',
               fileName: sectionName,
               file: {},
-              layout: section.custom(),
+              layout: section.index(),
               section,
               url: `/${sectionName}/`
             }

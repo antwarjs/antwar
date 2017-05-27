@@ -1,7 +1,7 @@
 const _path = require('path');
 const _ = require('lodash');
 const parseLayout = require('./parse-layout');
-const parseCustomPage = require('./parse-custom-page');
+const parseIndexPage = require('./parse-index-page');
 const parseSectionName = require('./parse-section-name');
 const parseUrl = require('./parse-url');
 
@@ -15,12 +15,13 @@ module.exports = function parseSectionPages(sectionName, section, modules) {
       const trimmedName = _.trimStart(_path.dirname(name), './');
       const file = modules(name);
 
+      // Render index pages through root
       if (fileName === 'index') {
         return {
           type: 'index',
           fileName,
           file,
-          layout: parseLayout(section, trimmedName, 'index'),
+          layout: parseLayout(section, trimmedName),
           section,
           sectionName: trimmedName,
           url: trimmedName ? `/${trimmedName}/` : '/'
@@ -31,7 +32,7 @@ module.exports = function parseSectionPages(sectionName, section, modules) {
         type: 'page',
         fileName,
         file,
-        layout: parseLayout(section, trimmedName, 'page'),
+        layout: parseLayout(section, trimmedName),
         section,
         sectionName: parseSectionName(sectionName, trimmedName),
         url: parseUrl(section, trimmedName, fileName)
@@ -39,22 +40,22 @@ module.exports = function parseSectionPages(sectionName, section, modules) {
     }
   );
 
-  // Check for custom functions within nested sections
+  // Check for index functions within nested sections
   const checkedSections = {};
-  const customPages = _.map(
+  const indexPages = _.map(
     moduleKeys,
     (name) => {
       const trimmedName = _.trimStart(_path.dirname(name), './');
-      const customPage = parseCustomPage(section, trimmedName);
+      const indexPage = parseIndexPage(section, trimmedName);
 
-      if (!checkedSections[trimmedName] && customPage) {
+      if (!checkedSections[trimmedName] && indexPage) {
         checkedSections[trimmedName] = true;
 
         return {
-          type: 'custom',
+          type: 'index',
           fileName: '',
           file: {},
-          layout: customPage,
+          layout: indexPage,
           section,
           sectionName: trimmedName,
           url: `/${trimmedName}/`
@@ -65,17 +66,17 @@ module.exports = function parseSectionPages(sectionName, section, modules) {
     }
   ).filter(a => a) || [];
 
-  if (_.isFunction(section.custom)) {
+  if (_.isFunction(section.index)) {
     ret.push({
-      type: 'custom',
+      type: 'index',
       fileName: '',
       file: {},
-      layout: section.custom(),
+      layout: section.index(),
       section,
       sectionName: parseSectionName(sectionName),
       url: sectionName
     });
   }
 
-  return ret.concat(customPages);
+  return ret.concat(indexPages);
 };

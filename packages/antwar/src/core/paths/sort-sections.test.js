@@ -6,9 +6,7 @@ describe('Sort sections', () => {
   it('sorts a root section', () => {
     const sectionName = '/';
     const section = {
-      layouts: {
-        page: () => {}
-      },
+      layout: () => {},
       sort: pages => _.sortBy(pages, page => page.file.sort)
     };
     const parsedPages = parseSectionPages(
@@ -65,9 +63,7 @@ describe('Sort sections', () => {
     const section = {
       paths: {
         docs: {
-          layouts: {
-            page: () => {}
-          },
+          layout: () => {},
           sort: pages => _.sortBy(pages, page => page.file.sort)
         }
       }
@@ -124,15 +120,11 @@ describe('Sort sections', () => {
   it('sorts root and child section', () => {
     const sectionName = '/';
     const section = {
-      layouts: {
-        page: () => {}
-      },
+      layout: () => {},
       sort: pages => _.sortBy(pages, page => page.file.sort),
       paths: {
         docs: {
-          layouts: {
-            page: () => {}
-          },
+          layout: () => {},
           sort: pages => _.sortBy(pages, page => page.file.sort)
         }
       }

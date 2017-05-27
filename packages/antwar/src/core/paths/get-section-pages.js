@@ -12,7 +12,7 @@ module.exports = function getSectionPages(config, sectionName, pages) {
       ));
     }
 
-    // A custom page
+    // An index page
     return [paths];
   }
 
