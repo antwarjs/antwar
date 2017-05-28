@@ -2,7 +2,6 @@ const _path = require('path');
 const _ = require('lodash');
 const parseLayout = require('./parse-layout');
 const parseIndexPage = require('./parse-index-page');
-const parseSectionName = require('./parse-section-name');
 const parseUrl = require('./parse-url');
 
 module.exports = function parseSectionPages(sectionName, section, modules) {
@@ -34,7 +33,7 @@ module.exports = function parseSectionPages(sectionName, section, modules) {
         file,
         layout: parseLayout(section, trimmedName),
         section,
-        sectionName: parseSectionName(sectionName, trimmedName),
+        sectionName: trimmedName,
         url: parseUrl(section, trimmedName, fileName)
       };
     }
@@ -73,7 +72,7 @@ module.exports = function parseSectionPages(sectionName, section, modules) {
       file: {},
       layout: section.index(),
       section,
-      sectionName: parseSectionName(sectionName),
+      sectionName,
       url: sectionName === '/' ? '/' : `/${sectionName}/`
     });
   }
