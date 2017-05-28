@@ -41,6 +41,19 @@ module.exports = function getAllPages(config) {
           ];
         }
 
+        if (_.isFunction(section)) {
+          return [
+            {
+              type: 'index',
+              fileName: sectionName,
+              file: {},
+              layout: section(),
+              section,
+              url: `/${sectionName}/`
+            }
+          ];
+        }
+
         // It is possible a section has only redirects. Better not to warn then.
         if (!section.redirects) {
           console.warn('getAllPages - Section content was not a function!', section.content);

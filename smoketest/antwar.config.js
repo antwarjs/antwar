@@ -15,9 +15,7 @@ module.exports = () => ({
       layout: () => require('./layouts/Page').default,
       redirects: {}
     },
-    standalone: {
-      index: () => require('./layouts/Standalone').default
-    },
+    standalone: () => require('./layouts/Standalone').default,
     demo: {
       content: () => (
         require.context(
