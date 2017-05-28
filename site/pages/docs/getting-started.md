@@ -18,7 +18,7 @@ npm i antwar -D
 
 3\. Create a bootstrap script. This will be used to run the site.
 
-**bootstrap.js**
+**antwar.bootstrap.js**
 
 ```javascript
 const antwar = require('antwar');
@@ -46,8 +46,8 @@ antwar[environment]({
 ```json
 {
   "scripts": {
-    "start": "node ./bootstrap.js develop",
-    "build": "node ./bootstrap.js build"
+    "start": "node ./antwar.bootstrap.js develop",
+    "build": "node ./antwar.bootstrap.js build"
   },
   ...
 }

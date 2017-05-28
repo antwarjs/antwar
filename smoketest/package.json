@@ -5,8 +5,8 @@
   "author": "Juho Vepsäläinen",
   "version": "0.0.1",
   "scripts": {
-    "start": "NODE_PATH=$NODE_PATH:../packages node ./bootstrap.js develop",
-    "build": "NODE_PATH=$NODE_PATH:../packages node ./bootstrap.js build"
+    "start": "NODE_PATH=$NODE_PATH:../packages node ./antwar.bootstrap.js develop",
+    "build": "NODE_PATH=$NODE_PATH:../packages node ./antwar.bootstrap.js build"
   },
   "repository": {
     "type": "git",
