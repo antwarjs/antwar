@@ -1,20 +1,20 @@
 const _ = require('lodash');
 const parseSectionPages = require('./parse-section-pages');
-const sortSections = require('./sort-sections');
+const transformSections = require('./transform-sections');
 
-describe('Sort sections', () => {
-  it('sorts a root section', () => {
+describe('Transform sections', () => {
+  it('transforms a root section', () => {
     const sectionName = '/';
     const section = {
       layout: () => {},
-      sort: pages => _.sortBy(pages, page => page.file.sort)
+      transform: pages => _.sortBy(pages, page => page.file.sort)
     };
     const parsedPages = parseSectionPages(
       sectionName,
       section,
       context(path => [`./${path}`])
     );
-    const result = sortSections(
+    const result = transformSections(
       sectionName,
       section,
       parsedPages
@@ -58,13 +58,13 @@ describe('Sort sections', () => {
     expect(result).toEqual(expected);
   });
 
-  it('sorts a child section', () => {
+  it('transforms a child section', () => {
     const sectionName = '/';
     const section = {
       paths: {
         docs: {
           layout: () => {},
-          sort: pages => _.sortBy(pages, page => page.file.sort)
+          transform: pages => _.sortBy(pages, page => page.file.sort)
         }
       }
     };
@@ -73,7 +73,7 @@ describe('Sort sections', () => {
       section,
       context(path => [`./docs/${path}`])
     );
-    const result = sortSections(
+    const result = transformSections(
       sectionName,
       section,
       parsedPages
@@ -117,15 +117,15 @@ describe('Sort sections', () => {
     expect(result).toEqual(expected);
   });
 
-  it('sorts root and child section', () => {
+  it('transforms root and child section', () => {
     const sectionName = '/';
     const section = {
       layout: () => {},
-      sort: pages => _.sortBy(pages, page => page.file.sort),
+      transform: pages => _.sortBy(pages, page => page.file.sort),
       paths: {
         docs: {
           layout: () => {},
-          sort: pages => _.sortBy(pages, page => page.file.sort)
+          transform: pages => _.sortBy(pages, page => page.file.sort)
         }
       }
     };
@@ -134,7 +134,7 @@ describe('Sort sections', () => {
       section,
       context(path => [`./${path}`, `./docs/${path}`]),
     );
-    const result = sortSections(
+    const result = transformSections(
       sectionName,
       section,
       parsedPages

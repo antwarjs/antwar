@@ -1,7 +1,7 @@
 const _ = require('lodash');
 const processPages = require('./process-pages');
 const parseSectionPages = require('./parse-section-pages');
-const sortSections = require('./sort-sections');
+const transformSections = require('./transform-sections');
 
 module.exports = function getAllPages(config) {
   if (!config) {
@@ -19,7 +19,7 @@ module.exports = function getAllPages(config) {
           const paths = section.content();
 
           if (paths.keys) {
-            return sortSections(
+            return transformSections(
               sectionName,
               section,
               parseSectionPages(sectionName, section, paths)

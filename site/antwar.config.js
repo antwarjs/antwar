@@ -12,7 +12,6 @@ module.exports = {
     }
   },
   output: 'build',
-  author: 'Antwar',
   layout: () => require('./layouts/SiteBody').default,
   plugins: [
     rssPlugin({
@@ -43,7 +42,7 @@ module.exports = {
         blog: {
           layout: () => require('./layouts/BlogPage').default,
           index: () => require('./layouts/SectionIndex').default,
-          sort: pages => _.sortBy(pages, 'date').reverse(),
+          transform: pages => _.sortBy(pages, 'date').reverse(),
           url: ({ sectionName, fileName }) => (
             `/${sectionName}/${_.trimStart(fileName, '0123456789-')}/`
           )
@@ -51,7 +50,7 @@ module.exports = {
         docs: {
           layout: () => require('./layouts/DocsPage').default,
           index: () => require('./layouts/SectionIndex').default,
-          sort: pages => (
+          transform: pages => (
             _.sortBy(pages, page => page.file.attributes.sort)
           )
         }
