@@ -11,7 +11,7 @@ module.exports = function parseSectionPages(sectionName, section, modules) {
     (name) => {
       // Strip ./ and extension
       const fileName = _path.basename(name, _path.extname(name)) || '';
-      const trimmedName = _.trimStart(_path.join(sectionName, _path.dirname(name)), './');
+      const trimmedName = _.trimStart(_path.join(sectionName, _path.dirname(name)), './').split('/')[0];
       const file = modules(name);
 
       // Render index pages through root
