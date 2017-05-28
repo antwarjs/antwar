@@ -31,10 +31,11 @@ function getSection(page, pathname, allPages) {
   return section;
 }
 
+// XXXXX: redo to take nesting into account
 function getAllSectionPages(allPages) {
-  return _.map(config.paths, (({ title }, name) => ({
+  return _.map(config.paths, ((path, name) => ({
     url: name,
-    title,
+    path,
     pages: getSectionPages(name, allPages)
   })));
 }
