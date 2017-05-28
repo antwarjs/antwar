@@ -74,7 +74,7 @@ module.exports = function parseSectionPages(sectionName, section, modules) {
       layout: section.index(),
       section,
       sectionName: parseSectionName(sectionName),
-      url: sectionName
+      url: `/${sectionName}/`
     });
   }
 
