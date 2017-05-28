@@ -1,7 +1,7 @@
 const _ = require('lodash');
 const moment = require('moment');
 const rssPlugin = require('antwar-rss-plugin');
-const prevnextPlugin = require('antwar-prevnext-plugin');
+const generateAdjacent = require('./utils/generate-adjacent');
 
 module.exports = {
   template: {
@@ -24,8 +24,7 @@ module.exports = {
         ),
         title: page => page.file.attributes.title
       }
-    }),
-    prevnextPlugin()
+    })
   ],
   paths: {
     '/': {
@@ -42,7 +41,7 @@ module.exports = {
         blog: {
           layout: () => require('./layouts/BlogPage').default,
           index: () => require('./layouts/SectionIndex').default,
-          transform: pages => _.sortBy(pages, 'date').reverse(),
+          transform: pages => generateAdjacent(_.sortBy(pages, 'date').reverse()),
           url: ({ sectionName, fileName }) => (
             `/${sectionName}/${_.trimStart(fileName, '0123456789-')}/`
           )

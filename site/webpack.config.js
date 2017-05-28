@@ -9,7 +9,8 @@ const PATHS = {
   site: [
     path.join(__dirname, 'layouts'),
     path.join(__dirname, 'components'),
-    path.join(__dirname, 'pages')
+    path.join(__dirname, 'pages'),
+    path.join(__dirname, 'utils')
   ],
   style: [
     path.join(__dirname, 'layouts'),
@@ -35,7 +36,7 @@ const commonConfig = {
   module: {
     rules: [
       {
-        test: /\.jsx?$/,
+        test: /\.(js|jsx)$/,
         use: 'babel-loader',
         include: PATHS.site
       },

@@ -20,7 +20,7 @@ const PrevNext = ({
 
   return (
     <div className="prevnext">
-      {previous ?
+      {previous &&
         <div className="prevnext__prev" style={style}>
           {previous.headerImage && <div
             className="prevnext__bg"
@@ -30,10 +30,9 @@ const PrevNext = ({
           />}
           <span className="prevnext__info">{previousText}</span>
           <Link className="prevnext__link" to={previous.url}>{getTitle(previous)}</Link>
-        </div> :
-        null
+        </div>
       }
-      {next ?
+      {next &&
         <div className="prevnext__next" style={style}>
           {next.headerImage && <div
             className="prevnext__bg"
@@ -43,8 +42,7 @@ const PrevNext = ({
           />}
           <span className="prevnext__info">{nextText}</span>
           <Link className="prevnext__link" to={next.url}>{getTitle(next)}</Link>
-        </div> :
-        null
+        </div>
       }
     </div>
   );

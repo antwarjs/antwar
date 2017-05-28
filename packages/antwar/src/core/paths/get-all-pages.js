@@ -1,5 +1,4 @@
 const _ = require('lodash');
-const processPages = require('./process-pages');
 const parseSectionPages = require('./parse-section-pages');
 const transformSections = require('./transform-sections');
 
@@ -54,7 +53,7 @@ module.exports = function getAllPages(config) {
   const ret = {};
 
   _.each(
-    processPages(config)(pages),
+    pages,
     (o) => {
       ret[o.url] = o;
     }
