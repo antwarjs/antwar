@@ -18,8 +18,8 @@ module.exports = function transformSections(sectionName, section, allPages) {
           return section.paths[name].transform(pages).concat(indices);
         }
 
-        // No transform, return original pages
-        return allPages;
+        // No transform, return group pages
+        return groupPages;
       }
     );
   }
