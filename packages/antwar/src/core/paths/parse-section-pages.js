@@ -11,7 +11,7 @@ module.exports = function parseSectionPages(sectionName, section, modules) {
     (name) => {
       // Strip ./ and extension
       const fileName = _path.basename(name, _path.extname(name)) || '';
-      const trimmedName = _.trimStart(_path.dirname(name), './');
+      const trimmedName = _.trimStart(_path.join(sectionName, _path.dirname(name)), './');
       const file = modules(name);
 
       // Render index pages through root
@@ -22,7 +22,7 @@ module.exports = function parseSectionPages(sectionName, section, modules) {
           file,
           layout: parseLayout(section, trimmedName),
           section,
-          sectionName: trimmedName,
+          sectionName: trimmedName || '/',
           url: trimmedName ? `/${trimmedName}/` : '/'
         };
       }
@@ -33,7 +33,7 @@ module.exports = function parseSectionPages(sectionName, section, modules) {
         file,
         layout: parseLayout(section, trimmedName),
         section,
-        sectionName: trimmedName,
+        sectionName: trimmedName || '/',
         url: parseUrl(section, trimmedName, fileName)
       };
     }
