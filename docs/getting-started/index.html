@@ -19,7 +19,7 @@
 <pre><code class="lang-bash">npm i antwar -D
 </code></pre>
 <p>3. Create a bootstrap script. This will be used to run the site.</p>
-<p><strong>bootstrap.js</strong></p>
+<p><strong>antwar.bootstrap.js</strong></p>
 <pre><code class="lang-javascript"><span class="token keyword">const</span> antwar <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'antwar'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 <span class="token keyword">const</span> environment <span class="token operator">=</span> process<span class="token punctuation">.</span>argv<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
@@ -41,8 +41,8 @@ antwar<span class="token punctuation">[</span>environment<span class="token punc
 <p><strong>package.json</strong></p>
 <pre><code class="lang-json"><span class="token punctuation">{</span>
   <span class="token property">"scripts"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token property">"start"</span><span class="token operator">:</span> <span class="token string">"node ./bootstrap.js develop"</span><span class="token punctuation">,</span>
-    <span class="token property">"build"</span><span class="token operator">:</span> <span class="token string">"node ./bootstrap.js build"</span>
+    <span class="token property">"start"</span><span class="token operator">:</span> <span class="token string">"node ./antwar.bootstrap.js develop"</span><span class="token punctuation">,</span>
+    <span class="token property">"build"</span><span class="token operator">:</span> <span class="token string">"node ./antwar.bootstrap.js build"</span>
   <span class="token punctuation">}</span><span class="token punctuation">,</span>
   ...
 <span class="token punctuation">}</span>
