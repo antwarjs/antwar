@@ -1,5 +1,4 @@
 import React from 'react';
-import { Route } from 'react-router';
 import config from 'config'; // Aliased through webpack
 import _ from 'lodash';
 import PropTypes from 'prop-types';
@@ -68,6 +67,4 @@ function render(props) {
   return content;
 }
 
-export default () => (
-  <Route exact strict component={BodyContent} />
-);
+export default BodyContent;
