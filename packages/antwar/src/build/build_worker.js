@@ -80,9 +80,12 @@ function processPage({
       });
 
       // Calculate hash based on filename and section so we can check whether
-      // to generate a bundle at all
+      // to generate a bundle at all. Use a relative path so the project directory
+      // can be moved around.
       const filename = calculateMd5(
-        page.split('/').filter(a => a).slice(0, -1).join('/') +
+        _path.relative(cwd, path).split('/').filter(a => a)
+          .slice(0, -1)
+          .join('/') +
           components.map(c => c.id + '=' + c.props).join('')
       );
       const interactivePath = _path.join(outputPath, `${filename}.js`);
