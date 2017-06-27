@@ -5,7 +5,6 @@ const generateAdjacent = require('./utils/generate-adjacent');
 
 module.exports = {
   template: {
-    title: 'Antwar',
     rss: {
       title: 'Antwar',
       href: '/atom.xml'

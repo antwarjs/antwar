@@ -31,13 +31,12 @@ module.exports = function (o, cb) {
 };
 
 function writePages(params, finalCb) {
-  async.each(params.pages, function (d, cb) {
-    const { page, path, title } = d;
+  async.each(params.pages, (d, cb) => {
+    const { page, path } = d;
 
     processPage({
       page,
       path,
-      title,
       outputPath: params.output,
       templates: params.templates
     }, cb);
@@ -48,12 +47,11 @@ function processPage({
   page = '',
   outputPath = '',
   path = '',
-  title = '',
   templates = {} // page/interactive/interactiveIndex
 }, cb) {
   const renderPage = require(_path.join(outputPath, 'site.js')).renderPage;
 
-  renderPage(page, function (err, html) {
+  renderPage(page, function (err, { html, page }) {
     if (err) {
       return cb(err);
     }
@@ -205,8 +203,7 @@ function processPage({
                   jsFiles: [
                     ...templates.page.jsFiles,
                     ...jsFiles
-                  ],
-                  title
+                  ]
                 }
               }
             },
@@ -229,8 +226,7 @@ function processPage({
             jsFiles: [
               ...templates.page.jsFiles,
               ...jsFiles
-            ],
-            title
+            ]
           }
         }
       },

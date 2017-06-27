@@ -9,6 +9,7 @@ module.exports = function (source) {
   const result = frontmatter(source);
 
   result.attributes = result.attributes || {};
+  result.title = generateTitle(result.attributes);
   result.preview = generatePreview(result, result.body);
   result.description = generateDescription(result);
   result.keywords = generateKeywords(result);
@@ -29,6 +30,12 @@ module.exports = function (source) {
   // Replacement for code embeds
   ).replace(/<!-- EMBED([^,\]>]+)-->/, (match, code) => `" + ${code} + "`);
 };
+
+function generateTitle(attributes) {
+  const title = attributes.title;
+
+  return title ? `Antwar - ${title}` : 'Antwar';
+}
 
 function generatePreview(file, body) {
   let ret = body;

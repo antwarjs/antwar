@@ -1,19 +1,16 @@
 import React from 'react';
 import config from 'config'; // Aliased through webpack
 import _ from 'lodash';
-import PropTypes from 'prop-types';
 import paths from './paths';
 
-const BodyContent = ({ location }) => {
-  const allPages = paths.getAllPages(config);
-  const page = paths.getPageForPath(config, location.pathname, allPages);
-  const section = getSection(page, location.pathname, allPages);
-
-  return render({ config, section, page, location });
-};
-BodyContent.propTypes = {
-  location: PropTypes.object
-};
+const BodyContent = (page, allPages) => ({ location }) => (
+  render({
+    section: getSection(page, location.pathname, allPages),
+    config,
+    page,
+    location
+  })
+);
 
 function getSection(page, pathname, allPages) {
   const sectionName = page.sectionName;
