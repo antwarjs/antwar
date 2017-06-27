@@ -199,6 +199,7 @@ function processPage({
             htmlWebpackPlugin: {
               options: {
                 context: {
+                  ...page.file,
                   ...templates.page,
                   jsFiles: [
                     ...templates.page.jsFiles,
@@ -222,6 +223,7 @@ function processPage({
       htmlWebpackPlugin: {
         options: {
           context: {
+            ...page.file,
             ...templates.page,
             jsFiles: [
               ...templates.page.jsFiles,
@@ -235,7 +237,7 @@ function processPage({
       }
     });
 
-    return writePage({ path, data, page }, cb);
+    return writePage({ path, data }, cb);
   });
 }
 
@@ -263,8 +265,7 @@ function generateAliases(components) {
 
 function writePage({
   path,
-  data,
-  page
+  data
 }, cb) {
   mkdirp(_path.dirname(path), function (err) {
     if (err) {
@@ -276,7 +277,7 @@ function writePage({
         return cb(err2);
       }
 
-      prettyConsole.log('Finished writing page', page);
+      prettyConsole.log('Finished writing page', path);
 
       return cb();
     });
