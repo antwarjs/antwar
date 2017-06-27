@@ -29,12 +29,15 @@ module.exports = function getAllPages(config) {
         }
 
         if (_.isFunction(section.index)) {
+          const indexPage = section.index();
+
           return [
             {
               type: 'index',
               fileName: sectionName,
-              file: {},
-              layout: section.index(),
+              // Function is an object too - important for title/keyword management.
+              file: indexPage,
+              layout: indexPage,
               section,
               url: `/${sectionName}/`
             }
@@ -42,12 +45,14 @@ module.exports = function getAllPages(config) {
         }
 
         if (_.isFunction(section)) {
+          const sectionPage = section();
+
           return [
             {
               type: 'index',
               fileName: sectionName,
-              file: {},
-              layout: section(),
+              file: sectionPage,
+              layout: sectionPage,
               section,
               url: `/${sectionName}/`
             }

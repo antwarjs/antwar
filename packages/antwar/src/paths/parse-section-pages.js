@@ -53,7 +53,7 @@ module.exports = function parseSectionPages(sectionName, section, modules) {
         return {
           type: 'index',
           fileName: '',
-          file: {},
+          file: indexPage, // Function is an object too - important for title/keyword management.
           layout: indexPage,
           section,
           sectionName: trimmedName,
@@ -66,11 +66,13 @@ module.exports = function parseSectionPages(sectionName, section, modules) {
   ).filter(a => a) || [];
 
   if (_.isFunction(section.index)) {
+    const indexPage = section.index();
+
     ret.push({
       type: 'index',
       fileName: '',
-      file: {},
-      layout: section.index(),
+      file: indexPage, // Function is an object too - important for title/keyword management.
+      layout: indexPage,
       section,
       sectionName,
       url: sectionName === '/' ? '/' : `/${sectionName}/`

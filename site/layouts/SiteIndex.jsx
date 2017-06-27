@@ -42,5 +42,6 @@ const SiteIndex = () => (
     </article>
   </div>
 );
+SiteIndex.title = 'Antwar';
 
 export default SiteIndex;
