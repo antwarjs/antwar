@@ -33,7 +33,13 @@ module.exports = {
       paths: {
         blog: {
           layout: () => require('./layouts/BlogPage').default,
-          index: () => require('./layouts/SectionIndex').default,
+          index: () => {
+            const index = require('./layouts/SectionIndex').default;
+
+            index.title = 'Blog';
+
+            return index;
+          },
           transform: pages => generateAdjacent(_.sortBy(pages, 'date').reverse()),
           url: ({ sectionName, fileName }) => (
             `/${sectionName}/${_.trimStart(fileName, '0123456789-')}/`
@@ -41,7 +47,13 @@ module.exports = {
         },
         docs: {
           layout: () => require('./layouts/DocsPage').default,
-          index: () => require('./layouts/SectionIndex').default,
+          index: () => {
+            const index = require('./layouts/SectionIndex').default;
+
+            index.title = 'Documentation';
+
+            return index;
+          },
           transform: pages => (
             _.sortBy(pages, page => page.file.attributes.sort)
           )
