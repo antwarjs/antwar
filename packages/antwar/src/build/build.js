@@ -126,9 +126,7 @@ function writeExtras() {
 
     // Extras
     const pluginExtras = _.map(config.plugins, 'extra').filter(_.identity);
-    const extraFiles = _.map(pluginExtras, function (plugin) {
-      return plugin(parameters.allPages, config);
-    });
+    const extraFiles = _.map(pluginExtras, plugin => plugin(parameters.allPages, config));
 
     if (parameters.cssFiles) {
       parameters.cssFiles.forEach((cssFile) => {
