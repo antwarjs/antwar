@@ -9,7 +9,8 @@ const PATHS = {
     path.join(__dirname, 'style', 'main.css')
   ],
   parentModules: path.join(__dirname, '..', 'node_modules'),
-  packages: path.join(__dirname, '..', 'packages')
+  packages: path.join(__dirname, '..', 'packages'),
+  pages: path.join(__dirname, 'pages')
 };
 
 module.exports = function (env) {
@@ -47,6 +48,11 @@ function commonConfig() {
             path.join(__dirname, 'layouts'),
             path.join(__dirname, 'pages')
           ]
+        },
+        {
+          test: /\.md$/,
+          use: 'page-loader',
+          include: PATHS.pages
         }
       ]
     },
@@ -62,7 +68,10 @@ function commonConfig() {
       modules: [
         // Include parent so that interactive lookup works against preact etc.
         PATHS.parentModules
-      ]
+      ],
+      alias: {
+        'page-loader': path.resolve(__dirname, 'loaders/page-loader.js')
+      }
     }
   };
 }

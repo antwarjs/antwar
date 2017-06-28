@@ -17,22 +17,11 @@ const PATHS = {
     path.join(__dirname, 'components'),
     path.join(__dirname, 'styles')
   ],
-  packages: path.join(__dirname, '..', 'packages')
+  packages: path.join(__dirname, '..', 'packages'),
+  pages: path.join(__dirname, 'pages')
 };
 
 const commonConfig = {
-  resolve: {
-    // Patch webpack module resolution so that the site works with `packages`
-    modules: [
-      PATHS.packages
-    ]
-  },
-  resolveLoader: {
-    alias: {
-      'highlight-loader': path.resolve(__dirname, 'loaders/highlight-loader.js'),
-      'page-loader': path.resolve(__dirname, 'loaders/page-loader.js')
-    }
-  },
   module: {
     rules: [
       {
@@ -67,6 +56,11 @@ const commonConfig = {
       {
         test: /\.json$/,
         use: 'json-loader'
+      },
+      {
+        test: /\.md$/,
+        use: 'page-loader',
+        include: PATHS.pages
       }
     ]
   },
@@ -77,7 +71,19 @@ const commonConfig = {
         to: './'
       }
     ])
-  ]
+  ],
+  resolve: {
+    // Patch webpack module resolution so that the site works with `packages`
+    modules: [
+      PATHS.packages
+    ]
+  },
+  resolveLoader: {
+    alias: {
+      'highlight-loader': path.resolve(__dirname, 'loaders/highlight-loader.js'),
+      'page-loader': path.resolve(__dirname, 'loaders/page-loader.js')
+    }
+  }
 };
 
 module.exports = function (env) {

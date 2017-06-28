@@ -5,25 +5,13 @@ module.exports = () => ({
   output: 'build',
   paths: {
     '/': {
-      content: () => (
-        require.context(
-          './loaders/page-loader!./pages',
-          true,
-          /^\.\/.*\.md$/
-        )
-      ),
+      content: () => require.context('./pages', true, /^\.\/.*\.md$/),
       layout: () => require('./layouts/Page').default,
       redirects: {}
     },
     standalone: () => require('./layouts/Standalone').default,
     demo: {
-      content: () => (
-        require.context(
-          './loaders/page-loader!./pages',
-          true,
-          /^\.\/.*\.md$/
-        )
-      ),
+      content: () => require.context('./pages', true, /^\.\/.*\.md$/),
       layout: () => require('./layouts/Page').default,
       url: ({ sectionName, fileName }) => `/${sectionName}/${fileName}/`
     }

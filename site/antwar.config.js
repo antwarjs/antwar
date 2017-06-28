@@ -27,13 +27,7 @@ module.exports = {
   ],
   paths: {
     '/': {
-      content: () => (
-        require.context(
-          './loaders/page-loader!./pages',
-          true,
-          /^\.\/.*\.md$/
-        )
-      ),
+      content: () => require.context('./pages', true, /^\.\/.*\.md$/),
       layout: () => require('./layouts/Page').default,
       index: () => require('./layouts/SiteIndex').default,
       paths: {
