@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width" />
-    <title></title>
+    <title>Configuration</title>
     
     <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Antwar">
     
@@ -24,7 +24,6 @@
 
 module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
   template<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-    title<span class="token punctuation">:</span> <span class="token string">'Antwar'</span><span class="token punctuation">,</span>
     rss<span class="token punctuation">:</span> <span class="token punctuation">{</span>
       title<span class="token punctuation">:</span> <span class="token string">'Antwar'</span><span class="token punctuation">,</span>
       href<span class="token punctuation">:</span> <span class="token string">'/atom.xml'</span>
@@ -47,19 +46,19 @@ module<span class="token punctuation">.</span>exports <span class="token operato
   <span class="token punctuation">]</span><span class="token punctuation">,</span>
   paths<span class="token punctuation">:</span> <span class="token punctuation">{</span>
     <span class="token string">'/'</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
-      content<span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">(</span>
-        require<span class="token punctuation">.</span><span class="token function">context</span><span class="token punctuation">(</span>
-          <span class="token string">'./loaders/page-loader!./pages'</span><span class="token punctuation">,</span>
-          <span class="token boolean">true</span><span class="token punctuation">,</span>
-          <span class="token regex">/^\.\/.*\.md$/</span>
-        <span class="token punctuation">)</span>
-      <span class="token punctuation">)</span><span class="token punctuation">,</span>
+      content<span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> require<span class="token punctuation">.</span><span class="token function">context</span><span class="token punctuation">(</span><span class="token string">'./pages'</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token regex">/^\.\/.*\.md$/</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
       layout<span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'./layouts/Page'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">default</span><span class="token punctuation">,</span>
       index<span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'./layouts/SiteIndex'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">default</span><span class="token punctuation">,</span>
       paths<span class="token punctuation">:</span> <span class="token punctuation">{</span>
         blog<span class="token punctuation">:</span> <span class="token punctuation">{</span>
           layout<span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'./layouts/BlogPage'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">default</span><span class="token punctuation">,</span>
-          index<span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'./layouts/SectionIndex'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">default</span><span class="token punctuation">,</span>
+          index<span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+            <span class="token keyword">const</span> index <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'./layouts/SectionIndex'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">default</span><span class="token punctuation">;</span>
+
+            index<span class="token punctuation">.</span>title <span class="token operator">=</span> <span class="token string">'Blog'</span><span class="token punctuation">;</span>
+
+            <span class="token keyword">return</span> index<span class="token punctuation">;</span>
+          <span class="token punctuation">}</span><span class="token punctuation">,</span>
           transform<span class="token punctuation">:</span> pages <span class="token operator">=</span><span class="token operator">></span> <span class="token function">generateAdjacent</span><span class="token punctuation">(</span>_<span class="token punctuation">.</span><span class="token function">sortBy</span><span class="token punctuation">(</span>pages<span class="token punctuation">,</span> <span class="token string">'date'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">reverse</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
           url<span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">{</span> sectionName<span class="token punctuation">,</span> fileName <span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">(</span>
             `<span class="token operator">/</span>$<span class="token punctuation">{</span>sectionName<span class="token punctuation">}</span><span class="token operator">/</span>$<span class="token punctuation">{</span>_<span class="token punctuation">.</span><span class="token function">trimStart</span><span class="token punctuation">(</span>fileName<span class="token punctuation">,</span> <span class="token string">'0123456789-'</span><span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token operator">/</span>`
@@ -67,7 +66,13 @@ module<span class="token punctuation">.</span>exports <span class="token operato
         <span class="token punctuation">}</span><span class="token punctuation">,</span>
         docs<span class="token punctuation">:</span> <span class="token punctuation">{</span>
           layout<span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'./layouts/DocsPage'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">default</span><span class="token punctuation">,</span>
-          index<span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'./layouts/SectionIndex'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">default</span><span class="token punctuation">,</span>
+          index<span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+            <span class="token keyword">const</span> index <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'./layouts/SectionIndex'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">default</span><span class="token punctuation">;</span>
+
+            index<span class="token punctuation">.</span>title <span class="token operator">=</span> <span class="token string">'Documentation'</span><span class="token punctuation">;</span>
+
+            <span class="token keyword">return</span> index<span class="token punctuation">;</span>
+          <span class="token punctuation">}</span><span class="token punctuation">,</span>
           transform<span class="token punctuation">:</span> pages <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">(</span>
             _<span class="token punctuation">.</span><span class="token function">sortBy</span><span class="token punctuation">(</span>pages<span class="token punctuation">,</span> page <span class="token operator">=</span><span class="token operator">></span> page<span class="token punctuation">.</span>file<span class="token punctuation">.</span>attributes<span class="token punctuation">.</span>sort<span class="token punctuation">)</span>
           <span class="token punctuation">)</span>
