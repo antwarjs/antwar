@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createElement } from 'react';
 import Interactive from 'antwar-interactive';
 import marksy from 'marksy';
 import ClickMe from './ClickMe';
@@ -25,7 +25,7 @@ const Page = ({
       containerProps={{ className: 'interactive-demo' }}
     />
 
-    {marksy()(body).tree}
+    {marksy({ createElement })(body).tree}
   </div>
 );
 

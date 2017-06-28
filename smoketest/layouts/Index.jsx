@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createElement } from 'react';
 import marksy from 'marksy';
 
 const Index = ({
@@ -14,7 +14,7 @@ const Index = ({
   <div>
     <h1>Index layout - {title}</h1>
 
-    {marksy()(body).tree}
+    {marksy({ createElement })(body).tree}
   </div>
 );
 
