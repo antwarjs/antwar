@@ -22,7 +22,7 @@ function calculateRedirects(paths) {
         };
       }).filter(_.identity);
     })
-  );
+    );
 }
 
 exports.calculateRedirects = calculateRedirects;
