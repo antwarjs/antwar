@@ -9,21 +9,27 @@ module.exports = function parseSectionPages(sectionName, section, modules) {
   const ret = _.map(
     moduleKeys,
     (name) => {
-      // Strip ./ and extension
-      const fileName = _path.basename(name, _path.extname(name)) || '';
-      const trimmedName = _.trimStart(_path.join(sectionName, _path.dirname(name)), './').split('/')[0];
+      const fileName = _.trimStart(name, './') || '';
+      const fileNameWithoutExtension = fileName.split('.').slice(0, -1).join('.');
+      const layout = parseLayout(section, fileNameWithoutExtension);
       const file = modules(name);
 
+      const nearestSectionName = Object.keys(section.paths || {}).filter(path => (
+        fileNameWithoutExtension.startsWith(path)
+      )).sort()[0] || sectionName;
+
       // Render index pages through root
-      if (fileName === 'index') {
+      if (_path.basename(fileNameWithoutExtension).endsWith('index')) {
         return {
           type: 'index',
           fileName,
           file,
-          layout: parseLayout(section, trimmedName),
+          layout,
           section,
-          sectionName: trimmedName || '/',
-          url: trimmedName ? `/${trimmedName}/` : '/'
+          sectionName: nearestSectionName,
+          url: nearestSectionName === '/' ?
+            '/' :
+            `/${fileNameWithoutExtension.split('/index').slice(0, -1).join('')}/`
         };
       }
 
@@ -31,10 +37,10 @@ module.exports = function parseSectionPages(sectionName, section, modules) {
         type: 'page',
         fileName,
         file,
-        layout: parseLayout(section, trimmedName),
+        layout,
         section,
-        sectionName: trimmedName || '/',
-        url: parseUrl(section, trimmedName, fileName)
+        sectionName: nearestSectionName,
+        url: parseUrl(section, sectionName, fileNameWithoutExtension)
       };
     }
   );
@@ -43,12 +49,11 @@ module.exports = function parseSectionPages(sectionName, section, modules) {
   const checkedSections = {};
   const indexPages = _.map(
     moduleKeys,
-    (name) => {
-      const trimmedName = _.trimStart(_path.dirname(name), './');
-      const indexPage = parseIndexPage(section, trimmedName);
+    () => {
+      const indexPage = parseIndexPage(section, sectionName);
 
-      if (!checkedSections[trimmedName] && indexPage) {
-        checkedSections[trimmedName] = true;
+      if (!checkedSections[sectionName] && indexPage) {
+        checkedSections[sectionName] = true;
 
         return {
           type: 'index',
@@ -56,8 +61,8 @@ module.exports = function parseSectionPages(sectionName, section, modules) {
           file: indexPage, // Function is an object too - important for title/keyword management.
           layout: indexPage,
           section,
-          sectionName: trimmedName,
-          url: `/${trimmedName}/`
+          sectionName,
+          url: sectionName === '/' ? '/' : `/${sectionName}/`
         };
       }
 

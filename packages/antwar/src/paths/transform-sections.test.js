@@ -22,7 +22,7 @@ describe('Transform sections', () => {
     const expected = [
       {
         type: 'page',
-        fileName: 'first',
+        fileName: 'first.md',
         file: {
           sort: 0
         },
@@ -33,7 +33,7 @@ describe('Transform sections', () => {
       },
       {
         type: 'page',
-        fileName: 'second',
+        fileName: 'second.md',
         file: {
           sort: 1
         },
@@ -44,7 +44,7 @@ describe('Transform sections', () => {
       },
       {
         type: 'page',
-        fileName: 'third',
+        fileName: 'third.md',
         file: {
           sort: 10
         },
@@ -52,6 +52,86 @@ describe('Transform sections', () => {
         section,
         sectionName: '/',
         url: '/third/'
+      },
+      {
+        type: 'index',
+        fileName: 'index.md',
+        file: {
+          sort: -1
+        },
+        layout: undefined,
+        section,
+        sectionName: '/',
+        url: '/'
+      }
+    ];
+
+    expect(result).toEqual(expected);
+  });
+
+  it('transforms a nested page', () => {
+    const sectionName = '/';
+    const section = {
+      layout: () => {},
+      transform: pages => _.sortBy(pages, page => page.file.sort)
+    };
+    const parsedPages = parseSectionPages(
+      sectionName,
+      section,
+      context(
+        path => [`./${path}`],
+        file => `nested/page/${file}`
+      )
+    );
+    const result = transformSections(
+      sectionName,
+      section,
+      parsedPages
+    );
+    const expected = [
+      {
+        type: 'page',
+        fileName: 'nested/page/first.md',
+        file: {
+          sort: 0
+        },
+        layout: undefined,
+        section,
+        sectionName: '/',
+        url: '/nested/page/first/'
+      },
+      {
+        type: 'page',
+        fileName: 'nested/page/second.md',
+        file: {
+          sort: 1
+        },
+        layout: undefined,
+        section,
+        sectionName: '/',
+        url: '/nested/page/second/'
+      },
+      {
+        type: 'page',
+        fileName: 'nested/page/third.md',
+        file: {
+          sort: 10
+        },
+        layout: undefined,
+        section,
+        sectionName: '/',
+        url: '/nested/page/third/'
+      },
+      {
+        type: 'index',
+        fileName: 'nested/page/index.md',
+        file: {
+          sort: -1
+        },
+        layout: undefined,
+        section,
+        sectionName: '/',
+        url: '/'
       }
     ];
 
@@ -81,7 +161,7 @@ describe('Transform sections', () => {
     const expected = [
       {
         type: 'page',
-        fileName: 'first',
+        fileName: 'docs/first.md',
         file: {
           sort: 0
         },
@@ -92,7 +172,7 @@ describe('Transform sections', () => {
       },
       {
         type: 'page',
-        fileName: 'second',
+        fileName: 'docs/second.md',
         file: {
           sort: 1
         },
@@ -103,7 +183,7 @@ describe('Transform sections', () => {
       },
       {
         type: 'page',
-        fileName: 'third',
+        fileName: 'docs/third.md',
         file: {
           sort: 10
         },
@@ -111,6 +191,17 @@ describe('Transform sections', () => {
         section,
         sectionName: 'docs',
         url: '/docs/third/'
+      },
+      {
+        type: 'index',
+        fileName: 'docs/index.md',
+        file: {
+          sort: -1
+        },
+        layout: undefined,
+        section,
+        sectionName: 'docs',
+        url: '/docs/'
       }
     ];
 
@@ -142,7 +233,7 @@ describe('Transform sections', () => {
     const expected = [
       {
         type: 'page',
-        fileName: 'first',
+        fileName: 'first.md',
         file: {
           sort: 0
         },
@@ -153,7 +244,7 @@ describe('Transform sections', () => {
       },
       {
         type: 'page',
-        fileName: 'second',
+        fileName: 'second.md',
         file: {
           sort: 1
         },
@@ -164,7 +255,7 @@ describe('Transform sections', () => {
       },
       {
         type: 'page',
-        fileName: 'third',
+        fileName: 'third.md',
         file: {
           sort: 10
         },
@@ -174,8 +265,19 @@ describe('Transform sections', () => {
         url: '/third/'
       },
       {
+        type: 'index',
+        fileName: 'index.md',
+        file: {
+          sort: -1
+        },
+        layout: undefined,
+        section,
+        sectionName: '/',
+        url: '/'
+      },
+      {
         type: 'page',
-        fileName: 'first',
+        fileName: 'docs/first.md',
         file: {
           sort: 0
         },
@@ -186,7 +288,7 @@ describe('Transform sections', () => {
       },
       {
         type: 'page',
-        fileName: 'second',
+        fileName: 'docs/second.md',
         file: {
           sort: 1
         },
@@ -197,7 +299,7 @@ describe('Transform sections', () => {
       },
       {
         type: 'page',
-        fileName: 'third',
+        fileName: 'docs/third.md',
         file: {
           sort: 10
         },
@@ -205,6 +307,17 @@ describe('Transform sections', () => {
         section,
         sectionName: 'docs',
         url: '/docs/third/'
+      },
+      {
+        type: 'index',
+        fileName: 'docs/index.md',
+        file: {
+          sort: -1
+        },
+        layout: undefined,
+        section,
+        sectionName: 'docs',
+        url: '/docs/'
       }
     ];
 
@@ -212,8 +325,12 @@ describe('Transform sections', () => {
   });
 });
 
-function context(shapePath) {
+function context(shapePath, shapeFile = id) {
   const files = [
+    {
+      file: 'index.md',
+      sort: -1
+    },
     {
       file: 'first.md',
       sort: 0
@@ -230,7 +347,10 @@ function context(shapePath) {
 
   const modules = _.fromPairs(
     _.flatMap(
-      files,
+      files.map(({ file, sort }) => ({
+        file: shapeFile(file),
+        sort
+      })),
       ({ file, sort }) => shapePath(file).map(name => ([name, { sort }]))
     )
   );
@@ -238,4 +358,8 @@ function context(shapePath) {
   ret.keys = () => Object.keys(modules);
 
   return ret;
+}
+
+function id(a) {
+  return a;
 }
