@@ -93,6 +93,9 @@
     "testPathIgnorePatterns": [
       "/node_modules/",
       "/dist/"
+    ],
+    "setupFiles": [
+      "./lib/test-setup.js"
     ]
   },
   "pre-push": [
