@@ -1,4 +1,4 @@
-module.exports = function getPageForPath(config, path, pages) {
+module.exports = function getPageForPath(path, pages) {
   if (path === '/') {
     return pages['/'] || {};
   }

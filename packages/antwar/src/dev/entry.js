@@ -13,7 +13,7 @@ ReactDOM.render(
     <Route
       component={({ location }) => {
         const allPages = paths.getAllPages(config);
-        const page = paths.getPageForPath(config, location.pathname, allPages);
+        const page = paths.getPageForPath(location.pathname, allPages);
 
         return BodyContent(page, allPages)({ location });
       }}

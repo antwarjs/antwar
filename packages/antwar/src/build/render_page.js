@@ -10,7 +10,7 @@ module.exports = function renderPage(location, cb) {
   const context = {};
 
   const allPages = paths.getAllPages(config);
-  const page = paths.getPageForPath(config, location, allPages);
+  const page = paths.getPageForPath(location, allPages);
 
   const html = ReactDOMServer.renderToStaticMarkup(
     <StaticRouter location={location} context={context}>
