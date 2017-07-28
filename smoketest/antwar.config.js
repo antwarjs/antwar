@@ -6,7 +6,7 @@ module.exports = () => ({
   paths: {
     '/': {
       content: () => require.context('./pages', true, /^\.\/.*\.md$/),
-      layout: () => require('./layouts/Page').default,
+      layout: () => require('./layouts/Index').default,
       redirects: {}
     },
     standalone: () => require('./layouts/Standalone').default,
