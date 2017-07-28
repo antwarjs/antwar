@@ -51,21 +51,25 @@ module.exports = function parseSectionPages(sectionName, section, modules) {
   // Check for index functions within nested sections
   const checkedSections = {};
   const indexPages = _.map(
-    moduleKeys,
-    () => {
-      const indexPage = parseIndexPage(section, sectionName);
+    Object.keys((section && section.paths) || {}),
+    (childSectionName) => {
+      const childSection = section && section.paths[childSectionName];
+      const indexPage = parseIndexPage(section, childSectionName);
 
-      if (!checkedSections[sectionName] && indexPage) {
-        checkedSections[sectionName] = true;
+      if (!checkedSections[childSectionName] && indexPage) {
+        checkedSections[childSectionName] = true;
 
         return {
           type: 'index',
           fileName: '',
           file: indexPage, // Function is an object too - important for title/keyword management.
           layout: indexPage,
-          section,
-          sectionName,
-          url: sectionName === '/' ? '/' : `/${sectionName}/`
+          section: childSection,
+          sectionName: childSectionName,
+          url: joinUrl(
+            sectionName,
+            childSectionName
+          )
         };
       }
 
