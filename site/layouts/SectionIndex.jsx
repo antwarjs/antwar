@@ -11,7 +11,7 @@ const SectionIndex = ({ section }) => (
   <div className={[classes.sectionIndex, articleClasses.contentScrollBox].join(' ')}>
     <GitHubCorner href="https://github.com/antwarjs/antwar" direction="right" />
     <article className={articleClasses.article}>
-      <h1>{section.title || 'Blog posts'}</h1>
+      <h1>{section.title || SectionIndex.title}</h1>
 
       <ul className={classes.list}>{_.map(section.pages(), (page, i) => (
         <li key={`post-list-item-${i}`} className={classes.item}>
