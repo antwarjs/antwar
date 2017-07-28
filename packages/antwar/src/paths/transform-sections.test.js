@@ -131,7 +131,7 @@ describe('Transform sections', () => {
         layout: undefined,
         section,
         sectionName: '/',
-        url: '/'
+        url: '/nested/page/'
       }
     ];
 

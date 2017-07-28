@@ -27,9 +27,12 @@ module.exports = function parseSectionPages(sectionName, section, modules) {
           layout,
           section,
           sectionName: nearestSectionName,
-          url: nearestSectionName === '/' ?
+          url: fileNameWithoutExtension === 'index' && sectionName === '/' ?
             '/' :
-            `/${fileNameWithoutExtension.split('/index').slice(0, -1).join('')}/`
+            joinUrl(
+              sectionName,
+              fileNameWithoutExtension.split('/index').slice(0, -1).join('')
+            )
         };
       }
 
@@ -86,3 +89,11 @@ module.exports = function parseSectionPages(sectionName, section, modules) {
 
   return ret.concat(indexPages);
 };
+
+// XXXXX: consume this from somewhere
+function joinUrl(a, b) {
+  const trimmedA = _.trim(a, '/');
+  const trimmedB = _.trim(b, '/');
+
+  return '/' + _.trim(`${trimmedA}/${trimmedB}`, '/') + '/';
+}

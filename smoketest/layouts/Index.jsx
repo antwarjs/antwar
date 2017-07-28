@@ -9,8 +9,11 @@ const Index = ({
       },
       body
     }
+  },
+  section: {
+    all
   }
-}) => (
+}) => console.log('all', all()) || (
   <div>
     <h1>Index layout - {title}</h1>
 
