@@ -11,12 +11,12 @@ module.exports = function parseSectionPages(sectionName, section, modules) {
     (name) => {
       const fileName = _.trimStart(name, './') || '';
       const fileNameWithoutExtension = fileName.split('.').slice(0, -1).join('.');
-      const layout = parseLayout(section, fileNameWithoutExtension);
       const file = modules(name);
 
       const nearestSectionName = Object.keys(section.paths || {}).filter(path => (
         fileNameWithoutExtension.startsWith(path)
       )).sort()[0] || sectionName;
+      const layout = parseLayout(section, nearestSectionName);
 
       // Render index pages through root
       if (_path.basename(fileNameWithoutExtension).endsWith('index')) {
@@ -24,7 +24,7 @@ module.exports = function parseSectionPages(sectionName, section, modules) {
           type: 'index',
           fileName,
           file,
-          layout,
+          layout: parseLayout(section, fileNameWithoutExtension),
           section,
           sectionName: nearestSectionName,
           url: fileNameWithoutExtension === 'index' && sectionName === '/' ?
