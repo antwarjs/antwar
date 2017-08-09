@@ -1,14 +1,9 @@
-import React from 'react';
-import moment from 'moment';
+import React from "react";
+import moment from "moment";
 
-const Moment = ({
-  className,
-  datetime,
-  format = 'D MMM YYYY'
-}) => (
+const Moment = ({ className, datetime, format = "D MMM YYYY" }) =>
   <time dateTime={datetime} className={className}>
     {moment(datetime).format(format)}
-  </time>
-);
+  </time>;
 
 export default Moment;

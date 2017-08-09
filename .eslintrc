@@ -1,0 +1,27 @@
+{
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es6": true,
+    "node": true,
+    "jasmine": true,
+    "mocha": true
+  },
+  "globals": {
+    "__DEV__": true,
+    "__ENV__": true
+  },
+  "extends": ["prettier"],
+  "plugins": ["prettier"],
+  "rules": {
+    "prettier/prettier": "error"
+  },
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "sourceType": "module",
+    "allowImportExportEverywhere": "true",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  }
+}

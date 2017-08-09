@@ -1,9 +1,9 @@
-import React from 'react';
-import ReactDOMServer from 'react-dom/server';
-import { Route, StaticRouter } from 'react-router';
-import config from 'config'; // Aliased through webpack
-import paths from '../paths';
-import BodyContent from '../BodyContent';
+import React from "react";
+import ReactDOMServer from "react-dom/server";
+import { Route, StaticRouter } from "react-router";
+import config from "config"; // Aliased through webpack
+import paths from "../paths";
+import BodyContent from "../BodyContent";
 
 // TODO: what if a route isn't found?
 module.exports = function renderPage(location, cb) {

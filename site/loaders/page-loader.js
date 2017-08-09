@@ -1,15 +1,15 @@
-const _ = require('lodash');
-const frontmatter = require('front-matter');
-const loaderUtils = require('loader-utils');
-const removeMarkdown = require('remove-markdown');
-const markdown = require('../utils/markdown');
-const highlight = require('../utils/highlight');
+const _ = require("lodash");
+const frontmatter = require("front-matter");
+const loaderUtils = require("loader-utils");
+const removeMarkdown = require("remove-markdown");
+const markdown = require("../utils/markdown");
+const highlight = require("../utils/highlight");
 
-module.exports = function (source) {
+module.exports = function(source) {
   const result = frontmatter(source);
 
   result.attributes = result.attributes || {};
-  result.title = result.attributes.title || 'Antwar';
+  result.title = result.attributes.title || "Antwar";
   result.preview = generatePreview(result, result.body);
   result.description = generateDescription(result);
   result.keywords = generateKeywords(result);
@@ -19,16 +19,19 @@ module.exports = function (source) {
 
   const context = this;
 
-  return `module.exports = ${JSON.stringify(result)};`.replace(
-    /__IMG_START__([^,\]>]+)__IMG_END__/g, (match, src) => {
-      if (_.startsWith(src, 'http')) {
-        return src;
-      }
+  return `module.exports = ${JSON.stringify(result)};`
+    .replace(
+      /__IMG_START__([^,\]>]+)__IMG_END__/g,
+      (match, src) => {
+        if (_.startsWith(src, "http")) {
+          return src;
+        }
 
-      return `" + require(${loaderUtils.stringifyRequest(context, src)}) + "`;
-    }
-  // Replacement for code embeds
-  ).replace(/<!-- EMBED([^,\]>]+)-->/, (match, code) => `" + ${code} + "`);
+        return `" + require(${loaderUtils.stringifyRequest(context, src)}) + "`;
+      }
+      // Replacement for code embeds
+    )
+    .replace(/<!-- EMBED([^,\]>]+)-->/, (match, code) => `" + ${code} + "`);
 };
 
 function generatePreview(file, body) {
@@ -38,7 +41,7 @@ function generatePreview(file, body) {
     ret = file.attributes.preview;
   }
 
-  return removeMarkdown(ret).slice(0, 100) + '…';
+  return removeMarkdown(ret).slice(0, 100) + "…";
 }
 
 function generateDescription(file) {
@@ -57,7 +60,7 @@ function generateKeywords(file) {
   }
 
   if (_.isString(keywords)) {
-    return keywords.split(',');
+    return keywords.split(",");
   }
 
   return keywords;

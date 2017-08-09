@@ -1,4 +1,4 @@
-const _ = require('lodash');
+const _ = require("lodash");
 
 function generateAdjacent(pages) {
   return pages.map((page, i) => {

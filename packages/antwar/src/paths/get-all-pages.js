@@ -1,17 +1,17 @@
-const _ = require('lodash');
-const parseSectionPages = require('./parse-section-pages');
-const transformSections = require('./transform-sections');
+const _ = require("lodash");
+const parseSectionPages = require("./parse-section-pages");
+const transformSections = require("./transform-sections");
 
 module.exports = function getAllPages(config) {
   if (!config) {
-    return console.error('getAllPages - Missing configuration');
+    return console.error("getAllPages - Missing configuration");
   }
 
   const sections = _.keys(config.paths);
   const pages = [].concat // eslint-disable-line prefer-spread
     .apply(
       [],
-      sections.map((sectionName) => {
+      sections.map(sectionName => {
         const section = config.paths[sectionName];
 
         if (_.isFunction(section.content)) {
@@ -25,7 +25,10 @@ module.exports = function getAllPages(config) {
             );
           }
 
-          console.warn('getAllPages - Section content did not return a require.context!', section);
+          console.warn(
+            "getAllPages - Section content did not return a require.context!",
+            section
+          );
         }
 
         if (_.isFunction(section.index)) {
@@ -33,7 +36,7 @@ module.exports = function getAllPages(config) {
 
           return [
             {
-              type: 'index',
+              type: "index",
               fileName: sectionName,
               // Function is an object too - important for title/keyword management.
               file: indexPage,
@@ -49,7 +52,7 @@ module.exports = function getAllPages(config) {
 
           return [
             {
-              type: 'index',
+              type: "index",
               fileName: sectionName,
               file: sectionPage,
               layout: sectionPage,
@@ -61,21 +64,22 @@ module.exports = function getAllPages(config) {
 
         // It is possible a section has only redirects. Better not to warn then.
         if (!section.redirects) {
-          console.warn('getAllPages - Section content was not a function!', section.content);
+          console.warn(
+            "getAllPages - Section content was not a function!",
+            section.content
+          );
         }
 
         return null;
       })
-    ).filter(_.identity); // Filter out redirects
+    )
+    .filter(_.identity); // Filter out redirects
 
   const ret = {};
 
-  _.each(
-    pages,
-    (o) => {
-      ret[o.url] = o;
-    }
-  );
+  _.each(pages, o => {
+    ret[o.url] = o;
+  });
 
   return ret;
 };

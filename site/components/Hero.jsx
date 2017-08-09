@@ -1,14 +1,18 @@
-import React from 'react';
+import React from "react";
 
-import classes from './Hero.scss';
+import classes from "./Hero.scss";
 
-export default function () {
+export default function() {
   const width = 1000;
   const height = 1000;
 
   return (
     <div className={classes.hero}>
-      <svg x={width / 2} y={height / 2} viewBox={`${-width / 2} ${-height / 2} ${width} ${height}`}>
+      <svg
+        x={width / 2}
+        y={height / 2}
+        viewBox={`${-width / 2} ${-height / 2} ${width} ${height}`}
+      >
         <TV width={600} border={10} />
       </svg>
     </div>
@@ -16,9 +20,9 @@ export default function () {
 }
 
 function TV({ width, border = 20, widescreen }) {
-  const sw = width - (border * 2);
+  const sw = width - border * 2;
   const sh = widescreen ? sw * (9 / 16) : sw * (3 / 4);
-  const height = sh + (border * 2);
+  const height = sh + border * 2;
 
   const wallGlowProps = {
     className: classes.wallGlow,
@@ -26,7 +30,7 @@ function TV({ width, border = 20, widescreen }) {
     y: -width * 2,
     width: width * 4,
     height: width * 4,
-    fill: 'url(#wall-glow)'
+    fill: "url(#wall-glow)"
   };
 
   return (
@@ -51,8 +55,12 @@ function TV({ width, border = 20, widescreen }) {
       <rect {...wallGlowProps} />
       <RoundedRect width={width} height={height} fill="url(#tv-gradient)" />
       <Screen width={sw} height={sh}>
-        <text className={classes.title} fontSize="160" y="30">Antwar</text>
-        <text className={classes.subtitle} fontSize="52" y="85">the static site generator</text>
+        <text className={classes.title} fontSize="160" y="30">
+          Antwar
+        </text>
+        <text className={classes.subtitle} fontSize="52" y="85">
+          the static site generator
+        </text>
       </Screen>
     </g>
   );
@@ -61,7 +69,7 @@ function TV({ width, border = 20, widescreen }) {
 function Screen({ children, width, height }) {
   const isw = width - 25;
   const ish = height - 25;
-  const isd = Math.sqrt((isw * isw) + (ish * ish));
+  const isd = Math.sqrt(isw * isw + ish * ish);
 
   const screenGlareProps = {
     className: classes.screenGlare,
@@ -69,8 +77,8 @@ function Screen({ children, width, height }) {
     y: -isd / 2,
     width: 1000,
     height: isd,
-    transform: 'rotate(45)',
-    fill: 'url(#glare-gradient)'
+    transform: "rotate(45)",
+    fill: "url(#glare-gradient)"
   };
 
   const whiteBackgroundProps = {
@@ -78,8 +86,8 @@ function Screen({ children, width, height }) {
     y: -height / 2,
     width,
     height,
-    fill: 'white',
-    filter: 'url(#glow)'
+    fill: "white",
+    filter: "url(#glow)"
   };
 
   const scanlinesProps = {
@@ -87,7 +95,7 @@ function Screen({ children, width, height }) {
     y: -height / 2,
     width,
     height,
-    fill: 'url(#scanlines)',
+    fill: "url(#scanlines)",
     opacity: 0.05
   };
 
@@ -96,7 +104,7 @@ function Screen({ children, width, height }) {
     y: -height,
     width: width * 2,
     height: height * 2,
-    fill: 'url(#inner-screen-glow)'
+    fill: "url(#inner-screen-glow)"
   };
 
   return (
@@ -116,7 +124,14 @@ function Screen({ children, width, height }) {
           <stop offset="10%" stopOpacity="0" stopColor="white" />
           <stop offset="70%" stopOpacity=".2" stopColor="#00BCF5" />
         </radialGradient>
-        <linearGradient id="scanlines" x1="0%" y1="0%" x2="0%" y2="3%" spreadMethod="repeat">
+        <linearGradient
+          id="scanlines"
+          x1="0%"
+          y1="0%"
+          x2="0%"
+          y2="3%"
+          spreadMethod="repeat"
+        >
           <stop offset="25%" stopColor="#555" />
           <stop offset="25%" stopColor="#999" />
           <stop offset="50%" stopColor="#999" />
@@ -136,7 +151,9 @@ function Screen({ children, width, height }) {
       <g clipPath="url(#screen)">
         <StaticScreen width={width} height={height} />
         <rect className={classes.brightScreen} {...whiteBackgroundProps} />
-        <g className={classes.screenContent}>{children}</g>
+        <g className={classes.screenContent}>
+          {children}
+        </g>
         <rect {...scanlinesProps} />
         <rect {...innerScreenGlowProps} />
       </g>
@@ -153,13 +170,13 @@ function NoisePattern({ id, width, height }) {
   let y = Math.round(miny);
   const lines = [];
 
-  const lineProps = { fill: '#F4FAFF', height: 4 };
+  const lineProps = { fill: "#F4FAFF", height: 4 };
 
   while (y < maxy) {
     while (x <= maxx) {
       let length = 3 + Math.round(Math.random() * 13);
       const space = 3 + Math.round(Math.random() * 7);
-      length = (x + length > maxx) ? maxx - x : length;
+      length = x + length > maxx ? maxx - x : length;
       const props = Object.assign({ x, y, width: length }, lineProps);
       lines.push(<rect key={lines.length} {...props} />);
       x = x + length + space;
@@ -169,7 +186,12 @@ function NoisePattern({ id, width, height }) {
   }
 
   return (
-    <pattern id={id} width={width} height={height} patternUnits="userSpaceOnUse">
+    <pattern
+      id={id}
+      width={width}
+      height={height}
+      patternUnits="userSpaceOnUse"
+    >
       {lines}
     </pattern>
   );
@@ -181,7 +203,7 @@ function StaticScreen({ width, height }) {
     y: -height / 2,
     width,
     height,
-    fill: '#01001C'
+    fill: "#01001C"
   };
 
   const lwidth = width * 1.5;
@@ -193,7 +215,7 @@ function StaticScreen({ width, height }) {
     width: lwidth,
     height: lheight,
     className: classes.staticShake,
-    fill: 'url(#noise-pattern)'
+    fill: "url(#noise-pattern)"
   };
 
   return (
@@ -211,7 +233,7 @@ function RoundedRect({ cx = 0, cy = 0, width, height, fill, filter }) {
   const p = 50;
 
   const d = `
-  M ${cx + (width / 2)} ${cy + (height / 2)}
+  M ${cx + width / 2} ${cy + height / 2}
   c 0 ${height / p}
     ${-width} ${height / p}
     ${-width} 0
@@ -226,5 +248,5 @@ function RoundedRect({ cx = 0, cy = 0, width, height, fill, filter }) {
     0 ${height}
   Z`;
 
-  return <path d={d} fill={fill || '#000'} filter={filter} />;
+  return <path d={d} fill={fill || "#000"} filter={filter} />;
 }

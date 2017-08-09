@@ -1,62 +1,58 @@
-const _ = require('lodash');
-const moment = require('moment');
-const rssPlugin = require('antwar-rss-plugin');
-const generateAdjacent = require('./utils/generate-adjacent');
+const _ = require("lodash");
+const moment = require("moment");
+const rssPlugin = require("antwar-rss-plugin");
+const generateAdjacent = require("./utils/generate-adjacent");
 
 module.exports = {
   template: {
     rss: {
-      title: 'Antwar',
-      href: '/atom.xml'
+      title: "Antwar",
+      href: "/atom.xml"
     }
   },
-  output: 'build',
-  layout: () => require('./layouts/SiteBody').default,
+  output: "build",
+  layout: () => require("./layouts/SiteBody").default,
   plugins: [
     rssPlugin({
-      baseUrl: 'https://antwar.js.org/',
-      sections: ['blog'],
+      baseUrl: "https://antwar.js.org/",
+      sections: ["blog"],
       get: {
         content: page => page.file.body,
-        date: page => (
-          moment(page.file.attributes.date).utcOffset(0).format()
-        ),
+        date: page => moment(page.file.attributes.date).utcOffset(0).format(),
         title: page => page.file.attributes.title
       }
     })
   ],
   paths: {
-    '/': {
-      content: () => require.context('./pages', true, /^\.\/.*\.md$/),
-      layout: () => require('./layouts/Page').default,
-      index: () => require('./layouts/SiteIndex').default,
+    "/": {
+      content: () => require.context("./pages", true, /^\.\/.*\.md$/),
+      layout: () => require("./layouts/Page").default,
+      index: () => require("./layouts/SiteIndex").default,
       paths: {
         blog: {
-          layout: () => require('./layouts/BlogPage').default,
+          layout: () => require("./layouts/BlogPage").default,
           index: () => {
-            const index = require('./layouts/SectionIndex').default;
+            const index = require("./layouts/SectionIndex").default;
 
-            index.title = 'Blog';
+            index.title = "Blog";
 
             return index;
           },
-          transform: pages => generateAdjacent(_.sortBy(pages, 'date').reverse()),
-          url: ({ sectionName, fileName }) => (
-            `/${sectionName}/${_.trimStart(fileName, '0123456789-')}/`
-          )
+          transform: pages =>
+            generateAdjacent(_.sortBy(pages, "date").reverse()),
+          url: ({ sectionName, fileName }) =>
+            `/${sectionName}/${_.trimStart(fileName, "0123456789-")}/`
         },
         docs: {
-          layout: () => require('./layouts/DocsPage').default,
+          layout: () => require("./layouts/DocsPage").default,
           index: () => {
-            const index = require('./layouts/SectionIndex').default;
+            const index = require("./layouts/SectionIndex").default;
 
-            index.title = 'Documentation';
+            index.title = "Documentation";
 
             return index;
           },
-          transform: pages => (
-            _.sortBy(pages, page => page.file.attributes.sort)
-          )
+          transform: pages => _.sortBy(pages, page => page.file.attributes.sort)
         }
       }
     }

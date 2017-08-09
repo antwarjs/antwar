@@ -1,10 +1,10 @@
-const _ = require('lodash');
-const parseSectionPages = require('./parse-section-pages');
-const transformSections = require('./transform-sections');
+const _ = require("lodash");
+const parseSectionPages = require("./parse-section-pages");
+const transformSections = require("./transform-sections");
 
-describe('Transform sections', () => {
-  it('transforms a root section', () => {
-    const sectionName = '/';
+describe("Transform sections", () => {
+  it("transforms a root section", () => {
+    const sectionName = "/";
     const section = {
       layout: () => {},
       transform: pages => _.sortBy(pages, page => page.file.sort)
@@ -14,63 +14,59 @@ describe('Transform sections', () => {
       section,
       context(path => [`./${path}`])
     );
-    const result = transformSections(
-      sectionName,
-      section,
-      parsedPages
-    );
+    const result = transformSections(sectionName, section, parsedPages);
     const expected = [
       {
-        type: 'page',
-        fileName: 'first.md',
+        type: "page",
+        fileName: "first.md",
         file: {
           sort: 0
         },
         layout: undefined,
         section,
-        sectionName: '/',
-        url: '/first/'
+        sectionName: "/",
+        url: "/first/"
       },
       {
-        type: 'page',
-        fileName: 'second.md',
+        type: "page",
+        fileName: "second.md",
         file: {
           sort: 1
         },
         layout: undefined,
         section,
-        sectionName: '/',
-        url: '/second/'
+        sectionName: "/",
+        url: "/second/"
       },
       {
-        type: 'page',
-        fileName: 'third.md',
+        type: "page",
+        fileName: "third.md",
         file: {
           sort: 10
         },
         layout: undefined,
         section,
-        sectionName: '/',
-        url: '/third/'
+        sectionName: "/",
+        url: "/third/"
       },
       {
-        type: 'index',
-        fileName: 'index.md',
+        type: "index",
+        fileName: "index.md",
         file: {
           sort: -1
         },
         layout: undefined,
         section,
-        sectionName: '/',
-        url: '/'
+        sectionName: "/",
+        url: "/"
       }
     ];
 
     expect(result).toEqual(expected);
   });
 
-  it('transforms a nested page', () => {
-    const sectionName = '/';
+  it("transforms a nested page", () => {
+    const sectionName = "/";
     const section = {
       layout: () => {},
       transform: pages => _.sortBy(pages, page => page.file.sort)
@@ -78,68 +74,61 @@ describe('Transform sections', () => {
     const parsedPages = parseSectionPages(
       sectionName,
       section,
-      context(
-        path => [`./${path}`],
-        file => `nested/page/${file}`
-      )
+      context(path => [`./${path}`], file => `nested/page/${file}`)
     );
-    const result = transformSections(
-      sectionName,
-      section,
-      parsedPages
-    );
+    const result = transformSections(sectionName, section, parsedPages);
     const expected = [
       {
-        type: 'page',
-        fileName: 'nested/page/first.md',
+        type: "page",
+        fileName: "nested/page/first.md",
         file: {
           sort: 0
         },
         layout: undefined,
         section,
-        sectionName: '/',
-        url: '/nested/page/first/'
+        sectionName: "/",
+        url: "/nested/page/first/"
       },
       {
-        type: 'page',
-        fileName: 'nested/page/second.md',
+        type: "page",
+        fileName: "nested/page/second.md",
         file: {
           sort: 1
         },
         layout: undefined,
         section,
-        sectionName: '/',
-        url: '/nested/page/second/'
+        sectionName: "/",
+        url: "/nested/page/second/"
       },
       {
-        type: 'page',
-        fileName: 'nested/page/third.md',
+        type: "page",
+        fileName: "nested/page/third.md",
         file: {
           sort: 10
         },
         layout: undefined,
         section,
-        sectionName: '/',
-        url: '/nested/page/third/'
+        sectionName: "/",
+        url: "/nested/page/third/"
       },
       {
-        type: 'index',
-        fileName: 'nested/page/index.md',
+        type: "index",
+        fileName: "nested/page/index.md",
         file: {
           sort: -1
         },
         layout: undefined,
         section,
-        sectionName: '/',
-        url: '/nested/page/'
+        sectionName: "/",
+        url: "/nested/page/"
       }
     ];
 
     expect(result).toEqual(expected);
   });
 
-  it('transforms a child section', () => {
-    const sectionName = '/';
+  it("transforms a child section", () => {
+    const sectionName = "/";
     const section = {
       paths: {
         docs: {
@@ -153,63 +142,59 @@ describe('Transform sections', () => {
       section,
       context(path => [`./docs/${path}`])
     );
-    const result = transformSections(
-      sectionName,
-      section,
-      parsedPages
-    );
+    const result = transformSections(sectionName, section, parsedPages);
     const expected = [
       {
-        type: 'page',
-        fileName: 'docs/first.md',
+        type: "page",
+        fileName: "docs/first.md",
         file: {
           sort: 0
         },
         layout: undefined,
         section,
-        sectionName: 'docs',
-        url: '/docs/first/'
+        sectionName: "docs",
+        url: "/docs/first/"
       },
       {
-        type: 'page',
-        fileName: 'docs/second.md',
+        type: "page",
+        fileName: "docs/second.md",
         file: {
           sort: 1
         },
         layout: undefined,
         section,
-        sectionName: 'docs',
-        url: '/docs/second/'
+        sectionName: "docs",
+        url: "/docs/second/"
       },
       {
-        type: 'page',
-        fileName: 'docs/third.md',
+        type: "page",
+        fileName: "docs/third.md",
         file: {
           sort: 10
         },
         layout: undefined,
         section,
-        sectionName: 'docs',
-        url: '/docs/third/'
+        sectionName: "docs",
+        url: "/docs/third/"
       },
       {
-        type: 'index',
-        fileName: 'docs/index.md',
+        type: "index",
+        fileName: "docs/index.md",
         file: {
           sort: -1
         },
         layout: undefined,
         section,
-        sectionName: 'docs',
-        url: '/docs/'
+        sectionName: "docs",
+        url: "/docs/"
       }
     ];
 
     expect(result).toEqual(expected);
   });
 
-  it('transforms root and child section', () => {
-    const sectionName = '/';
+  it("transforms root and child section", () => {
+    const sectionName = "/";
     const section = {
       layout: () => {},
       transform: pages => _.sortBy(pages, page => page.file.sort),
@@ -223,101 +208,97 @@ describe('Transform sections', () => {
     const parsedPages = parseSectionPages(
       sectionName,
       section,
-      context(path => [`./${path}`, `./docs/${path}`]),
+      context(path => [`./${path}`, `./docs/${path}`])
     );
-    const result = transformSections(
-      sectionName,
-      section,
-      parsedPages
-    );
+    const result = transformSections(sectionName, section, parsedPages);
     const expected = [
       {
-        type: 'page',
-        fileName: 'first.md',
+        type: "page",
+        fileName: "first.md",
         file: {
           sort: 0
         },
         layout: undefined,
         section,
-        sectionName: '/',
-        url: '/first/'
+        sectionName: "/",
+        url: "/first/"
       },
       {
-        type: 'page',
-        fileName: 'second.md',
+        type: "page",
+        fileName: "second.md",
         file: {
           sort: 1
         },
         layout: undefined,
         section,
-        sectionName: '/',
-        url: '/second/'
+        sectionName: "/",
+        url: "/second/"
       },
       {
-        type: 'page',
-        fileName: 'third.md',
+        type: "page",
+        fileName: "third.md",
         file: {
           sort: 10
         },
         layout: undefined,
         section,
-        sectionName: '/',
-        url: '/third/'
+        sectionName: "/",
+        url: "/third/"
       },
       {
-        type: 'index',
-        fileName: 'index.md',
+        type: "index",
+        fileName: "index.md",
         file: {
           sort: -1
         },
         layout: undefined,
         section,
-        sectionName: '/',
-        url: '/'
+        sectionName: "/",
+        url: "/"
       },
       {
-        type: 'page',
-        fileName: 'docs/first.md',
+        type: "page",
+        fileName: "docs/first.md",
         file: {
           sort: 0
         },
         layout: undefined,
         section,
-        sectionName: 'docs',
-        url: '/docs/first/'
+        sectionName: "docs",
+        url: "/docs/first/"
       },
       {
-        type: 'page',
-        fileName: 'docs/second.md',
+        type: "page",
+        fileName: "docs/second.md",
         file: {
           sort: 1
         },
         layout: undefined,
         section,
-        sectionName: 'docs',
-        url: '/docs/second/'
+        sectionName: "docs",
+        url: "/docs/second/"
       },
       {
-        type: 'page',
-        fileName: 'docs/third.md',
+        type: "page",
+        fileName: "docs/third.md",
         file: {
           sort: 10
         },
         layout: undefined,
         section,
-        sectionName: 'docs',
-        url: '/docs/third/'
+        sectionName: "docs",
+        url: "/docs/third/"
       },
       {
-        type: 'index',
-        fileName: 'docs/index.md',
+        type: "index",
+        fileName: "docs/index.md",
         file: {
           sort: -1
         },
         layout: undefined,
         section,
-        sectionName: 'docs',
-        url: '/docs/'
+        sectionName: "docs",
+        url: "/docs/"
       }
     ];
 
@@ -328,19 +309,19 @@ describe('Transform sections', () => {
 function context(shapePath, shapeFile = id) {
   const files = [
     {
-      file: 'index.md',
+      file: "index.md",
       sort: -1
     },
     {
-      file: 'first.md',
+      file: "first.md",
       sort: 0
     },
     {
-      file: 'third.md',
+      file: "third.md",
       sort: 10
     },
     {
-      file: 'second.md',
+      file: "second.md",
       sort: 1
     }
   ];
@@ -351,7 +332,7 @@ function context(shapePath, shapeFile = id) {
         file: shapeFile(file),
         sort
       })),
-      ({ file, sort }) => shapePath(file).map(name => ([name, { sort }]))
+      ({ file, sort }) => shapePath(file).map(name => [name, { sort }])
     )
   );
   const ret = name => modules[name];

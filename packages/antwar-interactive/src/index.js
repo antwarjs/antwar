@@ -1,3 +1,3 @@
-import Interactive from './Interactive';
+import Interactive from "./Interactive";
 
 export default Interactive;

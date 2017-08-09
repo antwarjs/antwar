@@ -1,10 +1,10 @@
-import React from 'react';
-import classnames from 'classnames';
-import PropTypes from 'prop-types';
+import React from "react";
+import classnames from "classnames";
+import PropTypes from "prop-types";
 
 const Interactive = ({ id, component, containerProps = {}, ...props }) => {
   const { className, ...remainingContainerProps } = containerProps;
-  const mergedClassName = classnames('interactive', className);
+  const mergedClassName = classnames("interactive", className);
 
   if (__DEV__) {
     return (

@@ -1,6 +1,6 @@
-const config = require('config'); // Alias by webpack
+const config = require("config"); // Alias by webpack
 
 module.exports = {
-  renderPage: require('./render_page'),
-  allPages: require('../paths').getAllPages(config)
+  renderPage: require("./render_page"),
+  allPages: require("../paths").getAllPages(config)
 };

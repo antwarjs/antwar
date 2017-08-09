@@ -1,8 +1,8 @@
-const url = require('url');
-const e = require('./element');
+const url = require("url");
+const e = require("./element");
 
 // TODO: Push to another package or use a pre-existing one over this
-module.exports = function ({
+module.exports = function({
   baseUrl,
   sections = [],
   updated,
@@ -12,7 +12,7 @@ module.exports = function ({
 }) {
   return e.feed([
     e.title(config.title),
-    e.link(url.resolve(baseUrl, '/atom.xml'), 'self'),
+    e.link(url.resolve(baseUrl, "/atom.xml"), "self"),
     e.link(baseUrl),
     e.updated(updated),
     e.id(baseUrl),

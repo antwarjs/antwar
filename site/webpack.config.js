@@ -1,24 +1,24 @@
-const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const merge = require('webpack-merge');
-const autoprefixer = require('autoprefixer');
+const path = require("path");
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const CleanWebpackPlugin = require("clean-webpack-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
+const merge = require("webpack-merge");
+const autoprefixer = require("autoprefixer");
 
 const PATHS = {
   site: [
-    path.join(__dirname, 'layouts'),
-    path.join(__dirname, 'components'),
-    path.join(__dirname, 'pages'),
-    path.join(__dirname, 'utils')
+    path.join(__dirname, "layouts"),
+    path.join(__dirname, "components"),
+    path.join(__dirname, "pages"),
+    path.join(__dirname, "utils")
   ],
   style: [
-    path.join(__dirname, 'layouts'),
-    path.join(__dirname, 'components'),
-    path.join(__dirname, 'styles')
+    path.join(__dirname, "layouts"),
+    path.join(__dirname, "components"),
+    path.join(__dirname, "styles")
   ],
-  packages: path.join(__dirname, '..', 'packages'),
-  pages: path.join(__dirname, 'pages')
+  packages: path.join(__dirname, "..", "packages"),
+  pages: path.join(__dirname, "pages")
 };
 
 const commonConfig = {
@@ -26,40 +26,40 @@ const commonConfig = {
     rules: [
       {
         test: /\.(js|jsx)$/,
-        use: 'babel-loader',
+        use: "babel-loader",
         include: PATHS.site
       },
       {
         test: /\.woff$/,
-        use: 'url-loader?prefix=font/&limit=5000&mimetype=application/font-woff'
+        use: "url-loader?prefix=font/&limit=5000&mimetype=application/font-woff"
       },
       {
         test: /\.ttf$|\.eot$/,
-        use: 'file-loader?prefix=font/'
+        use: "file-loader?prefix=font/"
       },
       {
         test: /\.jpg$/,
-        use: 'file-loader'
+        use: "file-loader"
       },
       {
         test: /\.png$/,
-        use: 'file-loader'
+        use: "file-loader"
       },
       {
         test: /\.svg$/,
-        use: 'raw-loader'
+        use: "raw-loader"
       },
       {
         test: /\.html$/,
-        use: 'raw-loader'
+        use: "raw-loader"
       },
       {
         test: /\.json$/,
-        use: 'json-loader'
+        use: "json-loader"
       },
       {
         test: /\.md$/,
-        use: 'page-loader',
+        use: "page-loader",
         include: PATHS.pages
       }
     ]
@@ -67,38 +67,33 @@ const commonConfig = {
   plugins: [
     new CopyWebpackPlugin([
       {
-        from: './CNAME',
-        to: './'
+        from: "./CNAME",
+        to: "./"
       }
     ])
   ],
   resolve: {
     // Patch webpack module resolution so that the site works with `packages`
-    modules: [
-      PATHS.packages
-    ]
+    modules: [PATHS.packages]
   },
   resolveLoader: {
     alias: {
-      'highlight-loader': path.resolve(__dirname, 'loaders/highlight-loader.js'),
-      'page-loader': path.resolve(__dirname, 'loaders/page-loader.js')
+      "highlight-loader": path.resolve(
+        __dirname,
+        "loaders/highlight-loader.js"
+      ),
+      "page-loader": path.resolve(__dirname, "loaders/page-loader.js")
     }
   }
 };
 
-module.exports = function (env) {
+module.exports = function(env) {
   switch (env) {
-    case 'build':
-      return merge(
-        commonConfig,
-        buildConfig(PATHS.style)
-      );
+    case "build":
+      return merge(commonConfig, buildConfig(PATHS.style));
     default:
-    case 'start':
-      return merge(
-        commonConfig,
-        developmentConfig(PATHS.style)
-      );
+    case "start":
+      return merge(commonConfig, developmentConfig(PATHS.style));
   }
 };
 
@@ -108,26 +103,21 @@ function developmentConfig(stylePaths) {
       rules: [
         {
           test: /\.css$/,
-          use: [
-            'style-loader',
-            'css-loader'
-          ],
+          use: ["style-loader", "css-loader"],
           include: stylePaths
         },
         {
           test: /\.scss$/,
           use: [
-            'style-loader',
-            'css-loader?modules&localIdentName=[local]--[hash:base64:5]',
+            "style-loader",
+            "css-loader?modules&localIdentName=[local]--[hash:base64:5]",
             {
-              loader: 'postcss-loader',
+              loader: "postcss-loader",
               options: {
-                plugins: () => ([
-                  autoprefixer({ browsers: ['last 2 versions'] })
-                ])
+                plugins: () => [autoprefixer({ browsers: ["last 2 versions"] })]
               }
             },
-            'sass-loader'
+            "sass-loader"
           ],
           include: stylePaths
         }
@@ -143,26 +133,26 @@ function buildConfig(stylePaths) {
         {
           test: /\.css$/,
           use: ExtractTextPlugin.extract({
-            fallback: 'style-loader',
-            use: 'css-loader'
+            fallback: "style-loader",
+            use: "css-loader"
           }),
           include: stylePaths
         },
         {
           test: /\.scss$/,
           loader: ExtractTextPlugin.extract({
-            fallback: 'style-loader',
+            fallback: "style-loader",
             use: [
-              'css-loader?modules',
+              "css-loader?modules",
               {
-                loader: 'postcss-loader',
+                loader: "postcss-loader",
                 options: {
-                  plugins: () => ([
-                    autoprefixer({ browsers: ['last 2 versions'] })
-                  ])
+                  plugins: () => [
+                    autoprefixer({ browsers: ["last 2 versions"] })
+                  ]
                 }
               },
-              'sass-loader'
+              "sass-loader"
             ]
           }),
           include: stylePaths
@@ -171,10 +161,10 @@ function buildConfig(stylePaths) {
     },
     plugins: [
       new ExtractTextPlugin({
-        filename: '[name].css',
+        filename: "[name].css",
         allChunks: true
       }),
-      new CleanWebpackPlugin(['build'])
+      new CleanWebpackPlugin(["build"])
     ]
   };
 }

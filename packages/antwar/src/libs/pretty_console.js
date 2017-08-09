@@ -1,5 +1,5 @@
-const simpleTimestamp = require('simple-timestamp');
-const chalk = require('chalk');
+const simpleTimestamp = require("simple-timestamp");
+const chalk = require("chalk");
 
 module.exports = {
   log(...args) {

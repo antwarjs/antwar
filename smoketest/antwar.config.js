@@ -1,18 +1,18 @@
 module.exports = () => ({
   template: {
-    title: 'Smoke test'
+    title: "Smoke test"
   },
-  output: 'build',
+  output: "build",
   paths: {
-    '/': {
-      content: () => require.context('./pages', true, /^\.\/.*\.md$/),
-      layout: () => require('./layouts/Index').default,
+    "/": {
+      content: () => require.context("./pages", true, /^\.\/.*\.md$/),
+      layout: () => require("./layouts/Index").default,
       redirects: {}
     },
-    standalone: () => require('./layouts/Standalone').default,
+    standalone: () => require("./layouts/Standalone").default,
     demo: {
-      content: () => require.context('./pages', true, /^\.\/.*\.md$/),
-      layout: () => require('./layouts/Page').default,
+      content: () => require.context("./pages", true, /^\.\/.*\.md$/),
+      layout: () => require("./layouts/Page").default,
       url: ({ sectionName, fileName }) => `/${sectionName}/${fileName}/`
     }
   }

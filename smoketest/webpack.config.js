@@ -1,36 +1,25 @@
-const path = require('path');
-const webpack = require('webpack');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const merge = require('webpack-merge');
+const path = require("path");
+const webpack = require("webpack");
+const CleanWebpackPlugin = require("clean-webpack-plugin");
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const merge = require("webpack-merge");
 
 const PATHS = {
-  style: [
-    path.join(__dirname, 'style', 'main.css')
-  ],
-  parentModules: path.join(__dirname, '..', 'node_modules'),
-  packages: path.join(__dirname, '..', 'packages'),
-  pages: path.join(__dirname, 'pages')
+  style: [path.join(__dirname, "style", "main.css")],
+  parentModules: path.join(__dirname, "..", "node_modules"),
+  packages: path.join(__dirname, "..", "packages"),
+  pages: path.join(__dirname, "pages")
 };
 
-module.exports = function (env) {
+module.exports = function(env) {
   switch (env) {
-    case 'build':
-      return merge(
-        commonConfig(),
-        buildConfig(PATHS.style)
-      );
-    case 'interactive':
-      return merge(
-        commonConfig(),
-        interactiveConfig()
-      );
-    case 'start':
+    case "build":
+      return merge(commonConfig(), buildConfig(PATHS.style));
+    case "interactive":
+      return merge(commonConfig(), interactiveConfig());
+    case "start":
     default:
-      return merge(
-        commonConfig(),
-        developmentConfig(PATHS.style)
-      );
+      return merge(commonConfig(), developmentConfig(PATHS.style));
   }
 };
 
@@ -43,15 +32,15 @@ function commonConfig() {
       rules: [
         {
           test: /\.(js|jsx)$/,
-          use: 'babel-loader',
+          use: "babel-loader",
           include: [
-            path.join(__dirname, 'layouts'),
-            path.join(__dirname, 'pages')
+            path.join(__dirname, "layouts"),
+            path.join(__dirname, "pages")
           ]
         },
         {
           test: /\.md$/,
-          use: 'page-loader',
+          use: "page-loader",
           include: PATHS.pages
         }
       ]
@@ -70,7 +59,7 @@ function commonConfig() {
         PATHS.parentModules
       ],
       alias: {
-        'page-loader': path.resolve(__dirname, 'loaders/page-loader.js')
+        "page-loader": path.resolve(__dirname, "loaders/page-loader.js")
       }
     }
   };
@@ -80,8 +69,8 @@ function interactiveConfig() {
   return {
     resolve: {
       alias: {
-        react: 'preact-compat/dist/preact-compat.min.js',
-        'react-dom': 'preact-compat/dist/preact-compat.min.js'
+        react: "preact-compat/dist/preact-compat.min.js",
+        "react-dom": "preact-compat/dist/preact-compat.min.js"
       }
     },
     plugins: [
@@ -100,10 +89,7 @@ function developmentConfig(stylePaths) {
       rules: [
         {
           test: /\.css$/,
-          use: [
-            'style-loader',
-            'css-loader'
-          ],
+          use: ["style-loader", "css-loader"],
           include: stylePaths
         }
       ]
@@ -118,8 +104,8 @@ function buildConfig(stylePaths) {
         {
           test: /\.css$/,
           use: ExtractTextPlugin.extract({
-            use: 'css-loader',
-            fallback: 'style-loader'
+            use: "css-loader",
+            fallback: "style-loader"
           }),
           include: stylePaths
         }
@@ -127,10 +113,10 @@ function buildConfig(stylePaths) {
     },
     plugins: [
       new ExtractTextPlugin({
-        filename: '[name].[chunkhash].css',
+        filename: "[name].[chunkhash].css",
         allChunks: true
       }),
-      new CleanWebpackPlugin(['build'])
+      new CleanWebpackPlugin(["build"])
     ]
   };
 }

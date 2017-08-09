@@ -1,5 +1,5 @@
-import isFunction from 'lodash/isFunction';
-import antwarConfig from 'antwarConfig';
+import isFunction from "lodash/isFunction";
+import antwarConfig from "antwarConfig";
 
 if (isFunction(antwarConfig)) {
   module.exports = antwarConfig(__ENV__);

@@ -1,58 +1,56 @@
-const _path = require('path');
-const _ = require('lodash');
-const parseLayout = require('./parse-layout');
-const parseIndexPage = require('./parse-index-page');
-const parseUrl = require('./parse-url');
+const _path = require("path");
+const _ = require("lodash");
+const parseLayout = require("./parse-layout");
+const parseIndexPage = require("./parse-index-page");
+const parseUrl = require("./parse-url");
 
 module.exports = function parseSectionPages(sectionName, section, modules) {
   const moduleKeys = modules.keys();
-  const ret = _.map(
-    moduleKeys,
-    (name) => {
-      const fileName = _.trimStart(name, './') || '';
-      const fileNameWithoutExtension = fileName.split('.').slice(0, -1).join('.');
-      const file = modules(name);
+  const ret = _.map(moduleKeys, name => {
+    const fileName = _.trimStart(name, "./") || "";
+    const fileNameWithoutExtension = fileName.split(".").slice(0, -1).join(".");
+    const file = modules(name);
 
-      const nearestSectionName = Object.keys(section.paths || {}).filter(path => (
-        fileNameWithoutExtension.startsWith(path)
-      )).sort()[0] || sectionName;
-      const layout = parseLayout(section, nearestSectionName);
+    const nearestSectionName =
+      Object.keys(section.paths || {})
+        .filter(path => fileNameWithoutExtension.startsWith(path))
+        .sort()[0] || sectionName;
+    const layout = parseLayout(section, nearestSectionName);
 
-      // Render index pages through root
-      if (_path.basename(fileNameWithoutExtension).endsWith('index')) {
-        return {
-          type: 'index',
-          fileName,
-          file,
-          layout: parseLayout(section, fileNameWithoutExtension),
-          section,
-          sectionName: nearestSectionName,
-          url: fileNameWithoutExtension === 'index' && sectionName === '/' ?
-            '/' :
-            joinUrl(
-              sectionName,
-              fileNameWithoutExtension.split('/index').slice(0, -1).join('')
-            )
-        };
-      }
-
+    // Render index pages through root
+    if (_path.basename(fileNameWithoutExtension).endsWith("index")) {
       return {
-        type: 'page',
+        type: "index",
         fileName,
         file,
-        layout,
+        layout: parseLayout(section, fileNameWithoutExtension),
         section,
         sectionName: nearestSectionName,
-        url: parseUrl(section, sectionName, fileNameWithoutExtension)
+        url:
+          fileNameWithoutExtension === "index" && sectionName === "/"
+            ? "/"
+            : joinUrl(
+                sectionName,
+                fileNameWithoutExtension.split("/index").slice(0, -1).join("")
+              )
       };
     }
-  );
+
+    return {
+      type: "page",
+      fileName,
+      file,
+      layout,
+      section,
+      sectionName: nearestSectionName,
+      url: parseUrl(section, sectionName, fileNameWithoutExtension)
+    };
+  });
 
   // Check for index functions within nested sections
   const checkedSections = {};
-  const indexPages = _.map(
-    Object.keys((section && section.paths) || {}),
-    (childSectionName) => {
+  const indexPages =
+    _.map(Object.keys((section && section.paths) || {}), childSectionName => {
       const childSection = section && section.paths[childSectionName];
       const indexPage = parseIndexPage(section, childSectionName);
 
@@ -60,34 +58,30 @@ module.exports = function parseSectionPages(sectionName, section, modules) {
         checkedSections[childSectionName] = true;
 
         return {
-          type: 'index',
-          fileName: '',
+          type: "index",
+          fileName: "",
           file: indexPage, // Function is an object too - important for title/keyword management.
           layout: indexPage,
           section: childSection,
           sectionName: childSectionName,
-          url: joinUrl(
-            sectionName,
-            childSectionName
-          )
+          url: joinUrl(sectionName, childSectionName)
         };
       }
 
       return null;
-    }
-  ).filter(a => a) || [];
+    }).filter(a => a) || [];
 
   if (_.isFunction(section.index)) {
     const indexPage = section.index();
 
     ret.push({
-      type: 'index',
-      fileName: '',
+      type: "index",
+      fileName: "",
       file: indexPage, // Function is an object too - important for title/keyword management.
       layout: indexPage,
       section,
       sectionName,
-      url: sectionName === '/' ? '/' : `/${sectionName}/`
+      url: sectionName === "/" ? "/" : `/${sectionName}/`
     });
   }
 
@@ -96,8 +90,8 @@ module.exports = function parseSectionPages(sectionName, section, modules) {
 
 // XXXXX: consume this from somewhere
 function joinUrl(a, b) {
-  const trimmedA = _.trim(a, '/');
-  const trimmedB = _.trim(b, '/');
+  const trimmedA = _.trim(a, "/");
+  const trimmedB = _.trim(b, "/");
 
-  return '/' + _.trim(`${trimmedA}/${trimmedB}`, '/') + '/';
+  return "/" + _.trim(`${trimmedA}/${trimmedB}`, "/") + "/";
 }
