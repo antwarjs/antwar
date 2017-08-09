@@ -43,7 +43,7 @@ module.exports = function parseSectionPages(sectionName, section, modules) {
       layout,
       section,
       sectionName: nearestSectionName,
-      url: parseUrl(section, sectionName, fileNameWithoutExtension)
+      url: parseUrl(section, nearestSectionName, fileNameWithoutExtension)
     };
   });
 

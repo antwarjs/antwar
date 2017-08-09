@@ -40,8 +40,7 @@ module.exports = {
           },
           transform: pages =>
             generateAdjacent(_.sortBy(pages, "date").reverse()),
-          url: ({ sectionName, fileName }) =>
-            `/${sectionName}/${_.trimStart(fileName, "0123456789-")}/`
+          url: ({ fileName }) => `/${cleanBlogPath(fileName)}/`
         },
         docs: {
           layout: () => require("./layouts/DocsPage").default,
@@ -58,3 +57,16 @@ module.exports = {
     }
   }
 };
+
+function cleanBlogPath(resourcePath) {
+  const parts = resourcePath.split("/");
+  const beginning = parts.slice(0, -1);
+  const end = _.trimStart(parts.slice(-1)[0], "0123456789-_");
+
+  return beginning
+    .concat(end)
+    .join("/")
+    .toLowerCase()
+    .replace(/ /g, "-")
+    .replace(/_/g, "-");
+}
