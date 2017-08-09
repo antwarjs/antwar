@@ -38,7 +38,7 @@
   "bugs": {
     "url": "https://github.com/antwarjs/antwar/issues"
   },
-  "homepage": "http://antwar.js.org/",
+  "homepage": "https://antwar.js.org/",
   "dependencies": {},
   "devDependencies": {
     "babel-cli": "^6.24.1",
@@ -89,23 +89,13 @@
     "yaml-frontmatter-loader": "^0.1.0"
   },
   "jest": {
-    "testPathIgnorePatterns": [
-      "/node_modules/",
-      "/dist/"
-    ],
-    "setupFiles": [
-      "./lib/test-setup.js"
-    ]
+    "testPathIgnorePatterns": ["/node_modules/", "/dist/"],
+    "setupFiles": ["./lib/test-setup.js"]
   },
-  "pre-push": [
-    "lint",
-    "test"
-  ],
+  "pre-push": ["lint", "test"],
   "watch": {
     "build": {
-      "patterns": [
-        "packages/**/*.{js,jsx}"
-      ],
+      "patterns": ["packages/**/*.{js,jsx}"],
       "ignore": "packages/*/dist/*.js"
     }
   }
