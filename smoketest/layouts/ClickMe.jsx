@@ -1,8 +1,27 @@
 import React from "react";
 
-const ClickMe = ({ sections, pages }) =>
-  <div onClick={() => console.log("clicked", sections, pages)}>
-    Click me and see the console
-  </div>;
+class ClickMe extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      showMessage: false
+    };
+  }
+  render() {
+    const { showMessage } = this.state;
+
+    console.log(this.props);
+
+    return (
+      <div>
+        <div onClick={() => this.setState(() => ({ showMessage: true }))}>
+          Click me!
+        </div>
+        {showMessage && <div>You clicked!</div>}
+      </div>
+    );
+  }
+}
 
 export default ClickMe;
