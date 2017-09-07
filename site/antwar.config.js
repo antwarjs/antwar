@@ -42,7 +42,7 @@ module.exports = {
             return index;
           },
           transform: pages =>
-            generateAdjacent(_.sortBy(pages, "date").reverse()),
+            generateAdjacent(_.sortBy(pages, "date")).reverse(),
           url: ({ fileName }) => `/${cleanBlogPath(fileName)}/`
         },
         docs: {
