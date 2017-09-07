@@ -13,7 +13,9 @@ describe("Element", () => {
     const baseUrl = "http://demo.com/";
     const sections = ["demoSection"];
     const title = "demo title";
-    const date = moment("2016-02-21", "YYYY-MM-DD").utcOffset(0).format();
+    const date = moment("2016-02-21", "YYYY-MM-DD")
+      .utcOffset(0)
+      .format();
     const body = "demo";
     const pages = {
       demo: {
@@ -62,7 +64,9 @@ describe("Element", () => {
     const baseUrl = "http://demo.com/";
     const sections = ["demoSection"];
     const title = "demo title";
-    const date = moment("2016-02-21", "YYYY-MM-DD").utcOffset(0).format();
+    const date = moment("2016-02-21", "YYYY-MM-DD")
+      .utcOffset(0)
+      .format();
     const body = marked("#test\n[check out](http://google.com)");
     const pages = {
       demo: {
@@ -109,7 +113,9 @@ describe("Element", () => {
     const baseUrl = "http://demo.com/";
     const sections = ["demoSection"];
     const title = "demo title";
-    const date = moment("2016-02-21", "YYYY-MM-DD").utcOffset(0).format();
+    const date = moment("2016-02-21", "YYYY-MM-DD")
+      .utcOffset(0)
+      .format();
     const body = marked("#test\n[check out](../blog/demo-interview)");
     const pages = {
       demo: {
@@ -156,7 +162,9 @@ describe("Element", () => {
     const baseUrl = "http://demo.com/";
     const sections = ["demoSection"];
     const title = "demo title";
-    const date = moment("2016-02-21", "YYYY-MM-DD").utcOffset(0).format();
+    const date = moment("2016-02-21", "YYYY-MM-DD")
+      .utcOffset(0)
+      .format();
     const body = marked("#test\n[check out](/blog/demo-interview)");
     const pages = {
       demo: {
@@ -203,7 +211,9 @@ describe("Element", () => {
     const baseUrl = "http://demo.com/";
     const sections = ["blog"];
     const title = "demo title";
-    const date = moment("2016-02-21", "YYYY-MM-DD").utcOffset(0).format();
+    const date = moment("2016-02-21", "YYYY-MM-DD")
+      .utcOffset(0)
+      .format();
     const body = marked("#test\n[check out](./demo-interview)");
     const pages = {
       demo: {

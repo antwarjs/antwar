@@ -22,12 +22,12 @@ const SiteBody = ({ children, location }) => {
 
   return (
     <div className={classNames.join(" ")}>
-      {isHomePage
-        ? <GitHubCorner
-            href="https://github.com/antwarjs/antwar"
-            direction="left"
-          />
-        : null}
+      {isHomePage ? (
+        <GitHubCorner
+          href="https://github.com/antwarjs/antwar"
+          direction="left"
+        />
+      ) : null}
       <div className={classes.navWrapper}>
         <nav className={classes.nav}>
           <Link className={classes.navTitle} to="/">

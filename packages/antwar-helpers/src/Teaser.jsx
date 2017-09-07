@@ -6,11 +6,9 @@ const Teaser = ({ pages }) =>
 function renderMultiple(pages) {
   return (
     <ul className="teasers">
-      {pages.map((page, i) =>
-        <li key={"teaser-" + i}>
-          {renderSingle(page)}
-        </li>
-      )}
+      {pages.map((page, i) => (
+        <li key={"teaser-" + i}>{renderSingle(page)}</li>
+      ))}
     </ul>
   );
 }

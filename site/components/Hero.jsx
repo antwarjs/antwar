@@ -151,9 +151,7 @@ function Screen({ children, width, height }) {
       <g clipPath="url(#screen)">
         <StaticScreen width={width} height={height} />
         <rect className={classes.brightScreen} {...whiteBackgroundProps} />
-        <g className={classes.screenContent}>
-          {children}
-        </g>
+        <g className={classes.screenContent}>{children}</g>
         <rect {...scanlinesProps} />
         <rect {...innerScreenGlowProps} />
       </g>

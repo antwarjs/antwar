@@ -3,11 +3,9 @@ import Interactive from "antwar-interactive";
 import marksy from "marksy";
 import ClickMe from "./ClickMe";
 
-const Page = ({ page: { file: { attributes: { title }, body } }, section }) =>
+const Page = ({ page: { file: { attributes: { title }, body } }, section }) => (
   <div>
-    <h1>
-      Page layout - {title}
-    </h1>
+    <h1>Page layout - {title}</h1>
 
     <Interactive
       id="layouts/ClickMe.jsx"
@@ -18,6 +16,7 @@ const Page = ({ page: { file: { attributes: { title }, body } }, section }) =>
     />
 
     {marksy({ createElement })(body).tree}
-  </div>;
+  </div>
+);
 
 export default Page;

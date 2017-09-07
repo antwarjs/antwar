@@ -318,7 +318,10 @@ function writeRedirects(params, finalCb) {
 }
 
 function calculateMd5(input) {
-  return _crypto.createHash("md5").update(input).digest("hex");
+  return _crypto
+    .createHash("md5")
+    .update(input)
+    .digest("hex");
 }
 
 function write(params, cb) {

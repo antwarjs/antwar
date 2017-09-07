@@ -9,23 +9,25 @@ import articleClasses from "./Article.scss";
 const DocsPage = ({
   section,
   page: { file: { attributes: { headerImage, title }, body } }
-}) =>
+}) => (
   <div className={classes.documentation}>
     <div className={classes.nav}>
       {_.map(
         section.pages(),
         (navPage, i) =>
-          navPage.file.attributes.title === title
-            ? <span key={`navPage-${i}`} className={classes.navLink_active}>
-                {navPage.file.attributes.title}
-              </span>
-            : <Link
-                key={`navPage-${i}`}
-                className={classes.navLink}
-                to={navPage.url}
-              >
-                {navPage.file.attributes.title}
-              </Link>
+          navPage.file.attributes.title === title ? (
+            <span key={`navPage-${i}`} className={classes.navLink_active}>
+              {navPage.file.attributes.title}
+            </span>
+          ) : (
+            <Link
+              key={`navPage-${i}`}
+              className={classes.navLink}
+              to={navPage.url}
+            >
+              {navPage.file.attributes.title}
+            </Link>
+          )
       )}
     </div>
     <div className={articleClasses.contentScrollBox}>
@@ -34,19 +36,19 @@ const DocsPage = ({
         direction="right"
       />
       <article className={articleClasses.article}>
-        {headerImage &&
+        {headerImage && (
           <div
             className={articleClasses.headerImage}
             style={{ backgroundImage: `url(${headerImage})` }}
-          />}
+          />
+        )}
         <header className={articleClasses.header}>
-          <h1>
-            {title}
-          </h1>
+          <h1>{title}</h1>
         </header>
         <div dangerouslySetInnerHTML={{ __html: body }} />
       </article>
     </div>
-  </div>;
+  </div>
+);
 
 export default DocsPage;

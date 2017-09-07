@@ -14,34 +14,33 @@ const BlogPage = ({
     previous,
     next
   }
-}) =>
+}) => (
   <div
     className={[classes.blogPost, articleClasses.contentScrollBox].join(" ")}
   >
     <GitHubCorner href="https://github.com/antwarjs/antwar" direction="right" />
     <div className={articleClasses.article}>
-      {headerImage &&
+      {headerImage && (
         <div
           className={articleClasses.headerImage}
           style={{
             backgroundImage: `url(${headerImage})`
           }}
-        />}
+        />
+      )}
       <header className={articleClasses.header}>
-        <h1>
-          {title}
-        </h1>
-        {author &&
-          <div
-            className={articleClasses.author}
-          >{`Authored by ${author}`}</div>}
+        <h1>{title}</h1>
+        {author && (
+          <div className={articleClasses.author}>{`Authored by ${author}`}</div>
+        )}
         {date && <Moment className={articleClasses.date} datetime={date} />}
       </header>
-      {headerExtra &&
+      {headerExtra && (
         <div
           className="header-extra"
           dangerouslySetInnerHTML={{ __html: headerExtra }}
-        />}
+        />
+      )}
       <div dangerouslySetInnerHTML={{ __html: body }} />
       <footer className={classes.footer}>
         <PrevNext
@@ -54,6 +53,7 @@ const BlogPage = ({
         />
       </footer>
     </div>
-  </div>;
+  </div>
+);
 
 export default BlogPage;

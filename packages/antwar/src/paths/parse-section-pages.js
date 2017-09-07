@@ -8,7 +8,10 @@ module.exports = function parseSectionPages(sectionName, section, modules) {
   const moduleKeys = modules.keys();
   const ret = _.map(moduleKeys, name => {
     const fileName = _.trimStart(name, "./") || "";
-    const fileNameWithoutExtension = fileName.split(".").slice(0, -1).join(".");
+    const fileNameWithoutExtension = fileName
+      .split(".")
+      .slice(0, -1)
+      .join(".");
     const file = modules(name);
 
     const nearestSectionName =
@@ -31,7 +34,10 @@ module.exports = function parseSectionPages(sectionName, section, modules) {
             ? "/"
             : joinUrl(
                 sectionName,
-                fileNameWithoutExtension.split("/index").slice(0, -1).join("")
+                fileNameWithoutExtension
+                  .split("/index")
+                  .slice(0, -1)
+                  .join("")
               )
       };
     }

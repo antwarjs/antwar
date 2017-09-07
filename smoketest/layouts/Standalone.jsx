@@ -2,7 +2,7 @@ import React from "react";
 import Interactive from "antwar-interactive";
 import ClickMe from "./ClickMe";
 
-const Standalone = ({ section }) =>
+const Standalone = ({ section }) => (
   <div>
     <h1>Standalone demo</h1>
 
@@ -15,6 +15,7 @@ const Standalone = ({ section }) =>
     />
 
     <p>Standalone page</p>
-  </div>;
+  </div>
+);
 
 export default Standalone;

@@ -4,7 +4,7 @@ import Hero from "../components/Hero";
 
 import classes from "./SiteIndex.scss";
 
-const SiteIndex = () =>
+const SiteIndex = () => (
   <div className={classes.siteIndex}>
     <Hero />
     <article className={classes.introduction}>
@@ -51,7 +51,8 @@ const SiteIndex = () =>
         </div>
       </section>
     </article>
-  </div>;
+  </div>
+);
 SiteIndex.title = "Antwar";
 
 export default SiteIndex;

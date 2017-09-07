@@ -22,38 +22,38 @@ const PrevNext = ({
 
   return (
     <div className="prevnext">
-      {previous &&
+      {previous && (
         <div className="prevnext__prev" style={style}>
-          {previous.headerImage &&
+          {previous.headerImage && (
             <div
               className="prevnext__bg"
               style={{
                 backgroundImage: `url(${previous.headerImage})`
               }}
-            />}
-          <span className="prevnext__info">
-            {previousText}
-          </span>
+            />
+          )}
+          <span className="prevnext__info">{previousText}</span>
           <Link className="prevnext__link" to={previous.url}>
             {getTitle(previous)}
           </Link>
-        </div>}
-      {next &&
+        </div>
+      )}
+      {next && (
         <div className="prevnext__next" style={style}>
-          {next.headerImage &&
+          {next.headerImage && (
             <div
               className="prevnext__bg"
               style={{
                 backgroundImage: `url(${next.headerImage})`
               }}
-            />}
-          <span className="prevnext__info">
-            {nextText}
-          </span>
+            />
+          )}
+          <span className="prevnext__info">{nextText}</span>
           <Link className="prevnext__link" to={next.url}>
             {getTitle(next)}
           </Link>
-        </div>}
+        </div>
+      )}
     </div>
   );
 };
