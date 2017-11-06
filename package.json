@@ -63,7 +63,7 @@
     "git-prepush-hook": "^1.0.2",
     "jest": "^20.0.4",
     "json-loader": "^0.5.7",
-    "lerna": "2.0.0",
+    "lerna": "^2.5.1",
     "loader-utils": "^1.1.0",
     "lodash": "^4.17.4",
     "marked": "^0.3.6",
