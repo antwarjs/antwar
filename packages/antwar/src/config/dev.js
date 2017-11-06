@@ -1,6 +1,7 @@
 import * as path from "path";
 import merge from "webpack-merge";
 import HtmlWebpackPlugin from "html-webpack-plugin";
+import webpack from "webpack";
 import getCommon from "./common";
 
 module.exports = config =>
@@ -28,6 +29,7 @@ module.exports = config =>
             ...config.template,
           },
         }),
+        new webpack.NamedModulesPlugin(),
       ],
     };
 
