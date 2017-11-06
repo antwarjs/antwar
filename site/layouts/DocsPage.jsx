@@ -8,7 +8,7 @@ import articleClasses from "./Article.scss";
 
 const DocsPage = ({
   section,
-  page: { file: { attributes: { headerImage, title }, body } }
+  page: { file: { attributes: { headerImage, title }, body } },
 }) => (
   <div className={classes.documentation}>
     <div className={classes.nav}>

@@ -25,7 +25,7 @@ const Interactive = ({ id, component, containerProps = {}, ...props }) => {
 };
 Interactive.propTypes = {
   id: PropTypes.string.isRequired,
-  component: PropTypes.any.isRequired
+  component: PropTypes.any.isRequired,
 };
 
 export default Interactive;

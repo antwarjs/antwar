@@ -9,19 +9,19 @@ module.exports = function(config) {
   return getCommon(config).then(function(commonConfig) {
     const buildConfig = {
       node: {
-        fs: "empty"
+        fs: "empty",
       },
       name: "server",
       target: "node",
       entry: {
-        site: path.join(__dirname, "../build/site.js")
+        site: path.join(__dirname, "../build/site.js"),
       },
       output: {
         path: path.join(process.cwd(), "./.antwar/build/"),
         filename: "[name].js",
         publicPath: "/",
-        libraryTarget: "commonjs2"
-      }
+        libraryTarget: "commonjs2",
+      },
     };
 
     return merge(commonConfig, buildConfig, config.webpack);

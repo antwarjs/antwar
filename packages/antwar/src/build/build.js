@@ -72,7 +72,7 @@ function generateParameters(antwarConfig, webpackConfig) {
       const template = {
         cssFiles: [],
         jsFiles: [],
-        ...antwarConfig.template
+        ...antwarConfig.template,
       };
 
       const cwd = process.cwd();
@@ -93,32 +93,32 @@ function generateParameters(antwarConfig, webpackConfig) {
               (template && template.file) ||
                 _path.join(__dirname, "../../templates/page.ejs"),
               {
-                encoding: "utf8"
+                encoding: "utf8",
               }
             ),
             cssFiles: cssFiles.map(
               cssFile => publicPath + "/" + _path.basename(cssFile)
             ),
-            jsFiles
+            jsFiles,
           },
           // TODO: expose to the user?
           interactive: {
             file: _fs.readFileSync(
               _path.join(__dirname, "../../templates/interactive.ejs"),
               {
-                encoding: "utf8"
+                encoding: "utf8",
               }
-            )
+            ),
           },
           interactiveIndex: {
             file: _fs.readFileSync(
               _path.join(__dirname, "../../templates/interactive_index.ejs"),
               {
-                encoding: "utf8"
+                encoding: "utf8",
               }
-            )
-          }
-        }
+            ),
+          },
+        },
       };
 
       resolve(parameters);
@@ -141,7 +141,7 @@ function writeExtras() {
         parameters.cssFiles.forEach(cssFile => {
           assets.push({
             from: cssFile,
-            to: "./" + _path.basename(cssFile)
+            to: "./" + _path.basename(cssFile),
           });
         });
       }
@@ -151,7 +151,7 @@ function writeExtras() {
         [
           write.extras(parameters, extraFiles),
           write.pages(parameters),
-          write.redirects(parameters)
+          write.redirects(parameters),
         ],
         function(err, tasks) {
           if (err) {

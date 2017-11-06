@@ -11,9 +11,9 @@ module.exports = function({ baseUrl, sections, get }) {
           updated: new Date().toString(),
           pages,
           config,
-          get
-        })
+          get,
+        }),
       };
-    }
+    },
   };
 };

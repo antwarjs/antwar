@@ -13,7 +13,7 @@ const Gitter = ({ room, title = "Open chat" }) => (
             activationElement: '.gitter-open-chat-button',
             room: '${room}'
           };
-        `
+        `,
       }}
     />
     <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer />

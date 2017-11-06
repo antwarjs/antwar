@@ -9,13 +9,13 @@ module.exports = config =>
       cache: true,
       node: {
         __filename: true,
-        fs: "empty"
+        fs: "empty",
       },
       output: {
         path: path.join(process.cwd(), "./.antwar/build/"),
         filename: "[name].js",
         publicPath: "/",
-        chunkFilename: "[chunkhash].js"
+        chunkFilename: "[chunkhash].js",
       },
       plugins: [
         new HtmlWebpackPlugin({
@@ -25,10 +25,10 @@ module.exports = config =>
           context: {
             cssFiles: [],
             jsFiles: [],
-            ...config.template
-          }
-        })
-      ]
+            ...config.template,
+          },
+        }),
+      ],
     };
 
     return merge(commonConfig, devConfig, config.webpack);

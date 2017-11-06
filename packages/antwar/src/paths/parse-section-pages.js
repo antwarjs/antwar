@@ -38,7 +38,7 @@ module.exports = function parseSectionPages(sectionName, section, modules) {
                   .split("/index")
                   .slice(0, -1)
                   .join("")
-              )
+              ),
       };
     }
 
@@ -49,7 +49,7 @@ module.exports = function parseSectionPages(sectionName, section, modules) {
       layout,
       section,
       sectionName: nearestSectionName,
-      url: parseUrl(section, nearestSectionName, fileNameWithoutExtension)
+      url: parseUrl(section, nearestSectionName, fileNameWithoutExtension),
     };
   });
 
@@ -70,7 +70,7 @@ module.exports = function parseSectionPages(sectionName, section, modules) {
           layout: indexPage,
           section: childSection,
           sectionName: childSectionName,
-          url: joinUrl(sectionName, childSectionName)
+          url: joinUrl(sectionName, childSectionName),
         };
       }
 
@@ -87,7 +87,7 @@ module.exports = function parseSectionPages(sectionName, section, modules) {
       layout: indexPage,
       section,
       sectionName,
-      url: sectionName === "/" ? "/" : `/${sectionName}/`
+      url: sectionName === "/" ? "/" : `/${sectionName}/`,
     });
   }
 

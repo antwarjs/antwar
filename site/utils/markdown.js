@@ -42,7 +42,7 @@ module.exports = function() {
         smartypants: false,
         headerPrefix: "",
         renderer,
-        xhtml: false
+        xhtml: false,
       };
 
       return marked.parser(parse.quotes(content), markedDefaults);
@@ -58,8 +58,8 @@ module.exports = function() {
           id: chunk.text
             .toLowerCase()
             .replace(/`/g, "")
-            .replace(/[^\w]+/g, "-")
+            .replace(/[^\w]+/g, "-"),
         }));
-    }
+    },
   };
 };

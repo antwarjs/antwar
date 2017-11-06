@@ -5,7 +5,7 @@ class ClickMe extends React.Component {
     super(props);
 
     this.state = {
-      showMessage: false
+      showMessage: false,
     };
   }
   render() {

@@ -10,15 +10,15 @@ const PATHS = {
     path.join(__dirname, "layouts"),
     path.join(__dirname, "components"),
     path.join(__dirname, "pages"),
-    path.join(__dirname, "utils")
+    path.join(__dirname, "utils"),
   ],
   style: [
     path.join(__dirname, "layouts"),
     path.join(__dirname, "components"),
-    path.join(__dirname, "styles")
+    path.join(__dirname, "styles"),
   ],
   packages: path.join(__dirname, "..", "packages"),
-  pages: path.join(__dirname, "pages")
+  pages: path.join(__dirname, "pages"),
 };
 
 const commonConfig = {
@@ -27,54 +27,55 @@ const commonConfig = {
       {
         test: /\.(js|jsx)$/,
         use: "babel-loader",
-        include: PATHS.site
+        include: PATHS.site,
       },
       {
         test: /\.woff$/,
-        use: "url-loader?prefix=font/&limit=5000&mimetype=application/font-woff"
+        use:
+          "url-loader?prefix=font/&limit=5000&mimetype=application/font-woff",
       },
       {
         test: /\.ttf$|\.eot$/,
-        use: "file-loader?prefix=font/"
+        use: "file-loader?prefix=font/",
       },
       {
         test: /\.jpg$/,
-        use: "file-loader"
+        use: "file-loader",
       },
       {
         test: /\.png$/,
-        use: "file-loader"
+        use: "file-loader",
       },
       {
         test: /\.svg$/,
-        use: "raw-loader"
+        use: "raw-loader",
       },
       {
         test: /\.html$/,
-        use: "raw-loader"
+        use: "raw-loader",
       },
       {
         test: /\.json$/,
-        use: "json-loader"
+        use: "json-loader",
       },
       {
         test: /\.md$/,
         use: "page-loader",
-        include: PATHS.pages
-      }
-    ]
+        include: PATHS.pages,
+      },
+    ],
   },
   plugins: [
     new CopyWebpackPlugin([
       {
         from: "./CNAME",
-        to: "./"
-      }
-    ])
+        to: "./",
+      },
+    ]),
   ],
   resolve: {
     // Patch webpack module resolution so that the site works with `packages`
-    modules: [PATHS.packages]
+    modules: [PATHS.packages],
   },
   resolveLoader: {
     alias: {
@@ -82,9 +83,9 @@ const commonConfig = {
         __dirname,
         "loaders/highlight-loader.js"
       ),
-      "page-loader": path.resolve(__dirname, "loaders/page-loader.js")
-    }
-  }
+      "page-loader": path.resolve(__dirname, "loaders/page-loader.js"),
+    },
+  },
 };
 
 module.exports = function(env) {
@@ -104,7 +105,7 @@ function developmentConfig(stylePaths) {
         {
           test: /\.css$/,
           use: ["style-loader", "css-loader"],
-          include: stylePaths
+          include: stylePaths,
         },
         {
           test: /\.scss$/,
@@ -114,15 +115,17 @@ function developmentConfig(stylePaths) {
             {
               loader: "postcss-loader",
               options: {
-                plugins: () => [autoprefixer({ browsers: ["last 2 versions"] })]
-              }
+                plugins: () => [
+                  autoprefixer({ browsers: ["last 2 versions"] }),
+                ],
+              },
             },
-            "sass-loader"
+            "sass-loader",
           ],
-          include: stylePaths
-        }
-      ]
-    }
+          include: stylePaths,
+        },
+      ],
+    },
   };
 }
 
@@ -134,9 +137,9 @@ function buildConfig(stylePaths) {
           test: /\.css$/,
           use: ExtractTextPlugin.extract({
             fallback: "style-loader",
-            use: "css-loader"
+            use: "css-loader",
           }),
-          include: stylePaths
+          include: stylePaths,
         },
         {
           test: /\.scss$/,
@@ -148,23 +151,23 @@ function buildConfig(stylePaths) {
                 loader: "postcss-loader",
                 options: {
                   plugins: () => [
-                    autoprefixer({ browsers: ["last 2 versions"] })
-                  ]
-                }
+                    autoprefixer({ browsers: ["last 2 versions"] }),
+                  ],
+                },
               },
-              "sass-loader"
-            ]
+              "sass-loader",
+            ],
           }),
-          include: stylePaths
-        }
-      ]
+          include: stylePaths,
+        },
+      ],
     },
     plugins: [
       new ExtractTextPlugin({
         filename: "[name].css",
-        allChunks: true
+        allChunks: true,
       }),
-      new CleanWebpackPlugin(["build"])
-    ]
+      new CleanWebpackPlugin(["build"]),
+    ],
   };
 }

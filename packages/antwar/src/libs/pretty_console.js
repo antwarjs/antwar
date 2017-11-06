@@ -13,5 +13,5 @@ module.exports = {
   },
   warn(...args) {
     console.warn(simpleTimestamp(), chalk.yellow.apply(null, args));
-  }
+  },
 };

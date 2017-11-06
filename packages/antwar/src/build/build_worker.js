@@ -41,7 +41,7 @@ function writePages(params, finalCb) {
           page,
           path,
           outputPath: params.output,
-          templates: params.templates
+          templates: params.templates,
         },
         cb
       );
@@ -55,7 +55,7 @@ function processPage(
     page = "",
     outputPath = "",
     path = "",
-    templates = {} // page/interactive/interactiveIndex
+    templates = {}, // page/interactive/interactiveIndex
   },
   cb
 ) {
@@ -77,7 +77,7 @@ function processPage(
           id,
           name: `Interactive${i}`,
           path: _path.join(cwd, id),
-          props: convertToJS(props)
+          props: convertToJS(props),
         };
       })
       .get();
@@ -112,10 +112,10 @@ function processPage(
         const interactiveIndexEntry = ejs.compile(
           templates.interactiveIndex.file
         )({
-          components
+          components,
         });
         const entry = ejs.compile(templates.interactive.file)({
-          components
+          components,
         });
 
         // Touch output so that other processes get a clue
@@ -135,16 +135,16 @@ function processPage(
         const webpackConfig = merge(interactiveConfig, {
           resolve: {
             modules: [cwd, _path.join(cwd, "node_modules")],
-            alias: generateAliases(components)
+            alias: generateAliases(components),
           },
           resolveLoader: {
-            modules: [cwd, _path.join(cwd, "node_modules")]
+            modules: [cwd, _path.join(cwd, "node_modules")],
           },
           plugins: [
             new webpack.DefinePlugin({
-              __DEV__: false
-            })
-          ]
+              __DEV__: false,
+            }),
+          ],
         });
 
         const interactiveIndexEntryName = `${filename}-interactive-entry`;
@@ -152,7 +152,7 @@ function processPage(
         // Override webpack configuration to process correctly
         webpackConfig.entry = {
           [interactiveIndexEntryName]: interactiveEntryTmpFile.name,
-          [filename]: entryTmpFile.name
+          [filename]: entryTmpFile.name,
         };
 
         // Merge output to avoid overriding publicPath
@@ -160,7 +160,7 @@ function processPage(
           filename: "[name].js",
           path: outputPath,
           publicPath: "/",
-          libraryTarget: "umd" // Needed for interactive index exports to work
+          libraryTarget: "umd", // Needed for interactive index exports to work
         });
 
         return webpack(webpackConfig, (err2, stats) => {
@@ -211,13 +211,13 @@ function processPage(
                 context: {
                   ...page.file,
                   ...templates.page,
-                  jsFiles: [...templates.page.jsFiles, ...jsFiles]
-                }
-              }
+                  jsFiles: [...templates.page.jsFiles, ...jsFiles],
+                },
+              },
             },
             webpackConfig: {
-              html: $.html()
-            }
+              html: $.html(),
+            },
           });
 
           return writePage({ path, data, page }, cb);
@@ -232,13 +232,13 @@ function processPage(
           context: {
             ...page.file,
             ...templates.page,
-            jsFiles: [...templates.page.jsFiles, ...jsFiles]
-          }
-        }
+            jsFiles: [...templates.page.jsFiles, ...jsFiles],
+          },
+        },
       },
       webpackConfig: {
-        html
-      }
+        html,
+      },
     });
 
     return writePage({ path, data }, cb);
@@ -307,7 +307,7 @@ function writeRedirects(params, finalCb) {
               to +
               '">\n<link rel="canonical" href="' +
               to +
-              '" />'
+              '" />',
           },
           cb
         );

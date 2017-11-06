@@ -8,7 +8,7 @@ const BodyContent = (page, allPages) => ({ location }) =>
     section: getSection(page, location.pathname, allPages),
     config,
     page,
-    location
+    location,
   });
 
 function getSection(page, pathname, allPages) {
@@ -31,7 +31,7 @@ function getAllSectionPages(allPages) {
   return _.map(config.paths, (path, name) => ({
     url: name,
     path,
-    pages: getSectionPages(config, name, allPages)
+    pages: getSectionPages(config, name, allPages),
   }));
 }
 

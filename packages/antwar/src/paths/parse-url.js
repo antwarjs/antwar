@@ -6,14 +6,14 @@ module.exports = function parseUrl(section, sectionName, fileName) {
   ) {
     return section.paths[sectionName].url({
       sectionName,
-      fileName
+      fileName,
     });
   }
 
   if (section.url) {
     return section.url({
       sectionName,
-      fileName
+      fileName,
     });
   }
 

@@ -5,7 +5,7 @@ const element = require("./element");
 const get = {
   content: page => page.file.body,
   date: page => page.file.attributes.date,
-  title: page => page.file.attributes.title
+  title: page => page.file.attributes.title,
 };
 
 describe("Element", () => {
@@ -24,18 +24,18 @@ describe("Element", () => {
         file: {
           attributes: {
             date,
-            title
+            title,
           },
-          body
-        }
-      }
+          body,
+        },
+      },
     };
 
     const result = element.entries({
       baseUrl,
       sections,
       pages,
-      get
+      get,
     });
 
     const expected =
@@ -75,18 +75,18 @@ describe("Element", () => {
         file: {
           attributes: {
             date,
-            title
+            title,
           },
-          body
-        }
-      }
+          body,
+        },
+      },
     };
 
     const result = element.entries({
       baseUrl,
       sections,
       pages,
-      get
+      get,
     });
 
     const expected =
@@ -124,18 +124,18 @@ describe("Element", () => {
         file: {
           attributes: {
             date,
-            title
+            title,
           },
-          body
-        }
-      }
+          body,
+        },
+      },
     };
 
     const result = element.entries({
       baseUrl,
       sections,
       pages,
-      get
+      get,
     });
 
     const expected =
@@ -173,18 +173,18 @@ describe("Element", () => {
         file: {
           attributes: {
             date,
-            title
+            title,
           },
-          body
-        }
-      }
+          body,
+        },
+      },
     };
 
     const result = element.entries({
       baseUrl,
       sections,
       pages,
-      get
+      get,
     });
 
     const expected =
@@ -222,18 +222,18 @@ describe("Element", () => {
         file: {
           attributes: {
             date,
-            title
+            title,
           },
-          body
-        }
-      }
+          body,
+        },
+      },
     };
 
     const result = element.entries({
       baseUrl,
       sections,
       pages,
-      get
+      get,
     });
 
     const expected =

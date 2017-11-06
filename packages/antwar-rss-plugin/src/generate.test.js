@@ -17,15 +17,15 @@ describe("Generate", () => {
         file: {
           attributes: {
             date,
-            title
+            title,
           },
-          body
-        }
-      }
+          body,
+        },
+      },
     };
     const config = {
       title: "Demo RSS",
-      author: "Demo Author"
+      author: "Demo Author",
     };
     const updated = moment().format();
 
@@ -38,8 +38,8 @@ describe("Generate", () => {
       get: {
         content: page => page.file.body,
         date: page => page.file.attributes.date,
-        title: page => page.file.attributes.title
-      }
+        title: page => page.file.attributes.title,
+      },
     });
     const expected =
       '<feed xmlns="http://www.w3.org/2005/Atom">' +

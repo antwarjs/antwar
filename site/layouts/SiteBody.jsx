@@ -53,7 +53,7 @@ const SiteBody = ({ children, location }) => {
   );
 };
 SiteBody.propTypes = {
-  children: PropTypes.any
+  children: PropTypes.any,
 };
 
 export default SiteBody;

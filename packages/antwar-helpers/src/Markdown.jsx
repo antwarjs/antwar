@@ -5,7 +5,7 @@ const Markdown = ({ page }) => (
   <div dangerouslySetInnerHTML={{ __html: page.content }} />
 );
 Markdown.propTypes = {
-  page: PropTypes.object.isRequired
+  page: PropTypes.object.isRequired,
 };
 
 export default Markdown;

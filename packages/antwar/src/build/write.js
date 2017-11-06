@@ -20,8 +20,8 @@ exports.extras = (o, files) => cb => {
             task: "write",
             params: {
               path: _path.join(o.output, fileName),
-              data: fileContent
-            }
+              data: fileContent,
+            },
           };
         });
       })
@@ -36,7 +36,7 @@ exports.pages = o => finalCb => {
     return {
       path: p,
       page,
-      title: o.allPages[page].title
+      title: o.allPages[page].title,
     };
   });
 
@@ -50,7 +50,7 @@ exports.pages = o => finalCb => {
             ? _path.join(d.path, "..", "index.html")
             : _path.join(d.path, "index.html"),
         page: d.page,
-        title: d.title
+        title: d.title,
       });
     },
     function(err, d) {
@@ -66,8 +66,8 @@ exports.pages = o => finalCb => {
             params: {
               output: o.output,
               pages: partition,
-              templates: o.templates
-            }
+              templates: o.templates,
+            },
           };
         })
       );
@@ -82,8 +82,8 @@ exports.redirects = o => cb =>
       redirects: utils.calculateRedirects(o.config.paths).map(function(d) {
         return {
           from: _path.join(o.output, d.from),
-          to: "/" + d.to
+          to: "/" + d.to,
         };
-      })
-    }
+      }),
+    },
   });

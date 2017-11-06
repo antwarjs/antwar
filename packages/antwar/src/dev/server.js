@@ -12,11 +12,11 @@ module.exports = function(config) {
         // webpack configuration), we have to add entries by hand.
         "webpack-dev-server/client?http://localhost:" + config.antwar.port,
         "webpack/hot/dev-server",
-        path.join(__dirname, "./entry.js")
-      ]
+        path.join(__dirname, "./entry.js"),
+      ],
     },
     plugins: [new webpack.HotModuleReplacementPlugin()],
-    devtool: "eval"
+    devtool: "eval",
   };
 
   return devConfig(config).then(function(c) {
@@ -32,7 +32,7 @@ function runServer(siteConfig, webpackConfig) {
     contentBase: path.join(process.cwd(), "./.antwar/build"),
     hot: true,
     historyApiFallback: true,
-    stats: "errors-only"
+    stats: "errors-only",
   }).listen(port, function(err) {
     if (err) {
       return console.error(err);

@@ -36,6 +36,6 @@ function partitionPages(allPages) {
 
   return {
     pages: ret[0],
-    indices: ret[1]
+    indices: ret[1],
   };
 }

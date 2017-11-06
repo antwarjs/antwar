@@ -8,7 +8,7 @@ const PATHS = {
   style: [path.join(__dirname, "style", "main.css")],
   parentModules: path.join(__dirname, "..", "node_modules"),
   packages: path.join(__dirname, "..", "packages"),
-  pages: path.join(__dirname, "pages")
+  pages: path.join(__dirname, "pages"),
 };
 
 module.exports = function(env) {
@@ -26,7 +26,7 @@ module.exports = function(env) {
 function commonConfig() {
   return {
     entry: {
-      style: PATHS.style
+      style: PATHS.style,
     },
     module: {
       rules: [
@@ -35,33 +35,33 @@ function commonConfig() {
           use: "babel-loader",
           include: [
             path.join(__dirname, "layouts"),
-            path.join(__dirname, "pages")
-          ]
+            path.join(__dirname, "pages"),
+          ],
         },
         {
           test: /\.md$/,
           use: "page-loader",
-          include: PATHS.pages
-        }
-      ]
+          include: PATHS.pages,
+        },
+      ],
     },
     resolve: {
       // Patch webpack module resolution so that the site works with `packages`
       modules: [
         PATHS.packages,
         // Include parent so that interactive lookup works against preact etc.
-        PATHS.parentModules
-      ]
+        PATHS.parentModules,
+      ],
     },
     resolveLoader: {
       modules: [
         // Include parent so that interactive lookup works against preact etc.
-        PATHS.parentModules
+        PATHS.parentModules,
       ],
       alias: {
-        "page-loader": path.resolve(__dirname, "loaders/page-loader.js")
-      }
-    }
+        "page-loader": path.resolve(__dirname, "loaders/page-loader.js"),
+      },
+    },
   };
 }
 
@@ -70,16 +70,16 @@ function interactiveConfig() {
     resolve: {
       alias: {
         react: "preact-compat/dist/preact-compat.min.js",
-        "react-dom": "preact-compat/dist/preact-compat.min.js"
-      }
+        "react-dom": "preact-compat/dist/preact-compat.min.js",
+      },
     },
     plugins: [
       new webpack.optimize.UglifyJsPlugin({
         compress: {
-          warnings: false
-        }
-      })
-    ]
+          warnings: false,
+        },
+      }),
+    ],
   };
 }
 
@@ -90,10 +90,10 @@ function developmentConfig(stylePaths) {
         {
           test: /\.css$/,
           use: ["style-loader", "css-loader"],
-          include: stylePaths
-        }
-      ]
-    }
+          include: stylePaths,
+        },
+      ],
+    },
   };
 }
 
@@ -105,18 +105,18 @@ function buildConfig(stylePaths) {
           test: /\.css$/,
           use: ExtractTextPlugin.extract({
             use: "css-loader",
-            fallback: "style-loader"
+            fallback: "style-loader",
           }),
-          include: stylePaths
-        }
-      ]
+          include: stylePaths,
+        },
+      ],
     },
     plugins: [
       new ExtractTextPlugin({
         filename: "[name].[chunkhash].css",
-        allChunks: true
+        allChunks: true,
       }),
-      new CleanWebpackPlugin(["build"])
-    ]
+      new CleanWebpackPlugin(["build"]),
+    ],
   };
 }

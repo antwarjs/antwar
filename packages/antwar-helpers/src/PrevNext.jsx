@@ -6,7 +6,7 @@ const PrevNext = ({
   nextText,
   previous,
   previousText,
-  getTitle = () => {}
+  getTitle = () => {},
 }) => {
   if (!(next || previous)) {
     return <div className="prevnext" />;
@@ -14,7 +14,7 @@ const PrevNext = ({
 
   // XXX: make sure page spans whole container if it's the only one
   let style = {
-    width: "100%"
+    width: "100%",
   };
   if (next && previous) {
     style = {};
@@ -28,7 +28,7 @@ const PrevNext = ({
             <div
               className="prevnext__bg"
               style={{
-                backgroundImage: `url(${previous.headerImage})`
+                backgroundImage: `url(${previous.headerImage})`,
               }}
             />
           )}
@@ -44,7 +44,7 @@ const PrevNext = ({
             <div
               className="prevnext__bg"
               style={{
-                backgroundImage: `url(${next.headerImage})`
+                backgroundImage: `url(${next.headerImage})`,
               }}
             />
           )}

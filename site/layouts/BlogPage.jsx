@@ -9,11 +9,11 @@ const BlogPage = ({
   page: {
     file: {
       attributes: { author, date, headerExtra, headerImage, title },
-      body
+      body,
     },
     previous,
-    next
-  }
+    next,
+  },
 }) => (
   <div
     className={[classes.blogPost, articleClasses.contentScrollBox].join(" ")}
@@ -24,7 +24,7 @@ const BlogPage = ({
         <div
           className={articleClasses.headerImage}
           style={{
-            backgroundImage: `url(${headerImage})`
+            backgroundImage: `url(${headerImage})`,
           }}
         />
       )}

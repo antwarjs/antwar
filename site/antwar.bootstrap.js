@@ -8,7 +8,7 @@ process.env.BABEL_ENV = environment;
 antwar[environment]({
   environment,
   antwar: require("./antwar.config"),
-  webpack: require("./webpack.config")
+  webpack: require("./webpack.config"),
 }).catch(err => {
   console.error(err);
 

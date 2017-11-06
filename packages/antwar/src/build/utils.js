@@ -13,14 +13,14 @@ function calculateRedirects(paths) {
           if (v[0] === "/") {
             return {
               from,
-              to: v.slice(1) // strip /
+              to: v.slice(1), // strip /
             };
           }
 
           // Redirect to the same section
           return {
             from,
-            to: path + "/" + v
+            to: path + "/" + v,
           };
         }).filter(_.identity);
       })
@@ -35,14 +35,14 @@ assert.deepEqual(
     foo: {},
     demo: {
       redirects: {
-        foo: "bar"
-      }
-    }
+        foo: "bar",
+      },
+    },
   }),
   [
     {
       from: "demo/foo",
-      to: "demo/bar"
-    }
+      to: "demo/bar",
+    },
   ]
 );

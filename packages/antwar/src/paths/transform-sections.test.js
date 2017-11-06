@@ -7,7 +7,7 @@ describe("Transform sections", () => {
     const sectionName = "/";
     const section = {
       layout: () => {},
-      transform: pages => _.sortBy(pages, page => page.file.sort)
+      transform: pages => _.sortBy(pages, page => page.file.sort),
     };
     const parsedPages = parseSectionPages(
       sectionName,
@@ -20,46 +20,46 @@ describe("Transform sections", () => {
         type: "page",
         fileName: "first.md",
         file: {
-          sort: 0
+          sort: 0,
         },
         layout: undefined,
         section,
         sectionName: "/",
-        url: "/first/"
+        url: "/first/",
       },
       {
         type: "page",
         fileName: "second.md",
         file: {
-          sort: 1
+          sort: 1,
         },
         layout: undefined,
         section,
         sectionName: "/",
-        url: "/second/"
+        url: "/second/",
       },
       {
         type: "page",
         fileName: "third.md",
         file: {
-          sort: 10
+          sort: 10,
         },
         layout: undefined,
         section,
         sectionName: "/",
-        url: "/third/"
+        url: "/third/",
       },
       {
         type: "index",
         fileName: "index.md",
         file: {
-          sort: -1
+          sort: -1,
         },
         layout: undefined,
         section,
         sectionName: "/",
-        url: "/"
-      }
+        url: "/",
+      },
     ];
 
     expect(result).toEqual(expected);
@@ -69,7 +69,7 @@ describe("Transform sections", () => {
     const sectionName = "/";
     const section = {
       layout: () => {},
-      transform: pages => _.sortBy(pages, page => page.file.sort)
+      transform: pages => _.sortBy(pages, page => page.file.sort),
     };
     const parsedPages = parseSectionPages(
       sectionName,
@@ -82,46 +82,46 @@ describe("Transform sections", () => {
         type: "page",
         fileName: "nested/page/first.md",
         file: {
-          sort: 0
+          sort: 0,
         },
         layout: undefined,
         section,
         sectionName: "/",
-        url: "/nested/page/first/"
+        url: "/nested/page/first/",
       },
       {
         type: "page",
         fileName: "nested/page/second.md",
         file: {
-          sort: 1
+          sort: 1,
         },
         layout: undefined,
         section,
         sectionName: "/",
-        url: "/nested/page/second/"
+        url: "/nested/page/second/",
       },
       {
         type: "page",
         fileName: "nested/page/third.md",
         file: {
-          sort: 10
+          sort: 10,
         },
         layout: undefined,
         section,
         sectionName: "/",
-        url: "/nested/page/third/"
+        url: "/nested/page/third/",
       },
       {
         type: "index",
         fileName: "nested/page/index.md",
         file: {
-          sort: -1
+          sort: -1,
         },
         layout: undefined,
         section,
         sectionName: "/",
-        url: "/nested/page/"
-      }
+        url: "/nested/page/",
+      },
     ];
 
     expect(result).toEqual(expected);
@@ -133,9 +133,9 @@ describe("Transform sections", () => {
       paths: {
         docs: {
           layout: () => {},
-          transform: pages => _.sortBy(pages, page => page.file.sort)
-        }
-      }
+          transform: pages => _.sortBy(pages, page => page.file.sort),
+        },
+      },
     };
     const parsedPages = parseSectionPages(
       sectionName,
@@ -148,46 +148,46 @@ describe("Transform sections", () => {
         type: "page",
         fileName: "docs/first.md",
         file: {
-          sort: 0
+          sort: 0,
         },
         layout: undefined,
         section,
         sectionName: "docs",
-        url: "/docs/first/"
+        url: "/docs/first/",
       },
       {
         type: "page",
         fileName: "docs/second.md",
         file: {
-          sort: 1
+          sort: 1,
         },
         layout: undefined,
         section,
         sectionName: "docs",
-        url: "/docs/second/"
+        url: "/docs/second/",
       },
       {
         type: "page",
         fileName: "docs/third.md",
         file: {
-          sort: 10
+          sort: 10,
         },
         layout: undefined,
         section,
         sectionName: "docs",
-        url: "/docs/third/"
+        url: "/docs/third/",
       },
       {
         type: "index",
         fileName: "docs/index.md",
         file: {
-          sort: -1
+          sort: -1,
         },
         layout: undefined,
         section,
         sectionName: "docs",
-        url: "/docs/"
-      }
+        url: "/docs/",
+      },
     ];
 
     expect(result).toEqual(expected);
@@ -201,9 +201,9 @@ describe("Transform sections", () => {
       paths: {
         docs: {
           layout: () => {},
-          transform: pages => _.sortBy(pages, page => page.file.sort)
-        }
-      }
+          transform: pages => _.sortBy(pages, page => page.file.sort),
+        },
+      },
     };
     const parsedPages = parseSectionPages(
       sectionName,
@@ -216,90 +216,90 @@ describe("Transform sections", () => {
         type: "page",
         fileName: "first.md",
         file: {
-          sort: 0
+          sort: 0,
         },
         layout: undefined,
         section,
         sectionName: "/",
-        url: "/first/"
+        url: "/first/",
       },
       {
         type: "page",
         fileName: "second.md",
         file: {
-          sort: 1
+          sort: 1,
         },
         layout: undefined,
         section,
         sectionName: "/",
-        url: "/second/"
+        url: "/second/",
       },
       {
         type: "page",
         fileName: "third.md",
         file: {
-          sort: 10
+          sort: 10,
         },
         layout: undefined,
         section,
         sectionName: "/",
-        url: "/third/"
+        url: "/third/",
       },
       {
         type: "index",
         fileName: "index.md",
         file: {
-          sort: -1
+          sort: -1,
         },
         layout: undefined,
         section,
         sectionName: "/",
-        url: "/"
+        url: "/",
       },
       {
         type: "page",
         fileName: "docs/first.md",
         file: {
-          sort: 0
+          sort: 0,
         },
         layout: undefined,
         section,
         sectionName: "docs",
-        url: "/docs/first/"
+        url: "/docs/first/",
       },
       {
         type: "page",
         fileName: "docs/second.md",
         file: {
-          sort: 1
+          sort: 1,
         },
         layout: undefined,
         section,
         sectionName: "docs",
-        url: "/docs/second/"
+        url: "/docs/second/",
       },
       {
         type: "page",
         fileName: "docs/third.md",
         file: {
-          sort: 10
+          sort: 10,
         },
         layout: undefined,
         section,
         sectionName: "docs",
-        url: "/docs/third/"
+        url: "/docs/third/",
       },
       {
         type: "index",
         fileName: "docs/index.md",
         file: {
-          sort: -1
+          sort: -1,
         },
         layout: undefined,
         section,
         sectionName: "docs",
-        url: "/docs/"
-      }
+        url: "/docs/",
+      },
     ];
 
     expect(result).toEqual(expected);
@@ -310,27 +310,27 @@ function context(shapePath, shapeFile = id) {
   const files = [
     {
       file: "index.md",
-      sort: -1
+      sort: -1,
     },
     {
       file: "first.md",
-      sort: 0
+      sort: 0,
     },
     {
       file: "third.md",
-      sort: 10
+      sort: 10,
     },
     {
       file: "second.md",
-      sort: 1
-    }
+      sort: 1,
+    },
   ];
 
   const modules = _.fromPairs(
     _.flatMap(
       files.map(({ file, sort }) => ({
         file: shapeFile(file),
-        sort
+        sort,
       })),
       ({ file, sort }) => shapePath(file).map(name => [name, { sort }])
     )

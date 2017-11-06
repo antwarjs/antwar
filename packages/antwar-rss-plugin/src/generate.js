@@ -8,7 +8,7 @@ module.exports = function({
   updated,
   pages,
   config,
-  get
+  get,
 }) {
   return e.feed([
     e.title(config.title),
@@ -17,6 +17,6 @@ module.exports = function({
     e.updated(updated),
     e.id(baseUrl),
     e.author(config.author),
-    e.entries({ baseUrl, sections, pages, get })
+    e.entries({ baseUrl, sections, pages, get }),
   ]);
 };

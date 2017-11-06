@@ -3,7 +3,7 @@ import marksy from "marksy";
 
 const Index = ({
   page: { file: { attributes: { title }, body } },
-  section: { all }
+  section: { all },
 }) =>
   console.log("all", all()) || (
     <div>

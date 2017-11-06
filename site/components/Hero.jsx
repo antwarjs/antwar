@@ -30,7 +30,7 @@ function TV({ width, border = 20, widescreen }) {
     y: -width * 2,
     width: width * 4,
     height: width * 4,
-    fill: "url(#wall-glow)"
+    fill: "url(#wall-glow)",
   };
 
   return (
@@ -78,7 +78,7 @@ function Screen({ children, width, height }) {
     width: 1000,
     height: isd,
     transform: "rotate(45)",
-    fill: "url(#glare-gradient)"
+    fill: "url(#glare-gradient)",
   };
 
   const whiteBackgroundProps = {
@@ -87,7 +87,7 @@ function Screen({ children, width, height }) {
     width,
     height,
     fill: "white",
-    filter: "url(#glow)"
+    filter: "url(#glow)",
   };
 
   const scanlinesProps = {
@@ -96,7 +96,7 @@ function Screen({ children, width, height }) {
     width,
     height,
     fill: "url(#scanlines)",
-    opacity: 0.05
+    opacity: 0.05,
   };
 
   const innerScreenGlowProps = {
@@ -104,7 +104,7 @@ function Screen({ children, width, height }) {
     y: -height,
     width: width * 2,
     height: height * 2,
-    fill: "url(#inner-screen-glow)"
+    fill: "url(#inner-screen-glow)",
   };
 
   return (
@@ -201,7 +201,7 @@ function StaticScreen({ width, height }) {
     y: -height / 2,
     width,
     height,
-    fill: "#01001C"
+    fill: "#01001C",
   };
 
   const lwidth = width * 1.5;
@@ -213,7 +213,7 @@ function StaticScreen({ width, height }) {
     width: lwidth,
     height: lheight,
     className: classes.staticShake,
-    fill: "url(#noise-pattern)"
+    fill: "url(#noise-pattern)",
   };
 
   return (

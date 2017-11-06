@@ -22,7 +22,7 @@ function execute(target) {
         defaultConfiguration(),
         _.isFunction(antwar) ? antwar(environment) : antwar
       ),
-      webpack: webpack(environment)
+      webpack: webpack(environment),
     });
 }
 
@@ -30,7 +30,7 @@ function defaultConfiguration() {
   return {
     port: 3000,
     output: "build",
-    console: prettyConsole
+    console: prettyConsole,
   };
 }
 

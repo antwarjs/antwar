@@ -26,7 +26,7 @@ exports.id = function(value) {
 exports.author = function(author) {
   return e("author", {}, [
     e("name", {}, author ? escapeHTML(author.name || author) : ""),
-    e("email", {}, author ? author.email || "" : "")
+    e("email", {}, author ? author.email || "" : ""),
   ]);
 };
 
@@ -57,7 +57,7 @@ exports.entries = function({ baseUrl, sections, pages, get }) {
         "content",
         { type: "html" },
         escapeHTML(resolveUrls(baseUrl, sectionName, pageContent))
-      )
+      ),
     ]);
   })
     .filter(_.identity)

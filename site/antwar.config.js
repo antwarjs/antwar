@@ -7,8 +7,8 @@ module.exports = {
   template: {
     rss: {
       title: "Antwar",
-      href: "/atom.xml"
-    }
+      href: "/atom.xml",
+    },
   },
   output: "build",
   layout: () => require("./layouts/SiteBody").default,
@@ -22,9 +22,9 @@ module.exports = {
           moment(page.file.attributes.date)
             .utcOffset(0)
             .format(),
-        title: page => page.file.attributes.title
-      }
-    })
+        title: page => page.file.attributes.title,
+      },
+    }),
   ],
   paths: {
     "/": {
@@ -43,7 +43,7 @@ module.exports = {
           },
           transform: pages =>
             generateAdjacent(_.sortBy(pages, "date")).reverse(),
-          url: ({ fileName }) => `/${cleanBlogPath(fileName)}/`
+          url: ({ fileName }) => `/${cleanBlogPath(fileName)}/`,
         },
         docs: {
           layout: () => require("./layouts/DocsPage").default,
@@ -54,11 +54,12 @@ module.exports = {
 
             return index;
           },
-          transform: pages => _.sortBy(pages, page => page.file.attributes.sort)
-        }
-      }
-    }
-  }
+          transform: pages =>
+            _.sortBy(pages, page => page.file.attributes.sort),
+        },
+      },
+    },
+  },
 };
 
 function cleanBlogPath(resourcePath) {
