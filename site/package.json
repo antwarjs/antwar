@@ -24,14 +24,14 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "react-github-corner": "^0.3.0"
+    "react-github-corner": "^2.0.0"
   },
   "devDependencies": {
-    "autoprefixer": "^7.1.1",
-    "copy-webpack-plugin": "^4.0.1",
+    "autoprefixer": "^7.1.6",
+    "copy-webpack-plugin": "^4.2.0",
     "gh-pages": "^1.0.0",
-    "node-sass": "^4.5.3",
-    "postcss-loader": "^2.0.6",
+    "node-sass": "^4.6.0",
+    "postcss-loader": "^2.0.8",
     "sass-loader": "^6.0.6"
   }
 }
