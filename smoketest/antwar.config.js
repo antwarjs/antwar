@@ -4,7 +4,8 @@ module.exports = () => ({
   },
   output: "build",
   paths: {
-    "/": {
+    "/": () => require("./layouts/Standalone").default,
+    "/pages": {
       content: () => require.context("./pages", true, /^\.\/.*\.md$/),
       layout: () => require("./layouts/Index").default,
       redirects: {

@@ -57,7 +57,7 @@ module.exports = function getAllPages(config) {
               file: sectionPage,
               layout: sectionPage,
               section,
-              url: `/${sectionName}/`,
+              url: sectionName === "/" ? "/" : `/${sectionName}/`,
             },
           ];
         }
