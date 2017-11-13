@@ -15,7 +15,11 @@ function getSection(page, pathname, allPages) {
   const sectionName = page.sectionName;
   const section = config.paths[sectionName || "/"] || config.paths["/"] || {};
 
-  section.name = sectionName;
+  // Extra check as read-only properties cannot be set. Better to wrap
+  // in a function instead?
+  if (!section.name) {
+    section.name = sectionName;
+  }
 
   // Get all pages of all sections
   section.all = () => getAllSectionPages(allPages);
