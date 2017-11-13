@@ -19,10 +19,10 @@
 
 module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">{</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword">return</span> <span class="token punctuation">{</span>
-    <span class="token comment" spellcheck="true">// Attach extra files</span>
+    <span class="token comment">// Attach extra files</span>
     <span class="token function">extra</span><span class="token punctuation">(</span>pages<span class="token punctuation">,</span> config<span class="token punctuation">)</span> <span class="token punctuation">{</span>
       <span class="token keyword">return</span> <span class="token punctuation">{</span>
-        <span class="token comment" spellcheck="true">// The value should be a string containing the RSS</span>
+        <span class="token comment">// The value should be a string containing the RSS</span>
         <span class="token string">'atom.xml'</span><span class="token punctuation">:</span> <span class="token function">generate</span><span class="token punctuation">(</span><span class="token punctuation">{</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
       <span class="token punctuation">}</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>

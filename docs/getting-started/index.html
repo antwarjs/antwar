@@ -24,7 +24,7 @@
 
 <span class="token keyword">const</span> environment <span class="token operator">=</span> process<span class="token punctuation">.</span>argv<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
 
-<span class="token comment" spellcheck="true">// Patch Babel env to make HMR switch work</span>
+<span class="token comment">// Patch Babel env to make HMR switch work</span>
 process<span class="token punctuation">.</span>env<span class="token punctuation">.</span>BABEL_ENV <span class="token operator">=</span> environment<span class="token punctuation">;</span>
 
 antwar<span class="token punctuation">[</span>environment<span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
