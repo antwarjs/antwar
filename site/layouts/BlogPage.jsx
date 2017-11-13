@@ -49,7 +49,8 @@ const BlogPage = ({
           previousText="Previous post"
           nextText="Next post"
           getTitle={({ file }) =>
-            file && file.attributes && file.attributes.title}
+            file && file.attributes && file.attributes.title
+          }
         />
       </footer>
     </div>

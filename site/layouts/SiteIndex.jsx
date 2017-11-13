@@ -30,9 +30,7 @@ const SiteIndex = () => (
         <div className={classes.container}>
           <h2>Sounds cool. Can I try it?</h2>
           <p>
-            Check out our <a href="/docs/getting-started/">
-              getting started
-            </a>{" "}
+            Check out our <a href="/docs/getting-started/">getting started</a>{" "}
             guide. If you have questions or want to check out the code, have a
             look at the
             <a href="https://github.com/antwarjs/antwar">GitHub repo</a>.

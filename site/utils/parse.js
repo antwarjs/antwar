@@ -42,7 +42,9 @@ function parseCustomQuote(token, match, className) {
         type: "html",
         text:
           `<blockquote class="${className}">` +
-          `<div class="tip-title"><i class="tip-icon ${icon}"></i>${className}</div>` +
+          `<div class="tip-title"><i class="tip-icon ${icon}"></i>${
+            className
+          }</div>` +
           text.slice(2).trim() +
           "</blockquote>",
       };
