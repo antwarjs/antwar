@@ -9,18 +9,25 @@ function calculateRedirects(paths) {
         return _.map(values.redirects, function(v, k) {
           const from = path + "/" + k;
 
+          if (v.startsWith("http")) {
+            return {
+              from,
+              to: v, // don't manipulate at all
+            };
+          }
+
           // Redirect to any other section
           if (v[0] === "/") {
             return {
               from,
-              to: v.slice(1), // strip /
+              to: "/" + v.slice(1), // strip /
             };
           }
 
           // Redirect to the same section
           return {
             from,
-            to: path + "/" + v,
+            to: "/" + path + "/" + v,
           };
         }).filter(_.identity);
       })
@@ -35,14 +42,24 @@ assert.deepEqual(
     foo: {},
     demo: {
       redirects: {
-        foo: "bar",
+        "same-section": "in-same",
+        "different-section": "/demo",
+        "different-site": "https://google.com",
       },
     },
   }),
   [
     {
-      from: "demo/foo",
-      to: "demo/bar",
+      from: "demo/same-section",
+      to: "/demo/in-same",
+    },
+    {
+      from: "demo/different-section",
+      to: "/demo",
+    },
+    {
+      from: "demo/different-site",
+      to: "https://google.com",
     },
   ]
 );

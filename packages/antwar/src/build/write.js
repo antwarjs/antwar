@@ -82,7 +82,7 @@ exports.redirects = o => cb =>
       redirects: utils.calculateRedirects(o.config.paths).map(function(d) {
         return {
           from: _path.join(o.output, d.from),
-          to: "/" + d.to,
+          to: d.to,
         };
       }),
     },
