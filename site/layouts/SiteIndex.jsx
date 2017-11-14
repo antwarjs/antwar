@@ -32,7 +32,7 @@ const SiteIndex = () => (
           <p>
             Check out our <a href="/docs/getting-started/">getting started</a>{" "}
             guide. If you have questions or want to check out the code, have a
-            look at the
+            look at the{" "}
             <a href="https://github.com/antwarjs/antwar">GitHub repo</a>.
           </p>
           <div className={classes.actions}>
