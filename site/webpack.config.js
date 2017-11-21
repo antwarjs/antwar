@@ -100,6 +100,7 @@ module.exports = function(env) {
 
 function developmentConfig(stylePaths) {
   return {
+    stats: "minimal",
     module: {
       rules: [
         {
