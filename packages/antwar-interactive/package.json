@@ -2,7 +2,7 @@
   "name": "antwar-interactive",
   "description": "Interactive extension for Antwar",
   "author": "Juho Vepsalainen <bebraw@gmail.com>",
-  "version": "0.19.1",
+  "version": "0.21.0",
   "scripts": {
     "build": "rimraf ./dist && babel ./src --out-dir ./dist",
     "prepublish": "npm run build"
@@ -29,6 +29,9 @@
   "main": "dist",
   "module": "dist",
   "jsnext:main": "dist",
-  "keywords": ["antwar", "interactive"],
+  "keywords": [
+    "antwar",
+    "interactive"
+  ],
   "license": "MIT"
 }
