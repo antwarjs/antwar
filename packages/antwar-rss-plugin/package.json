@@ -24,14 +24,14 @@
   "module": "dist",
   "jsnext:main": "dist",
   "dependencies": {
-    "absolutify": "0.0.2",
-    "lodash": "^4.15.0",
-    "moment": "^2.14.1",
-    "url-join": "^1.1.0"
+    "absolutify": "0.1.0",
+    "lodash": "^4.17.4",
+    "moment": "^2.19.4",
+    "url-join": "^2.0.2"
   },
   "devDependencies": {
-    "babel-cli": "^6.16.0",
-    "marked": "^0.3.6",
-    "rimraf": "^2.5.4"
+    "babel-cli": "^6.26.0",
+    "marked": "^0.3.7",
+    "rimraf": "^2.6.2"
   }
 }

@@ -9,14 +9,14 @@
   },
   "dependencies": {
     "classnames": "^2.2.5",
-    "prop-types": "^15.5.8"
+    "prop-types": "^15.6.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.14.0",
-    "rimraf": "^2.5.4"
+    "babel-cli": "^6.26.0",
+    "rimraf": "^2.6.2"
   },
   "peerDependencies": {
-    "react": ">=0.13.* <16.0.0"
+    "react": ">=0.13.* < 17.0.0"
   },
   "repository": {
     "type": "git",
@@ -29,9 +29,6 @@
   "main": "dist",
   "module": "dist",
   "jsnext:main": "dist",
-  "keywords": [
-    "antwar",
-    "interactive"
-  ],
+  "keywords": ["antwar", "interactive"],
   "license": "MIT"
 }

@@ -6,9 +6,7 @@ module.exports = function() {
   const renderer = new marked.Renderer();
 
   renderer.image = function(href, title, text) {
-    return `<img src="__IMG_START__${href}__IMG_END__" alt="${
-      text
-    }" class="inline-img" />`;
+    return `<img src="__IMG_START__${href}__IMG_END__" alt="${text}" class="inline-img" />`;
   };
 
   // patch ids (this.options.headerPrefix can be undefined!)

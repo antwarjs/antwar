@@ -8,28 +8,28 @@
     "prepublish": "npm run build"
   },
   "dependencies": {
-    "async": "^2.5.0",
-    "chalk": "^1.1.3",
-    "cheerio": "^0.22.0",
-    "ejs": "^2.5.6",
-    "es6-promise": "^4.1.0",
-    "html-webpack-plugin": "^2.29.0",
+    "async": "^2.6.0",
+    "chalk": "^2.3.0",
+    "cheerio": "^1.0.0-rc.2",
+    "ejs": "^2.5.7",
+    "es6-promise": "^4.1.1",
+    "html-webpack-plugin": "^2.30.1",
     "lodash": "^4.17.4",
     "mkdirp": "^0.5.1",
-    "promise.prototype.finally": "^2.0.1",
-    "prop-types": "^15.5.10",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
-    "react-router": "^4.1.1",
-    "react-router-dom": "^4.1.1",
-    "rimraf": "^2.6.1",
+    "promise.prototype.finally": "^3.1.0",
+    "prop-types": "^15.6.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "rimraf": "^2.6.2",
     "simple-timestamp": "^1.0.0",
-    "tmp": "0.0.31",
-    "touch": "^2.0.2",
-    "worker-farm": "^1.3.1"
+    "tmp": "0.0.33",
+    "touch": "^3.1.0",
+    "worker-farm": "^1.5.2"
   },
   "devDependencies": {
-    "babel-cli": "^6.24.1"
+    "babel-cli": "^6.26.0"
   },
   "peerDependencies": {
     "webpack": ">= 2.0 < 4.0",
