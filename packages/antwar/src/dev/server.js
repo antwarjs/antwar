@@ -32,7 +32,7 @@ function runServer(siteConfig, webpackConfig) {
     contentBase: path.join(process.cwd(), "./.antwar/build"),
     hot: true,
     historyApiFallback: true,
-    stats: webpackConfig.stats || "errors-only",
+    stats: webpackConfig.stats,
   }).listen(port, function(err) {
     if (err) {
       return console.error(err);
