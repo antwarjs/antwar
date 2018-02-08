@@ -103,7 +103,9 @@ describe("Element", () => {
       "<updated>" +
       date +
       "</updated>" +
-      '<content type="html">&lt;h1 id=&quot;test&quot;&gt;test&lt;/h1&gt;\n&lt;p&gt;&lt;a href=&quot;http://google.com&quot;&gt;check out&lt;/a&gt;&lt;/p&gt;\n</content>' +
+      '<content type="html">' +
+      "&lt;p&gt;#test\n&lt;a href=&quot;http://google.com&quot;&gt;check out&lt;/a&gt;&lt;/p&gt;\n" +
+      "</content>" +
       "</entry>";
 
     expect(result).toEqual(expected);
@@ -152,7 +154,7 @@ describe("Element", () => {
       "<updated>" +
       date +
       "</updated>" +
-      '<content type="html">&lt;h1 id=&quot;test&quot;&gt;test&lt;/h1&gt;\n&lt;p&gt;&lt;a href=&quot;http://demo.com/blog/demo-interview&quot;&gt;check out&lt;/a&gt;&lt;/p&gt;\n</content>' +
+      '<content type="html">&lt;p&gt;#test\n&lt;a href=&quot;http://demo.com/blog/demo-interview&quot;&gt;check out&lt;/a&gt;&lt;/p&gt;\n</content>' +
       "</entry>";
 
     expect(result).toEqual(expected);
@@ -201,7 +203,7 @@ describe("Element", () => {
       "<updated>" +
       date +
       "</updated>" +
-      '<content type="html">&lt;h1 id=&quot;test&quot;&gt;test&lt;/h1&gt;\n&lt;p&gt;&lt;a href=&quot;http://demo.com/blog/demo-interview&quot;&gt;check out&lt;/a&gt;&lt;/p&gt;\n</content>' +
+      '<content type="html">&lt;p&gt;#test\n&lt;a href=&quot;http://demo.com/blog/demo-interview&quot;&gt;check out&lt;/a&gt;&lt;/p&gt;\n</content>' +
       "</entry>";
 
     expect(result).toEqual(expected);
@@ -250,7 +252,7 @@ describe("Element", () => {
       "<updated>" +
       date +
       "</updated>" +
-      '<content type="html">&lt;h1 id=&quot;test&quot;&gt;test&lt;/h1&gt;\n&lt;p&gt;&lt;a href=&quot;http://demo.com/blog/demo-interview&quot;&gt;check out&lt;/a&gt;&lt;/p&gt;\n</content>' +
+      '<content type="html">&lt;p&gt;#test\n&lt;a href=&quot;http://demo.com/blog/demo-interview&quot;&gt;check out&lt;/a&gt;&lt;/p&gt;\n</content>' +
       "</entry>";
 
     expect(result).toEqual(expected);
