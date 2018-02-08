@@ -10,7 +10,13 @@ antwar[environment]({
   antwar: require("./antwar.config"),
   webpack: require("./webpack.config"),
 })
-  .then(() => console.log("Surf to localhost:3000"))
+  .then(({ allPages }) => {
+    if (environment === "build") {
+      // TODO: If building, write RSS based on allPages
+    } else {
+      console.log("Surf to localhost:3000");
+    }
+  })
   .catch(err => {
     console.error(err);
 

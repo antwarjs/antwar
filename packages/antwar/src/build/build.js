@@ -16,7 +16,6 @@ const write = require("./write");
 module.exports = function(config) {
   return new Promise(function(resolve, reject) {
     const output = config.antwar.output;
-    const log = config.antwar.console.log;
 
     if (!output) {
       return reject(new Error("Missing output directory"));
@@ -25,9 +24,9 @@ module.exports = function(config) {
     return webpackConfig(config)
       .then(runWebpack())
       .then(generateParameters(config.antwar, config.webpack))
-      .then(writeExtras())
-      .then(executeTasks(log, config.antwar.maximumWorkers))
-      .then(removeSiteBundle(config.antwar.output))
+      .then(writeExtras(config.antwar))
+      .then(removeSiteBundle(output))
+      .then(resolve)
       .catch(reject);
   });
 };
@@ -125,7 +124,7 @@ function generateParameters(antwarConfig, webpackConfig) {
     });
 }
 
-function writeExtras() {
+function writeExtras(antwarConfig) {
   return parameters =>
     new Promise(function(resolve, reject) {
       const config = parameters.config;
@@ -158,44 +157,49 @@ function writeExtras() {
             return reject(err);
           }
 
-          return resolve(_.flatten(tasks).filter(_.identity));
+          return executeTasks(
+            _.flatten(tasks).filter(_.identity),
+            antwarConfig.maximumWorkers,
+            antwarConfig.console.log
+          )
+            .then(() => resolve(parameters))
+            .catch(reject);
         }
       );
     });
 }
 
-function executeTasks(log, maximumWorkers) {
-  return tasks =>
-    new Promise(function(resolve, reject) {
-      async.eachLimit(
-        tasks,
-        maximumWorkers || _os.cpus().length,
-        function(o, cb) {
-          log("Starting task", o.task);
+function executeTasks(tasks, maximumWorkers, log) {
+  return new Promise(function(resolve, reject) {
+    async.eachLimit(
+      tasks,
+      maximumWorkers || _os.cpus().length,
+      function(o, cb) {
+        log("Starting task", o.task);
 
-          workers(o, function(err) {
-            log("Finished task", o.task);
+        workers(o, function(err) {
+          log("Finished task", o.task);
 
-            cb(err);
-          });
-        },
-        function(err) {
-          log("Tasks finished");
+          cb(err);
+        });
+      },
+      function(err) {
+        log("Tasks finished");
 
-          workerFarm.end(workers);
+        workerFarm.end(workers);
 
-          if (err) {
-            return reject(err);
-          }
-
-          return resolve();
+        if (err) {
+          return reject(err);
         }
-      );
-    });
+
+        return resolve();
+      }
+    );
+  });
 }
 
 function removeSiteBundle(outputDirectory) {
-  return () =>
+  return parameters =>
     new Promise(function(resolve, reject) {
       rimraf(_path.join(process.cwd(), outputDirectory, "site.js"), function(
         err
@@ -204,7 +208,7 @@ function removeSiteBundle(outputDirectory) {
           return reject(err);
         }
 
-        return resolve();
+        return resolve(parameters);
       });
     });
 }
