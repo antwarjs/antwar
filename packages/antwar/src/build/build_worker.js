@@ -125,8 +125,9 @@ function processPage(
         const interactiveEntryTmpFile = tmp.fileSync();
         const entryTmpFile = tmp.fileSync();
 
-        _fs.writeFile(interactiveEntryTmpFile.name, interactiveIndexEntry);
-        _fs.writeFile(entryTmpFile.name, entry);
+        // XXX: convert to async
+        _fs.writeFileSync(interactiveEntryTmpFile.name, interactiveIndexEntry);
+        _fs.writeFileSync(entryTmpFile.name, entry);
 
         // XXX: should it be possible to tweak this? now we are picking
         // the file by convention
