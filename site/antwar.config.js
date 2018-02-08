@@ -1,6 +1,5 @@
 const _ = require("lodash");
 const moment = require("moment");
-const rssPlugin = require("antwar-rss-plugin");
 const generateAdjacent = require("./utils/generate-adjacent");
 
 module.exports = {
@@ -12,20 +11,6 @@ module.exports = {
   },
   output: "build",
   layout: () => require("./layouts/SiteBody").default,
-  plugins: [
-    rssPlugin({
-      baseUrl: "https://antwar.js.org/",
-      sections: ["blog"],
-      get: {
-        content: page => page.file.body,
-        date: page =>
-          moment(page.file.attributes.date)
-            .utcOffset(0)
-            .format(),
-        title: page => page.file.attributes.title,
-      },
-    }),
-  ],
   paths: {
     "/": {
       content: () => require.context("./pages", true, /^\.\/.*\.md$/),

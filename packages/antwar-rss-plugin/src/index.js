@@ -17,3 +17,4 @@ module.exports = function({ baseUrl, sections, get }) {
     },
   };
 };
+module.exports.generate = generate;
