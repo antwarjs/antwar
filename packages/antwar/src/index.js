@@ -2,8 +2,6 @@ import * as path from "path";
 import _ from "lodash";
 import rimraf from "rimraf";
 
-import "promise.prototype.finally";
-
 import prettyConsole from "./libs/pretty_console";
 import build from "./build";
 import dev from "./dev";

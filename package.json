@@ -82,7 +82,6 @@
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "remove-markdown": "^0.2.2",
-    "request": "^2.83.0",
     "style-loader": "^0.20.1",
     "url-loader": "^0.6.2",
     "webpack": "^3.10.0",
