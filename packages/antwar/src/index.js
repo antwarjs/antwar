@@ -9,7 +9,7 @@ import dev from "./dev";
 require("es6-promise").polyfill();
 
 exports.develop = execute(develop);
-exports.start = execute(develop); // convenience alias
+exports.start = exports.develop; // convenience alias
 exports.build = execute(build);
 
 function execute(target) {
