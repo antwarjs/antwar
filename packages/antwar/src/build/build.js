@@ -24,7 +24,7 @@ module.exports = function(config) {
     return webpackConfig(config)
       .then(runWebpack())
       .then(generateParameters(config.antwar, config.webpack))
-      .then(writeExtras(config.antwar))
+      .then(writePages(config.antwar))
       .then(removeSiteBundle(output))
       .then(resolve)
       .catch(reject);
@@ -124,17 +124,11 @@ function generateParameters(antwarConfig, webpackConfig) {
     });
 }
 
-function writeExtras(antwarConfig) {
+function writePages(antwarConfig) {
   return parameters =>
     new Promise(function(resolve, reject) {
       const config = parameters.config;
       const assets = config && config.assets ? config.assets : [];
-
-      // Extras
-      const pluginExtras = _.map(config.plugins, "extra").filter(_.identity);
-      const extraFiles = _.map(pluginExtras, plugin =>
-        plugin(parameters.allPages, config)
-      );
 
       if (parameters.cssFiles) {
         parameters.cssFiles.forEach(cssFile => {
@@ -147,11 +141,7 @@ function writeExtras(antwarConfig) {
 
       // get functions to execute
       return async.parallel(
-        [
-          write.extras(parameters, extraFiles),
-          write.pages(parameters),
-          write.redirects(parameters),
-        ],
+        [write.pages(parameters), write.redirects(parameters)],
         function(err, tasks) {
           if (err) {
             return reject(err);

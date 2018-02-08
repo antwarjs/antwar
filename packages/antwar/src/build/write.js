@@ -6,29 +6,6 @@ const async = require("async");
 
 const utils = require("./utils");
 
-exports.extras = (o, files) => cb => {
-  if (!files || !files.length) {
-    return cb();
-  }
-
-  return cb(
-    null,
-    _.flatten(
-      files.map(function(fileCollection) {
-        return _.map(fileCollection, function(fileContent, fileName) {
-          return {
-            task: "write",
-            params: {
-              path: _path.join(o.output, fileName),
-              data: fileContent,
-            },
-          };
-        });
-      })
-    )
-  );
-};
-
 exports.pages = o => finalCb => {
   const data = Object.keys(o.allPages).map(function(page) {
     const p = _path.join(o.output, page);
