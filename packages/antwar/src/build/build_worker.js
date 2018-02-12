@@ -2,7 +2,7 @@ const _crypto = require("crypto");
 const _fs = require("fs");
 const _path = require("path");
 
-const async = require("async");
+const async = require("neo-async");
 const cheerio = require("cheerio");
 const ejs = require("ejs");
 const merge = require("webpack-merge");

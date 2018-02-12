@@ -2,7 +2,7 @@ const _path = require("path");
 const _os = require("os");
 
 const _ = require("lodash");
-const async = require("async");
+const async = require("neo-async");
 
 const utils = require("./utils");
 

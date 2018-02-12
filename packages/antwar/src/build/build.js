@@ -3,7 +3,7 @@ const _os = require("os");
 const _path = require("path");
 
 const _ = require("lodash");
-const async = require("async");
+const async = require("neo-async");
 const rimraf = require("rimraf");
 const webpack = require("webpack");
 const workerFarm = require("worker-farm");
