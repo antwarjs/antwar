@@ -62,18 +62,14 @@ module.exports = function getAllPages(config) {
           ];
         }
 
-        // It is possible a section has only redirects. Better not to warn then.
-        if (!section.redirects) {
-          console.warn(
-            "getAllPages - Section content was not a function!",
-            section.content
-          );
-        }
+        console.warn(
+          "getAllPages - Section content was not a function!",
+          section.content
+        );
 
         return null;
       })
-    )
-    .filter(_.identity); // Filter out redirects
+    );
 
   const ret = {};
 

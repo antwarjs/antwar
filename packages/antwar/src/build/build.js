@@ -2,7 +2,6 @@ const _fs = require("fs");
 const _os = require("os");
 const _path = require("path");
 
-const _ = require("lodash");
 const async = require("neo-async");
 const rimraf = require("rimraf");
 const webpack = require("webpack");
@@ -139,23 +138,19 @@ function writePages(antwarConfig) {
         });
       }
 
-      // get functions to execute
-      return async.parallel(
-        [write.pages(parameters), write.redirects(parameters)],
-        function(err, tasks) {
-          if (err) {
-            return reject(err);
-          }
-
-          return executeTasks(
-            _.flatten(tasks).filter(_.identity),
-            antwarConfig.maximumWorkers,
-            antwarConfig.console.log
-          )
-            .then(() => resolve(parameters))
-            .catch(reject);
+      write.pages(parameters)((err, tasks) => {
+        if (err) {
+          return reject(err);
         }
-      );
+
+        executeTasks(
+          tasks,
+          antwarConfig.maximumWorkers,
+          antwarConfig.console.log
+        )
+          .then(() => resolve(parameters))
+          .catch(reject);
+      });
     });
 }
 
@@ -165,16 +160,16 @@ function executeTasks(tasks, maximumWorkers, log) {
       tasks,
       maximumWorkers || _os.cpus().length,
       function(o, cb) {
-        log("Starting task", o.task);
+        log("Starting to write pages");
 
         workers(o, function(err) {
-          log("Finished task", o.task);
+          log("Finished writing pages");
 
           cb(err);
         });
       },
       function(err) {
-        log("Tasks finished");
+        log("BUILD FINISHED!");
 
         workerFarm.end(workers);
 

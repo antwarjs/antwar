@@ -18,19 +18,7 @@ const prettyConsole = require("../libs/pretty_console");
 
 const cwd = process.cwd();
 
-module.exports = function(o, cb) {
-  if (o.task === "write") {
-    write(o.params, cb);
-  } else if (o.task === "write_pages") {
-    writePages(o.params, cb);
-  } else if (o.task === "write_redirects") {
-    writeRedirects(o.params, cb);
-  } else {
-    cb();
-  }
-};
-
-function writePages(params, finalCb) {
+module.exports = function writePages(params, finalCb) {
   async.each(
     params.pages,
     (d, cb) => {
@@ -48,7 +36,7 @@ function writePages(params, finalCb) {
     },
     finalCb
   );
-}
+};
 
 function processPage(
   {
@@ -274,7 +262,7 @@ function writePage({ path, data }, cb) {
       return cb(err);
     }
 
-    return write({ path, data }, function(err2) {
+    return _fs.writeFile(path, data, function(err2) {
       if (err2) {
         return cb(err2);
       }
@@ -286,45 +274,9 @@ function writePage({ path, data }, cb) {
   });
 }
 
-function writeRedirects(params, finalCb) {
-  async.each(
-    params.redirects,
-    function(redirect, cb) {
-      const from = redirect.from;
-      const to = redirect.to;
-
-      prettyConsole.log("Writing redirect", from, to);
-
-      mkdirp(from, function(err) {
-        if (err) {
-          return cb(err);
-        }
-
-        return write(
-          {
-            path: _path.join(from, "index.html"),
-            data:
-              '<meta http-equiv="refresh" content="0; url=' +
-              to +
-              '">\n<link rel="canonical" href="' +
-              to +
-              '" />',
-          },
-          cb
-        );
-      });
-    },
-    finalCb
-  );
-}
-
 function calculateMd5(input) {
   return _crypto
     .createHash("md5")
     .update(input)
     .digest("hex");
-}
-
-function write(params, cb) {
-  _fs.writeFile(params.path, params.data, cb);
 }

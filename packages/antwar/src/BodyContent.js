@@ -49,7 +49,6 @@ function getSectionPages(config, name, allPages) {
 function render(props) {
   let content;
 
-  // TODO: It would be nice to handle redirects here during development
   if (props.page.layout) {
     content = React.createFactory(props.page.layout)(props);
   } else {

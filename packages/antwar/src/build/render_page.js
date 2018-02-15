@@ -12,6 +12,8 @@ module.exports = function renderPage(location, cb) {
   const allPages = paths.getAllPages(config);
   const page = paths.getPageForPath(location, allPages);
 
+  // console.log("page", page.layout, page.layout.fetchData);
+
   const html = ReactDOMServer.renderToStaticMarkup(
     <StaticRouter location={location} context={context}>
       <Route component={BodyContent(page, allPages)} />

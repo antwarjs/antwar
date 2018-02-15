@@ -8,11 +8,6 @@ module.exports = () => ({
     "/pages": {
       content: () => require.context("./pages", true, /^\.\/.*\.md$/),
       layout: () => require("./layouts/Index").default,
-      redirects: {
-        "same-section": "in-same",
-        "different-section": "/demo",
-        "different-site": "https://google.com",
-      },
     },
     standalone: () => require("./layouts/Standalone").default,
     demo: {

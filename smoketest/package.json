@@ -21,6 +21,8 @@
     "test"
   ],
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "redirect-webpack-plugin": "^0.1.1"
+  },
   "devDependencies": {}
 }

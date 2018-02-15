@@ -4,8 +4,6 @@ const _os = require("os");
 const _ = require("lodash");
 const async = require("neo-async");
 
-const utils = require("./utils");
-
 exports.pages = o => finalCb => {
   const data = Object.keys(o.allPages).map(function(page) {
     const p = _path.join(o.output, page);
@@ -39,28 +37,12 @@ exports.pages = o => finalCb => {
         null,
         _.chunk(d, _os.cpus().length).map(function(partition) {
           return {
-            task: "write_pages",
-            params: {
-              output: o.output,
-              pages: partition,
-              templates: o.templates,
-            },
+            output: o.output,
+            pages: partition,
+            templates: o.templates,
           };
         })
       );
     }
   );
 };
-
-exports.redirects = o => cb =>
-  cb(null, {
-    task: "write_redirects",
-    params: {
-      redirects: utils.calculateRedirects(o.config.paths).map(function(d) {
-        return {
-          from: _path.join(o.output, d.from),
-          to: d.to,
-        };
-      }),
-    },
-  });

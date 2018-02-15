@@ -2,6 +2,7 @@ const path = require("path");
 const webpack = require("webpack");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const RedirectWebpackPlugin = require("redirect-webpack-plugin");
 const merge = require("webpack-merge");
 
 const PATHS = {
@@ -117,6 +118,13 @@ function buildConfig(stylePaths) {
         allChunks: true,
       }),
       new CleanWebpackPlugin(["build"]),
+      new RedirectWebpackPlugin({
+        redirects: {
+          "pages/same-section": "/pages/in-same/",
+          "pages/different-section": "/demo/",
+          "pages/different-site": "https://google.com",
+        },
+      }),
     ],
   };
 }
