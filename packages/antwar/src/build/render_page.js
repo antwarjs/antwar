@@ -10,11 +10,22 @@ module.exports = function renderPage(location, cb) {
   const allPages = paths.getAllPages(config);
   const page = paths.getPageForPath(location, allPages);
 
-  const html = ReactDOMServer.renderToStaticMarkup(
-    <StaticRouter location={location} context={{}}>
-      <Route component={BodyContent(page, allPages)} />
-    </StaticRouter>
+  (config.renderPage || renderDefault)(
+    {
+      location,
+      content: BodyContent(page, allPages),
+    },
+    (err, html) => cb(err, { html, page })
   );
-
-  cb(null, { html, page });
 };
+
+function renderDefault({ location, content }, cb) {
+  cb(
+    null,
+    ReactDOMServer.renderToStaticMarkup(
+      <StaticRouter location={location} context={{}}>
+        <Route component={content} />
+      </StaticRouter>
+    )
+  );
+}
