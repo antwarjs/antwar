@@ -15,7 +15,7 @@ module.exports = function renderPage(location, cb) {
       location,
       content: BodyContent(page, allPages),
     },
-    (err, { html, context }) => {
+    (err, { html, context } = {}) => {
       if (err) {
         return cb(err);
       }
