@@ -6,8 +6,8 @@ import getCommon from "./common";
 
 module.exports = config =>
   getCommon(config).then(function(commonConfig) {
+    const template = config.antwar.template || {};
     const devConfig = {
-      cache: true,
       node: {
         __filename: true,
         fs: "empty",
@@ -21,12 +21,11 @@ module.exports = config =>
       plugins: [
         new HtmlWebpackPlugin({
           template:
-            (config.antwar.template && config.antwar.template.file) ||
-            path.join(__dirname, "../../templates/page.ejs"),
+            template.file || path.join(__dirname, "../../templates/page.ejs"),
           context: {
+            ...template.context,
             cssFiles: [],
             jsFiles: [],
-            ...config.template,
           },
         }),
         new webpack.NamedModulesPlugin(),
