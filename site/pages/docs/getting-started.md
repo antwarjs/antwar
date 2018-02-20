@@ -20,24 +20,7 @@ npm i antwar -D
 
 **antwar.bootstrap.js**
 
-```javascript
-const antwar = require('antwar');
-
-const environment = process.argv[2];
-
-// Patch Babel env to make HMR switch work
-process.env.BABEL_ENV = environment;
-
-antwar[environment]({
-  environment,
-  antwar: require('./antwar.config'),
-  webpack: require('./webpack.config')
-}).catch((err) => {
-  console.error(err);
-
-  process.exit(1);
-});
-```
+<!-- EMBED require('!!raw-loader!highlight-loader!../../../smoketest/antwar.bootstrap.js') -->
 
 4\. Set up scripts to run it
 

@@ -1,16 +1,17 @@
 {
   "presets": [
-    "es2015",
+    [
+      "env",
+      {
+        "targets": {
+          "node": "9.5"
+        }
+      }
+    ],
     "react"
   ],
   "plugins": [
     "syntax-object-rest-spread",
-    "transform-object-rest-spread",
-    [
-      "transform-react-remove-prop-types",
-      {
-        "mode": "wrap"
-      }
-    ]
+    "transform-object-rest-spread"
   ]
 }

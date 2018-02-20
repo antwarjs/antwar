@@ -1,7 +1,7 @@
 {
   "presets": [
     [
-      "es2015",
+      "env",
       {
         "modules": false
       }
@@ -10,19 +10,6 @@
   ],
   "plugins": [
     "syntax-object-rest-spread",
-    "transform-object-rest-spread",
-    [
-      "transform-react-remove-prop-types",
-      {
-        "mode": "wrap"
-      }
-    ]
-  ],
-  "env": {
-    "start": {
-      "presets": [
-        "react-hmre"
-      ]
-    }
-  }
+    "transform-object-rest-spread"
+  ]
 }
