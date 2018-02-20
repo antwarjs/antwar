@@ -15,7 +15,13 @@ module.exports = function renderPage(location, cb) {
       location,
       content: BodyContent(page, allPages),
     },
-    (err, { html, context }) => cb(err, { html, page, context })
+    (err, { html, context }) => {
+      if (err) {
+        return cb(err);
+      }
+
+      return cb(null, { html, page, context });
+    }
   );
 };
 
