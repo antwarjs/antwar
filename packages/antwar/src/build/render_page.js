@@ -15,17 +15,16 @@ module.exports = function renderPage(location, cb) {
       location,
       content: BodyContent(page, allPages),
     },
-    (err, html) => cb(err, { html, page })
+    (err, { html, context }) => cb(err, { html, page, context })
   );
 };
 
 function renderDefault({ location, content }, cb) {
-  cb(
-    null,
-    ReactDOMServer.renderToStaticMarkup(
+  cb(null, {
+    html: ReactDOMServer.renderToStaticMarkup(
       <StaticRouter location={location} context={{}}>
         <Route component={content} />
       </StaticRouter>
-    )
-  );
+    ),
+  });
 }

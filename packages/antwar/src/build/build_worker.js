@@ -49,7 +49,7 @@ function processPage(
 ) {
   const renderPage = require(_path.join(outputPath, "site.js")).renderPage;
 
-  renderPage(page, function(err, { html, page }) {
+  renderPage(page, function(err, { html, page, context }) {
     if (err) {
       return cb(err);
     }
@@ -198,6 +198,7 @@ function processPage(
             htmlWebpackPlugin: {
               options: {
                 context: {
+                  ...context,
                   ...page.file,
                   ...templates.page,
                   jsFiles: [...templates.page.jsFiles, ...jsFiles],
