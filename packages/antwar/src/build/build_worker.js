@@ -220,6 +220,7 @@ function processPage(
       htmlWebpackPlugin: {
         options: {
           context: {
+            ...context,
             ...page.file,
             ...templates.page,
             jsFiles: [...templates.page.jsFiles, ...jsFiles],
