@@ -25,7 +25,7 @@ describe("Transform sections", () => {
         layout: undefined,
         section,
         sectionName: "/",
-        url: "/first/",
+        url: "/first",
       },
       {
         type: "page",
@@ -36,7 +36,7 @@ describe("Transform sections", () => {
         layout: undefined,
         section,
         sectionName: "/",
-        url: "/second/",
+        url: "/second",
       },
       {
         type: "page",
@@ -47,7 +47,7 @@ describe("Transform sections", () => {
         layout: undefined,
         section,
         sectionName: "/",
-        url: "/third/",
+        url: "/third",
       },
       {
         type: "index",
@@ -87,7 +87,7 @@ describe("Transform sections", () => {
         layout: undefined,
         section,
         sectionName: "/",
-        url: "/nested/page/first/",
+        url: "/nested/page/first",
       },
       {
         type: "page",
@@ -98,7 +98,7 @@ describe("Transform sections", () => {
         layout: undefined,
         section,
         sectionName: "/",
-        url: "/nested/page/second/",
+        url: "/nested/page/second",
       },
       {
         type: "page",
@@ -109,7 +109,7 @@ describe("Transform sections", () => {
         layout: undefined,
         section,
         sectionName: "/",
-        url: "/nested/page/third/",
+        url: "/nested/page/third",
       },
       {
         type: "index",
@@ -120,7 +120,7 @@ describe("Transform sections", () => {
         layout: undefined,
         section,
         sectionName: "/",
-        url: "/nested/page/",
+        url: "/nested/page",
       },
     ];
 
@@ -153,7 +153,7 @@ describe("Transform sections", () => {
         layout: undefined,
         section,
         sectionName: "docs",
-        url: "/docs/first/",
+        url: "/docs/first",
       },
       {
         type: "page",
@@ -164,7 +164,7 @@ describe("Transform sections", () => {
         layout: undefined,
         section,
         sectionName: "docs",
-        url: "/docs/second/",
+        url: "/docs/second",
       },
       {
         type: "page",
@@ -175,7 +175,7 @@ describe("Transform sections", () => {
         layout: undefined,
         section,
         sectionName: "docs",
-        url: "/docs/third/",
+        url: "/docs/third",
       },
       {
         type: "index",
@@ -186,7 +186,7 @@ describe("Transform sections", () => {
         layout: undefined,
         section,
         sectionName: "docs",
-        url: "/docs/",
+        url: "/docs",
       },
     ];
 
@@ -221,7 +221,7 @@ describe("Transform sections", () => {
         layout: undefined,
         section,
         sectionName: "/",
-        url: "/first/",
+        url: "/first",
       },
       {
         type: "page",
@@ -232,7 +232,7 @@ describe("Transform sections", () => {
         layout: undefined,
         section,
         sectionName: "/",
-        url: "/second/",
+        url: "/second",
       },
       {
         type: "page",
@@ -243,7 +243,7 @@ describe("Transform sections", () => {
         layout: undefined,
         section,
         sectionName: "/",
-        url: "/third/",
+        url: "/third",
       },
       {
         type: "index",
@@ -265,7 +265,7 @@ describe("Transform sections", () => {
         layout: undefined,
         section,
         sectionName: "docs",
-        url: "/docs/first/",
+        url: "/docs/first",
       },
       {
         type: "page",
@@ -276,7 +276,7 @@ describe("Transform sections", () => {
         layout: undefined,
         section,
         sectionName: "docs",
-        url: "/docs/second/",
+        url: "/docs/second",
       },
       {
         type: "page",
@@ -287,7 +287,7 @@ describe("Transform sections", () => {
         layout: undefined,
         section,
         sectionName: "docs",
-        url: "/docs/third/",
+        url: "/docs/third",
       },
       {
         type: "index",
@@ -298,7 +298,7 @@ describe("Transform sections", () => {
         layout: undefined,
         section,
         sectionName: "docs",
-        url: "/docs/",
+        url: "/docs",
       },
     ];
 

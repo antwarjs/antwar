@@ -13,7 +13,7 @@ antwar[environment]({
   antwar: require("./antwar.config"),
   webpack: require("./webpack.config"),
 })
-  .then(({ allPages, output }) => {
+  .then(({ allPages, output } = {}) => {
     if (environment === "build") {
       const rss = rssPlugin.generate({
         baseUrl: "https://antwar.js.org/",

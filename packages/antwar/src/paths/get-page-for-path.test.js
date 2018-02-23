@@ -16,14 +16,14 @@ describe("Get page for path", () => {
   });
 
   it("gets a page", () => {
-    const result = getPageForPath("foo/", { "foo/": "demo" });
+    const result = getPageForPath("foo", { foo: "demo" });
     const expected = "demo";
 
     expect(result).toEqual(expected);
   });
 
-  it("gets a page without a trailing slash", () => {
-    const result = getPageForPath("foo", { "foo/": "demo" });
+  it("gets a page with a trailing slash", () => {
+    const result = getPageForPath("foo/", { foo: "demo" });
     const expected = "demo";
 
     expect(result).toEqual(expected);

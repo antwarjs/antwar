@@ -18,12 +18,8 @@ exports.pages = o => finalCb => {
   async.map(
     data,
     function(d, cb) {
-      // avoid writing index/index.html and write index.html instead
       return cb(null, {
-        path:
-          d.path.split("/").slice(-1)[0] === "index"
-            ? _path.join(d.path, "..", "index.html")
-            : _path.join(d.path, "index.html"),
+        path: getPath(d.path),
         page: d.page,
         title: d.title,
       });
@@ -46,3 +42,16 @@ exports.pages = o => finalCb => {
     }
   );
 };
+
+function getPath(path) {
+  // If path ends in a file extension, then output as is! This is
+  // useful for generating 404.html and such.
+  if (_path.extname(path)) {
+    return path;
+  }
+
+  // Avoid writing index/index.html and write index.html instead
+  return path.split("/").slice(-1)[0] === "index"
+    ? _path.join(path, "..", "index.html")
+    : _path.join(path, "index.html");
+}

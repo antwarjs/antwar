@@ -1,9 +1,12 @@
+const _ = require("lodash");
+
 module.exports = function getPageForPath(path, pages) {
   if (path === "/") {
     return pages["/"] || {};
   }
 
-  const ret = pages[path] || pages[`${path}/`];
+  // Paths don't have trailing slashes so try without
+  const ret = pages[path] || pages[_.trimEnd(path, "/")];
 
   if (!ret) {
     console.warn(

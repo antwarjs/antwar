@@ -169,13 +169,13 @@ function executeTasks(tasks, maximumWorkers, log) {
         });
       },
       function(err) {
-        log("BUILD FINISHED!");
-
         workerFarm.end(workers);
 
         if (err) {
           return reject(err);
         }
+
+        log("BUILD FINISHED!");
 
         return resolve();
       }
@@ -185,10 +185,8 @@ function executeTasks(tasks, maximumWorkers, log) {
 
 function removeSiteBundle(outputDirectory) {
   return parameters =>
-    new Promise(function(resolve, reject) {
-      rimraf(_path.join(process.cwd(), outputDirectory, "site.js"), function(
-        err
-      ) {
+    new Promise((resolve, reject) => {
+      rimraf(_path.join(process.cwd(), outputDirectory, "site.js"), err => {
         if (err) {
           return reject(err);
         }

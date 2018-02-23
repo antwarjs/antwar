@@ -17,5 +17,5 @@ module.exports = function parseUrl(section, sectionName, fileName) {
     });
   }
 
-  return `/${fileName}/`;
+  return `/${fileName}`;
 };

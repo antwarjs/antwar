@@ -44,6 +44,7 @@ module.exports = {
         },
       },
     },
+    "404.html": () => require("./layouts/404").default,
   },
 };
 

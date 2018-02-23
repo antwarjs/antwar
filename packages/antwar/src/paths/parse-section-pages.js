@@ -87,7 +87,7 @@ module.exports = function parseSectionPages(sectionName, section, modules) {
       layout: indexPage,
       section,
       sectionName,
-      url: sectionName === "/" ? "/" : `/${sectionName}/`,
+      url: sectionName === "/" ? "/" : `/${sectionName}`,
     });
   }
 
@@ -99,5 +99,5 @@ function joinUrl(a, b) {
   const trimmedA = _.trim(a, "/");
   const trimmedB = _.trim(b, "/");
 
-  return "/" + _.trim(`${trimmedA}/${trimmedB}`, "/") + "/";
+  return "/" + _.trim(`${trimmedA}/${trimmedB}`, "/");
 }
