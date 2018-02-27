@@ -134,6 +134,7 @@ function processPage(
               __DEV__: false,
             }),
           ],
+          mode: "production",
         });
 
         const interactiveIndexEntryName = `${filename}-interactive-entry`;

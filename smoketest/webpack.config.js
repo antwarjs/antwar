@@ -74,13 +74,12 @@ function commonConfig() {
 
 function interactiveConfig() {
   return {
-    // XXXXX: Preact fails to work with webpack 4?
-    /*resolve: {
+    resolve: {
       alias: {
         react: "preact-compat/dist/preact-compat.min.js",
         "react-dom": "preact-compat/dist/preact-compat.min.js",
       },
-    },*/
+    },
   };
 }
 
