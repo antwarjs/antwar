@@ -150,6 +150,7 @@ function processPage(
           path: outputPath,
           publicPath: "/",
           libraryTarget: "umd", // Needed for interactive index exports to work
+          globalObject: "this",
         });
 
         return webpack(webpackConfig, (err2, stats) => {
@@ -174,6 +175,14 @@ function processPage(
             const props = $el.data("props");
 
             try {
+              console.log(
+                "INTERACTIVE",
+                interactiveIndexPath,
+                interactiveComponents,
+                interactiveComponents[`Interactive${i}`],
+                props
+              );
+
               $el.html(
                 ReactDOMServer.renderToStaticMarkup(
                   React.createElement(

@@ -21,7 +21,21 @@ const PATHS = {
   pages: path.join(__dirname, "pages"),
 };
 
-const commonConfig = {
+module.exports = function(env) {
+  switch (env) {
+    case "build":
+      return merge(commonConfig(), buildConfig(PATHS.style), {
+        mode: "production",
+      });
+    default:
+    case "start":
+      return merge(commonConfig(), developmentConfig(PATHS.style), {
+        mode: "development",
+      });
+  }
+};
+
+const commonConfig = () => ({
   module: {
     rules: [
       {
@@ -86,17 +100,7 @@ const commonConfig = {
       "page-loader": path.resolve(__dirname, "loaders/page-loader.js"),
     },
   },
-};
-
-module.exports = function(env) {
-  switch (env) {
-    case "build":
-      return merge(commonConfig, buildConfig(PATHS.style));
-    default:
-    case "start":
-      return merge(commonConfig, developmentConfig(PATHS.style));
-  }
-};
+});
 
 function developmentConfig(stylePaths) {
   return {

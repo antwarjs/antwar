@@ -15,12 +15,18 @@ const PATHS = {
 module.exports = function(env) {
   switch (env) {
     case "build":
-      return merge(commonConfig(), buildConfig(PATHS.style));
+      return merge(commonConfig(), buildConfig(PATHS.style), {
+        mode: "production",
+      });
     case "interactive":
-      return merge(commonConfig(), interactiveConfig());
+      return merge(commonConfig(), interactiveConfig(), {
+        mode: "production",
+      });
     case "start":
     default:
-      return merge(commonConfig(), developmentConfig(PATHS.style));
+      return merge(commonConfig(), developmentConfig(PATHS.style), {
+        mode: "development",
+      });
   }
 };
 
@@ -68,19 +74,13 @@ function commonConfig() {
 
 function interactiveConfig() {
   return {
-    resolve: {
+    // XXXXX: Preact fails to work with webpack 4?
+    /*resolve: {
       alias: {
         react: "preact-compat/dist/preact-compat.min.js",
         "react-dom": "preact-compat/dist/preact-compat.min.js",
       },
-    },
-    plugins: [
-      new webpack.optimize.UglifyJsPlugin({
-        compress: {
-          warnings: false,
-        },
-      }),
-    ],
+    },*/
   };
 }
 

@@ -27,11 +27,11 @@
     "react-github-corner": "^2.1.0"
   },
   "devDependencies": {
-    "autoprefixer": "^7.2.5",
-    "copy-webpack-plugin": "^4.4.0",
+    "autoprefixer": "^8.0.0",
+    "copy-webpack-plugin": "^4.4.2",
     "gh-pages": "^1.1.0",
     "node-sass": "^4.7.2",
-    "postcss-loader": "^2.1.0",
+    "postcss-loader": "^2.1.1",
     "sass-loader": "^6.0.6"
   }
 }
