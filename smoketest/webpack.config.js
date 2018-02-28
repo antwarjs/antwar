@@ -15,7 +15,7 @@ const PATHS = {
 module.exports = function(env) {
   switch (env) {
     case "build":
-      return merge(commonConfig(), buildConfig(PATHS.style), {
+      return merge(commonConfig(), productionConfig(PATHS.style), {
         mode: "production",
       });
     case "interactive":
@@ -76,8 +76,8 @@ function interactiveConfig() {
   return {
     resolve: {
       alias: {
-        react: "preact-compat/dist/preact-compat.min.js",
-        "react-dom": "preact-compat/dist/preact-compat.min.js",
+        react: "preact-compat",
+        "react-dom": "preact-compat",
       },
     },
   };
@@ -97,7 +97,7 @@ function developmentConfig(stylePaths) {
   };
 }
 
-function buildConfig(stylePaths) {
+function productionConfig(stylePaths) {
   return {
     module: {
       rules: [
@@ -125,5 +125,11 @@ function buildConfig(stylePaths) {
         },
       }),
     ],
+    resolve: {
+      alias: {
+        react: "preact-compat",
+        "react-dom": "preact-compat",
+      },
+    },
   };
 }

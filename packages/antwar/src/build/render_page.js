@@ -10,7 +10,7 @@ module.exports = function renderPage(location, cb) {
   const allPages = paths.getAllPages(config);
   const page = paths.getPageForPath(location, allPages);
 
-  (config.renderPage || renderDefault)(
+  ((config.render && config.render.page) || renderDefault)(
     {
       location,
       content: BodyContent(page, allPages),

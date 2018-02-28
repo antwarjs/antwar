@@ -176,14 +176,8 @@ function processPage(
             const props = $el.data("props");
 
             try {
-              console.log(
-                "INTERACTIVE",
-                interactiveIndexPath,
-                interactiveComponents,
-                interactiveComponents[`Interactive${i}`],
-                props
-              );
-
+              // TODO: make this pluggable. the task should load site config
+              // and check if render.interactive exists
               $el.html(
                 ReactDOMServer.renderToStaticMarkup(
                   React.createElement(

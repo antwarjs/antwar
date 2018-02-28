@@ -1,6 +1,15 @@
-module.exports = () => ({
+module.exports = {
   template: {
     title: "Smoke test",
+  },
+  render: {
+    interactive({ component, props }) {
+      // TODO: this should call
+      // https://github.com/developit/preact-render-to-string
+      // to make SSR work
+      //
+      // Problem: worker process needs to import the config file
+    },
   },
   output: "build",
   paths: {
@@ -16,4 +25,4 @@ module.exports = () => ({
       url: ({ sectionName, fileName }) => `/${sectionName}/${fileName}/`,
     },
   },
-});
+};
