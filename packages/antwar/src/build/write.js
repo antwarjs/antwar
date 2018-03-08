@@ -4,7 +4,7 @@ const _os = require("os");
 const _ = require("lodash");
 const async = require("neo-async");
 
-exports.pages = o => finalCb => {
+exports.pages = (o, configPath) => finalCb => {
   const data = Object.keys(o.allPages).map(function(page) {
     const p = _path.join(o.output, page);
 
@@ -33,6 +33,7 @@ exports.pages = o => finalCb => {
         null,
         _.chunk(d, _os.cpus().length).map(function(partition) {
           return {
+            configPath,
             output: o.output,
             pages: partition,
             templates: o.templates,

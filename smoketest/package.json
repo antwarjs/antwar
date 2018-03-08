@@ -24,5 +24,7 @@
   "dependencies": {
     "redirect-webpack-plugin": "^0.1.1"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "preact-render-to-string": "^3.7.0"
+  }
 }

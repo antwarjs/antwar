@@ -19,6 +19,8 @@ const prettyConsole = require("../libs/pretty_console");
 const cwd = process.cwd();
 
 module.exports = function writePages(params, finalCb) {
+  const config = require(params.configPath);
+
   async.each(
     params.pages,
     (d, cb) => {
@@ -26,6 +28,7 @@ module.exports = function writePages(params, finalCb) {
 
       processPage(
         {
+          config,
           page,
           path,
           outputPath: params.output,
@@ -40,6 +43,7 @@ module.exports = function writePages(params, finalCb) {
 
 function processPage(
   {
+    config = {}, // Antwar config
     page = "",
     outputPath = "",
     path = "",
@@ -169,6 +173,8 @@ function processPage(
           );
           const interactiveComponents = require(interactiveIndexPath);
           const renderErrors = [];
+          const renderToMarkup =
+            (config.render && config.render.interactive) || renderDefault;
 
           // Render initial HTML for each component
           $(".interactive").each((i, el) => {
@@ -179,12 +185,10 @@ function processPage(
               // TODO: make this pluggable. the task should load site config
               // and check if render.interactive exists
               $el.html(
-                ReactDOMServer.renderToStaticMarkup(
-                  React.createElement(
-                    interactiveComponents[`Interactive${i}`],
-                    props
-                  )
-                )
+                renderToMarkup({
+                  component: interactiveComponents[`Interactive${i}`],
+                  props,
+                })
               );
             } catch (renderErr) {
               renderErrors.push(renderErr);
@@ -238,6 +242,12 @@ function processPage(
 
     return writePage({ path, data }, cb);
   });
+}
+
+function renderDefault({ component, props }) {
+  return ReactDOMServer.renderToStaticMarkup(
+    React.createElement(component, props)
+  );
 }
 
 function convertToJS(props) {

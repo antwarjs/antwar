@@ -13,9 +13,10 @@ exports.start = exports.develop; // convenience alias
 exports.build = execute(build);
 
 function execute(target) {
-  return ({ antwar, webpack, environment }) =>
+  return ({ antwar, configPath, webpack, environment }) =>
     target({
       environment,
+      configPath, // XXX: ugly, merge with antwar somehow
       antwar: _.merge(
         defaultConfiguration(),
         _.isFunction(antwar) ? antwar(environment) : antwar

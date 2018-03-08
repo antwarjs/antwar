@@ -23,7 +23,7 @@ module.exports = function(config) {
     return webpackConfig(config)
       .then(runWebpack())
       .then(generateParameters(config.antwar, config.webpack))
-      .then(writePages(config.antwar))
+      .then(writePages(config.antwar, config.configPath))
       .then(removeSiteBundle(output))
       .then(resolve)
       .catch(reject);
@@ -123,7 +123,7 @@ function generateParameters(antwarConfig, webpackConfig) {
     });
 }
 
-function writePages(antwarConfig) {
+function writePages(antwarConfig, configPath) {
   return parameters =>
     new Promise(function(resolve, reject) {
       const config = parameters.config;
@@ -138,7 +138,7 @@ function writePages(antwarConfig) {
         });
       }
 
-      write.pages(parameters)((err, tasks) => {
+      write.pages(parameters, configPath)((err, tasks) => {
         if (err) {
           return reject(err);
         }

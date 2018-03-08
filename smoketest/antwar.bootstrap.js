@@ -4,6 +4,7 @@ const environment = process.argv[2];
 
 antwar[environment]({
   environment,
+  configPath: require.resolve("./antwar.config"),
   antwar: require("./antwar.config"),
   webpack: require("./webpack.config"),
 })
