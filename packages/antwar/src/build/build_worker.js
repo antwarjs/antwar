@@ -19,7 +19,7 @@ const prettyConsole = require("../libs/pretty_console");
 const cwd = process.cwd();
 
 module.exports = function writePages(params, finalCb) {
-  const config = require(params.configPath);
+  const config = params.configPath ? require(params.configPath) : {};
 
   async.each(
     params.pages,
