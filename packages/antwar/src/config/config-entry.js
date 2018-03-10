@@ -1,8 +1,6 @@
-import isFunction from "lodash/isFunction";
-import antwarConfig from "antwarConfig";
+import merge from "webpack-merge";
+import config from "_antwar-config";
 
-if (isFunction(antwarConfig)) {
-  module.exports = antwarConfig(__ENV__);
-} else {
-  module.exports = antwarConfig;
-}
+import defaultAntwar from "./default-antwar";
+
+module.exports = merge(defaultAntwar(), config(process.env.NODE_ENV));

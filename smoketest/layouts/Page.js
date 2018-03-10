@@ -8,7 +8,7 @@ const Page = ({ page: { file: { attributes: { title }, body } }, section }) => (
     <h1>Page layout - {title}</h1>
 
     <Interactive
-      id="layouts/ClickMe.jsx"
+      id="layouts/ClickMe.js"
       component={ClickMe}
       sections={section.all()}
       pages={section.pages()}

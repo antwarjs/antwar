@@ -1,50 +1,50 @@
 import * as path from "path";
-import _ from "lodash";
 import rimraf from "rimraf";
+import merge from "webpack-merge";
 
-import prettyConsole from "./libs/pretty-console";
+import defaultAntwar from "./config/default-antwar";
+import defaultWebpack from "./config/default-webpack";
+import mergeConfiguration from "./libs/merge-configuration";
 import build from "./build";
 import dev from "./dev";
-
-require("es6-promise").polyfill();
 
 exports.develop = execute(develop);
 exports.start = exports.develop; // convenience alias
 exports.build = execute(build);
 
 function execute(target) {
-  return ({ antwar, configPath, webpack, environment }) =>
-    target({
-      environment,
-      configPath, // XXX: ugly, merge with antwar somehow
-      antwar: _.merge(
-        defaultConfiguration(),
-        _.isFunction(antwar) ? antwar(environment) : antwar
-      ),
-      webpack: webpack(environment),
-    });
-}
+  return ({ configurationPaths, environment }) => {
+    process.env.NODE_ENV = environment;
 
-function defaultConfiguration() {
-  return {
-    port: 3000,
-    output: "build",
-    console: prettyConsole,
+    return target({
+      environment,
+      configurationPaths,
+      configurations: {
+        antwar: mergeConfiguration(
+          defaultAntwar(),
+          require(configurationPaths.antwar)(environment)
+        ),
+        webpack: merge(
+          defaultWebpack({ configurationPaths }),
+          require(configurationPaths.webpack)(environment)
+        ),
+      },
+    });
   };
 }
 
-function develop(configurations) {
+function develop({ configurations }) {
   const cwd = process.cwd();
   const buildDir = path.join(cwd, "./.antwar");
 
-  return new Promise(function(resolve, reject) {
-    rimraf(buildDir, function(err) {
+  return new Promise((resolve, reject) => {
+    rimraf(buildDir, err => {
       if (err) {
         return reject(err);
       }
 
       return build
-        .devIndex(configurations)
+        .devIndex({ configurations })
         .then(dev.server.bind(null, configurations))
         .then(resolve)
         .catch(reject);

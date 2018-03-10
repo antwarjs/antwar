@@ -4,7 +4,7 @@ const webpack = require("webpack");
 const WebpackDevServer = require("webpack-dev-server");
 const devConfig = require("../config/dev");
 
-module.exports = function(config) {
+module.exports = config => {
   const devConfigParams = {
     entry: {
       main: [
@@ -16,24 +16,18 @@ module.exports = function(config) {
       ],
     },
     plugins: [new webpack.HotModuleReplacementPlugin()],
-    devtool: "eval",
   };
 
-  return devConfig(config).then(function(c) {
-    runServer(config.antwar, merge(c, devConfigParams));
-  });
+  return runServer(config.antwar, merge(devConfig(config), devConfigParams));
 };
 
-function runServer(siteConfig, webpackConfig) {
-  const port = siteConfig.port;
-  const console = siteConfig.console;
-
+function runServer({ port, console }, webpackConfig) {
   new WebpackDevServer(webpack(webpackConfig), {
     contentBase: path.join(process.cwd(), "./.antwar/build"),
     hot: true,
     historyApiFallback: true,
     stats: webpackConfig.stats,
-  }).listen(port, function(err) {
+  }).listen(port, err => {
     if (err) {
       return console.error(err);
     }

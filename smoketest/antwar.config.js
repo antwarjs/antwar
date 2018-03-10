@@ -1,7 +1,7 @@
 const render = require("preact-render-to-string");
 const { h } = require("preact");
 
-module.exports = {
+module.exports = () => ({
   template: {
     title: "Smoke test",
   },
@@ -24,4 +24,4 @@ module.exports = {
       url: ({ sectionName, fileName }) => `/${sectionName}/${fileName}/`,
     },
   },
-};
+});

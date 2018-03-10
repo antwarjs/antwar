@@ -1,5 +1,5 @@
 import React from "react";
-import config from "config"; // Aliased through webpack
+import config from "antwar-config";
 import _ from "lodash";
 import paths from "./paths";
 

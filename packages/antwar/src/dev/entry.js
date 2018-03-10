@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route } from "react-router-dom";
-import config from "config"; // Aliased through webpack
+import config from "antwar-config";
 import paths from "../paths";
 import BodyContent from "../BodyContent";
 

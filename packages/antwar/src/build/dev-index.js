@@ -1,26 +1,36 @@
+const _path = require("path");
 const webpack = require("webpack");
-const webpackConfig = require("../config/dev-index");
+const merge = require("webpack-merge");
 
-module.exports = config => {
-  config.buildDev = 1; // eslint-disable-line no-param-reassign
-
+module.exports = ({ configurations }) => {
   return new Promise((resolve, reject) => {
-    webpackConfig(config)
-      .then(function(c) {
-        webpack(c, function(err, stats) {
-          if (err) {
-            return reject(err);
-          }
+    const devIndexConfig = {
+      node: {
+        fs: "empty",
+      },
+      name: "server",
+      target: "node",
+      entry: {
+        site: _path.join(__dirname, "../build/site.js"),
+      },
+      output: {
+        path: _path.join(process.cwd(), "./.antwar/build/"),
+        filename: "[name].js",
+        publicPath: "/",
+        libraryTarget: "commonjs2",
+      },
+    };
 
-          if (stats.hasErrors()) {
-            return reject(stats.toString("errors-only"));
-          }
+    webpack(merge(devIndexConfig, configurations.webpack), (err, stats) => {
+      if (err) {
+        return reject(err);
+      }
 
-          return resolve();
-        });
-      })
-      .catch(function(err) {
-        reject(err);
-      });
+      if (stats.hasErrors()) {
+        return reject(stats.toString("errors-only"));
+      }
+
+      return resolve();
+    });
   });
 };

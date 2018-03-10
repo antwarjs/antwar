@@ -7,7 +7,7 @@ const Standalone = ({ section }) => (
     <h1>Standalone demo</h1>
 
     <Interactive
-      id="layouts/ClickMe.jsx"
+      id="layouts/ClickMe.js"
       component={ClickMe}
       sections={section.all()}
       pages={section.pages()}

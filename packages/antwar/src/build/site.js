@@ -1,4 +1,4 @@
-const config = require("config"); // Alias by webpack
+const config = require("antwar-config");
 
 module.exports = {
   renderPage: require("./render-page"),

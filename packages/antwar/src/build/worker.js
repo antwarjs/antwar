@@ -10,40 +10,44 @@ const mkdirp = require("mkdirp");
 const tmp = require("tmp");
 const touch = require("touch");
 const rimraf = require("rimraf");
-const React = require("react");
-const ReactDOMServer = require("react-dom/server");
 const webpack = require("webpack");
 
-const prettyConsole = require("../libs/pretty-console");
+const defaultAntwar = require("../config/default-antwar");
+const mergeConfiguration = require("../libs/merge-configuration");
 
 const cwd = process.cwd();
 
-module.exports = function writePages(params, finalCb) {
-  const config = params.configPath ? require(params.configPath) : {};
+module.exports = function writePages(
+  { configurationPaths, environment, pages, outputPath, templates },
+  finalCb
+) {
+  const antwarConfiguration = mergeConfiguration(
+    defaultAntwar(),
+    require(configurationPaths.antwar)(environment)
+  );
 
   async.each(
-    params.pages,
-    (d, cb) => {
-      const { page, path } = d;
-
+    pages,
+    ({ page, path }, cb) =>
       processPage(
         {
-          config,
+          configurationPaths,
+          antwarConfiguration,
           page,
           path,
-          outputPath: params.output,
-          templates: params.templates,
+          outputPath,
+          templates,
         },
         cb
-      );
-    },
+      ),
     finalCb
   );
 };
 
 function processPage(
   {
-    config = {}, // Antwar config
+    configurationPaths,
+    antwarConfiguration,
     page = "",
     outputPath = "",
     path = "",
@@ -52,6 +56,7 @@ function processPage(
   cb
 ) {
   const renderPage = require(_path.join(outputPath, "site.js")).renderPage;
+  const console = antwarConfiguration.console;
 
   renderPage(page, function(err, { html, page, context }) {
     if (err) {
@@ -79,7 +84,7 @@ function processPage(
       // XXX: Should this bail early?
       components.forEach(component => {
         if (!_fs.existsSync(component.path)) {
-          prettyConsole.log("Failed to find", component.path);
+          console.log("Failed to find", component.path);
         }
       });
 
@@ -121,11 +126,11 @@ function processPage(
         _fs.writeFileSync(interactiveEntryTmpFile.name, interactiveIndexEntry);
         _fs.writeFileSync(entryTmpFile.name, entry);
 
-        // XXX: should it be possible to tweak this? now we are picking
-        // the file by convention
-        const webpackConfigPath = _path.join(cwd, "webpack.config.js");
-        const interactiveConfig = require(webpackConfigPath)("interactive");
+        const interactiveConfig = require(configurationPaths.webpack)(
+          "interactive"
+        );
         const webpackConfig = merge(interactiveConfig, {
+          mode: "production",
           resolve: {
             modules: [cwd, _path.join(cwd, "node_modules")],
             alias: generateAliases(components),
@@ -133,12 +138,6 @@ function processPage(
           resolveLoader: {
             modules: [cwd, _path.join(cwd, "node_modules")],
           },
-          plugins: [
-            new webpack.DefinePlugin({
-              __DEV__: false,
-            }),
-          ],
-          mode: "production",
         });
 
         const interactiveIndexEntryName = `${filename}-interactive-entry`;
@@ -173,8 +172,6 @@ function processPage(
           );
           const interactiveComponents = require(interactiveIndexPath);
           const renderErrors = [];
-          const renderToMarkup =
-            (config.render && config.render.interactive) || renderDefault;
 
           // Render initial HTML for each component
           $(".interactive").each((i, el) => {
@@ -182,10 +179,8 @@ function processPage(
             const props = $el.data("props");
 
             try {
-              // TODO: make this pluggable. the task should load site config
-              // and check if render.interactive exists
               $el.html(
-                renderToMarkup({
+                antwarConfiguration.render.interactive({
                   component: interactiveComponents[`Interactive${i}`],
                   props,
                 })
@@ -218,7 +213,7 @@ function processPage(
             },
           });
 
-          return writePage({ path, data, page }, cb);
+          return writePage({ console, path, data, page }, cb);
         });
       }
     }
@@ -240,14 +235,8 @@ function processPage(
       },
     });
 
-    return writePage({ path, data }, cb);
+    return writePage({ console, path, data }, cb);
   });
-}
-
-function renderDefault({ component, props }) {
-  return ReactDOMServer.renderToStaticMarkup(
-    React.createElement(component, props)
-  );
 }
 
 function convertToJS(props) {
@@ -272,7 +261,7 @@ function generateAliases(components) {
   return ret;
 }
 
-function writePage({ path, data }, cb) {
+function writePage({ console, path, data }, cb) {
   mkdirp(_path.dirname(path), function(err) {
     if (err) {
       return cb(err);
@@ -283,7 +272,7 @@ function writePage({ path, data }, cb) {
         return cb(err2);
       }
 
-      prettyConsole.log("Finished writing page", path);
+      console.log("Finished writing page", path);
 
       return cb();
     });

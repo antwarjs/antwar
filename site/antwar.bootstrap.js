@@ -10,8 +10,10 @@ const environment = process.argv[2];
 
 antwar[environment]({
   environment,
-  antwar: require("./antwar.config"),
-  webpack: require("./webpack.config"),
+  configurationPaths: {
+    antwar: require.resolve("./antwar.config"),
+    webpack: require.resolve("./webpack.config"),
+  },
 })
   .then(({ allPages, output } = {}) => {
     if (environment === "build") {

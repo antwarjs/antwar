@@ -6,7 +6,7 @@ const Interactive = ({ id, component, containerProps = {}, ...props }) => {
   const { className, ...remainingContainerProps } = containerProps;
   const mergedClassName = classnames("interactive", className);
 
-  if (__DEV__) {
+  if (process.env.NODE_ENV === "development") {
     return (
       <div className={mergedClassName} {...remainingContainerProps}>
         {React.createElement(component, props)}

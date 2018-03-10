@@ -9,51 +9,48 @@ const workerFarm = require("worker-farm");
 
 const workers = workerFarm(require.resolve("./worker"));
 
-const webpackConfig = require("../config/build");
 const write = require("./write");
 
-module.exports = function(config) {
+module.exports = function({ environment, configurations, configurationPaths }) {
   return new Promise(function(resolve, reject) {
-    const output = config.antwar.output;
+    const output = configurations.antwar.output;
 
     if (!output) {
       return reject(new Error("Missing output directory"));
     }
 
-    return webpackConfig(config)
-      .then(runWebpack())
-      .then(generateParameters(config.antwar, config.webpack))
-      .then(writePages(config.antwar, config.configPath))
+    return runWebpack(require("../config/build")({ configurations }))
+      .then(generateParameters(configurations.antwar, configurations.webpack))
+      .then(writePages(environment, configurations.antwar, configurationPaths))
       .then(removeSiteBundle(output))
       .then(resolve)
       .catch(reject);
   });
 };
 
-function runWebpack() {
-  return config =>
-    new Promise(function(resolve, reject) {
-      webpack(config, function(err, stats) {
-        if (err) {
-          return reject(err);
-        }
+function runWebpack(config) {
+  return new Promise((resolve, reject) => {
+    webpack(config, (err, stats) => {
+      if (err) {
+        return reject(err);
+      }
 
-        if (stats.hasErrors()) {
-          return reject(stats.toString("errors-only"));
-        }
+      if (stats.hasErrors()) {
+        return reject(stats.toString("errors-only"));
+      }
 
-        return resolve(stats);
-      });
+      return resolve(stats);
     });
+  });
 }
 
-function generateParameters(antwarConfig, webpackConfig) {
-  const publicPath = webpackConfig.output
-    ? webpackConfig.output.publicPath
+function generateParameters(antwarConfiguration, webpackConfiguration) {
+  const publicPath = webpackConfiguration.output
+    ? webpackConfiguration.output.publicPath
     : "";
 
   return stats =>
-    new Promise(function(resolve) {
+    new Promise(resolve => {
       const assets = stats.compilation.assets;
       const cssFiles = Object.keys(assets)
         .map(asset => {
@@ -70,17 +67,21 @@ function generateParameters(antwarConfig, webpackConfig) {
       const template = {
         cssFiles: [],
         jsFiles: [],
-        ...antwarConfig.template,
+        ...antwarConfiguration.template,
       };
 
       const cwd = process.cwd();
-      const site = require(_path.join(cwd, antwarConfig.output, "site.js"));
+      const site = require(_path.join(
+        cwd,
+        antwarConfiguration.output,
+        "site.js"
+      ));
       const parameters = {
         cwd,
         renderPage: site.renderPage,
         allPages: site.allPages,
-        output: _path.join(cwd, antwarConfig.output),
-        config: antwarConfig,
+        output: _path.join(cwd, antwarConfiguration.output),
+        config: antwarConfiguration,
         cssFiles,
         jsFiles,
         templates: {
@@ -123,9 +124,9 @@ function generateParameters(antwarConfig, webpackConfig) {
     });
 }
 
-function writePages(antwarConfig, configPath) {
+function writePages(environment, antwarConfiguration, configurationPaths) {
   return parameters =>
-    new Promise(function(resolve, reject) {
+    new Promise((resolve, reject) => {
       const config = parameters.config;
       const assets = config && config.assets ? config.assets : [];
 
@@ -138,15 +139,15 @@ function writePages(antwarConfig, configPath) {
         });
       }
 
-      write.pages(parameters, configPath)((err, tasks) => {
+      write.pages(parameters, environment, configurationPaths)((err, tasks) => {
         if (err) {
           return reject(err);
         }
 
         executeTasks(
           tasks,
-          antwarConfig.maximumWorkers,
-          antwarConfig.console.log
+          antwarConfiguration.maximumWorkers,
+          antwarConfiguration.console.log
         )
           .then(() => resolve(parameters))
           .catch(reject);
@@ -155,20 +156,20 @@ function writePages(antwarConfig, configPath) {
 }
 
 function executeTasks(tasks, maximumWorkers, log) {
-  return new Promise(function(resolve, reject) {
+  return new Promise((resolve, reject) => {
     async.eachLimit(
       tasks,
       maximumWorkers || _os.cpus().length,
-      function(o, cb) {
+      (o, cb) => {
         log("Starting to write pages");
 
-        workers(o, function(err) {
+        workers(o, err => {
           log("Finished writing pages");
 
           cb(err);
         });
       },
-      function(err) {
+      err => {
         workerFarm.end(workers);
 
         if (err) {

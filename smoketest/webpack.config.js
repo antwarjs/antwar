@@ -15,18 +15,12 @@ const PATHS = {
 module.exports = function(env) {
   switch (env) {
     case "build":
-      return merge(commonConfig(), productionConfig(PATHS.style), {
-        mode: "production",
-      });
+      return merge(commonConfig(), productionConfig(PATHS.style));
     case "interactive":
-      return merge(commonConfig(), interactiveConfig(), {
-        mode: "production",
-      });
+      return merge(commonConfig(), interactiveConfig());
     case "start":
     default:
-      return merge(commonConfig(), developmentConfig(PATHS.style), {
-        mode: "development",
-      });
+      return merge(commonConfig(), developmentConfig(PATHS.style));
   }
 };
 

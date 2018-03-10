@@ -2,7 +2,7 @@ const _ = require("lodash");
 const moment = require("moment");
 const generateAdjacent = require("./utils/generate-adjacent");
 
-module.exports = {
+module.exports = () => ({
   template: {
     rss: {
       title: "Antwar",
@@ -46,7 +46,7 @@ module.exports = {
     },
     "404.html": () => require("./layouts/404").default,
   },
-};
+});
 
 function cleanBlogPath(resourcePath) {
   const parts = resourcePath.split("/");

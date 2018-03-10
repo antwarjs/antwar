@@ -1,7 +1,4 @@
-import React from "react";
-import ReactDOMServer from "react-dom/server";
-import { Route, StaticRouter } from "react-router";
-import config from "config"; // Aliased through webpack
+import config from "antwar-config";
 import paths from "../paths";
 import BodyContent from "../BodyContent";
 
@@ -10,7 +7,7 @@ module.exports = function renderPage(location, cb) {
   const allPages = paths.getAllPages(config);
   const page = paths.getPageForPath(location, allPages);
 
-  ((config.render && config.render.page) || renderDefault)(
+  config.render.page(
     {
       location,
       content: BodyContent(page, allPages),
@@ -24,13 +21,3 @@ module.exports = function renderPage(location, cb) {
     }
   );
 };
-
-function renderDefault({ location, content }, cb) {
-  cb(null, {
-    html: ReactDOMServer.renderToStaticMarkup(
-      <StaticRouter location={location} context={{}}>
-        <Route component={content} />
-      </StaticRouter>
-    ),
-  });
-}
