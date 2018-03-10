@@ -2,7 +2,7 @@
   "name": "antwar",
   "description": "A static site engine built with React and Webpack",
   "author": "Juho Vepsalainen <bebraw@gmail.com>",
-  "version": "0.28.0",
+  "version": "0.28.1",
   "scripts": {
     "build": "rimraf ./dist && babel ./src --out-dir ./dist",
     "prepublish": "npm run build"
@@ -46,7 +46,13 @@
   "main": "dist",
   "module": "dist",
   "jsnext:main": "dist",
-  "keywords": ["blog", "blogging", "static", "site", "generator"],
+  "keywords": [
+    "blog",
+    "blogging",
+    "static",
+    "site",
+    "generator"
+  ],
   "engines": {
     "node": ">=0.10.0"
   },
