@@ -1,5 +1,4 @@
 import * as path from "path";
-import nodeExternals from "webpack-node-externals";
 import merge from "webpack-merge";
 
 module.exports = function({ configurations }) {
@@ -10,7 +9,6 @@ module.exports = function({ configurations }) {
     },
     name: "server",
     target: "node",
-    externals: [nodeExternals()],
     entry: {
       site: path.join(__dirname, "../build/site.js"),
     },
