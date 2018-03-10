@@ -7,7 +7,7 @@ module.exports = function(config) {
     const paths = {
       // XXX: not correct if the user changes the default
       antwarConfig: path.join(cwd, "antwar.config.js"),
-      config: path.join(__dirname, "config_entry.js"),
+      config: path.join(__dirname, "config-entry.js"),
       parent: path.join(__dirname, ".."),
     };
 

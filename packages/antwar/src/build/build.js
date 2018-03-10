@@ -7,7 +7,7 @@ const rimraf = require("rimraf");
 const webpack = require("webpack");
 const workerFarm = require("worker-farm");
 
-const workers = workerFarm(require.resolve("./build_worker"));
+const workers = workerFarm(require.resolve("./worker"));
 
 const webpackConfig = require("../config/build");
 const write = require("./write");

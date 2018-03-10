@@ -14,7 +14,7 @@ const React = require("react");
 const ReactDOMServer = require("react-dom/server");
 const webpack = require("webpack");
 
-const prettyConsole = require("../libs/pretty_console");
+const prettyConsole = require("../libs/pretty-console");
 
 const cwd = process.cwd();
 
