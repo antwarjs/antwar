@@ -26,9 +26,10 @@
 
 antwar<span class="token punctuation">[</span>environment<span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
   environment<span class="token punctuation">,</span>
-  configPath<span class="token punctuation">:</span> require<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token string">"./antwar.config"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-  antwar<span class="token punctuation">:</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">"./antwar.config"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-  webpack<span class="token punctuation">:</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">"./webpack.config"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  configurationPaths<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    antwar<span class="token punctuation">:</span> require<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token string">"./antwar.config"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    webpack<span class="token punctuation">:</span> require<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token string">"./webpack.config"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
 <span class="token punctuation">}</span><span class="token punctuation">)</span>
   <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
     <span class="token keyword">if</span> <span class="token punctuation">(</span>environment <span class="token operator">!==</span> <span class="token string">"build"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
