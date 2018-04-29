@@ -63,7 +63,7 @@ function generateParameters(antwarConfiguration, webpackConfiguration) {
         .filter(a => a);
       const jsFiles = [];
 
-      // Copy template configuration to webpack side so HtmlWebpackPlugin picks it up
+      // Copy template configuration to webpack side so the build process picks it up
       const template = {
         cssFiles: [],
         jsFiles: [],

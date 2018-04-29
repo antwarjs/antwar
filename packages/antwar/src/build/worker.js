@@ -198,17 +198,11 @@ function processPage(
 
           // Wrote a bundle, compile through ejs now
           const data = ejs.compile(templates.page.file)({
-            htmlWebpackPlugin: {
-              options: {
-                context: {
-                  ...context,
-                  ...page.file,
-                  ...templates.page,
-                  jsFiles: [...templates.page.jsFiles, ...jsFiles],
-                },
-              },
-            },
-            webpackConfig: {
+            context: {
+              ...context,
+              ...page.file,
+              ...templates.page,
+              jsFiles: [...templates.page.jsFiles, ...jsFiles],
               html: $.html(),
             },
           });
@@ -220,17 +214,11 @@ function processPage(
 
     // No need to go through webpack so go only through ejs
     const data = ejs.compile(templates.page.file)({
-      htmlWebpackPlugin: {
-        options: {
-          context: {
-            ...context,
-            ...page.file,
-            ...templates.page,
-            jsFiles: [...templates.page.jsFiles, ...jsFiles],
-          },
-        },
-      },
-      webpackConfig: {
+      context: {
+        ...context,
+        ...page.file,
+        ...templates.page,
+        jsFiles: [...templates.page.jsFiles, ...jsFiles],
         html,
       },
     });
