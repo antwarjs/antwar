@@ -58,7 +58,7 @@ function processPage(
   const renderPage = require(_path.join(outputPath, "site.js")).renderPage;
   const console = antwarConfiguration.console;
 
-  renderPage(page, function(err, { html, page, context }) {
+  renderPage(page, function(err, { html, page, context } = {}) {
     if (err) {
       return cb(err);
     }
