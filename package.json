@@ -3,6 +3,7 @@
   "name": "antwar-monorepo",
   "version": "1.0.0",
   "description": "A static site engine built with React and webpack",
+  "main": "./packages/antwar/dist",
   "scripts": {
     "build": "lerna run build",
     "build:watch": "npm-watch",
@@ -10,7 +11,8 @@
     "test:watch": "jest --watch",
     "test": "jest",
     "lint": "eslint . --ext .js --ext .jsx --cache",
-    "gh-pages:build-and-deploy": "npm run gh-pages:build && npm run gh-pages:deploy",
+    "gh-pages:build-and-deploy":
+      "npm run gh-pages:build && npm run gh-pages:deploy",
     "gh-pages:build": "webpack",
     "gh-pages:deploy": "gh-pages -d gh-pages",
     "gh-pages:stats": "webpack --json --profile > stats.json",
@@ -89,23 +91,13 @@
     "yaml-frontmatter-loader": "^0.1.0"
   },
   "jest": {
-    "testPathIgnorePatterns": [
-      "/node_modules/",
-      "/dist/"
-    ],
-    "setupFiles": [
-      "./lib/test-setup.js"
-    ]
+    "testPathIgnorePatterns": ["/node_modules/", "/dist/"],
+    "setupFiles": ["./lib/test-setup.js"]
   },
-  "pre-push": [
-    "lint",
-    "test"
-  ],
+  "pre-push": ["lint", "test"],
   "watch": {
     "build": {
-      "patterns": [
-        "packages/**/*.{js,jsx}"
-      ],
+      "patterns": ["packages/**/*.{js,jsx}"],
       "ignore": "packages/*/dist/*.js"
     }
   }

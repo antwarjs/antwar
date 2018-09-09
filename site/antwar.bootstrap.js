@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const { promisify } = require("util");
 
-const antwar = require("antwar");
+const antwar = require("../");
 const moment = require("moment");
 const rssPlugin = require("antwar-rss-plugin");
 

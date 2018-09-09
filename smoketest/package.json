@@ -5,8 +5,8 @@
   "author": "Juho Vepsäläinen",
   "version": "0.0.1",
   "scripts": {
-    "start": "NODE_PATH=$NODE_PATH:../packages node ./antwar.bootstrap.js develop",
-    "build": "NODE_PATH=$NODE_PATH:../packages node ./antwar.bootstrap.js build"
+    "start": "node ./antwar.bootstrap.js develop",
+    "build": "node ./antwar.bootstrap.js build"
   },
   "repository": {
     "type": "git",
@@ -16,10 +16,7 @@
   "bugs": {
     "url": "https://github.com/antwarjs/antwar/issues"
   },
-  "keywords": [
-    "antwar",
-    "test"
-  ],
+  "keywords": ["antwar", "test"],
   "license": "MIT",
   "dependencies": {
     "redirect-webpack-plugin": "^0.1.1"

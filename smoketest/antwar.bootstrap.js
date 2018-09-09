@@ -1,4 +1,4 @@
-const antwar = require("antwar");
+const antwar = require("../");
 
 const environment = process.argv[2];
 
