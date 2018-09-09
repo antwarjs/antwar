@@ -1,4 +1,3 @@
-const simpleTimestamp = require("simple-timestamp");
 const chalk = require("chalk");
 
 module.exports = {
@@ -15,3 +14,7 @@ module.exports = {
     console.warn(simpleTimestamp(), chalk.yellow.apply(null, args));
   },
 };
+
+function simpleTimestamp() {
+  return new Date(Date.now()).toLocaleString();
+}
