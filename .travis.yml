@@ -10,7 +10,9 @@ cache:
 node_js:
   - 9
 script:
-  - npm run bootstrap -- --no-ci
+  # https://github.com/lerna/lerna/issues/1457
+  # - npm run bootstrap -- --no-ci
+  - npm run lerna -- exec npm install
   - npm run build
   - npm run lint
   - npm run test

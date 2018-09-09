@@ -5,6 +5,7 @@
   "description": "A static site engine built with React and webpack",
   "main": "./packages/antwar/dist",
   "scripts": {
+    "lerna": "lerna",
     "bootstrap": "lerna bootstrap",
     "build": "lerna run build",
     "build:watch": "npm-watch",
