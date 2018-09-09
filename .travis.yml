@@ -2,6 +2,7 @@ language: node_js
 install:
   - npm install npm@6 --global
   - npm install
+  - npm install @types/node # work around Travis
   # - npm ci
   # keep the npm cache around to speed up installs
 cache:
