@@ -8,7 +8,8 @@ cache:
   directories:
     - "$HOME/.npm"
 node_js:
-  - 9
+  - 8
+  - 10
 script:
   # https://github.com/lerna/lerna/issues/1457
   - npm run bootstrap -- --no-ci
