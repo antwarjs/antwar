@@ -36,5 +36,6 @@
     "components",
     "layouts"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "gitHead": "e49985873f1b4f2a6dc71d087cf86cae5b8a3fd5"
 }
