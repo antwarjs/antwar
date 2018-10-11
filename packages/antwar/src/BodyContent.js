@@ -5,13 +5,13 @@ import paths from "./paths";
 
 const BodyContent = (page, allPages) => ({ location }) =>
   render({
-    section: getSection(page, location.pathname, allPages),
+    section: getSection(page, allPages),
     config,
     page,
     location,
   });
 
-function getSection(page, pathname, allPages) {
+function getSection(page, allPages) {
   const sectionName = page.sectionName;
   const section = config.paths[sectionName || "/"] || config.paths["/"] || {};
 

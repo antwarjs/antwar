@@ -19,6 +19,10 @@ module.exports = function({ environment, configurations, configurationPaths }) {
       return reject(new Error("Missing output directory"));
     }
 
+    // TODO: Instead of running webpack once in the beginning, we should
+    // check the path definition and derive section data. That is then
+    // divided to worker processes that generate each page (and possible
+    // interactive bundles).
     return runWebpack(require("../config/build")({ configurations }))
       .then(generateParameters(configurations.antwar, configurations.webpack))
       .then(writePages(environment, configurations.antwar, configurationPaths))
