@@ -4,7 +4,7 @@ const { promisify } = require("util");
 
 const antwar = require("../");
 const moment = require("moment");
-const rssPlugin = require("antwar-rss-plugin");
+const rssPlugin = require("../packages/antwar-rss-plugin");
 
 const environment = process.argv[2];
 
