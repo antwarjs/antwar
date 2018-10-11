@@ -166,6 +166,17 @@ function processPage(
             return cb(stats.toString("errors-only"));
           }
 
+          const assets = stats.compilation.assets;
+          const cssFiles = Object.keys(assets)
+            .map(asset => {
+              if (_path.extname(asset) === ".css") {
+                return assets[asset].existsAt;
+              }
+
+              return null;
+            })
+            .filter(a => a);
+
           const interactiveIndexPath = _path.join(
             outputPath,
             interactiveIndexEntryName
@@ -202,6 +213,7 @@ function processPage(
               ...context,
               ...page.file,
               ...templates.page,
+              cssFiles: [...templates.page.cssFiles, ...cssFiles],
               jsFiles: [...templates.page.jsFiles, ...jsFiles],
               html: $.html(),
             },
