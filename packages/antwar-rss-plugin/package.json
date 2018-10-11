@@ -1,6 +1,6 @@
 {
   "name": "antwar-rss-plugin",
-  "version": "0.29.1",
+  "version": "0.29.2",
   "description": "RSS plugin for antwar",
   "main": "dist",
   "repository": {
