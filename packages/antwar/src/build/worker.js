@@ -175,7 +175,8 @@ function processPage(
 
               return null;
             })
-            .filter(a => a);
+            .filter(a => a)
+            .map(cssFile => "/" + _path.basename(cssFile));
 
           const interactiveIndexPath = _path.join(
             outputPath,
