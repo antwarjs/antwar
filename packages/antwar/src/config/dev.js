@@ -1,7 +1,6 @@
 import * as path from "path";
 import merge from "webpack-merge";
 import MiniHtmlWebpackPlugin from "mini-html-webpack-plugin";
-import webpack from "webpack";
 
 module.exports = config => {
   const devConfig = {
