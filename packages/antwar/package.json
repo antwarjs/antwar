@@ -2,7 +2,7 @@
   "name": "antwar",
   "description": "A static site engine built with React and Webpack",
   "author": "Juho Vepsalainen <bebraw@gmail.com>",
-  "version": "0.29.4",
+  "version": "0.29.5-alpha.0",
   "scripts": {
     "build": "rimraf ./dist && babel ./src --out-dir ./dist",
     "prepublish": "npm run build"
