@@ -4,7 +4,7 @@ import merge from "webpack-merge";
 
 import defaultAntwar from "./config/default-antwar";
 import defaultWebpack from "./config/default-webpack";
-import mergeConfiguration from "./libs/merge-configuration";
+import mergeConfiguration from "deepmerge";
 import build from "./build";
 import dev from "./dev";
 

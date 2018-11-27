@@ -13,7 +13,7 @@ const rimraf = require("rimraf");
 const webpack = require("webpack");
 
 const defaultAntwar = require("../config/default-antwar");
-const mergeConfiguration = require("../libs/merge-configuration");
+const mergeConfiguration = require("deepmerge");
 
 const cwd = process.cwd();
 
