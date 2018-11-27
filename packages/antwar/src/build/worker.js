@@ -88,9 +88,8 @@ function processPage(
         }
       });
 
-      // Calculate hash based on filename and section so we can check whether
-      // to generate a bundle at all. Use a relative path so the project directory
-      // can be moved around.
+      // Calculate hash based on filename and section to avoid ENAMETOOLONG.
+      // TODO: See if this check could be skipped entirely.
       const filename = calculateMd5(
         _path
           .relative(cwd, path)
@@ -104,125 +103,122 @@ function processPage(
       // Attach generated file to template
       jsFiles.push(`/${filename}.js`);
 
-      // If the bundle exists already, skip generating
-      if (!_fs.existsSync(interactivePath)) {
-        const interactiveIndexEntry = ejs.compile(
-          templates.interactiveIndex.file
-        )({
-          components,
-        });
-        const entry = ejs.compile(templates.interactive.file)({
-          components,
-        });
+      const interactiveIndexEntry = ejs.compile(
+        templates.interactiveIndex.file
+      )({
+        components,
+      });
+      const entry = ejs.compile(templates.interactive.file)({
+        components,
+      });
 
-        // Touch output so that other processes get a clue
-        touch.sync(interactivePath);
+      // Touch output so that other processes get a clue
+      touch.sync(interactivePath);
 
-        // Write to a temporary files so we can point webpack to that
-        const interactiveEntryTmpFile = tmp.fileSync();
-        const entryTmpFile = tmp.fileSync();
+      // Write to a temporary files so we can point webpack to that
+      const interactiveEntryTmpFile = tmp.fileSync();
+      const entryTmpFile = tmp.fileSync();
 
-        // XXX: convert to async
-        _fs.writeFileSync(interactiveEntryTmpFile.name, interactiveIndexEntry);
-        _fs.writeFileSync(entryTmpFile.name, entry);
+      // XXX: convert to async
+      _fs.writeFileSync(interactiveEntryTmpFile.name, interactiveIndexEntry);
+      _fs.writeFileSync(entryTmpFile.name, entry);
 
-        const interactiveConfig = require(configurationPaths.webpack)(
-          "interactive"
-        );
-        const webpackConfig = merge(interactiveConfig, {
-          mode: "production",
-          resolve: {
-            modules: [cwd, _path.join(cwd, "node_modules")],
-            alias: generateAliases(components),
-          },
-          resolveLoader: {
-            modules: [cwd, _path.join(cwd, "node_modules")],
-          },
-        });
+      const interactiveConfig = require(configurationPaths.webpack)(
+        "interactive"
+      );
+      const webpackConfig = merge(interactiveConfig, {
+        mode: "production",
+        resolve: {
+          modules: [cwd, _path.join(cwd, "node_modules")],
+          alias: generateAliases(components),
+        },
+        resolveLoader: {
+          modules: [cwd, _path.join(cwd, "node_modules")],
+        },
+      });
 
-        const interactiveIndexEntryName = `${filename}-interactive-entry`;
+      const interactiveIndexEntryName = `${filename}-interactive-entry`;
 
-        // Override webpack configuration to process correctly
-        webpackConfig.entry = {
-          [interactiveIndexEntryName]: interactiveEntryTmpFile.name,
-          [filename]: entryTmpFile.name,
-        };
+      // Override webpack configuration to process correctly
+      webpackConfig.entry = {
+        [interactiveIndexEntryName]: interactiveEntryTmpFile.name,
+        [filename]: entryTmpFile.name,
+      };
 
-        // Merge output to avoid overriding publicPath
-        webpackConfig.output = merge(interactiveConfig.output, {
-          filename: "[name].js",
-          path: outputPath,
-          publicPath: "/",
-          libraryTarget: "umd", // Needed for interactive index exports to work
-          globalObject: "this",
-        });
+      // Merge output to avoid overriding publicPath
+      webpackConfig.output = merge(interactiveConfig.output, {
+        filename: "[name].js",
+        path: outputPath,
+        publicPath: "/",
+        libraryTarget: "umd", // Needed for interactive index exports to work
+        globalObject: "this",
+      });
 
-        return webpack(webpackConfig, (err2, stats) => {
-          if (err2) {
-            return cb(err2);
-          }
+      return webpack(webpackConfig, (err2, stats) => {
+        if (err2) {
+          return cb(err2);
+        }
 
-          if (stats.hasErrors()) {
-            return cb(stats.toString("errors-only"));
-          }
+        if (stats.hasErrors()) {
+          return cb(stats.toString("errors-only"));
+        }
 
-          const assets = stats.compilation.assets;
-          const cssFiles = Object.keys(assets)
-            .map(asset => {
-              if (_path.extname(asset) === ".css") {
-                return assets[asset].existsAt;
-              }
-
-              return null;
-            })
-            .filter(a => a)
-            .map(cssFile => "/" + _path.basename(cssFile));
-
-          const interactiveIndexPath = _path.join(
-            outputPath,
-            interactiveIndexEntryName
-          );
-          const interactiveComponents = require(interactiveIndexPath);
-          const renderErrors = [];
-
-          // Render initial HTML for each component
-          $(".interactive").each((i, el) => {
-            const $el = $(el);
-            const props = $el.data("props");
-
-            try {
-              $el.html(
-                antwarConfiguration.render.interactive({
-                  component: interactiveComponents[`Interactive${i}`],
-                  props,
-                })
-              );
-            } catch (renderErr) {
-              renderErrors.push(renderErr);
+        const assets = stats.compilation.assets;
+        const cssFiles = Object.keys(assets)
+          .map(asset => {
+            if (_path.extname(asset) === ".css") {
+              return assets[asset].existsAt;
             }
-          });
 
-          if (renderErrors.length) {
-            return cb(renderErrors[0]);
+            return null;
+          })
+          .filter(a => a)
+          .map(cssFile => "/" + _path.basename(cssFile));
+
+        const interactiveIndexPath = _path.join(
+          outputPath,
+          interactiveIndexEntryName
+        );
+        const interactiveComponents = require(interactiveIndexPath);
+        const renderErrors = [];
+
+        // Render initial HTML for each component
+        $(".interactive").each((i, el) => {
+          const $el = $(el);
+          const props = $el.data("props");
+
+          try {
+            $el.html(
+              antwarConfiguration.render.interactive({
+                component: interactiveComponents[`Interactive${i}`],
+                props,
+              })
+            );
+          } catch (renderErr) {
+            renderErrors.push(renderErr);
           }
-
-          rimraf.sync(interactiveIndexPath + ".*");
-
-          // Wrote a bundle, compile through ejs now
-          const data = ejs.compile(templates.page.file)({
-            context: {
-              ...context,
-              ...page.file,
-              ...templates.page,
-              cssFiles: [...templates.page.cssFiles, ...cssFiles],
-              jsFiles: [...templates.page.jsFiles, ...jsFiles],
-              html: $.html(),
-            },
-          });
-
-          return writePage({ console, path, data, page }, cb);
         });
-      }
+
+        if (renderErrors.length) {
+          return cb(renderErrors[0]);
+        }
+
+        rimraf.sync(interactiveIndexPath + ".*");
+
+        // Wrote a bundle, compile through ejs now
+        const data = ejs.compile(templates.page.file)({
+          context: {
+            ...context,
+            ...page.file,
+            ...templates.page,
+            cssFiles: [...templates.page.cssFiles, ...cssFiles],
+            jsFiles: [...templates.page.jsFiles, ...jsFiles],
+            html: $.html(),
+          },
+        });
+
+        return writePage({ console, path, data, page }, cb);
+      });
     }
 
     // No need to go through webpack so go only through ejs
