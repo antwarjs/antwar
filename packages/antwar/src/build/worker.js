@@ -67,7 +67,7 @@ function processPage(
     const components = $(".interactive")
       .map((i, el) => {
         const $el = $(el);
-        const id = $el.attr("id");
+        const id = $el.attr("id").split("+")[0];
         const props = $el.data("props");
 
         return {
