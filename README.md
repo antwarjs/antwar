@@ -1,3 +1,5 @@
+> **Important!** Antwar has been superseded by [Gustwind](https://gustwind.js.org/).
+
 [![build status](https://secure.travis-ci.org/antwarjs/antwar.svg)](http://travis-ci.org/antwarjs/antwar) [![Join the chat at https://gitter.im/antwarjs/antwar](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/antwarjs/antwar)
 
 # [Antwar](https://antwar.js.org/)
