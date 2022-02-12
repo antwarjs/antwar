@@ -68,7 +68,7 @@
     "lerna": "^3.3.0",
     "loader-utils": "^1.1.0",
     "lodash": "^4.17.5",
-    "marked": "^0.3.17",
+    "marked": "^4.0.10",
     "marksy": "^6.0.3",
     "moment": "^2.21.0",
     "npm-watch": "^0.3.0",
